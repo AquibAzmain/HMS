@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { StudentListComponent } from './student-list/student-list.component';
 import {RouterModule, Routes} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
-
+import {HttpModule} from '@angular/http';
+import {DataTableModule} from 'angular2-datatable';
+import {FormsModule} from '@angular/forms';
 export const StudentRoutes: Routes = [{
   path: '',
   component: StudentListComponent,
@@ -17,7 +19,10 @@ export const StudentRoutes: Routes = [{
   imports: [
     CommonModule,
     RouterModule.forChild(StudentRoutes),
-    SharedModule
+    SharedModule,
+    FormsModule,
+    HttpModule,
+    DataTableModule,
   ],
   declarations: [StudentListComponent]
 })

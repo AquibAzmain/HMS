@@ -13,7 +13,7 @@ export const AppRoutes: Routes = [
         pathMatch: 'full'
       }, {
         path: 'dashboard',
-        loadChildren: './pages/dashboard/dashboard-default/dashboard-default.module#DashboardDefaultModule'
+        loadChildren: './dashboard/dashboard-default/dashboard-default.module#DashboardDefaultModule'
       },{
         path: 'student',
         loadChildren: './student/student.module#StudentModule'

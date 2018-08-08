@@ -60,7 +60,7 @@ const MENUITEMS = [
         short_label: 'S',
         name: 'হল স্টোর',
         type: 'link',
-        icon: 'ti-layout-grid2-alt'
+        icon: 'ti-package'
       },
       {
         state: 'accounting',
@@ -79,7 +79,7 @@ const MENUITEMS = [
       {
         state: 'notifications',
         short_label: 'n',
-        name: 'নটিফিকেশন',
+        name: 'নোটিফিকেশন',
         type: 'link',
         icon: 'ti-bell'
       },

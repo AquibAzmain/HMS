@@ -1,3 +1,103 @@
-<p>
-  student-list works!
-</p>
+<!-- student data table card start -->
+<div class="card">
+  <!-- <div class="card-header">
+    <h5 class="card-header-text">Contacts</h5>
+  </div> -->
+  <div class="card-body contact-details">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+        <div>
+          <label class="label-control">Show
+            <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+              <option [ngValue]="10">10</option>
+              <option [ngValue]="25">25</option>
+              <option [ngValue]="50">50</option>
+              <option [ngValue]="100">100</option>
+            </select>
+            entries
+          </label>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6">
+        <div style="text-align: right;">
+          <label>Search:
+            <input type="search" [(ngModel)]="filterQuery" class="form-control input-sm full-data-search" placeholder="Search name">
+          </label>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="panel-heading">User information</div>-->
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+        [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+        <thead>
+          <tr>
+            <th>
+              <mfDefaultSorter by="name">নাম</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="position">পিতার নাম</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="office">মাতার নাম</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="age">ডিপার্টমেন্ট</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="start-date">শিক্ষাবর্ষ</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="salary">বর্তমান ঠিকানা</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
+            </th>
+          </tr>
+          <tr>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of mf.data">
+            <td>{{item.name}}</td>
+            <td>{{item.position}}</td>
+            <td>{{item.office}}</td>
+            <td class="text-primary">
+              <span *ngIf="item.age > 45">
+                <i class="fa fa-star" aria-hidden="true"></i>
+              </span>
+              <span *ngIf="item.age <= 45 && item.age > 25">
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+              </span>
+              <span *ngIf="item.age <= 25">
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+              </span>
+            </td>
+            <td>{{item.date}}</td>
+            <td>{{item.salary}}</td>
+            <td ngbDropdown>
+              <button ngbDropdownToggle type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <i class="fa fa-cog" aria-hidden="true"></i>
+              </button>
+              <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right b-none contact-menu">
+                <a class="dropdown-item" href="javascript:;">
+                  <i class="icofont icofont-edit"></i>এডিট</a>
+                <a class="dropdown-item" href="javascript:;">
+                  <i class="icofont icofont-ui-delete"></i>ডিলিট</a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="7">
+              <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- contact data table card end -->
