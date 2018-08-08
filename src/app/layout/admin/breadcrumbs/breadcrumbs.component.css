@@ -1,0 +1,9 @@
+.not-active {
+    pointer-events: none;
+    cursor: default;
+}
+
+.page-header-icon {
+    padding: 0px;
+    margin: 0px;
+}
