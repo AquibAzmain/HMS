@@ -24,4 +24,8 @@ export class StudentListComponent implements OnInit {
     });
   }
 
+  onSelect(test){
+    console.log(test);
+  }
+
 }

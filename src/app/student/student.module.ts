@@ -6,6 +6,7 @@ import {SharedModule} from '../shared/shared.module';
 import {HttpModule} from '@angular/http';
 import {DataTableModule} from 'angular2-datatable';
 import {FormsModule} from '@angular/forms';
+import { StudentDetailComponent } from './student-detail/student-detail.component';
 export const StudentRoutes: Routes = [{
   path: '',
   component: StudentListComponent,
@@ -24,6 +25,6 @@ export const StudentRoutes: Routes = [{
     HttpModule,
     DataTableModule,
   ],
-  declarations: [StudentListComponent]
+  declarations: [StudentListComponent, StudentDetailComponent]
 })
 export class StudentModule { }
