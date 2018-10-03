@@ -12,7 +12,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BreadcrumbsComponent} from './layout/admin/breadcrumbs/breadcrumbs.component';
 import {TitleComponent} from './layout/admin/title/title.component';
 import {AuthComponent} from './layout/auth/auth.component';
-import { StudentDetailComponent } from './src/app/student/student-detail/student-detail.component';
 
 
 @NgModule({
@@ -21,8 +20,7 @@ import { StudentDetailComponent } from './src/app/student/student-detail/student
     AdminComponent,
     BreadcrumbsComponent,
     TitleComponent,
-    AuthComponent,
-    StudentDetailComponent
+    AuthComponent
   ],
   imports: [
     BrowserModule,
