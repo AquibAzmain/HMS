@@ -58,7 +58,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of mf.data" (click)="onSelect(item.name)">
+          <tr *ngFor="let item of mf.data; index as i;" class = "pointer" [routerLink]="['details/', i+1]">
             <td>{{item.name}} </td>
             <td>{{item.position}}</td>
             <td>{{item.office}}</td>

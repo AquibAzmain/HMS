@@ -7,13 +7,24 @@ import {HttpModule} from '@angular/http';
 import {DataTableModule} from 'angular2-datatable';
 import {FormsModule} from '@angular/forms';
 import { StudentDetailComponent } from './student-detail/student-detail.component';
-export const StudentRoutes: Routes = [{
+
+export const StudentRoutes: Routes = [
+{
   path: '',
   component: StudentListComponent,
   data: {
     breadcrumb: 'ছাত্র',
     icon: 'icofont icofont-id bg-c-pink'
   }
+},
+{ 
+  path: "details/:id", 
+  component: StudentDetailComponent,
+  pathMatch: 'full',
+  data: {
+    breadcrumb: 'ছাত্র',
+    icon: 'icofont icofont-id bg-c-pink'
+  } 
 }];
 
 @NgModule({
@@ -23,7 +34,7 @@ export const StudentRoutes: Routes = [{
     SharedModule,
     FormsModule,
     HttpModule,
-    DataTableModule,
+    DataTableModule
   ],
   declarations: [StudentListComponent, StudentDetailComponent]
 })
