@@ -5,8 +5,9 @@ import {RouterModule, Routes} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
 import {HttpModule} from '@angular/http';
 import {DataTableModule} from 'angular2-datatable';
-import {FormsModule} from '@angular/forms';
 import { StudentDetailComponent } from './student-detail/student-detail.component';
+import {QuillEditorModule} from 'ngx-quill-editor';
+import {FormsModule} from '@angular/forms';
 
 export const StudentRoutes: Routes = [
 {
@@ -21,10 +22,6 @@ export const StudentRoutes: Routes = [
   path: "details/:id", 
   component: StudentDetailComponent,
   pathMatch: 'full',
-  data: {
-    breadcrumb: 'ছাত্র',
-    icon: 'icofont icofont-id bg-c-pink'
-  } 
 }];
 
 @NgModule({
@@ -34,7 +31,8 @@ export const StudentRoutes: Routes = [
     SharedModule,
     FormsModule,
     HttpModule,
-    DataTableModule
+    DataTableModule,
+    QuillEditorModule
   ],
   declarations: [StudentListComponent, StudentDetailComponent]
 })
