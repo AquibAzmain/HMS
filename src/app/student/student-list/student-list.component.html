@@ -36,19 +36,19 @@
               <mfDefaultSorter by="name">নাম</mfDefaultSorter>
             </th>
             <th>
-              <mfDefaultSorter by="position">পিতার নাম</mfDefaultSorter>
+              <mfDefaultSorter by="fatherName">পিতার নাম</mfDefaultSorter>
             </th>
             <th>
-              <mfDefaultSorter by="office">মাতার নাম</mfDefaultSorter>
+              <mfDefaultSorter by="motherName">মাতার নাম</mfDefaultSorter>
             </th>
             <th>
-              <mfDefaultSorter by="age">ডিপার্টমেন্ট</mfDefaultSorter>
+              <mfDefaultSorter by="department">ডিপার্টমেন্ট</mfDefaultSorter>
             </th>
             <th>
-              <mfDefaultSorter by="start-date">শিক্ষাবর্ষ</mfDefaultSorter>
+              <mfDefaultSorter by="session">শিক্ষাবর্ষ</mfDefaultSorter>
             </th>
             <th>
-              <mfDefaultSorter by="salary">বর্তমান ঠিকানা</mfDefaultSorter>
+              <mfDefaultSorter by="presentAddress">বর্তমান ঠিকানা</mfDefaultSorter>
             </th>
             <th>
               <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
@@ -58,23 +58,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of mf.data; index as i;" class = "pointer" [routerLink]="['details/', i+1]">
+          <tr *ngFor="let item of mf.data; index as i;" class = "pointer" [routerLink]="['details/', item.name]">
             <td>{{item.name}} </td>
-            <td>{{item.position}}</td>
-            <td>{{item.office}}</td>
-            <td class="text-primary">
-              <span *ngIf="item.age > 45">
-                <i class="fa fa-star" aria-hidden="true"></i>
-              </span>
-              <span *ngIf="item.age <= 45 && item.age > 25">
-                <i class="fa fa-star-half-o" aria-hidden="true"></i>
-              </span>
-              <span *ngIf="item.age <= 25">
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-              </span>
-            </td>
-            <td>{{item.date}}</td>
-            <td>{{item.salary}}</td>
+            <td>{{item.fatherName}}</td>
+            <td>{{item.motherName}}</td>
+            <td>{{item.department}}</td>
+            <td>{{item.session}}</td>
+            <td>{{item.presentAddress}}</td>
             <td ngbDropdown>
               <button ngbDropdownToggle type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">

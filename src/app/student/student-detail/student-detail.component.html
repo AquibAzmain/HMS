@@ -2,15 +2,17 @@
   <div class="col-lg-12">
     <div class="md-tabs">
       <ngb-tabset>
-        <ngb-tab title="ব্যক্তিগত তথ্য">
+        <ngb-tab title="ব্যক্তিগত তথ্যাবলী">
           <ng-template ngbTabContent>
             <div class="m-t-15">
               <!-- personal card start -->
-              <div class="card">
+              <div class="card" style="background-color: #ffeae2">
                 <div class="card-header">
-                  <h5 class="card-header-text">Aquib Azmain</h5>
-                  <button id="edit-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right" (click)="toggleEditProfile()">
-                    <i class="icofont {{ editProfileIcon }}"></i>
+                  <h5 class="font-italic pointer" style="color:  #EE0000" routerLink="/student"><i class="icofont icofont-arrow-left"></i>
+                    ছাত্র তালিকায় ফিরে যান</h5>
+                  <button id="edit-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right"
+                    (click)="toggleEditProfile()">
+                    তথ্য সংশোধন <i class="icofont {{ editProfileIcon }}"></i>
                   </button>
                 </div>
                 <div class="card-body">
@@ -23,26 +25,30 @@
                               <div class="table-responsive">
                                 <table class="table m-0">
                                   <tbody>
-                                  <tr>
-                                    <th scope="row">Full Name</th>
-                                    <td>Josephine Villa</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Gender</th>
-                                    <td>Female</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Birth Date</th>
-                                    <td>October 25th, 1990</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Marital Status</th>
-                                    <td>Single</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Location</th>
-                                    <td>New York, USA</td>
-                                  </tr>
+                                    <tr>
+                                      <th scope="row">পূর্ণ নাম</th>
+                                      <td>Md. Aquib Azmain</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">পিতার নাম</th>
+                                      <td>Md. Mahfuzul Haque</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">মাতার নাম</th>
+                                      <td>Makhluka Haque</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">অভিভাবকের বার্ষিক আয়</th>
+                                      <td>1,20,000 tk</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">জাতীয়তা</th>
+                                      <td>Bangladeshi</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">লিঙ্গ</th>
+                                      <td>Male</td>
+                                    </tr>
                                   </tbody>
                                 </table>
                               </div>
@@ -52,26 +58,26 @@
                               <div class="table-responsive">
                                 <table class="table">
                                   <tbody>
-                                  <tr>
-                                    <th scope="row">Email</th>
-                                    <td><a href="javascript:;">Demo@phenix.com</a></td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Mobile Number</th>
-                                    <td>(0123) - 4567891</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Twitter</th>
-                                    <td>@codedthemes</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Skype</th>
-                                    <td>codedthemes.demo</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Website</th>
-                                    <td><a href="javascript:;">www.demo.com</a></td>
-                                  </tr>
+                                    <tr>
+                                      <th scope="row">জন্মতারিখ</th>
+                                      <td>October 3, 1996</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">ধর্ম</th>
+                                      <td>Islam</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">NID</th>
+                                      <td>1000012031</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">যোগাযোগের ঠিকানা</th>
+                                      <td>Sankar, Dhaka</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">স্থায়ী ঠিকানা</th>
+                                      <td>Jaleshwaritola, Bogra</td>
+                                    </tr>
                                   </tbody>
                                 </table>
                               </div>
@@ -96,55 +102,56 @@
                               <div class="table-responsive">
                                 <table class="table">
                                   <tbody>
-                                  <tr>
-                                    <td>
-                                      <div class="input-group">
-                                        <span class="input-group-addon"><i class="icofont icofont-user"></i></span>
-                                        <input type="text" class="form-control" placeholder="Full Name" value="Josephine Villa">
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <div class="form-radio">
-                                        <div class="group-add-on">
-                                          <div class="radio radiofill radio-inline">
-                                            <label>
-                                              <input type="radio" name="radio"><i class="helper"></i> Male
-                                            </label>
-                                          </div>
-                                          <div class="radio radiofill radio-inline">
-                                            <label>
-                                              <input type="radio" name="radio" checked><i class="helper"></i> Female
-                                            </label>
+                                    <tr>
+                                      <td>
+                                        <div class="input-group">
+                                          <span class="input-group-addon"><i class="icofont icofont-user"></i></span>
+                                          <input type="text" class="form-control" placeholder="Full Name" value="Josephine Villa">
+                                        </div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <div class="form-radio">
+                                          <div class="group-add-on">
+                                            <div class="radio radiofill radio-inline">
+                                              <label>
+                                                <input type="radio" name="radio"><i class="helper"></i> Male
+                                              </label>
+                                            </div>
+                                            <div class="radio radiofill radio-inline">
+                                              <label>
+                                                <input type="radio" name="radio" checked><i class="helper"></i> Female
+                                              </label>
+                                            </div>
                                           </div>
                                         </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <input id="dropper-default" class="form-control" type="text" value="October 25th, 1990" placeholder="Select Your Birth Date" />
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <select id="hello-single" class="form-control">
-                                        <option value="">---- Marital Status ----</option>
-                                        <option value="married">Married</option>
-                                        <option value="single" selected>Single</option>
-                                        <option value="unmarried">Unmarried</option>
-                                      </select>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <div class="input-group">
-                                        <span class="input-group-addon"><i class="icofont icofont-location-pin"></i></span>
-                                        <input type="text" class="form-control" placeholder="Address" value="New York, USA">
-                                      </div>
-                                    </td>
-                                  </tr>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <input id="dropper-default" class="form-control" type="text" value="October 25th, 1990"
+                                          placeholder="Select Your Birth Date" />
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <select id="hello-single" class="form-control">
+                                          <option value="">---- Marital Status ----</option>
+                                          <option value="married">Married</option>
+                                          <option value="single" selected>Single</option>
+                                          <option value="unmarried">Unmarried</option>
+                                        </select>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <div class="input-group">
+                                          <span class="input-group-addon"><i class="icofont icofont-location-pin"></i></span>
+                                          <input type="text" class="form-control" placeholder="Address" value="New York, USA">
+                                        </div>
+                                      </td>
+                                    </tr>
                                   </tbody>
                                 </table>
                               </div>
@@ -154,38 +161,38 @@
                               <div class="table-responsive">
                                 <table class="table">
                                   <tbody>
-                                  <tr>
-                                    <td>
-                                      <div class="input-group">
-                                        <span class="input-group-addon"><i class="icofont icofont-mobile-phone"></i></span>
-                                        <input type="text" class="form-control" value="(0123) - 4567891" placeholder="Mobile Number">
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <div class="input-group">
-                                        <span class="input-group-addon"><i class="icofont icofont-social-twitter"></i></span>
-                                        <input type="text" class="form-control" value="@codedthemes" placeholder="Twitter Id">
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <div class="input-group">
-                                        <span class="input-group-addon"><i class="icofont icofont-social-skype"></i></span>
-                                        <input type="email" class="form-control" value="codedthemes.demo" placeholder="Skype Id">
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <div class="input-group">
-                                        <span class="input-group-addon"><i class="icofont icofont-earth"></i></span>
-                                        <input type="text" class="form-control" value="www.demo.com" placeholder="website">
-                                      </div>
-                                    </td>
-                                  </tr>
+                                    <tr>
+                                      <td>
+                                        <div class="input-group">
+                                          <span class="input-group-addon"><i class="icofont icofont-mobile-phone"></i></span>
+                                          <input type="text" class="form-control" value="(0123) - 4567891" placeholder="Mobile Number">
+                                        </div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <div class="input-group">
+                                          <span class="input-group-addon"><i class="icofont icofont-social-twitter"></i></span>
+                                          <input type="text" class="form-control" value="@codedthemes" placeholder="Twitter Id">
+                                        </div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <div class="input-group">
+                                          <span class="input-group-addon"><i class="icofont icofont-social-skype"></i></span>
+                                          <input type="email" class="form-control" value="codedthemes.demo" placeholder="Skype Id">
+                                        </div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <div class="input-group">
+                                          <span class="input-group-addon"><i class="icofont icofont-earth"></i></span>
+                                          <input type="text" class="form-control" value="www.demo.com" placeholder="website">
+                                        </div>
+                                      </td>
+                                    </tr>
                                   </tbody>
                                 </table>
                               </div>
@@ -200,13 +207,27 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="card-header">
+                  <h5 class="card-header-text">আইনগত অভিভাবকের তথ্যাবলী</h5>
+                  <button id="edit-info-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right"
+                    (click)="toggleEditAbout()">
+                    <i class="icofont {{ editAboutIcon }}"></i>
+                  </button>
+                </div>
+                <div class="card-header">
+                  <h5 class="card-header-text">স্থানীয় অভিভাবকের তথ্যাবলী</h5>
+                  <button id="edit-info-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right"
+                    (click)="toggleEditAbout()">
+                    <i class="icofont {{ editAboutIcon }}"></i>
+                  </button>
+                </div>
               </div>
             </div>
           </ng-template>
         </ngb-tab>
 
-
-        <ngb-tab title="মন্তব্য">
+        <ngb-tab title="আবাসিক তথ্যাবলী">
           <ng-template ngbTabContent>
             <div class="m-t-15">
               <div class="row">
@@ -214,7 +235,8 @@
                   <div class="card">
                     <div class="card-header">
                       <h5 class="card-header-text">Description About Me</h5>
-                      <button id="edit-info-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right" (click)="toggleEditAbout()">
+                      <button id="edit-info-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right"
+                        (click)="toggleEditAbout()">
                         <i class="icofont {{ editAboutIcon }}"></i>
                       </button>
                     </div>
@@ -224,18 +246,90 @@
                       </div>
                       <div class="edit-desc" *ngIf="!editAbout">
                         <div class="col-md-12">
-                          <quill-editor
-                            [(ngModel)]="editorContent"
-                            [options]="editorConfig"
-                            (blur)="onEditorBlured($event)"
-                            (focus)="onEditorFocused($event)"
-                            (ready)="onEditorCreated($event)"
-                            (change)="onContentChanged($event)">
+                          <quill-editor [(ngModel)]="editorContent" [options]="editorConfig" (blur)="onEditorBlured($event)"
+                            (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)">
                           </quill-editor>
                         </div>
                         <div class="text-center">
                           <a href="javascript:;" class="btn btn-primary waves-effect waves-light m-r-20 m-t-20">Save</a>
-                          <a href="javascript:;" id="edit-cancel-btn" class="btn btn-default waves-effect m-t-20" (click)="toggleEditAbout()">Cancel</a>
+                          <a href="javascript:;" id="edit-cancel-btn" class="btn btn-default waves-effect m-t-20"
+                            (click)="toggleEditAbout()">Cancel</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- personal card end-->
+            </div>
+          </ng-template>
+        </ngb-tab>
+
+        <ngb-tab title="শিক্ষা সম্পর্কিত তথ্যাবলী">
+          <ng-template ngbTabContent>
+            <div class="m-t-15">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="card-header-text">Description About Me</h5>
+                      <button id="edit-info-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right"
+                        (click)="toggleEditAbout()">
+                        <i class="icofont {{ editAboutIcon }}"></i>
+                      </button>
+                    </div>
+                    <div class="card-body user-desc">
+                      <div class="view-desc" *ngIf="editAbout">
+                        <div [innerHTML]="editorContent"></div>
+                      </div>
+                      <div class="edit-desc" *ngIf="!editAbout">
+                        <div class="col-md-12">
+                          <quill-editor [(ngModel)]="editorContent" [options]="editorConfig" (blur)="onEditorBlured($event)"
+                            (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)">
+                          </quill-editor>
+                        </div>
+                        <div class="text-center">
+                          <a href="javascript:;" class="btn btn-primary waves-effect waves-light m-r-20 m-t-20">Save</a>
+                          <a href="javascript:;" id="edit-cancel-btn" class="btn btn-default waves-effect m-t-20"
+                            (click)="toggleEditAbout()">Cancel</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- personal card end-->
+            </div>
+          </ng-template>
+        </ngb-tab>
+
+        <ngb-tab title="মন্তব্য">
+          <ng-template ngbTabContent>
+            <div class="m-t-15">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="card-header-text">Description About Me</h5>
+                      <button id="edit-info-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right"
+                        (click)="toggleEditAbout()">
+                        <i class="icofont {{ editAboutIcon }}"></i>
+                      </button>
+                    </div>
+                    <div class="card-body user-desc">
+                      <div class="view-desc" *ngIf="editAbout">
+                        <div [innerHTML]="editorContent"></div>
+                      </div>
+                      <div class="edit-desc" *ngIf="!editAbout">
+                        <div class="col-md-12">
+                          <quill-editor [(ngModel)]="editorContent" [options]="editorConfig" (blur)="onEditorBlured($event)"
+                            (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)">
+                          </quill-editor>
+                        </div>
+                        <div class="text-center">
+                          <a href="javascript:;" class="btn btn-primary waves-effect waves-light m-r-20 m-t-20">Save</a>
+                          <a href="javascript:;" id="edit-cancel-btn" class="btn btn-default waves-effect m-t-20"
+                            (click)="toggleEditAbout()">Cancel</a>
                         </div>
                       </div>
                     </div>
