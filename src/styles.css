@@ -24165,3 +24165,7 @@ body.dark #styleSelector .form-control {
 .left-logo {
   font-size: 18px; padding-top: 10px; padding-left: 10px;
 }
+
+.pointer {cursor: pointer;}
+
+.normal-link {color:  #EE0000;}

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import {animate, style, transition, trigger} from '@angular/animations';
-
+import {AUTO_STYLE, state} from '@angular/animations';
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
@@ -14,6 +14,8 @@ export class StudentListComponent implements OnInit {
   public filterQuery = '';
   public sortBy = '';
   public sortOrder = 'desc';
+  public isCollapsed:boolean = true;
+
 
   constructor(public http: Http) { }
 
@@ -22,10 +24,12 @@ export class StudentListComponent implements OnInit {
     .subscribe((data) => {
       this.data = data.json();
     });
+
   }
 
   onSelect(test){
     console.log(test);
   }
+
 
 }
