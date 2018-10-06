@@ -1,1 +1,216 @@
-<p>aaa</p>
+<div class="m-t-15">
+    <!-- personal card start -->
+    <div class="card">
+        <div class="card-header">
+            <button id="edit-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right" (click)="toggleEditProfile()">
+                তথ্য সংশোধন <i class="icofont {{ editProfileIcon }}"></i>
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="view-info" *ngIf="editProfile">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="general-info">
+                            <div class="row">
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="table-responsive">
+                                        <table class="table m-0">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">আবাসিক স্ট্যাটাস</th>
+                                                    <td>আবাসিক</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">হলের কক্ষ নম্বর</th>
+                                                    <td>215</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- end of table col-lg-6 -->
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">সংশ্লিষ্ট সোসাইটি/সংস্থা</th>
+                                                    <td>DUITS</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">হল অ্যাডমিশন ফি স্ট্যাটাস</th>
+                                                    <td>Paid <i style="color:green" class="icofont icofont-check-circled"></i></td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-xl-12">
+                                    <div class="card-header">
+                                        <p class="card-header-text">বছরপ্রতি আবাসিক ফি স্ট্যাটাস</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">বছর</th>
+                                                    <th scope="row">স্ট্যাটাস</th>
+                                                </tr>
+                                                <tr>
+                                                    <td scope="row">2015</td>
+                                                    <td scope="row">Paid <i style="color:green" class="icofont icofont-check-circled"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td scope="row">2016</td>
+                                                    <td scope="row">Paid <i style="color:green" class="icofont icofont-check-circled"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td scope="row">2017</td>
+                                                    <td scope="row">Paid <i style="color:green" class="icofont icofont-check-circled"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td scope="row">2018</td>
+                                                    <td scope="row">Due <i style="color:red" class="icofont icofont-warning-alt"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end of view-info -->
+            <div class="edit-info" *ngIf="!editProfile">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="general-info">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="icofont icofont-user"></i></span>
+                                                            <input type="text" class="form-control" placeholder="Full Name"
+                                                                value="Josephine Villa">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-radio">
+                                                            <div class="group-add-on">
+                                                                <div class="radio radiofill radio-inline">
+                                                                    <label>
+                                                                        <input type="radio" name="radio"><i class="helper"></i>
+                                                                        Male
+                                                                    </label>
+                                                                </div>
+                                                                <div class="radio radiofill radio-inline">
+                                                                    <label>
+                                                                        <input type="radio" name="radio" checked><i
+                                                                            class="helper"></i> Female
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input id="dropper-default" class="form-control" type="text"
+                                                            value="October 25th, 1990" placeholder="Select Your Birth Date" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <select id="hello-single" class="form-control">
+                                                            <option value="">---- Marital Status ----</option>
+                                                            <option value="married">Married</option>
+                                                            <option value="single" selected>Single</option>
+                                                            <option value="unmarried">Unmarried</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="icofont icofont-location-pin"></i></span>
+                                                            <input type="text" class="form-control" placeholder="Address"
+                                                                value="New York, USA">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- end of table col-lg-6 -->
+                                <div class="col-lg-6">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="icofont icofont-mobile-phone"></i></span>
+                                                            <input type="text" class="form-control" value="(0123) - 4567891"
+                                                                placeholder="Mobile Number">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="icofont icofont-social-twitter"></i></span>
+                                                            <input type="text" class="form-control" value="@codedthemes"
+                                                                placeholder="Twitter Id">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="icofont icofont-social-skype"></i></span>
+                                                            <input type="email" class="form-control" value="codedthemes.demo"
+                                                                placeholder="Skype Id">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="icofont icofont-earth"></i></span>
+                                                            <input type="text" class="form-control" value="www.demo.com"
+                                                                placeholder="website">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <a href="javascript:;" class="btn btn-primary waves-effect waves-light m-r-20">Save</a>
+                                <a href="javascript:;" id="edit-cancel" class="btn btn-default waves-effect" (click)="toggleEditProfile()">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

@@ -19,7 +19,7 @@ export const StudentRoutes: Routes = [
   path: '',
   component: StudentListComponent,
   data: {
-    breadcrumb: 'ছাত্র',
+    breadcrumb: 'বর্তমান ছাত্র',
     icon: 'icofont icofont-id bg-c-pink'
   }
 },
@@ -27,10 +27,10 @@ export const StudentRoutes: Routes = [
   path: "details/:id", 
   component: StudentDetailComponent,
   pathMatch: 'full',
-  data: {
-    breadcrumb: 'ছাত্র বিবরণ',
-    icon: 'icofont icofont-id bg-c-pink'
-  }
+  // data: {
+  //   breadcrumb: 'ছাত্র বিবরণ',
+  //   icon: 'icofont icofont-id bg-c-pink'
+  // }
 }];
 
 @NgModule({

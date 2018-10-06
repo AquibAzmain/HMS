@@ -6,6 +6,16 @@ import {animate, style, transition, trigger} from '@angular/animations';
   styleUrls: ['./residence-info.component.css']
 })
 export class ResidenceInfoComponent implements OnInit {
-    ngOnInit() {
-    }
+  editProfile = true;
+  editProfileIcon = 'icofont-edit';
+
+
+  ngOnInit() {
+  }
+
+  toggleEditProfile() {
+    this.editProfileIcon = (this.editProfileIcon === 'icofont-close') ? 'icofont-edit' : 'icofont-close';
+    this.editProfile = !this.editProfile;
+  }
+
 }

@@ -2,8 +2,6 @@
     <!-- personal card start -->
     <div class="card">
       <div class="card-header">
-        <h5 class="font-italic pointer normal-link" routerLink="/student"><i class="icofont icofont-arrow-left"></i>
-          ছাত্র তালিকায় ফিরে যান</h5>
         <button id="edit-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right"
           (click)="toggleEditProfile()">
           তথ্য সংশোধন <i class="icofont {{ editProfileIcon }}"></i>
@@ -33,7 +31,7 @@
                           </tr>
                           <tr>
                             <th scope="row">অভিভাবকের বার্ষিক আয়</th>
-                            <td>1,20,000 tk</td>
+                            <td>12,0,000 tk</td>
                           </tr>
                           <tr>
                             <th scope="row">জাতীয়তা</th>
@@ -72,19 +70,112 @@
                             <th scope="row">স্থায়ী ঠিকানা</th>
                             <td>Jaleshwaritola, Bogra</td>
                           </tr>
+                          <tr>
+                            <th scope="row">মোবাইল</th>
+                            <td>+880171111000</td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
                   </div>
-                  <!-- end of table col-lg-6 -->
+                 
+                  <div class="col-lg-12 col-xl-12">
+                    <div class="card-header">
+                      <p class="card-header-text">আইনগত অভিভাবকের তথ্যাবলী</p>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 col-xl-6">
+                    <div class="table-responsive">
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <th scope="row">নাম</th>
+                            <td>Md. Mahfuzul Haque</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">ছাত্রের সাথে সম্পর্ক &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                            <td>Father</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">ঠিকানা</th>
+                            <td>Bogura</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 col-xl-6">
+                    <div class="table-responsive">
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <th scope="row">মোবাইল</th>
+                            <td>+880171123000</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">পেশা</th>
+                            <td>Business</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">মাসিক আয় &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                            <td>1,00,000 taka</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 col-xl-12">
+                    <div class="card-header">
+                      <p class="card-header-text">স্থানীয় অভিভাবকের তথ্যাবলী</p>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 col-xl-6">
+                    <div class="table-responsive">
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <th scope="row">নাম</th>
+                            <td>Md. Ariful Haque</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">ছাত্রের সাথে সম্পর্ক</th>
+                            <td>Brother</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">ঠিকানা</th>
+                            <td>Dhaka</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 col-xl-6">
+                    <div class="table-responsive">
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <th scope="row">মোবাইল</th>
+                            <td>+880171123000</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">পেশা</th>
+                            <td>Job</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">মাসিক আয় &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                            <td>1,00,000 taka</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
                 </div>
-                <!-- end of row -->
               </div>
-              <!-- end of general info -->
             </div>
-            <!-- end of col-lg-12 -->
-          </div>
-          <!-- end of row -->
+
+            </div>
         </div>
         <!-- end of view-info -->
         <div class="edit-info" *ngIf="!editProfile">
@@ -202,19 +293,6 @@
         </div>
       </div>
 
-      <div class="card-header">
-        <h5 class="card-header-text">আইনগত অভিভাবকের তথ্যাবলী</h5>
-        <button id="edit-info-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right"
-          (click)="toggleEditAbout()">
-          <i class="icofont {{ editAboutIcon }}"></i>
-        </button>
-      </div>
-      <div class="card-header">
-        <h5 class="card-header-text">স্থানীয় অভিভাবকের তথ্যাবলী</h5>
-        <button id="edit-info-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right"
-          (click)="toggleEditAbout()">
-          <i class="icofont {{ editAboutIcon }}"></i>
-        </button>
-      </div>
+    
     </div>
   </div>

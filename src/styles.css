@@ -24166,6 +24166,16 @@ body.dark #styleSelector .form-control {
   font-size: 18px; padding-top: 10px; padding-left: 10px;
 }
 
-.pointer {cursor: pointer;}
+.pointer {
+  cursor: pointer;
+}
 
-.normal-link {color:  #EE0000;}
+.normal-link {
+  color:  #EE0000;
+}
+
+.navActive {
+  border-top: 1px solid #7f8c92;
+  border-bottom: 1px solid #7f8c92;
+  font-weight: bold;
+}

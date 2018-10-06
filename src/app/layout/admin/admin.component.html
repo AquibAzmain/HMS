@@ -296,7 +296,7 @@
                     </a>
                   </li>
 
-                  <li [routerLinkActive]="['active']" *ngIf="asideItem.type === 'link'" appAccordionLink group="{{asideItem.state}}">
+                  <li [routerLinkActive]="['navActive']" *ngIf="asideItem.type === 'link'" appAccordionLink group="{{asideItem.state}}">
                     <a [routerLink]="['/', asideItem.main_state, asideItem.state]" target="{{asideItem.target ? '_blank' : '_self'}}" appAccordionToggle *ngIf="asideItem.main_state; else mainContent">
                       <span class="pcoded-micon"><i class="{{ asideItem.icon }}"></i><b>{{ asideItem.short_label }}</b></span>
                       <span class="pcoded-mtext">{{ asideItem.name }}</span>
@@ -362,7 +362,7 @@
           <div class="pcoded-inner-content">
             <div class="main-body">
               <div class="page-wrapper">
-                <app-title></app-title>
+                <!-- <app-title></app-title> -->
                 <app-breadcrumbs></app-breadcrumbs>
                 <div class="page-body">
                   <router-outlet>
