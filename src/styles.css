@@ -24175,7 +24175,8 @@ body.dark #styleSelector .form-control {
 }
 
 .navActive {
-  border-top: 1px solid #7f8c92;
-  border-bottom: 1px solid #7f8c92;
+  /* border-top: 1px solid #7f8c92;
+  border-bottom: 1px solid #7f8c92; */
   font-weight: bold;
+  color: blue;
 }
