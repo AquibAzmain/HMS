@@ -5,6 +5,7 @@ import {animate, style, transition, trigger} from '@angular/animations';
   templateUrl: './student-detail.component.html',
   styleUrls: ['./student-detail.component.css']
 })
+
 export class StudentDetailComponent implements OnInit {
 
   

@@ -35,7 +35,11 @@ export const AppRoutes: Routes = [
       }, {
         path: 'simple-page',
         loadChildren: './pages/simple-page/simple-page.module#SimplePageModule'
+      },  {
+        path: 'accounting',
+        loadChildren: './accounting/accounting.module#AccountingModule'
       }
+
     ]
   }, {
     path: '',
