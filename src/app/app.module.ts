@@ -12,7 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BreadcrumbsComponent} from './layout/admin/breadcrumbs/breadcrumbs.component';
 import {TitleComponent} from './layout/admin/title/title.component';
 import {AuthComponent} from './layout/auth/auth.component';
-
+import { MyDatePickerModule } from 'mydatepicker';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,8 @@ import {AuthComponent} from './layout/auth/auth.component';
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes),
     ClickOutsideModule,
-    SharedModule
+    SharedModule,
+    MyDatePickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

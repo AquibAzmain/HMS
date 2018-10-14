@@ -11,6 +11,7 @@ import {DataTableModule} from 'angular2-datatable';
 import {QuillEditorModule} from 'ngx-quill-editor';
 import {FormsModule} from '@angular/forms';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { MyDatePickerModule } from 'mydatepicker';
 
 export const AccountingRoutes: Routes = [
   {
@@ -32,7 +33,8 @@ export const AccountingRoutes: Routes = [
     HttpModule,
     DataTableModule,
     QuillEditorModule,
-    CollapseModule .forRoot()
+    CollapseModule .forRoot(),
+    MyDatePickerModule
   ],
   declarations: [
 
