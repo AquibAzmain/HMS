@@ -2,57 +2,98 @@
 <div class="card">
   <div class="card-body contact-details">
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-sm-12 col-md-4">
+      <!-- <div class="col-xs-12 col-sm-12 col-sm-12 col-md-4">
+        <label class="label-control">Show
+          <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="25">25</option>
+            <option [ngValue]="50">50</option>
+            <option [ngValue]="100">100</option>
+          </select>
+          entries
+        </label>
+      </div> -->
+      <div class="col-xs-12 col-sm-12 col-md-10">
         <div>
-          <label class="label-control">Show
-            <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
-              <option [ngValue]="10">10</option>
-              <option [ngValue]="25">25</option>
-              <option [ngValue]="50">50</option>
-              <option [ngValue]="100">100</option>
-            </select>
-            entries
-          </label>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-8">
-        <div style="text-align: right;">
-          <label>সার্চ:
+          <label>সার্চ ও সর্ট:
             <input type="search" [(ngModel)]="filterQuery" class="form-control input-lg full-data-search" placeholder="নাম দিয়ে খুঁজুন">
-
           </label>
           <button type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed">
-            আরও খুঁজুন
+            বিস্তারিত
           </button>
-          <button class="btn btn-danger"><i class="icofont icofont-plus"></i></button>
+          <button type="button" class="btn btn-primary">
+            <i class="icofont icofont-printer"></i> প্রিন্ট
+          </button>
+
           <div [collapse]="isCollapsed" class="card card-block">
-            <div class="form-group row">
-              <label for="filter" class="col-sm-2 col-form-label">শিক্ষাবর্ষ</label>
-              <div class="col-sm-10">
-                <input class="form-control" type="text" />
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-6">
+                <div class="form-group">
+                  <label for="filter">নাম</label>
+                  <input class="form-control" type="text" />
+                </div>
+                <div class="form-group">
+                  <label for="filter">আবাসিক স্ট্যাটাস</label>
+                  <select class="form-control">
+                    <option>--</option>
+                    <option>আবাসিক</option>
+                    <option>অনাবাসিক</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="filter">ডিপার্টমেন্ট</label>
+                  <input class="form-control" type="text" />
+                </div>
+                <div class="form-group">
+                  <label for="sel1">শ্রেণি</label>
+                  <select class="form-control">
+                    <option>১ম</option>
+                    <option>২য়</option>
+                    <option>৩য়</option>
+                    <option>৪র্থ</option>
+                  </select>
+                </div>
+
               </div>
-            </div>
-            <div class="form-group row">
-              <label for="filter" class="col-sm-2 col-form-label">ডিপার্টমেন্ট</label>
-              <div class="col-sm-10">
-                <input class="form-control" type="text" />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="filter" class="col-sm-2 col-form-label">জন্মতারিখ</label>
-              <div class="col-sm-10">
-                <input class="form-control" type="text" />
+              <div class="col-xs-12 col-sm-12 col-md-6">
+                <div class="form-group">
+                  <label for="filter">শিক্ষাবর্ষ</label>
+                  <input class="form-control" type="text" />
+                </div>
+                <div class="form-group">
+                  <label for="filter">ছাত্রত্ব স্ট্যাটাস</label>
+                  <select class="form-control">
+                    <option>--</option>
+                    <option>বর্তমান</option>
+                    <option>প্রাক্তন</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="filter">জন্মতারিখ</label>
+                  <input class="form-control" type="text" />
+                </div>
+                <div class="form-group">
+                  <label for="sel1"><b>কিভাবে সর্ট করতে চান?</b></label>
+                  <select class="form-control">
+                    <option>নাম</option>
+                    <option>শিক্ষাবর্ষ</option>
+                    <option>জন্মতারিখ</option>
+                    <option>ডিপার্টমেন্ট</option>
+                  </select>
+                </div>
               </div>
             </div>
             <button type="submit" class="btn btn-primary">
-              <span class="search-icon"><i class="ti-search"></i></span>
+              ক্লিক করুন
             </button>
           </div>
         </div>
-
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-2" style="text-align: right;">
+        <button class="btn btn-danger"><i class="icofont icofont-plus"></i> নতুন ছাত্র</button>
       </div>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive" style="margin-top:30px">
       <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
         [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
         <thead>
@@ -116,9 +157,4 @@
   </div>
 
 </div>
-<!-- <div class="panel-heading">User information</div>-->
 
-
-
-
-<!-- contact data table card end -->

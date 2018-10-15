@@ -17,6 +17,9 @@ export const AppRoutes: Routes = [
       },{
         path: 'student',
         loadChildren: './student/student.module#StudentModule'
+      },{
+        path: 'employee',
+        loadChildren: './employee/employee.module#EmployeeModule'
       }, {
         path: 'basic',
         loadChildren: './pages/ui-elements/basic/basic.module#BasicModule'

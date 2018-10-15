@@ -1,0 +1,70 @@
+<div class="card">
+  <div class="card-header">
+    <p class="card-header-text">ছুটি সংক্রান্ত তথ্যাবলী</p>
+    <button id="edit-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right">
+      ছুটির আবেদন
+    </button>
+  </div>
+
+  <div class="card-body">
+    <div class="card b-l-success business-info services">
+      <div class="card-body">
+        <ul>
+          <li><i class="icofont icofont-hour-glass"></i> 15/10/2018 থেকে 17/10/2018 তারিখের ছুটি অনুমোদনের অপেক্ষায়
+            আছে।</li>
+          <li><i class="icofont icofont-hour-glass"></i> 02/06/2018 থেকে 06/06/2018 তারিখের ছুটির তথ্য সংশোধন অনুমোদনের
+            অপেক্ষায় আছে।</li>
+        </ul>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+        [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+        <thead>
+          <tr>
+            <th>
+              <mfDefaultSorter by="name">ছুটির ব্যাপ্তি</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="fatherName">ছুটির ধরণ</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="motherName">দিন</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
+            </th>
+          </tr>
+          <tr>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of mf.data; index as i;">
+            <td>{{item.startDate}}-{{item.endDate}}</td>
+            <td>{{item.leaveType}}</td>
+            <td>{{item.numberOfDays}}</td>
+            <td ngbDropdown>
+              <button ngbDropdownToggle type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-cog" aria-hidden="true"></i>
+              </button>
+              <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right b-none contact-menu">
+                <a class="dropdown-item" href="javascript:;">
+                  <i class="icofont icofont-edit"></i>এডিট</a>
+                <a class="dropdown-item" href="javascript:;">
+                  <i class="icofont icofont-ui-delete"></i>ডিলিট</a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="7">
+              <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

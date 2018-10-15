@@ -6,12 +6,11 @@ import { EducationInfoComponent } from './student-detail/education-info/educatio
 import { PersonalInfoComponent } from './student-detail/personal-info/personal-info.component';
 import { ResidenceInfoComponent } from './student-detail/residence-info/residence-info.component';
 import { CommentsComponent } from './student-detail/comments/comments.component';
-import {RouterModule, Routes} from '@angular/router';
-import {SharedModule} from '../shared/shared.module';
-import {HttpModule} from '@angular/http';
-import {DataTableModule} from 'angular2-datatable';
-import {QuillEditorModule} from 'ngx-quill-editor';
-import {FormsModule} from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
+import { HttpModule } from '@angular/http';
+import { DataTableModule } from 'angular2-datatable';
+import { FormsModule } from '@angular/forms';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 export const StudentRoutes: Routes = [
@@ -41,7 +40,6 @@ export const StudentRoutes: Routes = [
     FormsModule,
     HttpModule,
     DataTableModule,
-    QuillEditorModule,
     CollapseModule .forRoot()
   ],
   declarations: [

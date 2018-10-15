@@ -1,0 +1,124 @@
+<!-- student data table card start -->
+<div class="card">
+    <div class="card-body contact-details">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-8">
+          <div>
+            <label>সার্চ ও সর্ট:
+              <input type="search" [(ngModel)]="filterQuery" class="form-control input-lg full-data-search" placeholder="নাম দিয়ে খুঁজুন">
+            </label>
+            <button type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed">
+              বিস্তারিত
+            </button>
+  
+            <div [collapse]="isCollapsed" class="card card-block">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                  <div class="form-group">
+                    <label for="filter">নাম</label>
+                    <input class="form-control" type="text" />
+                  </div>
+                  <div class="form-group">
+                    <label for="filter">পদমর্যাদা</label>
+                    <input class="form-control" type="text" />
+                  </div>
+                  <div class="form-group">
+                    <label for="filter">ডিপার্টমেন্ট</label>
+                    <input class="form-control" type="text" />
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                  <div class="form-group">
+                    <label for="filter">ছুটির স্ট্যাটাস</label>
+                    <select class="form-control">
+                      <option>--</option>
+                      <option>Working</option>
+                      <option>On leave</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="sel1"><b>কিভাবে সর্ট করতে চান?</b></label>
+                    <select class="form-control">
+                      <option>নাম</option>
+                      <option>যোগদান তারিখ</option>
+                      <option>ডিপার্টমেন্ট</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                ক্লিক করুন
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4" style="text-align: right;">
+          <button class="btn btn-success"><i class="icofont icofont-plus"></i> নতুন কর্মকর্তা/কর্মচারী</button>
+        </div>
+      </div>
+      <div class="table-responsive" style="margin-top:30px">
+        <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+          [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+          <thead>
+            <tr>
+              <th>
+                <mfDefaultSorter by="name">নাম</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="fatherName">যোগদান তারিখ</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="motherName">পদমর্যাদা</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="department">মোবাইল</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="session">ডিপার্টমেন্ট</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="presentAddress">ছুটির স্ট্যাটাস</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
+              </th>
+            </tr>
+            <tr>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of mf.data; index as i;">
+              <td class="pointer normal-link" [routerLink]="['details/', item.name]">{{item.name}}</td>
+              <td>{{item.joiningDate}}</td>
+              <td>{{item.jobTitle}}</td>
+              <td>{{item.contact}}</td>
+              <td>{{item.deparment}}</td>
+              <td>{{item.leaveStatus}}</td>
+              <td ngbDropdown>
+                <button ngbDropdownToggle type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right b-none contact-menu">
+                  <a class="dropdown-item" href="javascript:;">
+                    <i class="icofont icofont-edit"></i>এডিট</a>
+                  <a class="dropdown-item" href="javascript:;">
+                    <i class="icofont icofont-ui-delete"></i>ডিলিট</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="7">
+                <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  
+  </div>
+  
+  

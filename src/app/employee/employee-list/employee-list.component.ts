@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 
 @Component({
-  selector: 'app-student-list',
-  templateUrl: './student-list.component.html',
-  styleUrls: ['./student-list.component.css']
+  selector: 'app-employee-list',
+  templateUrl: './employee-list.component.html',
+  styleUrls: ['./employee-list.component.css']
 })
-export class StudentListComponent implements OnInit {
+export class EmployeeListComponent implements OnInit {
 
   public data: any;
   public rowsOnPage = 10;
@@ -14,21 +14,14 @@ export class StudentListComponent implements OnInit {
   public sortBy = '';
   public sortOrder = 'desc';
   public isCollapsed:boolean = true;
-
-
+  
   constructor(public http: Http) { }
 
   ngOnInit() {
-    this.http.get(`assets/data/data.json`)
+    this.http.get(`assets/data/employee.json`)
     .subscribe((data) => {
       this.data = data.json();
     });
-
   }
-
-  onSelect(test){
-    console.log(test);
-  }
-
 
 }
