@@ -4,11 +4,8 @@
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-8">
           <div>
-            <label>সার্চ ও সর্ট:
-              <input type="search" [(ngModel)]="filterQuery" class="form-control input-lg full-data-search" placeholder="নাম দিয়ে খুঁজুন">
-            </label>
-            <button type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed">
-              বিস্তারিত
+            <button type="button" class="btn btn-success" (click)="isCollapsed = !isCollapsed">
+              সার্চ ও সর্ট
             </button>
   
             <div [collapse]="isCollapsed" class="card card-block">
@@ -46,7 +43,7 @@
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary">
+              <button type="submit" class="btn btn-success">
                 ক্লিক করুন
               </button>
             </div>
@@ -95,7 +92,7 @@
               <td>{{item.deparment}}</td>
               <td>{{item.leaveStatus}}</td>
               <td ngbDropdown>
-                <button ngbDropdownToggle type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                <button ngbDropdownToggle type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">
                   <i class="fa fa-cog" aria-hidden="true"></i>
                 </button>

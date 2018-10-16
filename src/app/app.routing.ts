@@ -21,6 +21,9 @@ export const AppRoutes: Routes = [
         path: 'employee',
         loadChildren: './employee/employee.module#EmployeeModule'
       }, {
+        path: 'store',
+        loadChildren: './store/store.module#StoreModule'
+      },{
         path: 'basic',
         loadChildren: './pages/ui-elements/basic/basic.module#BasicModule'
       }, {
