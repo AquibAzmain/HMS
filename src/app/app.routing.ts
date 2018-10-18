@@ -24,6 +24,9 @@ export const AppRoutes: Routes = [
         path: 'store',
         loadChildren: './store/store.module#StoreModule'
       },{
+        path: 'residence',
+        loadChildren: './residence/residence.module#ResidenceModule'
+      },{
         path: 'basic',
         loadChildren: './pages/ui-elements/basic/basic.module#BasicModule'
       }, {

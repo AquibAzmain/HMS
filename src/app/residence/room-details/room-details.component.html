@@ -1,0 +1,197 @@
+<!-- Page-header start -->
+
+<div class="page-header card">
+  <div class="row align-items-end">
+    <div class="col-lg-8">
+      <div class="page-header-title">
+        <span style="padding: 0px; margin: 0px"><i class="icofont icofont-address-book bg-c-lite-blue"></i></span>
+        <div class="d-inline">
+          <span class="d-block">
+            <h4>কক্ষ নম্বরঃ 23</h4>
+          </span>
+          <!-- <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit</span> -->
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="page-header-breadcrumb">
+        <ul class="breadcrumb-title">
+          <li class="breadcrumb-item">
+            <a routerLink="/residence"><i class="icofont icofont-arrow-left"></i>
+              কক্ষ তালিকায় ফিরে যান</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page-header end -->
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <p class="card-header-text">সাধারণ তথ্যাবলী</p>
+        <button id="edit-btn" type="button" class="btn btn-sm residence-button waves-effect waves-light f-right"
+          (click)="toggleEditProfile()">
+          তথ্য সংশোধন <i class="icofont {{ editProfileIcon }}"></i>
+        </button>
+      </div>
+
+      <div class="card-body">
+        <div class="view-info" *ngIf="editProfile">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="general-info">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="table-responsive">
+                      <table class="table m-0">
+                        <tbody>
+                          <tr>
+                            <th scope="column">ব্লক</th>
+                            <td>East-Ground floor</td>
+                          </tr>
+                          <tr>
+                            <th scope="column">ধারণ ক্ষমতা</th>
+                            <td>3</td>
+                          </tr>
+                          <tr>
+                            <th scope="column">দায়িত্বপ্রাপ্ত শিক্ষক</th>
+                            <td>Ariful Haque</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- end of table col-lg-6 -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of view-info -->
+        <div class="edit-info" *ngIf="!editProfile">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="general-info">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="table-responsive">
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <td>
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="icofont icofont-user"></i></span>
+                                <input type="text" class="form-control" placeholder="Full Name" value="Josephine Villa">
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-radio">
+                                <div class="group-add-on">
+                                  <div class="radio radiofill radio-inline">
+                                    <label>
+                                      <input type="radio" name="radio"><i class="helper"></i>
+                                      Male
+                                    </label>
+                                  </div>
+                                  <div class="radio radiofill radio-inline">
+                                    <label>
+                                      <input type="radio" name="radio" checked><i class="helper"></i> Female
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input id="dropper-default" class="form-control" type="text" value="October 25th, 1990"
+                                placeholder="Select Your Birth Date" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <select id="hello-single" class="form-control">
+                                <option value="">---- Marital Status ----</option>
+                                <option value="married">Married</option>
+                                <option value="single" selected>Single</option>
+                                <option value="unmarried">Unmarried</option>
+                              </select>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="icofont icofont-location-pin"></i></span>
+                                <input type="text" class="form-control" placeholder="Address" value="New York, USA">
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- end of table col-lg-6 -->
+                </div>
+                <div class="text-center">
+                  <a href="javascript:;" class="btn btn-primary waves-effect waves-light m-r-20">Save</a>
+                  <a href="javascript:;" id="edit-cancel" class="btn residence-button waves-effect" (click)="toggleEditProfile()">Cancel</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <p class="card-header-text">কক্ষের ছাত্রদের তালিকা</p>
+        <button type="button" class="btn btn-sm f-right residence-button">
+          <i class="icofont icofont-plus"></i> নতুন ছাত্র
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered full-data-table" [mfData]="data" #mf="mfDataTable">
+            <thead>
+              <tr>
+                <th>ছাত্রের নাম</th>
+                <th>রেজিস্ট্রেশান নম্বর</th>
+                <th>আবাসিক স্ট্যাটাস</th>
+                <th>অ্যাকশন</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of mf.data; index as i;">
+                <td>{{item.studentName}}</td>
+                <td>{{item.registrationNumber}}</td>
+                <td>{{item.residenceStatus}}</td>
+                <td>
+                  <a href="javascript:;" style="font-size: 20px">
+                    <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
+                  <a href="javascript:;" style="font-size: 20px">
+                    <i class="icofont icofont-ui-delete"></i></a>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="7">
+                  <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

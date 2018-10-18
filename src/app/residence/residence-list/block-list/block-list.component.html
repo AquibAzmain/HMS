@@ -1,0 +1,64 @@
+<div class="card">
+  <div class="card-body contact-details">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <div>
+          <button type="button" class="btn residence-button f-right">
+            <i class="icofont icofont-plus"></i> নতুন ব্লক
+          </button>
+
+          <!-- <div class="card card-block">
+            <div class="form-group">
+              <label for="filter">ব্লকের নাম</label>
+              <input class="form-control" type="text" />
+            </div>
+            <div class="form-group">
+              <label for="filter">অবস্থান</label>
+              <input class="form-control" type="text" />
+            </div>
+            <button type="submit" class="btn residence-button">
+              ক্লিক করুন
+            </button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive" style="margin-top:30px">
+      <table class="table table-bordered full-data-table"  [mfData]="data" #mf="mfDataTable"
+        [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+        <thead>
+          <tr>
+            <th>
+              <mfDefaultSorter by="blockName">ব্লক নাম</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="location">অবস্থান</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of mf.data; index as i;">
+            <td class="pointer normal-link" [routerLink]="['block_details/', item.blockName]">{{item.blockName}}</td>
+            <td>{{item.location}}</td>
+            <td>
+              <a href="javascript:;" style="font-size: 20px">
+                <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
+              <a href="javascript:;" style="font-size: 20px">
+                <i class="icofont icofont-ui-delete"></i></a>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="7">
+              <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

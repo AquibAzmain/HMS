@@ -70,9 +70,9 @@ const MENUITEMS = [
         icon: 'ti-money'
       },
       {
-        state: 'room',
+        state: 'residence',
         short_label: 'R',
-        name: 'আবাসিক কক্ষ',
+        name: 'আবাসিক',
         type: 'link',
         icon: 'ti-layout-sidebar-left'
       },
