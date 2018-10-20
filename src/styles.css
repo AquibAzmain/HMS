@@ -520,7 +520,7 @@ ul {
 }
 
 .modal {
-  z-index: 99999999999;
+  z-index: 9999;
 }
 
 .bd-example .modal {
@@ -5931,6 +5931,10 @@ a[data-toggle="lightbox"] .img-fluid, a[data-lightbox="roadtrip"] .img-fluid, a[
 
 .text-muted {
   color: #919aa3 !important;
+}
+
+.text-white {
+  color: white;
 }
 
 /*======= Text css ends ===========*/
@@ -15172,6 +15176,10 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
   background-color: #39ADB5;
 }
 
+.bg-c-brown {
+  background-color: #AB7967;
+}
+
 .text-c-green {
   color: #93BE52;
 }
@@ -23365,7 +23373,7 @@ body.dark .modal-content {
 
 .pcoded[layout-type="dark"] .modal-content .modal-header,
 body.dark .modal-content .modal-header {
-  border-bottom: 1px solid #303548
+  border-bottom: 1px solid #303548;
 }
 
 .pcoded[layout-type="dark"] .modal-content .modal-footer,
@@ -24178,4 +24186,17 @@ body.dark #styleSelector .form-control {
 .pcoded .pcoded-navbar[navbar-theme="themelight1"] .pcoded-item li:hover > a {
   color: #000 !important;
   background: rgb(228, 228, 228);
+}
+
+.edit-delete-icon {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: rgb(177, 177, 177);
+}
+
+.modal-header {
+  background-color: #E4E4E4;
 }

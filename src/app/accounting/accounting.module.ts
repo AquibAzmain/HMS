@@ -12,6 +12,9 @@ import {QuillEditorModule} from 'ngx-quill-editor';
 import {FormsModule} from '@angular/forms';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { MyDatePickerModule } from 'mydatepicker';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap';
+import { CategoryEditComponent } from './accounting-main/category-edit/category-edit.component'
 
 export const AccountingRoutes: Routes = [
   {
@@ -19,7 +22,7 @@ export const AccountingRoutes: Routes = [
     component: AccountingMainComponent,
     data: {
       breadcrumb: 'হিসাব-নিকাশ',
-      icon: 'icofont icofont-cur-dollar bg-c-pink'
+      icon: 'icofont icofont-cur-dollar bg-c-brown'
     }
   }  
 ];
@@ -34,13 +37,15 @@ export const AccountingRoutes: Routes = [
     DataTableModule,
     QuillEditorModule,
     CollapseModule .forRoot(),
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     MyDatePickerModule
   ],
   declarations: [
-
     IncomeComponent,
     ExpenseComponent, 
-    ReportComponent, 
+    ReportComponent,
+    CategoryEditComponent, 
     AccountingMainComponent
   ]
 })
