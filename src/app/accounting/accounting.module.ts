@@ -13,8 +13,10 @@ import {FormsModule} from '@angular/forms';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { MyDatePickerModule } from 'mydatepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { BsDatepickerModule } from 'ngx-bootstrap';
-import { CategoryEditComponent } from './accounting-main/category-edit/category-edit.component'
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { CategoryEditComponent } from './accounting-main/category-edit/category-edit.component';
+import { IncomeCategoryComponent } from './accounting-main/category-edit/income-category/income-category.component';
+import { ExpenseCategoryComponent } from './accounting-main/category-edit/expense-category/expense-category.component'
 
 export const AccountingRoutes: Routes = [
   {
@@ -46,7 +48,9 @@ export const AccountingRoutes: Routes = [
     ExpenseComponent, 
     ReportComponent,
     CategoryEditComponent, 
-    AccountingMainComponent
+    AccountingMainComponent,
+    IncomeCategoryComponent,
+    ExpenseCategoryComponent
   ]
 })
 export class AccountingModule { }

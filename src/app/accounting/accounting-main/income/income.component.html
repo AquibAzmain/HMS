@@ -43,7 +43,8 @@
                 </div>
                 <div class="form-group">
                   <label for="filter">তারিখ</label>
-                  <input class="form-control" type="date" />
+                  <input type="text" placeholder="DD/MM/YYYY" class="form-control" [bsValue]="bsValue"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker>
                 </div>
               </div>
             </div>
@@ -149,7 +150,8 @@
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">তারিখ</label>
       <div class="col-sm-8">
-        <my-date-picker name="date" [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)"></my-date-picker>
+        <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue"
+          [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker>
       </div>
     </div>
     <div class="form-group row">

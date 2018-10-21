@@ -24200,3 +24200,5 @@ body.dark #styleSelector .form-control {
 .modal-header {
   background-color: #E4E4E4;
 }
+
+bs-datepicker-container { z-index: 3000000000000; }

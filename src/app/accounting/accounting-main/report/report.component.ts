@@ -8,7 +8,7 @@ import {animate, style, transition, trigger} from '@angular/animations';
   styleUrls: ['./report.component.css']
 })
 export class ReportComponent implements OnInit {
-
+  bsValue = new Date();
   constructor() { }
 
   ngOnInit() {

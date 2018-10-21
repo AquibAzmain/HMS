@@ -10,6 +10,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class IncomeComponent implements OnInit {
   
+  bsValue = new Date();
   public data: any;
   public rowsOnPage = 10;
   public filterQuery = '';

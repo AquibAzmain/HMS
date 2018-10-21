@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./category-edit.component.css']
 })
 export class CategoryEditComponent implements OnInit {
+  
 
   constructor() { }
 
   ngOnInit() {
+    
   }
 
 }

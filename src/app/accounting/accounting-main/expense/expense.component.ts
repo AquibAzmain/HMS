@@ -9,7 +9,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./expense.component.css']
 })
 export class ExpenseComponent implements OnInit {
-
+  bsValue = new Date();
   public data: any;
   public rowsOnPage = 10;
   public filterQuery = '';
