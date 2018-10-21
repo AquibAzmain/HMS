@@ -10,6 +10,8 @@ import { HttpModule } from '@angular/http';
 import { DataTableModule } from 'angular2-datatable';
 import { FormsModule } from '@angular/forms';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 export const EmployeeRoutes: Routes = [
   {
@@ -33,7 +35,9 @@ export const EmployeeRoutes: Routes = [
     FormsModule,
     HttpModule,
     DataTableModule,
-    CollapseModule .forRoot()
+    CollapseModule .forRoot(),
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   declarations: [EmployeeListComponent, LeaveInfoComponent, EmployeeDetailComponent, BasicInfoComponent]
 })

@@ -79,68 +79,29 @@
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="table-responsive">
-                      <table class="table">
+                      <table class="table m-0">
                         <tbody>
                           <tr>
-                            <td>
-                              <div class="input-group">
-                                <span class="input-group-addon"><i class="icofont icofont-user"></i></span>
-                                <input type="text" class="form-control" placeholder="Full Name" value="Josephine Villa">
-                              </div>
-                            </td>
+                            <th scope="column">ব্লক</th>
+                            <td><input class="form-control" type="text" /></td>
                           </tr>
                           <tr>
-                            <td>
-                              <div class="form-radio">
-                                <div class="group-add-on">
-                                  <div class="radio radiofill radio-inline">
-                                    <label>
-                                      <input type="radio" name="radio"><i class="helper"></i>
-                                      Male
-                                    </label>
-                                  </div>
-                                  <div class="radio radiofill radio-inline">
-                                    <label>
-                                      <input type="radio" name="radio" checked><i class="helper"></i> Female
-                                    </label>
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
+                            <th scope="column">ধারণ ক্ষমতা</th>
+                            <td><input class="form-control" type="text" /></td>
                           </tr>
                           <tr>
-                            <td>
-                              <input id="dropper-default" class="form-control" type="text" value="October 25th, 1990"
-                                placeholder="Select Your Birth Date" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <select id="hello-single" class="form-control">
-                                <option value="">---- Marital Status ----</option>
-                                <option value="married">Married</option>
-                                <option value="single" selected>Single</option>
-                                <option value="unmarried">Unmarried</option>
-                              </select>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="input-group">
-                                <span class="input-group-addon"><i class="icofont icofont-location-pin"></i></span>
-                                <input type="text" class="form-control" placeholder="Address" value="New York, USA">
-                              </div>
-                            </td>
+                            <th scope="column">দায়িত্বপ্রাপ্ত শিক্ষক</th>
+                            <td><input class="form-control" type="text" /></td>
                           </tr>
                         </tbody>
                       </table>
+                      <div class="text-center">
+                        <a href="javascript:;" class="btn btn-sm bg-c-lite-blue text-white waves-effect waves-light m-r-20">নিশ্চিত</a>
+                        <a href="javascript:;" id="edit-cancel" class="btn btn-sm waves-effect" (click)="toggleEditProfile()">বাতিল</a>
+                      </div>
                     </div>
                   </div>
                   <!-- end of table col-lg-6 -->
-                </div>
-                <div class="text-center">
-                  <a href="javascript:;" class="btn btn-primary waves-effect waves-light m-r-20">Save</a>
-                  <a href="javascript:;" id="edit-cancel" class="btn residence-button waves-effect" (click)="toggleEditProfile()">Cancel</a>
                 </div>
               </div>
             </div>
@@ -154,7 +115,7 @@
     <div class="card">
       <div class="card-header">
         <p class="card-header-text">কক্ষের ছাত্রদের তালিকা</p>
-        <button type="button" class="btn btn-sm f-right residence-button">
+        <button type="button" class="btn btn-sm f-right residence-button" (click)="openModal(template, 'add')">
           <i class="icofont icofont-plus"></i> নতুন ছাত্র
         </button>
       </div>
@@ -175,9 +136,7 @@
                 <td>{{item.registrationNumber}}</td>
                 <td>{{item.residenceStatus}}</td>
                 <td>
-                  <a href="javascript:;" style="font-size: 20px">
-                    <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
-                  <a href="javascript:;" style="font-size: 20px">
+                  <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
                     <i class="icofont icofont-ui-delete"></i></a>
                 </td>
               </tr>
@@ -195,3 +154,40 @@
     </div>
   </div>
 </div>
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">{{modalHeader}}</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="list-group" style="overflow: scroll;height:450px;">
+      <div class="list-group-item list-group-item-action flex-column" *ngFor="let item of studentList; index as i;">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1"><input type="checkbox" value="item.name"> {{item.name}}</h5>
+        </div>
+        <p class="mb-1">রেজিস্ট্রেশান নম্বরঃ {{item.registrationNumber}}</p>
+        <p class="mb-1">আবাসিক স্ট্যাটাসঃ {{item.residenceStatus}}</p>
+        <p class="mb-1">কক্ষ নম্বরঃ {{item.room}}</p>
+      </div>
+    </div>
+    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirm()">নিশ্চিত</button>
+    <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
+  </div>
+</ng-template>
+
+<ng-template #deleteTemplate>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">কক্ষ হতে ছাত্রটিকে অপসারন করতে ইচ্ছুক?</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmDelete()">নিশ্চিত</button>
+    <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
+  </div>
+</ng-template>

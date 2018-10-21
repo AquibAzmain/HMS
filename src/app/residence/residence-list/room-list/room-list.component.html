@@ -35,12 +35,13 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4">
-        <button class="btn residence-button f-right"><i class="icofont icofont-plus"></i> নতুন কক্ষ</button>
+        <button class="btn residence-button f-right" (click)="openModal(template, 'add')"><i class="icofont icofont-plus"></i>
+          নতুন কক্ষ</button>
       </div>
     </div>
     <div class="table-responsive" style="margin-top:30px">
-      <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery"
-        #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+      <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+        [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
         <thead>
           <tr>
             <th>
@@ -68,9 +69,9 @@
             <td>{{item.capacity}}</td>
             <td>{{item.assignedHouseTutor}}</td>
             <td>
-              <a href="javascript:;" style="font-size: 20px">
+              <a (click)="openModal(template, 'edit')" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
-              <a href="javascript:;" style="font-size: 20px">
+              <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-ui-delete"></i></a>
             </td>
           </tr>
@@ -87,3 +88,57 @@
   </div>
 
 </div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">{{modalHeader}}</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">রুম নম্বর</label>
+      <div class="col-sm-8">
+        <input class="form-control" type="text" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">ব্লক</label>
+      <div class="col-sm-8">
+        <select class="form-control">
+          <option>--</option>
+          <option>East block ground floor</option>
+          <option>West block ground floor</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">ধারণ ক্ষমতা</label>
+      <div class="col-sm-8">
+        <input class="form-control" type="text" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">দায়িত্বপ্রাপ্ত শিক্ষক</label>
+      <div class="col-sm-8">
+        <input class="form-control" type="text" />
+      </div>
+    </div>
+    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirm()">নিশ্চিত</button>
+    <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
+  </div>
+</ng-template>
+
+<ng-template #deleteTemplate>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">তথ্য মুছে দিতে ইচ্ছুক?</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmDelete()">নিশ্চিত</button>
+    <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
+  </div>
+</ng-template>

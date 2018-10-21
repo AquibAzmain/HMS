@@ -1,178 +1,124 @@
 <div class="card">
-    <div class="card-header">
-      <p class="card-header-text">সাধারণ তথ্যাবলী</p>
-      <button id="edit-btn" type="button" class="btn btn-sm btn-success waves-effect waves-light f-right" (click)="toggleEditProfile()">
-        তথ্য সংশোধন <i class="icofont {{ editProfileIcon }}"></i>
-      </button>
-    </div>
-
-    <div class="card-body">
-      <div class="view-info" *ngIf="editProfile">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="general-info">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="table-responsive">
-                    <table class="table m-0">
-                      <tbody>
-                        <tr>
-                          <th scope="row">পূর্ণ নাম</th>
-                          <td>Ariful Haque</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">যোগদান তারিখ</th>
-                          <td>03/05/2014</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">ঠিকানা</th>
-                          <td>Sankar, Dhaka</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">মোবাইল</th>
-                          <td>0171111111</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">পদমর্যাদা</th>
-                          <td>Hall Officer</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">ডিপার্টমেন্ট</th>
-                          <td>03/05/2014</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">ক্যাম্পাসের আবাসিক</th>
-                          <td>No</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">অনুষ্ঠানে অংশগ্রহণ</th>
-                          <td>Sports, Blood Donation, bla bla</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <!-- end of table col-lg-6 -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- end of view-info -->
-      <div class="edit-info" *ngIf="!editProfile">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="general-info">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <tbody>
-                        <tr>
-                          <td>
-                            <div class="input-group">
-                              <span class="input-group-addon"><i class="icofont icofont-user"></i></span>
-                              <input type="text" class="form-control" placeholder="Full Name" value="Josephine Villa">
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="form-radio">
-                              <div class="group-add-on">
-                                <div class="radio radiofill radio-inline">
-                                  <label>
-                                    <input type="radio" name="radio"><i class="helper"></i>
-                                    Male
-                                  </label>
-                                </div>
-                                <div class="radio radiofill radio-inline">
-                                  <label>
-                                    <input type="radio" name="radio" checked><i class="helper"></i> Female
-                                  </label>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <input id="dropper-default" class="form-control" type="text" value="October 25th, 1990"
-                              placeholder="Select Your Birth Date" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <select id="hello-single" class="form-control">
-                              <option value="">---- Marital Status ----</option>
-                              <option value="married">Married</option>
-                              <option value="single" selected>Single</option>
-                              <option value="unmarried">Unmarried</option>
-                            </select>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="input-group">
-                              <span class="input-group-addon"><i class="icofont icofont-location-pin"></i></span>
-                              <input type="text" class="form-control" placeholder="Address" value="New York, USA">
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <!-- end of table col-lg-6 -->
-                <div class="col-lg-6">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <tbody>
-                        <tr>
-                          <td>
-                            <div class="input-group">
-                              <span class="input-group-addon"><i class="icofont icofont-mobile-phone"></i></span>
-                              <input type="text" class="form-control" value="(0123) - 4567891" placeholder="Mobile Number">
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="input-group">
-                              <span class="input-group-addon"><i class="icofont icofont-social-twitter"></i></span>
-                              <input type="text" class="form-control" value="@codedthemes" placeholder="Twitter Id">
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="input-group">
-                              <span class="input-group-addon"><i class="icofont icofont-social-skype"></i></span>
-                              <input type="email" class="form-control" value="codedthemes.demo" placeholder="Skype Id">
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="input-group">
-                              <span class="input-group-addon"><i class="icofont icofont-earth"></i></span>
-                              <input type="text" class="form-control" value="www.demo.com" placeholder="website">
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div class="text-center">
-                <a href="javascript:;" class="btn btn-primary waves-effect waves-light m-r-20">Save</a>
-                <a href="javascript:;" id="edit-cancel" class="btn btn-default waves-effect" (click)="toggleEditProfile()">Cancel</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+  <div class="card-header">
+    <p class="card-header-text">সাধারণ তথ্যাবলী</p>
+    <button id="edit-btn" type="button" class="btn btn-sm btn-success waves-effect waves-light f-right" (click)="toggleEditProfile()">
+      তথ্য সংশোধন <i class="icofont {{ editProfileIcon }}"></i>
+    </button>
   </div>
+
+  <div class="card-body">
+    <div class="view-info" *ngIf="editProfile">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="general-info">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <tbody>
+                      <tr>
+                        <th scope="row">পূর্ণ নাম</th>
+                        <td>Ariful Haque</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">যোগদান তারিখ</th>
+                        <td>03/05/2014</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">ঠিকানা</th>
+                        <td>Sankar, Dhaka</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">মোবাইল</th>
+                        <td>0171111111</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">পদমর্যাদা</th>
+                        <td>Hall Officer</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">ডিপার্টমেন্ট</th>
+                        <td>03/05/2014</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">ক্যাম্পাসের আবাসিক</th>
+                        <td>No</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">অনুষ্ঠানে অংশগ্রহণ</th>
+                        <td>Sports, Blood Donation, bla bla</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- end of table col-lg-6 -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of view-info -->
+    <div class="edit-info" *ngIf="!editProfile">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="general-info">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <tbody>
+                      <tr>
+                        <th scope="row">পূর্ণ নাম</th>
+                        <td><input class="form-control" type="text" /></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">যোগদান তারিখ</th>
+                        <td><input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker"
+                            [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
+                            bsDatepicker></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">ঠিকানা</th>
+                        <td><input class="form-control" type="text" /></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">মোবাইল</th>
+                        <td><input class="form-control" type="text" /></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">পদমর্যাদা</th>
+                        <td><input class="form-control" type="text" /></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">ডিপার্টমেন্ট</th>
+                        <td><input class="form-control" type="text" /></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">ক্যাম্পাসের আবাসিক</th>
+                        <td><select class="form-control">
+                            <option>হ্যাঁ</option>
+                            <option>না</option>
+                          </select></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">অনুষ্ঠানে অংশগ্রহণ</th>
+                        <td><input class="form-control" type="text" /></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="text-center">
+                    <a href="javascript:;" class="btn btn-success waves-effect waves-light m-r-20">নিশ্চিত</a>
+                    <a href="javascript:;" id="edit-cancel" class="btn residence-button waves-effect" (click)="toggleEditProfile()">বাতিল</a>
+                  </div>
+                </div>
+              </div>
+              <!-- end of table col-lg-6 -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

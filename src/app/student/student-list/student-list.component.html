@@ -76,7 +76,8 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-2">
-        <button class="btn btn-danger f-right"><i class="icofont icofont-plus"></i> নতুন ছাত্র</button>
+        <button class="btn btn-danger f-right" [routerLink]="['add_student/', 0]"><i class="icofont icofont-plus"></i>
+          নতুন ছাত্র</button>
       </div>
     </div>
     <div class="table-responsive" style="margin-top:30px">
@@ -88,10 +89,13 @@
               <mfDefaultSorter by="name">নাম</mfDefaultSorter>
             </th>
             <th>
-              <mfDefaultSorter by="fatherName">পিতার নাম</mfDefaultSorter>
+              <mfDefaultSorter by="registrationNumber">রেজিস্ট্রেশান</mfDefaultSorter>
             </th>
             <th>
-              <mfDefaultSorter by="motherName">মাতার নাম</mfDefaultSorter>
+              <mfDefaultSorter by="residenceStatus">আবাসিক স্ট্যাটাস</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="room">কক্ষ</mfDefaultSorter>
             </th>
             <th>
               <mfDefaultSorter by="department">ডিপার্টমেন্ট</mfDefaultSorter>
@@ -112,22 +116,23 @@
         <tbody>
           <tr *ngFor="let item of mf.data; index as i;">
             <td class="pointer normal-link" [routerLink]="['details/', item.name]">{{item.name}}</td>
-            <td>{{item.fatherName}}</td>
-            <td>{{item.motherName}}</td>
+            <td>{{item.registrationNumber}}</td>
+            <td>{{item.residenceStatus}}</td>
+            <td>{{item.room}}</td>
             <td>{{item.department}}</td>
             <td>{{item.session}}</td>
             <td>{{item.presentAddress}}</td>
             <td>
-              <a href="javascript:;" style="font-size: 20px">
+              <a (click)="openModal(template, 'edit')" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
-              <a href="javascript:;" style="font-size: 20px">
+              <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-ui-delete"></i></a>
             </td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="7">
+            <td colspan="8">
               <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
             </td>
           </tr>
@@ -138,3 +143,72 @@
 
 </div>
 
+
+<ng-template #template>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">{{modalHeader}}</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">আইডি</label>
+      <div class="col-sm-8">
+        <input class="form-control" type="text" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">ক্রয়ের তারিখ</label>
+      <div class="col-sm-8">
+        <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue"
+          [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">সম্পদের ধরণ</label>
+      <div class="col-sm-8">
+        <select class="form-control">
+          <option>--</option>
+          <option>Furniture</option>
+          <option>Gardening tool</option>
+          <option>Electronics</option>
+          <option>Others</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">অবস্থান</label>
+      <div class="col-sm-8">
+        <input class="form-control" type="text" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">অবস্থা</label>
+      <div class="col-sm-8">
+        <select class="form-control">
+          <option>--</option>
+          <option>Needs repair</option>
+          <option>Working</option>
+          <option>Discarded</option>
+        </select>
+      </div>
+    </div>
+    <button type="button" class="btn btn-danger text-white" (click)="confirm()">নিশ্চিত</button>
+    <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
+  </div>
+</ng-template>
+
+
+<ng-template #deleteTemplate>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">তথ্য মুছে দিতে ইচ্ছুক?</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <button type="button" class="btn btn-danger text-white" (click)="confirmDelete()">নিশ্চিত</button>
+    <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
+  </div>
+</ng-template>

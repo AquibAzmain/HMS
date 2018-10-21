@@ -12,6 +12,9 @@ import { HttpModule } from '@angular/http';
 import { DataTableModule } from 'angular2-datatable';
 import { FormsModule } from '@angular/forms';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { AddStudentComponent } from './student-list/add-student/add-student.component';
 
 export const StudentRoutes: Routes = [
 {
@@ -30,6 +33,11 @@ export const StudentRoutes: Routes = [
   //   breadcrumb: 'ছাত্র বিবরণ',
   //   icon: 'icofont icofont-id bg-c-pink'
   // }
+},
+{ 
+  path: "add_student/:id", 
+  component: AddStudentComponent,
+  pathMatch: 'full',
 }];
 
 @NgModule({
@@ -40,7 +48,9 @@ export const StudentRoutes: Routes = [
     FormsModule,
     HttpModule,
     DataTableModule,
-    CollapseModule .forRoot()
+    CollapseModule .forRoot(),
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   declarations: [
     StudentListComponent,
@@ -48,6 +58,7 @@ export const StudentRoutes: Routes = [
     EducationInfoComponent,
     PersonalInfoComponent,
     ResidenceInfoComponent,
+    AddStudentComponent,
     CommentsComponent
   ]
 })

@@ -7,6 +7,8 @@ import { DataTableModule } from 'angular2-datatable';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 export const StoreRoutes: Routes = [
   {
@@ -25,7 +27,9 @@ export const StoreRoutes: Routes = [
     FormsModule,
     HttpModule,
     DataTableModule,
-    CollapseModule
+    CollapseModule,
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   declarations: [StoreListComponent]
 })

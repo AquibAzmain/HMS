@@ -1,6 +1,5 @@
 import { Component, TemplateRef, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import {IMyDpOptions, IMyDateModel} from 'mydatepicker';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -21,14 +20,8 @@ export class IncomeComponent implements OnInit {
   selectedMainType: any = '';
   allSubType: Array<any> = [];
   selectedSubType: any = '';
-  selectedDate: any;
+  
   modalHeader:string;
-
-  myDatePickerOptions: IMyDpOptions = {
-        // other options...
-        dateFormat: 'dd.mm.yyyy',
-  };
-
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
 
@@ -74,11 +67,6 @@ export class IncomeComponent implements OnInit {
     console.log(this.selectedSubType);
   }
 
-
-  onDateChanged(event: IMyDateModel) {
-        this.selectedDate = event.date;
-        console.log(this.selectedDate);
-  }
 
   public openModal(template: TemplateRef<any>, type: string) {
     this.modalRef = this.modalService.show(template);
