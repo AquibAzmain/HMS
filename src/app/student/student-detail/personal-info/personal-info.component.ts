@@ -11,7 +11,7 @@ export class PersonalInfoComponent implements OnInit {
 
   editProfile = true;
   editProfileIcon = 'icofont-edit';
-
+  bsValue = new Date();
 
   ngOnInit() {
   }

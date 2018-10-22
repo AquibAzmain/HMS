@@ -56,7 +56,7 @@ export const AppRoutes: Routes = [
     children: [
       {
         path: 'authentication',
-        loadChildren: './pages/authentication/authentication.module#AuthenticationModule'
+        loadChildren: './authentication/authentication.module#AuthenticationModule'
       }
     ]
   }

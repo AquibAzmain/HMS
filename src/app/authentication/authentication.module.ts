@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {WithBgImageComponent} from './login/with-bg-image/with-bg-image.component';
-import {WithSocialComponent} from './registration/with-social/with-social.component';
+import {LoginComponent} from './login/login.component';
+import {RegistrationComponent} from './registration/registration.component';
 
 export const AuthenticationRoutes: Routes = [
   {
@@ -11,14 +11,14 @@ export const AuthenticationRoutes: Routes = [
     children: [
       {
         path: 'login',
-        component: WithBgImageComponent,
+        component: LoginComponent,
         data: {
           breadcrumb: 'Login'
         }
       },
       {
         path: 'registration',
-        component: WithSocialComponent,
+        component: RegistrationComponent,
         data: {
           breadcrumb: 'Registration'
         }
@@ -34,6 +34,6 @@ export const AuthenticationRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [WithBgImageComponent, WithSocialComponent]
+  declarations: [LoginComponent, RegistrationComponent]
 })
 export class AuthenticationModule { }
