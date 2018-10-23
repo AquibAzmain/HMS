@@ -29,10 +29,6 @@ export const StudentRoutes: Routes = [
   path: "details/:id", 
   component: StudentDetailComponent,
   pathMatch: 'full',
-  // data: {
-  //   breadcrumb: 'ছাত্র বিবরণ',
-  //   icon: 'icofont icofont-id bg-c-pink'
-  // }
 },
 { 
   path: "add_student/:id", 

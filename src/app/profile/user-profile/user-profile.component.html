@@ -1,0 +1,98 @@
+<div class="m-t-15">
+  <!-- personal card start -->
+  <div class="row">
+    <div class="col-xl-3"></div>
+    <div class="col-xl-6">
+      <div class="card">
+        <div class="card-header">
+          <button id="edit-btn" type="button" class="btn btn-sm bg-c-blue text-white waves-effect waves-light" (click)="toggleEditProfile()">
+            তথ্য সংশোধন <i class="icofont {{ editProfileIcon }}"></i>
+          </button>
+          <button id="edit-btn" type="button" class="btn btn-sm bg-c-blue text-white waves-effect waves-light f-right" (click)="openModal(template, 'add')">
+            পাসওয়ার্ড পরিবর্তন</button>
+        </div>
+        <div class="card-body">
+          <div class="view-info" *ngIf="editProfile">
+            <div class="row">
+              <div class="col-lg-12 col-xl-12">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <tbody>
+                      <tr>
+                        <th scope="row">নাম</th>
+                        <td>Mr. A</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">মোবাইল নম্বর</th>
+                        <td>0171111111</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end of view-info -->
+          <div class="edit-info" *ngIf="!editProfile">
+            <div class="row">
+              <div class="col-lg-12 col-xl-12">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <tbody>
+                      <tr>
+                        <th scope="row">নাম</th>
+                        <td><input class="form-control" type="text" /></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">মোবাইল নম্বর</th>
+                        <td><input class="form-control" type="text" /></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- end of table col-lg-6 -->
+              <div class="col-lg-12 col-xl-12">
+                <div class="text-center">
+                  <a href="javascript:;" class="btn btn-sm bg-c-blue text-white waves-effect waves-light m-r-20">নিশ্চিত</a>
+                  <a href="javascript:;" id="edit-cancel" class="btn btn-sm residence-button waves-effect" (click)="toggleEditProfile()">বাতিল</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">পাসওয়ার্ড পরিবর্তন</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group row">
+      <label class="col-sm-6 col-form-label">পুরাতন পাসওয়ার্ড</label>
+      <div class="col-sm-6">
+        <input class="form-control" type="password" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-6 col-form-label">নতুন পাসওয়ার্ড</label>
+      <div class="col-sm-6">
+        <input class="form-control" type="password" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-6 col-form-label">পুনরায় নতুন পাসওয়ার্ড</label>
+      <div class="col-sm-6">
+        <input class="form-control" type="password" />
+      </div>
+    </div>
+    <button type="button" class="btn bg-c-blue text-white" (click)="confirm()">নিশ্চিত</button>
+    <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
+  </div>
+</ng-template>

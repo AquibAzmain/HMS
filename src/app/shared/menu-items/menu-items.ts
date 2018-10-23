@@ -78,10 +78,17 @@ const MENUITEMS = [
       },
       {
         state: 'notifications',
-        short_label: 'n',
+        short_label: 'N',
         name: 'নোটিফিকেশন',
         type: 'link',
         icon: 'ti-bell'
+      },
+      {
+        state: 'users',
+        short_label: 'U',
+        name: 'সিস্টেম ব্যবহারকারী',
+        type: 'link',
+        icon: 'ti-user'
       },
     ],
   }

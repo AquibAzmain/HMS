@@ -13,6 +13,7 @@ import {BreadcrumbsComponent} from './layout/admin/breadcrumbs/breadcrumbs.compo
 import {TitleComponent} from './layout/admin/title/title.component';
 import {AuthComponent} from './layout/auth/auth.component';
 import { MyDatePickerModule } from 'mydatepicker';
+import { PageNotFoundComponent } from './authentication/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     AdminComponent,
     BreadcrumbsComponent,
     TitleComponent,
-    AuthComponent
+    AuthComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

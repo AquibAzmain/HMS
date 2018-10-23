@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {LoginComponent} from './login/login.component';
-import {RegistrationComponent} from './registration/registration.component';
+import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
 export const AuthenticationRoutes: Routes = [
   {
@@ -17,10 +17,10 @@ export const AuthenticationRoutes: Routes = [
         }
       },
       {
-        path: 'registration',
-        component: RegistrationComponent,
+        path: 'forgot_password',
+        component: ForgetPasswordComponent,
         data: {
-          breadcrumb: 'Registration'
+          breadcrumb: 'forgot'
         }
       }
     ]
@@ -34,6 +34,6 @@ export const AuthenticationRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [LoginComponent, RegistrationComponent]
+  declarations: [LoginComponent, ForgetPasswordComponent]
 })
 export class AuthenticationModule { }
