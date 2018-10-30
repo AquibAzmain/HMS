@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Notification } from '../../../models/Notification';
+import { NotificationService } from '../notification.service';
+
 
 @Component({
   selector: 'app-notification-list',
@@ -6,10 +10,40 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notification-list.component.css']
 })
 export class NotificationListComponent implements OnInit {
-
-  constructor() { }
+  notifications: Notification[] = [];
+ 
+  constructor(private notificationService: NotificationService) { }
 
   ngOnInit() {
+    let notification: Notification = new Notification();
+    notification.text = "hi";
+    notification.type = 'text';
+    this.notifications.push(notification);
+    
+    // setInterval(() => {
+    //   this.notificationService.getNotification()
+    //   .subscribe((response) => { 
+    //     console.log(response);
+    //   });
+    // }, 5000);
   }
 
+  deleteNotification(notification: Notification) {
+    let index = this.notifications.indexOf(notification);
+    this.notifications.splice(index,1);
+  }
+
+  seenNotification(notification: Notification) {
+    this.deleteNotification(notification);
+  }
+
+  acceptNotification(notification: Notification) {
+    this.deleteNotification(notification);
+    this.notificationService.sendDecisionOfNotification(notification,"accept");
+  }
+
+  rejectNotification(notification: Notification) {
+    this.deleteNotification(notification);
+    this.notificationService.sendDecisionOfNotification(notification,"reject");
+  }
 }

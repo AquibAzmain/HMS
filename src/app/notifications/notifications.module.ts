@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { NotificationService } from './notification.service';
 
 export const notificationsRoutes: Routes = [
   {
@@ -23,7 +24,10 @@ export const notificationsRoutes: Routes = [
     RouterModule.forChild(notificationsRoutes),
     SharedModule,
     FormsModule,
-    HttpModule,
+    HttpModule
+  ],
+  providers: [
+    NotificationService
   ],
   declarations: [NotificationListComponent]
 })

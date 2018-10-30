@@ -14,6 +14,7 @@ import {TitleComponent} from './layout/admin/title/title.component';
 import {AuthComponent} from './layout/auth/auth.component';
 import { MyDatePickerModule } from 'mydatepicker';
 import { PageNotFoundComponent } from './authentication/page-not-found/page-not-found.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PageNotFoundComponent } from './authentication/page-not-found/page-not-
     RouterModule.forRoot(AppRoutes),
     ClickOutsideModule,
     SharedModule,
-    MyDatePickerModule
+    MyDatePickerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

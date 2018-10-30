@@ -1,27 +1,19 @@
 <div class="card">
-  <div class="card-body">
-    <div class="card b-l-success business-info services">
+  <div class="card-body" *ngFor="let notification of this.notifications;">
+    <div *ngIf="notification.type==='text'" class="card b-l-success business-info services">
       <div class="card-body">
-        <h5>ছুটির আবেদন</h5>
-        <p>Mr.Ariful Haque 15/10/2018 থেকে 17/10/2018 তারিখের ছুটির আবেদন করেছেন।</p>
-        <button type="button" class="btn bg-c-purple text-white">নিশ্চিত</button>
-        <button type="button" class="btn text-white cancel-button">বাতিল</button>
+        <h5>{{notification.title}}</h5> 
+        <p>{{notification.text}}</p>
+        <button type="button" class="btn bg-c-purple text-white" (click)="seenNotification(notification)">ঠিক আছে</button>
+        <!-- <button type="button" class="btn text-white cancel-button">বাতিল</button> -->
       </div>
     </div>
-    <div class="card b-l-success business-info services">
+    <div *ngIf="notification.type==='decision'" class="card b-l-success business-info services">
       <div class="card-body">
-        <h5>ছুটির আবেদন</h5>
-        <p>Mr.Ariful Haque 15/10/2018 থেকে 17/10/2018 তারিখের ছুটির আবেদন করেছেন।</p>
-        <button type="button" class="btn bg-c-purple text-white">নিশ্চিত</button>
-        <button type="button" class="btn text-white cancel-button">বাতিল</button>
-      </div>
-    </div>
-    <div class="card b-l-success business-info services">
-      <div class="card-body">
-        <h5>ছুটির আবেদন</h5>
-        <p>Mr.Ariful Haque 15/10/2018 থেকে 17/10/2018 তারিখের ছুটির আবেদন করেছেন।</p>
-        <button type="button" class="btn bg-c-purple text-white">নিশ্চিত</button>
-        <button type="button" class="btn text-white cancel-button">বাতিল</button>
+        <h5>{{notification.title}}</h5>
+        <p>{{notification.text}}</p>
+        <button type="button" class="btn bg-c-purple text-white" (click)="acceptNotification(notification)">নিশ্চিত</button>
+        <button type="button" class="btn text-white cancel-button" (click)="rejectNotification(notification)">বাতিল</button>
       </div>
     </div>
   </div>
