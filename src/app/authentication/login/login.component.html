@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="login-card card-body auth-body">
-          <form class="md-float-material">
+          <form class="md-float-material" role="form" #userlogin="ngForm" (ngSubmit)="login()">
             <div class="text-center">
               <img class="auth-img" src="assets/images/du-logo.png" alt="logo.png">
             </div>
@@ -14,17 +14,21 @@
                 </div>
               </div>
               <hr />
+              <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="message !== ''">
+                {{message}}
+              </div>
+              <hr />
               <div class="input-group">
-                <input type="email" class="form-control" placeholder="আপনার মোবাইল নম্বর">
+                <input type="text" class="form-control" placeholder="আপনার মোবাইল নম্বর" name="mobileNumber" [(ngModel)]="loginData.mobile_number" required >
                 <span class="md-line"></span>
               </div>
               <div class="input-group">
-                <input type="password" class="form-control" placeholder="পাসওয়ার্ড">
+                <input type="password" class="form-control" placeholder="পাসওয়ার্ড" name="password" [(ngModel)]="loginData.password" required>
                 <span class="md-line"></span>
               </div>
               <div class="row m-t-30">
                 <div class="col-md-12">
-                  <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">সাইন
+                  <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" [disabled]="!userlogin.form.valid">সাইন
                     ইন</button>
                 </div>
               </div>

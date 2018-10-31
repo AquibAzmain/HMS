@@ -1,15 +1,36 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [AuthenticationService]
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  loginData = { mobile_number: '', password: '' }
+  message = '';
+  data: any;
+
+  constructor(private http: HttpClient, private router: Router, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+  }
+
+  login() {
+    this.authenticationService.getlogin(this.loginData).subscribe(resp => {
+      this.data = resp;
+      localStorage.setItem('token', this.data.token);
+      localStorage.setItem('role', this.data.role)
+      this.router.navigate(['dashboard']);
+    }, err => {
+      console.log(err);
+      
+      this.message = "Invalid mobile or password"; 
+    });
   }
 
 }
