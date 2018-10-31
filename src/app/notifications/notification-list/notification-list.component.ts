@@ -15,16 +15,17 @@ export class NotificationListComponent implements OnInit {
   constructor(private notificationService: NotificationService) { }
 
   ngOnInit() {
-    let notification: Notification = new Notification();
-    notification.text = "hi";
-    notification.type = 'text';
-    this.notifications.push(notification);
+    // this.notificationService.getNotification()
+    // .subscribe((response) => { 
+    //   console.log(response);
+    // });
+    // let notification: Notification = new Notification();
+    // notification.text = "hi";
+    // notification.type = 'text';
+    // this.notifications.push(notification);
     
     // setInterval(() => {
-    //   this.notificationService.getNotification()
-    //   .subscribe((response) => { 
-    //     console.log(response);
-    //   });
+    //   
     // }, 5000);
   }
 
