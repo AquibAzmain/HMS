@@ -118,7 +118,7 @@
             <td class="pointer normal-link" [routerLink]="['details/', item.name]">{{item.name}}</td>
             <td>{{item.registrationNumber}}</td>
             <td>{{item.residentialStatus ? 'Resident': 'Non-resident'}}</td>
-            <td>{{item.room? 'item.room' : 'No'}}</td>
+            <td>{{item.room? item.room : 'No'}}</td>
             <td>{{item.admissionFeesStatus ? 'Paid' : 'Due'}}</td>
             <td>{{item.residenceFeesStatus ? 'Paid' : 'Due'}}</td>
             <td>{{item.session}}</td>        
