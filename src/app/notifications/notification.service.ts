@@ -38,4 +38,8 @@ export class NotificationService {
       decision: decision
     },this.httpOptions)
   }
+
+  hi () {
+    return 52;
+  }
 }

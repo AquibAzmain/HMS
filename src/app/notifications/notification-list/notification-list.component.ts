@@ -15,10 +15,10 @@ export class NotificationListComponent implements OnInit {
   constructor(private notificationService: NotificationService) { }
 
   ngOnInit() {
-    this.notificationService.getNotification()
-    .subscribe((response) => { 
-      console.log(response);
-    });
+    // this.notificationService.getNotification()
+    // .subscribe((response) => { 
+    //   console.log(response);
+    // });
     // let notification: Notification = new Notification();
     // notification.text = "hi";
     // notification.type = 'text';
