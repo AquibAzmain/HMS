@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { EmployeeService } from './employee.service';
 
 export const EmployeeRoutes: Routes = [
   {
@@ -38,6 +39,9 @@ export const EmployeeRoutes: Routes = [
     CollapseModule .forRoot(),
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot()
+  ],
+  providers: [
+    EmployeeService
   ],
   declarations: [EmployeeListComponent, LeaveInfoComponent, EmployeeDetailComponent, BasicInfoComponent]
 })
