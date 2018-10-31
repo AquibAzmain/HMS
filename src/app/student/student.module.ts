@@ -15,6 +15,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AddStudentComponent } from './student-list/add-student/add-student.component';
+import { StudentService } from './student.service';
 
 export const StudentRoutes: Routes = [
 {
@@ -47,6 +48,9 @@ export const StudentRoutes: Routes = [
     CollapseModule .forRoot(),
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot()
+  ],
+  providers: [
+    StudentService
   ],
   declarations: [
     StudentListComponent,

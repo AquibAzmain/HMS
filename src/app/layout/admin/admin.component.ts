@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {animate, AUTO_STYLE, state, style, transition, trigger} from '@angular/animations';
 import {MenuItems} from '../../shared/menu-items/menu-items';
+import { NotificationService } from '../../notifications/notification.service';
 
 @Component({
   selector: 'app-admin',
@@ -77,12 +78,13 @@ export class AdminComponent implements OnInit {
   configOpenRightBar: string;
   isSidebarChecked: boolean;
   isHeaderChecked: boolean;
+  notificationSize: number;
 
   @ViewChild('searchFriends') search_friends: ElementRef;
 /*  @ViewChild('toggleButton') toggle_button: ElementRef;
   @ViewChild('sideMenu') side_menu: ElementRef;*/
 
-  constructor(public menuItems: MenuItems) {
+  constructor(public menuItems: MenuItems, private notificationService: NotificationService) {
     this.navType = 'st2';
     this.themeLayout = 'vertical';
     this.vNavigationView = 'view1';
@@ -126,6 +128,13 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
+    // setInterval(() => {
+    //     this.notificationService.getNotificationSize()
+    //     .subscribe((response) => { 
+    //       console.log(response);
+    //       this.notificationSize = response['size'];
+    //     });
+    //   }, 5000);
   }
 
   onResize(event) {

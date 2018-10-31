@@ -15,6 +15,7 @@ import {AuthComponent} from './layout/auth/auth.component';
 import { MyDatePickerModule } from 'mydatepicker';
 import { PageNotFoundComponent } from './authentication/page-not-found/page-not-found.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NotificationService } from './notifications/notification.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     MyDatePickerModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

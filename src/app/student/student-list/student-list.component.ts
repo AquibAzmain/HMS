@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import {Http} from '@angular/http';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { StudentService } from '../student.service';
 
 @Component({
   selector: 'app-student-list',
@@ -21,12 +22,19 @@ export class StudentListComponent implements OnInit {
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
 
-  constructor(public http: Http, private modalService: BsModalService) { }
+  constructor(public http: Http, 
+    private modalService: BsModalService,
+    private studentService: StudentService) { }
 
   ngOnInit() {
-    this.http.get(`assets/data/data.json`)
-    .subscribe((data) => {
-      this.data = data.json();
+    // this.http.get(`assets/data/data.json`)
+    // .subscribe((data) => {
+    //   this.data = data.json();
+    // });
+    this.studentService.getStudent()
+    .subscribe((response) => { 
+      console.log(response);
+      this.data = response;
     });
 
   }
