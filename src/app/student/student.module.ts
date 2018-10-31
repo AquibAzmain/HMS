@@ -16,7 +16,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AddStudentComponent } from './student-list/add-student/add-student.component';
 import { StudentService } from './student.service';
-
+import {ToastyModule} from 'ng2-toasty';
 export const StudentRoutes: Routes = [
 {
   path: '',
@@ -47,7 +47,8 @@ export const StudentRoutes: Routes = [
     DataTableModule,
     CollapseModule .forRoot(),
     ModalModule.forRoot(),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    ToastyModule.forRoot()
   ],
   providers: [
     StudentService

@@ -7,10 +7,9 @@
           <button type="button" class="btn btn-danger" (click)="isCollapsed = !isCollapsed">
             সার্চ ও সর্ট
           </button>
-          <button type="button" class="btn btn-danger">
+          <button type="button" class="btn btn-danger" (click)="addToast({title:'Success', msg:'Student added successfully.', timeout: 5000, theme:'material', position:'bottom', type:'success'})">
             <i class="icofont icofont-printer"></i> প্রিন্ট
           </button>
-
           <div [collapse]="isCollapsed" class="card card-block">
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-6">
@@ -217,3 +216,5 @@
     <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
   </div>
 </ng-template>
+
+<ng2-toasty [position]="position"></ng2-toasty>
