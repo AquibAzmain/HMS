@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { AuthenticationService } from './authentication.service';
+import {ToastyModule} from 'ng2-toasty';
 
 export const AuthenticationRoutes: Routes = [
   {
@@ -32,8 +34,11 @@ export const AuthenticationRoutes: Routes = [
     CommonModule,
     RouterModule.forChild(AuthenticationRoutes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastyModule.forRoot()
   ],
-  declarations: [LoginComponent, ForgetPasswordComponent]
+  declarations: [LoginComponent, 
+    ForgetPasswordComponent],
+  providers: [AuthenticationService]
 })
 export class AuthenticationModule { }
