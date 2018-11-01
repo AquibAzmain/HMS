@@ -23,6 +23,7 @@ export class EmployeeListComponent implements OnInit {
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
 
+  role = "hallOfficer"; //admin hallOfficer localStorage.getItem('role');
   employees: Employee[] = [];
   employeeToBeAdded: Employee = new Employee();
   
@@ -31,27 +32,35 @@ export class EmployeeListComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    // let role = "admin";
-    // if((role != "provost")) {
-    //   this.router.navigate(['/**']);
-    // }
+    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
+      this.employeeService.getEmployeeList()
+      .subscribe((response) => { 
+        this.employees = response;
+        console.log(this.employees);
+      });
+    }
+    else {
+      this.router.navigate(['/**']);
+    }
    
-    // this.employeeService.getEmployeeList()
-    // .subscribe((response) => { 
-    //   this.employees = response;
-    //   console.log(this.employees);
-    // });
-    let e : Employee = new Employee();
-    e.id = 1;
-    e.name = "mou";
-    this.employees.push(e);
+    // let e : Employee = new Employee();
+    // e.id = 1;
+    // e.name = "Md. Joarder";
+    // e.address = "dhaka university";
+    // e.job_title = "provost";
+    // e.contact_number = "01913224407";
+    // e.department = "IIT";
+    // e.campus_residency = "yes";
+    // this.employees.push(e);
 
-    let e2 : Employee = new Employee();
-    e2.id = 2;
-    e2.name = "mew";
-    e2.address ="fuller";
-    e2.contact_number ="018";
-    this.employees.push(e2);
+    // let e2 : Employee = new Employee();
+    // e2.id = 2;
+    // e2.name = "Md. Majhar";
+    // e2.address ="fuller road";
+    // e2.contact_number ="01815224407";
+    // e2.job_title = "hall officer";
+    // e2.campus_residency = "no";    
+    // this.employees.push(e2);
   }
 
   // public openModal(template: TemplateRef<any>, type: string) {
@@ -70,16 +79,22 @@ export class EmployeeListComponent implements OnInit {
   }
 
   confirmAddEmployee(): void {
-    // this.employeeService.addEmployee(this.employeeToBeAdded);
-    this.employees.push(this.employeeToBeAdded);
     console.log(this.employees.length);
     this.modalRef.hide();
+    this.employeeService.addEmployee(this.employeeToBeAdded)
+    .subscribe((response) => { 
+      ////////////////////alert//////////////////////////
+      this.employees.push(this.employeeToBeAdded);
+    });
   }
 
   confirmUpdateEmployee(employee): void {
-    this.employeeService.updateEmployee(employee);
-    console.log(employee);
     this.modalRef.hide();
+    this.employeeService.updateEmployee(employee)
+    .subscribe((response) => { 
+      console.log(employee);
+       ////////////////////alert//////////////////////////
+    });
   }
 
   // confirm(): void {
@@ -97,11 +112,14 @@ export class EmployeeListComponent implements OnInit {
   }
 
   confirmDelete(employee): void {
-    //this.employeeService.deleteEmployee(employee);
     console.log(employee)
-    let index = this.employees.indexOf(employee);
-    this.employees.splice(index,1);
     this.deleteModalRef.hide();
+    this.employeeService.deleteEmployee(employee)
+    .subscribe((response) => { 
+      let index = this.employees.indexOf(employee);
+      this.employees.splice(index,1);
+        ////////////////////alert//////////////////////////
+    });
   }
  
   declineDelete(): void {
