@@ -9,6 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { StoreService } from './store.service';
 
 export const StoreRoutes: Routes = [
   {
@@ -30,6 +31,9 @@ export const StoreRoutes: Routes = [
     CollapseModule,
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot()
+  ],
+  providers: [
+    StoreService
   ],
   declarations: [StoreListComponent]
 })

@@ -15,7 +15,7 @@
                   <label for="filter">আইডি</label>
                   <input class="form-control" type="text" />
                 </div>
-                <div class="form-group">
+                <div class="form-group"> 
                   <label for="filter">ধরণ</label>
                   <select class="form-control">
                     <option>--</option>
@@ -84,7 +84,7 @@
               <mfDefaultSorter by="condition">অবস্থা</mfDefaultSorter>
             </th>
             <th>
-              <mfDefaultSorter by="purchaseDate">ক্রয়ের তারিখ</mfDefaultSorter>
+              <mfDefaultSorter by="dateOfPurchase">ক্রয়ের তারিখ</mfDefaultSorter>
             </th>
             <th>
               <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
@@ -98,7 +98,7 @@
             <td>{{item.category}}</td>
             <td>{{item.location}}</td>
             <td>{{item.condition}}</td>
-            <td>{{item.purchaseDate}}</td>
+            <td>{{item.dateOfPurchase}}</td>
             <td>
               <a (click)="openModal(template, 'edit')" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
