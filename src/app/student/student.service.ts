@@ -23,9 +23,10 @@ export class StudentService {
     return this.http.put(Server.API_ENDPOINT +'student', JSON.stringify(student),this.httpOptions)
   }
 
-  deleteStudent(student:Student) {
-    return this.http.delete(Server.API_ENDPOINT +'student/'+student.id,this.httpOptions)
-  }
+  // id nei to ki dhore delete hobe dekhe nio
+  // deleteStudent(student:Student) {
+  //   return this.http.delete(Server.API_ENDPOINT +'student/'+student.id,this.httpOptions) //
+  // }
 
   getStudentById(studentId) : Observable<Student> {
     return this.http.get<Student>(Server.API_ENDPOINT + 'student/'+studentId,this.httpOptions);

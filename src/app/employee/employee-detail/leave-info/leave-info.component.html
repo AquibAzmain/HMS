@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header">
     <p class="card-header-text">ছুটি সংক্রান্ত তথ্যাবলী</p>
-    <button id="edit-btn" type="button" class="btn btn-sm btn-success waves-effect waves-light f-right" (click)="openModal(template, 'add')">
+    <button id="edit-btn" type="button" class="btn btn-sm btn-success waves-effect waves-light f-right" (click)="openAddLeaveModal(addLeave)">
       ছুটির আবেদন
     </button>
   </div>
@@ -9,11 +9,9 @@
   <div class="card-body">
     <div class="card b-l-success business-info services">
       <div class="card-body">
-        <ul>
-          <li><i class="icofont icofont-hour-glass"></i> 15/10/2018 থেকে 17/10/2018 তারিখের ছুটি অনুমোদনের অপেক্ষায়
+        <ul *ngFor="let leave of this.leaves; index as i;">
+          <li *ngIf="leave.approval_status=='pending'"><i class="icofont icofont-hour-glass"></i> {{leave.date_to}} থেকে {{leave.date_from}} তারিখের ছুটি অনুমোদনের অপেক্ষায়
             আছে।</li>
-          <li><i class="icofont icofont-hour-glass"></i> 02/06/2018 থেকে 06/06/2018 তারিখের ছুটির তথ্য সংশোধন অনুমোদনের
-            অপেক্ষায় আছে।</li>
         </ul>
       </div>
     </div>
@@ -39,15 +37,54 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of mf.data; index as i;">
-            <td>{{item.startDate}}-{{item.endDate}}</td>
-            <td>{{item.leaveType}}</td>
-            <!-- <td>{{item.numberOfDays}}</td> -->
-            <td>
-              <a (click)="openModal(template, 'edit')" href="javascript:;" class="edit-delete-icon">
+          <tr *ngFor="let leave of this.leaves; index as i;">
+            <td *ngIf="leave.approval_status=='approved'" >{{leave.date_to}}-{{leave.date_from}}</td>
+            <td *ngIf="leave.approval_status=='approved'">{{leave.category}}</td>
+            <!-- <td>{{leave.numberOfDays}}</td> -->
+            <td *ngIf="leave.approval_status=='approved'">
+              <a (click)="openUpdateLeaveModal(updateLeave)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
-              <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
-                <i class="icofont icofont-ui-delete"></i></a>
+                <ng-template #updateLeave>
+                  <div class="modal-header">
+                    <h5 class="modal-title pull-left">তথ্য সংশোধন</h5>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">ছুটির ব্যাপ্তি</label>
+                      <div class="col-sm-8">
+                        <input type="text" placeholder="" class="form-control" [bsValue]="bsValue" [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
+                          #drp="bsDaterangepicker" bsDaterangepicker>
+                      </div>
+                    </div> -->
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">ছুটি শুরুর তারিখ</label>
+                      <div class="col-sm-8">
+                        <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
+                          bsDatepicker [(ngModel)]="leave.date_to">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">ছুটি শেষের তারিখ</label>
+                      <div class="col-sm-8">
+                        <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
+                          bsDatepicker [(ngModel)]="leave.date_from">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">ছুটির ধরণ</label>
+                      <div class="col-sm-8">
+                          <input class="form-control" type="text" [(ngModel)]="leave.category"/>
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-success text-white" (click)="confirmUpdateLeave(leave)">নিশ্চিত</button>
+                    <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
+                  </div>
+                </ng-template>
+              <!-- <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
+                <i class="icofont icofont-ui-delete"></i></a> -->
             </td>
           </tr>
         </tbody>
@@ -63,7 +100,48 @@
   </div>
 </div>
 
-<ng-template #template>
+
+<ng-template #addLeave>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">ছুটির আবেদন করুন</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- <div class="form-group row">
+      <label class="col-sm-4 col-form-label">ছুটির ব্যাপ্তি</label>
+      <div class="col-sm-8">
+        <input type="text" placeholder="" class="form-control" [bsValue]="bsValue" [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
+          #drp="bsDaterangepicker" bsDaterangepicker>
+      </div>
+    </div> -->
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">ছুটি শুরুর তারিখ</label>
+      <div class="col-sm-8">
+        <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
+          bsDatepicker [(ngModel)]="leaveToBeAdded.date_to">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">ছুটি শেষের তারিখ</label>
+      <div class="col-sm-8">
+        <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
+          bsDatepicker [(ngModel)]="leaveToBeAdded.date_from">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-4 col-form-label">ছুটির ধরণ</label>
+      <div class="col-sm-8">
+          <input class="form-control" type="text" [(ngModel)]="leaveToBeAdded.category"/>
+      </div>
+    </div>
+    <button type="button" class="btn btn-success text-white" (click)="confirmAddLeave()">নিশ্চিত</button>
+    <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
+  </div>
+</ng-template>
+
+<!-- <ng-template #template>
   <div class="modal-header">
     <h5 class="modal-title pull-left">{{modalHeader}}</h5>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -87,7 +165,7 @@
     <button type="button" class="btn btn-success text-white" (click)="confirm()">নিশ্চিত</button>
     <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
   </div>
-</ng-template>
+</ng-template> -->
 
 <ng-template #deleteTemplate>
   <div class="modal-header">

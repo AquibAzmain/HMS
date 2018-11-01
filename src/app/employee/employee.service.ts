@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import {Server} from '../../utils/Server'
 import { Employee } from '../../models/Employee';
 import { SystemJsNgModuleLoader } from '@angular/core/src/linker/system_js_ng_module_factory_loader';
+import { Leave } from '../../models/Leave';
 
 @Injectable()
 export class EmployeeService {
@@ -33,5 +34,17 @@ export class EmployeeService {
 
   getEmployeeById(employeeId) : Observable<Employee> {
     return this.http.get<Employee>(Server.API_ENDPOINT + 'employee/'+employeeId,this.httpOptions);
+  }
+
+  getLeaveList(employeeId) : Observable<Leave[]> {
+    return this.http.get<Leave[]>(Server.API_ENDPOINT + 'leave/'+employeeId,this.httpOptions);
+  }
+
+  addLeave(leave:Leave) {
+    return this.http.post(Server.API_ENDPOINT +'leave', JSON.stringify(leave), this.httpOptions)
+  }
+
+  updateLeave(leave:Leave) {
+    return this.http.put(Server.API_ENDPOINT +'leave', JSON.stringify(leave),this.httpOptions)
   }
 }
