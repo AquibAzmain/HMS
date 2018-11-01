@@ -15,4 +15,8 @@ export class AuthenticationService {
     return this.http.post(Server.API_ENDPOINT +'login', loginData, this.httpOptions);
   }
 
+  forgetPasswordRequest(forgetPasswordData){
+    return this.http.post(Server.API_ENDPOINT +'forget_password', forgetPasswordData, this.httpOptions);
+  }
+
 }

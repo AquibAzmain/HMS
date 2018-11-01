@@ -9,6 +9,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { UserListComponent } from './user-list/user-list.component';
+import { UserService } from './user.service';
 
 export const UserRoutes: Routes = [
   {
@@ -31,6 +32,7 @@ export const UserRoutes: Routes = [
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot()
   ],
-  declarations: [UserListComponent]
+  declarations: [UserListComponent],
+  providers: [UserService]
 })
 export class UsersModule { }

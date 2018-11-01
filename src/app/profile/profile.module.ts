@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ProfileService } from './profile.service';
 
 export const ProfileRoutes: Routes = [
   {
@@ -29,6 +30,7 @@ export const ProfileRoutes: Routes = [
     CollapseModule,
     ModalModule.forRoot()
   ],
-  declarations: [UserProfileComponent]
+  declarations: [UserProfileComponent],
+  providers: [ProfileService]
 })
 export class ProfileModule { }

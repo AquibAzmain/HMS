@@ -11,6 +11,12 @@
           <button id="edit-btn" type="button" class="btn btn-sm bg-c-blue text-white waves-effect waves-light f-right" (click)="openModal(template, 'add')">
             পাসওয়ার্ড পরিবর্তন</button>
         </div>
+        <div class="alert alert-success alert-dismissible" role="alert" *ngIf="successMessage !== ''">
+          {{successMessage}}
+        </div>
+        <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="errorMessage !== ''">
+          {{errorMessage}}
+        </div>
         <div class="card-body">
           <div class="view-info" *ngIf="editProfile">
             <div class="row">
@@ -20,11 +26,11 @@
                     <tbody>
                       <tr>
                         <th scope="row">নাম</th>
-                        <td>Mr. A</td>
+                        <td>{{user_info.name}}</td>
                       </tr>
                       <tr>
                         <th scope="row">মোবাইল নম্বর</th>
-                        <td>0171111111</td>
+                        <td>{{user_info.mobile_number}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -41,11 +47,11 @@
                     <tbody>
                       <tr>
                         <th scope="row">নাম</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" name="name" [(ngModel)]="user_info.name"/></td>
                       </tr>
                       <tr>
                         <th scope="row">মোবাইল নম্বর</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" name="mobile_number" [(ngModel)]="user_info.mobile_number" /></td>
                       </tr>
                     </tbody>
                   </table>
@@ -54,7 +60,7 @@
               <!-- end of table col-lg-6 -->
               <div class="col-lg-12 col-xl-12">
                 <div class="text-center">
-                  <a href="javascript:;" class="btn btn-sm bg-c-blue text-white waves-effect waves-light m-r-20">নিশ্চিত</a>
+                  <a href="javascript:;" class="btn btn-sm bg-c-blue text-white waves-effect waves-light m-r-20" (click)="editUserInfo()">নিশ্চিত</a>
                   <a href="javascript:;" id="edit-cancel" class="btn btn-sm residence-button waves-effect" (click)="toggleEditProfile()">বাতিল</a>
                 </div>
               </div>
