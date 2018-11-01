@@ -42,15 +42,15 @@ export class StudentListComponent implements OnInit {
     private toastyService: ToastyService) { }
 
   ngOnInit() {
-    // this.http.get(`assets/data/data.json`)
-    // .subscribe((data) => {
-    //   this.data = data.json();
-    // });
-    this.studentService.getStudent()
-    .subscribe((response) => { 
-      console.log(response);
-      this.data = response;
+    this.http.get(`assets/data/data.json`)
+    .subscribe((data) => {
+      this.data = data.json();
     });
+    // this.studentService.getStudent()
+    // .subscribe((response) => { 
+    //   console.log(response);
+    //   this.data = response;
+    // });
 
   }
 

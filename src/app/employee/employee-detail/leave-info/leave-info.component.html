@@ -28,9 +28,9 @@
             <th>
               <mfDefaultSorter by="fatherName">ছুটির ধরণ</mfDefaultSorter>
             </th>
-            <th>
+            <!-- <th>
               <mfDefaultSorter by="motherName">দিন</mfDefaultSorter>
-            </th>
+            </th> -->
             <th>
               <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
             </th>
@@ -42,7 +42,7 @@
           <tr *ngFor="let item of mf.data; index as i;">
             <td>{{item.startDate}}-{{item.endDate}}</td>
             <td>{{item.leaveType}}</td>
-            <td>{{item.numberOfDays}}</td>
+            <!-- <td>{{item.numberOfDays}}</td> -->
             <td>
               <a (click)="openModal(template, 'edit')" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;

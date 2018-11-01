@@ -2,7 +2,8 @@
   <div class="card-header">
     <p class="card-header-text">সাধারণ তথ্যাবলী</p>
     <button id="edit-btn" type="button" class="btn btn-sm btn-success waves-effect waves-light f-right" (click)="toggleEditProfile()">
-      তথ্য সংশোধন <i class="icofont {{ editProfileIcon }}"></i>
+      তথ্য সংশোধন
+      <i class="icofont {{ editProfileIcon }}"></i>
     </button>
   </div>
 
@@ -18,35 +19,35 @@
                     <tbody>
                       <tr>
                         <th scope="row">পূর্ণ নাম</th>
-                        <td>Ariful Haque</td>
+                        <td>{{this.employee.name}}</td>
                       </tr>
                       <tr>
                         <th scope="row">যোগদান তারিখ</th>
-                        <td>03/05/2014</td>
+                        <td>{{this.employee.joining_date}}</td>
                       </tr>
                       <tr>
                         <th scope="row">ঠিকানা</th>
-                        <td>Sankar, Dhaka</td>
+                        <td>{{this.employee.address}}</td>
                       </tr>
                       <tr>
                         <th scope="row">মোবাইল</th>
-                        <td>0171111111</td>
+                        <td>{{this.employee.contact_number}}</td>
                       </tr>
                       <tr>
                         <th scope="row">পদমর্যাদা</th>
-                        <td>Hall Officer</td>
+                        <td>{{this.employee.job_title}}</td>
                       </tr>
                       <tr>
                         <th scope="row">ডিপার্টমেন্ট</th>
-                        <td>03/05/2014</td>
+                        <td>{{this.employee.department}}</td>
                       </tr>
                       <tr>
                         <th scope="row">ক্যাম্পাসের আবাসিক</th>
-                        <td>No</td>
+                        <td>{{this.employee.campus_residency}}</td>
                       </tr>
                       <tr>
                         <th scope="row">অনুষ্ঠানে অংশগ্রহণ</th>
-                        <td>Sports, Blood Donation, bla bla</td>
+                        <td>{{this.employee.event_participation}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -58,8 +59,8 @@
         </div>
       </div>
     </div>
-    <!-- end of view-info -->
-    <div class="edit-info" *ngIf="!editProfile">
+    <!-- end of view-info-->
+    <div class="this.role == 'hallOfficer' && edit-info" *ngIf="!editProfile">
       <div class="row">
         <div class="col-lg-12">
           <div class="general-info">
@@ -70,45 +71,60 @@
                     <tbody>
                       <tr>
                         <th scope="row">পূর্ণ নাম</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td>
+                          <input class="form-control" type="text" [(ngModel)]="employee.name" />
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row">যোগদান তারিখ</th>
-                        <td><input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker"
-                            [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
-                            bsDatepicker></td>
+                        <td>
+                          <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue"
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker [(ngModel)]="employee.joining_date">
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row">ঠিকানা</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td>
+                          <input class="form-control" type="text" [(ngModel)]="employee.address" />
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row">মোবাইল</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td>
+                          <input class="form-control" type="text" [(ngModel)]="employee.contact_number" />
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row">পদমর্যাদা</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td>
+                          <input class="form-control" type="text" [(ngModel)]="employee.job_title" />
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row">ডিপার্টমেন্ট</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td>
+                          <input class="form-control" type="text" [(ngModel)]="employee.department" />
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row">ক্যাম্পাসের আবাসিক</th>
-                        <td><select class="form-control">
-                            <option>হ্যাঁ</option>
-                            <option>না</option>
-                          </select></td>
+                        <td>
+                          <select class="form-control" [(ngModel)]="employee.campus_residency">
+                            <option value="yes">হ্যাঁ</option>
+                            <option value="no">না</option>
+                          </select>
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row">অনুষ্ঠানে অংশগ্রহণ</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td>
+                          <input class="form-control" type="text" [(ngModel)]="employee.event_participation" />
+                        </td>
                       </tr>
                     </tbody>
                   </table>
                   <div class="text-center">
-                    <a href="javascript:;" class="btn btn-success waves-effect waves-light m-r-20">নিশ্চিত</a>
+                    <a href="javascript:;" class="btn btn-success waves-effect waves-light m-r-20" (click)="confirmUpdateEmployee()">নিশ্চিত</a>
                     <a href="javascript:;" id="edit-cancel" class="btn residence-button waves-effect" (click)="toggleEditProfile()">বাতিল</a>
                   </div>
                 </div>
