@@ -111,5 +111,25 @@ export class StudentListComponent implements OnInit {
     }
   }
 
+  successToast(){
+    this.addToast({
+      title:'Success', 
+      msg:'Operation successful.', 
+      timeout: 5000, theme:'material', 
+      position:'bottom', 
+      type:'success'
+    });
+  }
+
+  errorToast(){
+    this.addToast({
+      title:'Error', 
+      msg:'Operation not successful.', 
+      timeout: 5000, theme:'material', 
+      position:'bottom', 
+      type:'error'
+    });
+  }
+
 
 }

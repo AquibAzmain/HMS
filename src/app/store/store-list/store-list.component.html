@@ -15,7 +15,7 @@
                   <label for="filter">আইডি</label>
                   <input class="form-control" type="text" />
                 </div>
-                <div class="form-group"> 
+                <div class="form-group">
                   <label for="filter">ধরণ</label>
                   <select class="form-control">
                     <option>--</option>
@@ -62,7 +62,7 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4">
-        <button class="btn btn-warning f-right" (click)="openModal(template, 'add')"><i class="icofont icofont-plus"></i>
+        <button class="btn btn-warning f-right" (click)="openAddAssetModal(addAsset)"><i class="icofont icofont-plus"></i>
           নতুন সম্পদ</button>
       </div>
     </div>
@@ -98,12 +98,79 @@
             <td>{{item.category}}</td>
             <td>{{item.location}}</td>
             <td>{{item.condition}}</td>
-            <td>{{item.dateOfPurchase}}</td>
+            <td>{{item.dateOfPurchase | date}}</td>
             <td>
-              <a (click)="openModal(template, 'edit')" href="javascript:;" class="edit-delete-icon">
+              <a (click)="openUpdateAssetModal(updateAsset)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
+              <ng-template #updateAsset>
+                <div class="modal-header">
+                  <h5 class="modal-title pull-left">তথ্য সংশোধন</h5>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">আইডি</label>
+                    <div class="col-sm-8">
+                      <input class="form-control" type="text" [(ngModel)]="item.assetID" readonly />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">ক্রয়ের তারিখ</label>
+                    <div class="col-sm-8">
+                      <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue"
+                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker
+                        [(ngModel)]="item.dateOfPurchase">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">সম্পদের ধরণ</label>
+                    <div class="col-sm-8">
+                      <select class="form-control" [(ngModel)]="item.category">
+                        <option value="">--</option>
+                        <option value="Furniture">Furniture</option>
+                        <option value="Gardening tool">Gardening tool</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Others">Others</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">অবস্থান</label>
+                    <div class="col-sm-8">
+                      <input class="form-control" type="text" [(ngModel)]="item.location" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">অবস্থা</label>
+                    <div class="col-sm-8">
+                      <select class="form-control" [(ngModel)]="item.condition">
+                        <option value="">--</option>
+                        <option value="Needs repair">Needs repair</option>
+                        <option value="Working">Working</option>
+                        <option value="Discarded">Discarded</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-warning text-white" (click)="confirmUpdateAsset(item)">নিশ্চিত</button>
+                  <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
+                </div>
+              </ng-template>
               <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-ui-delete"></i></a>
+              <ng-template #deleteTemplate>
+                <div class="modal-header">
+                  <h5 class="modal-title pull-left">তথ্য মুছে দিতে ইচ্ছুক?</h5>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <button type="button" class="btn btn-warning text-white" (click)="confirmDelete(item)">নিশ্চিত</button>
+                  <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
+                </div>
+              </ng-template>
             </td>
           </tr>
         </tbody>
@@ -117,12 +184,11 @@
       </table>
     </div>
   </div>
-
 </div>
 
-<ng-template #template>
+<ng-template #addAsset>
   <div class="modal-header">
-    <h5 class="modal-title pull-left">{{modalHeader}}</h5>
+    <h5 class="modal-title pull-left">নতুন সম্পদ যুক্ত করুন</h5>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -131,59 +197,48 @@
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">আইডি</label>
       <div class="col-sm-8">
-        <input class="form-control" type="text"/>
+        <input class="form-control" type="text" [(ngModel)]="assetToBeAdded.assetID" required />
       </div>
     </div>
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">ক্রয়ের তারিখ</label>
       <div class="col-sm-8">
         <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue"
-          [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker>
+          [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker [(ngModel)]="assetToBeAdded.dateOfPurchase">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">সম্পদের ধরণ</label>
       <div class="col-sm-8">
-        <select class="form-control">
-          <option>--</option>
-          <option>Furniture</option>
-          <option>Gardening tool</option>
-          <option>Electronics</option>
-          <option>Others</option>
+        <select class="form-control" [(ngModel)]="assetToBeAdded.category">
+          <option value="">--</option>
+          <option value="Furniture">Furniture</option>
+          <option value="Gardening tool">Gardening tool</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Others">Others</option>
         </select>
       </div>
     </div>
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">অবস্থান</label>
       <div class="col-sm-8">
-        <input class="form-control" type="text" />
+        <input class="form-control" type="text" [(ngModel)]="assetToBeAdded.location" />
       </div>
     </div>
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">অবস্থা</label>
       <div class="col-sm-8">
-        <select class="form-control">
-          <option>--</option>
-          <option>Needs repair</option>
-          <option>Working</option>
-          <option>Discarded</option>
+        <select class="form-control" [(ngModel)]="assetToBeAdded.condition">
+          <option value="">--</option>
+          <option value="Needs repair">Needs repair</option>
+          <option value="Working">Working</option>
+          <option value="Discarded">Discarded</option>
         </select>
       </div>
     </div>
-    <button type="button" class="btn btn-warning text-white" (click)="confirm()">নিশ্চিত</button>
+    <button type="button" class="btn btn-warning text-white" [disabled]="!assetToBeAdded.assetID" (click)="confirmAddAsset()">নিশ্চিত</button>
     <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
   </div>
 </ng-template>
 
-<ng-template #deleteTemplate>
-  <div class="modal-header">
-    <h5 class="modal-title pull-left">তথ্য মুছে দিতে ইচ্ছুক?</h5>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <button type="button" class="btn btn-warning text-white" (click)="confirmDelete()">নিশ্চিত</button>
-    <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
-  </div>
-</ng-template>
+<ng2-toasty [position]="position"></ng2-toasty>

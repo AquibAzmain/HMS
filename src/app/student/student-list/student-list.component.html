@@ -7,7 +7,7 @@
           <button type="button" class="btn btn-danger" (click)="isCollapsed = !isCollapsed">
             সার্চ ও সর্ট
           </button>
-          <button type="button" class="btn btn-danger" (click)="addToast({title:'Success', msg:'Student added successfully.', timeout: 5000, theme:'material', position:'bottom', type:'success'})">
+          <button type="button" class="btn btn-danger" (click)="successToast()">
             <i class="icofont icofont-printer"></i> প্রিন্ট
           </button>
           <div [collapse]="isCollapsed" class="card card-block">

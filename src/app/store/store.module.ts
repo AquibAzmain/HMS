@@ -10,6 +10,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { StoreService } from './store.service';
+import {ToastyModule} from 'ng2-toasty';
 
 export const StoreRoutes: Routes = [
   {
@@ -30,7 +31,8 @@ export const StoreRoutes: Routes = [
     DataTableModule,
     CollapseModule,
     ModalModule.forRoot(),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    ToastyModule.forRoot()
   ],
   providers: [
     StoreService

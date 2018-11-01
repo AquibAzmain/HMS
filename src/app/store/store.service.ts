@@ -18,14 +18,14 @@ export class StoreService {
   }
 
   addAsset(asset:Asset) {
-    this.http.post(Server.API_ENDPOINT +'asset', JSON.stringify(asset), this.httpOptions)
+    return this.http.post(Server.API_ENDPOINT +'store', JSON.stringify(asset), this.httpOptions);
   }
 
   updateAsset(asset:Asset) {
-    this.http.put(Server.API_ENDPOINT +'asset', JSON.stringify(asset),this.httpOptions)
+    return this.http.put(Server.API_ENDPOINT +'store', JSON.stringify(asset),this.httpOptions);
   }
 
   deleteAsset(asset:Asset) {
-    this.http.delete(Server.API_ENDPOINT +'asset/'+asset.assetID,this.httpOptions)
+    return this.http.delete(Server.API_ENDPOINT +'store/'+asset.assetID,this.httpOptions);
   }
 }
