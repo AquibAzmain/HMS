@@ -31,10 +31,10 @@ export class EmployeeListComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    let role = "admin";
-    if((role != "provost")) {
-      this.router.navigate(['/**']);
-    }
+    // let role = "admin";
+    // if((role != "provost")) {
+    //   this.router.navigate(['/**']);
+    // }
    
     // this.employeeService.getEmployeeList()
     // .subscribe((response) => { 
