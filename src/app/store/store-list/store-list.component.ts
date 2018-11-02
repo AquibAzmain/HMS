@@ -64,6 +64,21 @@ export class StoreListComponent implements OnInit {
     // });
   }
 
+  public formatDate(date) {
+    var monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+  
+    var day = date.getDate();
+    var monthIndex = date.getMonth()+1;
+    var year = date.getFullYear();
+  
+    return day + '/' + monthIndex + '/' + year;
+  }
+
   public openModal(template: TemplateRef<any>, type: string) {
     this.modalRef = this.modalService.show(template);
     if (type == "add") this.modalHeader = "নতুন সম্পদ যুক্ত করুন";
@@ -80,18 +95,23 @@ export class StoreListComponent implements OnInit {
   }
 
   confirmAddAsset(): void {
-    this.modalRef.hide();
-    this.assetService.addAsset(this.assetToBeAdded)
-      .subscribe((response) => {
-        if (response["status"] == "ok") {
-          this.successToast();
-          this.data.push(this.assetToBeAdded);
-        }
-        else {
-          console.log("a");
-          this.errorToast();
-        }
-      });
+    console.log(this.formatDate(this.assetToBeAdded.dateOfPurchase));
+    
+    
+    this.assetToBeAdded.dateOfPurchase = this.formatDate(this.assetToBeAdded.dateOfPurchase);
+    console.log(this.assetToBeAdded)
+    // this.modalRef.hide();
+    // this.assetService.addAsset(this.assetToBeAdded)
+    //   .subscribe((response) => {
+    //     if (response["status"] == "ok") {
+    //       this.successToast();
+    //       this.data.push(this.assetToBeAdded);
+    //     }
+    //     else {
+    //       console.log("a");
+    //       this.errorToast();
+    //     }
+    //   });
   }
 
   confirmUpdateAsset(asset): void {
