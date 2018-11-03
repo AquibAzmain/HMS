@@ -3,6 +3,7 @@ import {Http} from '@angular/http';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { StudentService } from '../student.service';
 import {ToastData, ToastOptions, ToastyService} from 'ng2-toasty';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-list',
@@ -39,19 +40,24 @@ export class StudentListComponent implements OnInit {
   constructor(public http: Http, 
     private modalService: BsModalService,
     private studentService: StudentService,
-    private toastyService: ToastyService) { }
+    private toastyService: ToastyService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.http.get(`assets/data/data.json`)
-    .subscribe((data) => {
-      this.data = data.json();
-    });
-    // this.studentService.getStudent()
-    // .subscribe((response) => { 
-    //   console.log(response);
-    //   this.data = response;
+    // this.http.get(`assets/data/data.json`)
+    // .subscribe((data) => {
+    //   this.data = data.json();
     // });
+    this.getStudentList();
 
+  }
+
+  getStudentList(){
+    this.studentService.getStudentList()
+    .subscribe((response) => { 
+      console.log(response);
+      this.data = response;
+    });
   }
 
   public openModal(template: TemplateRef<any>, type: string) {
@@ -130,6 +136,8 @@ export class StudentListComponent implements OnInit {
       type:'error'
     });
   }
+
+  
 
 
 }

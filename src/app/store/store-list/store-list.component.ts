@@ -95,23 +95,19 @@ export class StoreListComponent implements OnInit {
   }
 
   confirmAddAsset(): void {
-    console.log(this.formatDate(this.assetToBeAdded.dateOfPurchase));
-    
-    
     this.assetToBeAdded.dateOfPurchase = this.formatDate(this.assetToBeAdded.dateOfPurchase);
-    console.log(this.assetToBeAdded)
-    // this.modalRef.hide();
-    // this.assetService.addAsset(this.assetToBeAdded)
-    //   .subscribe((response) => {
-    //     if (response["status"] == "ok") {
-    //       this.successToast();
-    //       this.data.push(this.assetToBeAdded);
-    //     }
-    //     else {
-    //       console.log("a");
-    //       this.errorToast();
-    //     }
-    //   });
+    this.modalRef.hide();
+    this.assetService.addAsset(this.assetToBeAdded)
+      .subscribe((response) => {
+        if (response["status"] == "ok") {
+          this.successToast();
+          this.data.push(this.assetToBeAdded);
+        }
+        else {
+          console.log("a");
+          this.errorToast();
+        }
+      });
   }
 
   confirmUpdateAsset(asset): void {

@@ -11,7 +11,7 @@ export class StudentService {
   };
   constructor(private http: HttpClient) { }
 
-  getStudent() : Observable<Student> {
+  getStudentList() : Observable<Student> {
     return this.http.get<Student>(Server.API_ENDPOINT +'student')
   } 
 

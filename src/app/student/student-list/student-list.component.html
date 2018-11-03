@@ -88,22 +88,25 @@
               <mfDefaultSorter by="name">নাম</mfDefaultSorter>
             </th>
             <th>
-              <mfDefaultSorter by="registrationNumber">রেজিস্ট্রেশন<br/>নম্বর</mfDefaultSorter>
+              <mfDefaultSorter by="registrationNumber">রেজিস্ট্রেশন<br />নম্বর</mfDefaultSorter>
             </th>
             <th>
-              <mfDefaultSorter by="residenceStatus">আবাসিক<br/>স্ট্যাটাস</mfDefaultSorter>
+              <mfDefaultSorter by="presentAddress">শিক্ষাবর্ষ</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="residenceStatus">আবাসিক<br />স্ট্যাটাস</mfDefaultSorter>
             </th>
             <th>
               <mfDefaultSorter by="room">কক্ষ</mfDefaultSorter>
             </th>
             <th>
-              <mfDefaultSorter by="department">অ্যাডমিশন<br/>ফি</mfDefaultSorter>
+              <mfDefaultSorter by="department">অ্যাডমিশন<br />ফি</mfDefaultSorter>
             </th>
             <th>
-              <mfDefaultSorter by="session">আবাসিক<br/>ফি</mfDefaultSorter>
+              <mfDefaultSorter by="session">আবাসিক<br />ফি</mfDefaultSorter>
             </th>
             <th>
-              <mfDefaultSorter by="presentAddress">শিক্ষাবর্ষ</mfDefaultSorter>
+              <mfDefaultSorter by="session">মোবাইল<br />নম্বর</mfDefaultSorter>
             </th>
             <th>
               <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
@@ -116,11 +119,12 @@
           <tr *ngFor="let item of mf.data; index as i;">
             <td class="pointer normal-link" [routerLink]="['details/', item.name]">{{item.name}}</td>
             <td>{{item.registrationNumber}}</td>
-            <td>{{item.residentialStatus ? 'Resident': 'Non-resident'}}</td>
+            <td>{{item.session}}</td>
+            <td>{{item.residentialStatus}}</td>
             <td>{{item.room? item.room : 'No'}}</td>
             <td>{{item.admissionFeesStatus ? 'Paid' : 'Due'}}</td>
             <td>{{item.residenceFeesStatus ? 'Paid' : 'Due'}}</td>
-            <td>{{item.session}}</td>        
+            <td>{{item.mobileNumber}}</td>
             <td>
               <a (click)="openModal(template, 'edit')" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
@@ -131,7 +135,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="8">
+            <td colspan="10">
               <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
             </td>
           </tr>
