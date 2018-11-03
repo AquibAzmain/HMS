@@ -10,7 +10,7 @@
             <input type="text" placeholder="" class="form-control" [bsValue]="bsValue" [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
               #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="dateRange">
           </div>
-          <button type="submit" class="btn bg-c-brown text-white" (click)="generateReport()">ক্লিক করুন</button>
+          <button type="submit" class="btn bg-c-brown text-white" (click)="getDateRange()">ডাউনলোড করুন</button>
         </div>
         <div class="col-sm-3"></div>
       </div>

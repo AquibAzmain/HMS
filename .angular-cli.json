@@ -32,7 +32,8 @@
         "assets/charts/flot/jquery.flot.pie.js",
         "assets/charts/knob/jquery.knob.js",
         "assets/charts/waterball/createWaterBall-jquery.js",
-        "../node_modules/jquery-sparkline/jquery.sparkline.min.js"
+        "../node_modules/jquery-sparkline/jquery.sparkline.min.js",
+        "../node_modules/jspdf/dist/jspdf.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
