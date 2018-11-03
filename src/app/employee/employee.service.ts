@@ -8,9 +8,9 @@ import { Leave } from '../../models/Leave';
 
 @Injectable()
 export class EmployeeService {
-  token = "mew";//localStorage.getItem('token');
+  token = localStorage.getItem('token');
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json','token': this.token})
+    headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+this.token})
   };
 
   constructor(private http: HttpClient) { }
@@ -19,8 +19,8 @@ export class EmployeeService {
     return this.http.get<Employee[]>(Server.API_ENDPOINT + 'employee');
   }
 
-  addEmployee(employee:Employee) {
-    return this.http.post(Server.API_ENDPOINT +'employee', JSON.stringify(employee), this.httpOptions)
+  addEmployee(employee:Employee) : Observable<Employee>{
+    return this.http.post<Employee>(Server.API_ENDPOINT +'employee', JSON.stringify(employee), this.httpOptions)
   }
 
   updateEmployee(employee:Employee) {

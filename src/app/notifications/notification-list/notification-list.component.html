@@ -8,7 +8,16 @@
         <!-- <button type="button" class="btn text-white cancel-button">বাতিল</button> -->
       </div>
     </div>
-    <div *ngIf="notification.type==='decision'" class="card b-l-success business-info services">
+    <div *ngIf="notification.type==='password'" class="card b-l-success business-info services">
+      <div class="card-body">
+        <h5>{{notification.title}}</h5>
+        <p>{{notification.text}}</p>
+        <button type="button" class="btn bg-c-purple text-white" (click)="acceptNotification(notification)">নিশ্চিত</button>
+        <button type="button" class="btn text-white cancel-button" (click)="rejectNotification(notification)">বাতিল</button>
+      </div>
+    </div>
+
+    <div *ngIf="notification.type==='leave'" class="card b-l-success business-info services">
       <div class="card-body">
         <h5>{{notification.title}}</h5>
         <p>{{notification.text}}</p>

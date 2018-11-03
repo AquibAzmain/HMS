@@ -7,31 +7,33 @@ import { Observable } from 'rxjs/Observable';
 export class NotificationService {
   token = localStorage.getItem('token');
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json','token': this.token})
+    headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+this.token})
   };
 
   constructor(private http: HttpClient) { }
 
   getNotification() : Observable<Notification[]> {
-    return this.http.get<Notification[]>(Server.API_ENDPOINT + 'notification/');
+    console.log(this.token);
+    return this.http.get<Notification[]>(Server.API_ENDPOINT + 'notification',this.httpOptions);
     // return this.http.post<Notification>(Server.API_ENDPOINT +'getNotification/', {
     //   token: this.token
     // },this.httpOptions)
   }
 
   getNotificationSize() {
-    return this.http.get(Server.API_ENDPOINT + 'notificationSize/');
+    return this.http.get(Server.API_ENDPOINT + 'notificationSize',this.httpOptions);
   }
 
   seenNotification(notification: Notification) {
-    this.http.post(Server.API_ENDPOINT +'seenNotification/', {
-      id: notification.id
+    this.http.post(Server.API_ENDPOINT +'seenNotification', {
+      id: notification.id,
     },this.httpOptions)
   }
 
   sendDecisionOfNotification(notification: Notification, decision: string) {
-    this.http.put(Server.API_ENDPOINT +'sendDecisionOfNotification/', {
+    this.http.post(Server.API_ENDPOINT +'decision', {
       id: notification.id,
+      type: notification.type,
       decision: decision
     },this.httpOptions)
   }

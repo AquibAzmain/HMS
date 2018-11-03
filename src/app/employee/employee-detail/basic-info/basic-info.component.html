@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header">
     <p class="card-header-text">সাধারণ তথ্যাবলী</p>
-    <button id="edit-btn" type="button" class="btn btn-sm btn-success waves-effect waves-light f-right" (click)="toggleEditProfile()">
+    <button *ngIf="this.role == 'hallOfficer'" id="edit-btn" type="button" class="btn btn-sm btn-success waves-effect waves-light f-right" (click)="toggleEditProfile()">
       তথ্য সংশোধন
       <i class="icofont {{ editProfileIcon }}"></i>
     </button>
@@ -79,7 +79,8 @@
                         <th scope="row">যোগদান তারিখ</th>
                         <td>
                           <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue"
-                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker [(ngModel)]="employee.joining_date">
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" 
+                            bsDatepicker [(ngModel)]="employee.joining_date">
                         </td>
                       </tr>
                       <tr>

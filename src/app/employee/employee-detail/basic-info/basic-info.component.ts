@@ -11,7 +11,7 @@ import { EmployeeService } from '../../employee.service';
 export class BasicInfoComponent implements OnInit {
   editProfile = true;
   editProfileIcon = 'icofont-edit';
-  role = "hallOfficer";
+  role = localStorage.getItem('role'); //"hallOfficer";
   employee: Employee = new Employee();
 
   constructor(private route: ActivatedRoute,
@@ -19,16 +19,21 @@ export class BasicInfoComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    let employeeId = this.route.snapshot.paramMap.get('id');
+    //console.log(employeeId);
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
-      this.employeeService.getEmployeeById(employeeId)
-      .subscribe((response) => { 
-        this.employee = response;
-      });
+      this.getEmployeeData();
     }
     else {
       this.router.navigate(['/**']);
     }
+  }
+
+  getEmployeeData() {
+    let employeeId = this.route.snapshot.paramMap.get('id');
+    this.employeeService.getEmployeeById(employeeId)
+    .subscribe((response) => { 
+      this.employee = response;
+    });
   }
 
   toggleEditProfile() {
@@ -37,11 +42,30 @@ export class BasicInfoComponent implements OnInit {
   }
 
   confirmUpdateEmployee(): void {
+    if(this.employee.joining_date!=null) {
+      this.employee.joining_date = this.formatDate(this.employee.joining_date);
+    }
     this.employeeService.updateEmployee(this.employee)
     .subscribe((response) => { 
       this.toggleEditProfile();
+      this.getEmployeeData();
       console.log(this.employee);
        ////////////////////alert//////////////////////////
     });
+  }
+
+  public formatDate(date) {
+    var monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+  
+    var day = date.getDate();
+    var monthIndex = date.getMonth()+1;
+    var year = date.getFullYear();
+  
+    return day + '/' + monthIndex + '/' + year;
   }
 }

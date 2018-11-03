@@ -7,7 +7,7 @@ import { Student } from '../../models/Student';
 export class StudentService {
   token = localStorage.getItem('token');
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+    headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+this.token})
   };
   constructor(private http: HttpClient) { }
 

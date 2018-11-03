@@ -23,7 +23,7 @@ export class EmployeeListComponent implements OnInit {
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
 
-  role = "hallOfficer"; //admin hallOfficer localStorage.getItem('role');
+  role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
   employees: Employee[] = [];
   employeeToBeAdded: Employee = new Employee();
   
@@ -33,11 +33,7 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnInit() {
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
-      this.employeeService.getEmployeeList()
-      .subscribe((response) => { 
-        this.employees = response;
-        console.log(this.employees);
-      });
+      this.getEmployeeData();
     }
     else {
       this.router.navigate(['/**']);
@@ -63,6 +59,13 @@ export class EmployeeListComponent implements OnInit {
     // this.employees.push(e2);
   }
 
+  getEmployeeData() {
+    this.employeeService.getEmployeeList()
+      .subscribe((response) => { 
+        this.employees = response;
+        console.log(this.employees);
+      });
+  }
   // public openModal(template: TemplateRef<any>, type: string) {
   //   this.modalRef = this.modalService.show(template);
   //   if(type=="add")this.modalHeader = "নতুন কর্মকর্তা/কর্মচারী যুক্ত করুন";
@@ -81,17 +84,29 @@ export class EmployeeListComponent implements OnInit {
   confirmAddEmployee(): void {
     console.log(this.employees.length);
     this.modalRef.hide();
+    if(this.employeeToBeAdded.joining_date != null){
+      this.employeeToBeAdded.joining_date = this.formatDate(this.employeeToBeAdded.joining_date);
+    }
     this.employeeService.addEmployee(this.employeeToBeAdded)
     .subscribe((response) => { 
       ////////////////////alert//////////////////////////
+      this.employeeToBeAdded = response;
       this.employees.push(this.employeeToBeAdded);
+      this.getEmployeeData();
     });
   }
 
   confirmUpdateEmployee(employee): void {
+    console.log(employee)
     this.modalRef.hide();
+    if(employee.joining_date != null){
+      employee.joining_date = this.formatDate(employee.joining_date);
+    }
+    
     this.employeeService.updateEmployee(employee)
     .subscribe((response) => { 
+      this.getEmployeeData();
+      console.log(response);
       console.log(employee);
        ////////////////////alert//////////////////////////
     });
@@ -126,5 +141,19 @@ export class EmployeeListComponent implements OnInit {
     this.deleteModalRef.hide();
   }
 
+  public formatDate(date) {
+    var monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+  
+    var day = date.getDate();
+    var monthIndex = date.getMonth()+1;
+    var year = date.getFullYear();
+  
+    return day + '/' + monthIndex + '/' + year;
+  }
 
 }

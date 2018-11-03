@@ -26,7 +26,8 @@ export class LeaveInfoComponent implements OnInit {
 
   leaves: Leave[] = [];
   leaveToBeAdded: Leave = new Leave();
-  role = "hallOfficer"; //localStorage.getItem('role');
+  pendingLeave = false;
+  role = localStorage.getItem('role'); //"hallOfficer"; 
   constructor(public http: Http, private modalService: BsModalService,
     private route: ActivatedRoute,
     private employeeService : EmployeeService,
@@ -34,11 +35,9 @@ export class LeaveInfoComponent implements OnInit {
 
   ngOnInit() {
     this.employeeId = this.route.snapshot.paramMap.get('id');
+    console.log(this.role);
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
-      this.employeeService.getLeaveList(this.employeeId)
-      .subscribe((response) => { 
-        this.leaves = response;
-      });
+      this.getLeaveData();
     }
     else {
       this.router.navigate(['/**']);
@@ -56,6 +55,15 @@ export class LeaveInfoComponent implements OnInit {
     // l2.date_to ="19-2-18";
     // l2.category = "sick";
     // this.leaves.push(l2);
+  }
+
+  public getLeaveData() {
+    this.employeeService.getLeaveList(this.employeeId)
+      .subscribe((response) => { 
+        console.log(response);
+        this.leaves = response;
+        this.checkPendingLeave();
+      });
   }
 
   public openUpdateLeaveModal(template: TemplateRef<any>) {
@@ -86,19 +94,26 @@ export class LeaveInfoComponent implements OnInit {
   confirmAddLeave(): void {
     this.modalRef.hide();
     this.leaveToBeAdded.approval_status = "pending";
-    this.leaveToBeAdded.employeeId = this.employeeId;
+    this.leaveToBeAdded.employee_id = this.employeeId;
+    this.leaveToBeAdded.date_from = this.formatDate(this.leaveToBeAdded.date_from);
+    this.leaveToBeAdded.date_to = this.formatDate(this.leaveToBeAdded.date_to);
+    console.log(this.leaveToBeAdded);
     this.employeeService.addLeave(this.leaveToBeAdded)
     .subscribe((response) => { 
+      console.log(this.leaveToBeAdded);
       ////////////////////alert//////////////////////////
-      this.leaves.push(this.leaveToBeAdded);
+      this.getLeaveData();
     });
   }
 
   confirmUpdateLeave(leave): void {
     this.modalRef.hide();
+    leave.date_from = this.formatDate(leave.date_from);
+    leave.date_to = this.formatDate(leave.date_to);
     this.employeeService.updateLeave(leave)
     .subscribe((response) => { 
       console.log(leave);
+      this.getLeaveData();
        ////////////////////alert//////////////////////////
     });
   }
@@ -113,5 +128,30 @@ export class LeaveInfoComponent implements OnInit {
  
   declineDelete(): void {
     this.deleteModalRef.hide();
+  }
+
+  checkPendingLeave() {
+    for(let i=0; i<this.leaves.length; i++) {
+      if(this.leaves[i].approval_status =="pending") {
+        this.pendingLeave = true;
+        console.log("pending ache!");
+        break;
+      }
+    }
+  }
+
+  public formatDate(date) {
+    var monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+  
+    var day = date.getDate();
+    var monthIndex = date.getMonth()+1;
+    var year = date.getFullYear();
+  
+    return day + '/' + monthIndex + '/' + year;
   }
 }
