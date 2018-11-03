@@ -8,7 +8,7 @@ import { Asset } from '../../models/Asset';
 export class StoreService {
   token = "niloy";//localStorage.getItem('token');
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json','token': this.token})
+    headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+this.token})
   };
 
   constructor(private http: HttpClient) { }

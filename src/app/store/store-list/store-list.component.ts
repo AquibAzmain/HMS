@@ -17,13 +17,6 @@ import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
 })
 export class StoreListComponent implements OnInit {
   position = 'bottom';
-  title: string;
-  msg: string;
-  showClose = true;
-  timeout = 5000;
-  theme = 'bootstrap';
-  type = 'default';
-  closeOther = false;
 
   public data: any;
   public rowsOnPage = 10;
@@ -52,6 +45,8 @@ export class StoreListComponent implements OnInit {
       this.assetService.getAssetList()
         .subscribe((response) => {
           this.data = response;
+        }, error => {
+          this.errorViewToast();
         });
     }
     else {
@@ -71,11 +66,11 @@ export class StoreListComponent implements OnInit {
       "August", "September", "October",
       "November", "December"
     ];
-  
+
     var day = date.getDate();
-    var monthIndex = date.getMonth()+1;
+    var monthIndex = date.getMonth() + 1;
     var year = date.getFullYear();
-  
+
     return day + '/' + monthIndex + '/' + year;
   }
 
@@ -99,14 +94,10 @@ export class StoreListComponent implements OnInit {
     this.modalRef.hide();
     this.assetService.addAsset(this.assetToBeAdded)
       .subscribe((response) => {
-        if (response["status"] == "ok") {
-          this.successToast();
-          this.data.push(this.assetToBeAdded);
-        }
-        else {
-          console.log("a");
-          this.errorToast();
-        }
+        this.successToast();
+        this.data.push(this.assetToBeAdded);
+      }, error => {
+        this.errorDuplicateIdToast();
       });
   }
 
@@ -114,11 +105,10 @@ export class StoreListComponent implements OnInit {
     this.modalRef.hide();
     this.assetService.updateAsset(asset)
       .subscribe((response) => {
-        if (response["status"] == "ok") {
-          this.successToast();
-          this.data.push(this.assetToBeAdded);
-        }
-        else this.errorToast();
+        this.successToast();
+        this.data.push(this.assetToBeAdded);
+      }, error => {
+        this.errorToast();
       });
 
   }
@@ -135,13 +125,11 @@ export class StoreListComponent implements OnInit {
     this.deleteModalRef.hide();
     this.assetService.deleteAsset(asset)
       .subscribe((response) => {
-        console.log(response);
-        if (response["status"] == "ok") {
-          let index = this.data.indexOf(asset);
-          this.data.splice(index, 1);
-          this.successToast();
-        }
-        else this.errorToast();
+        let index = this.data.indexOf(asset);
+        this.data.splice(index, 1);
+        this.successToast();
+      }, error => {
+        this.errorToast();
       });
 
   }
@@ -193,6 +181,26 @@ export class StoreListComponent implements OnInit {
     this.addToast({
       title: 'Error',
       msg: 'Operation not successful.',
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'error'
+    });
+  }
+
+  errorViewToast() {
+    this.addToast({
+      title: 'Error',
+      msg: 'Check Internet Connection.',
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'error'
+    });
+  }
+
+  errorDuplicateIdToast() {
+    this.addToast({
+      title: 'Error',
+      msg: 'Operation not successful. Duplicate Id in not allowed',
       timeout: 5000, theme: 'material',
       position: 'bottom',
       type: 'error'
