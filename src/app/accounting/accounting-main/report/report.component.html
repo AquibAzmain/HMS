@@ -8,9 +8,9 @@
           <div class="form-group">
             <label for="filter">হিসাবের প্রতিবেদন পাওয়ার জন্য তারিখের ব্যাপ্তি নির্বাচন করুন</label>
             <input type="text" placeholder="" class="form-control" [bsValue]="bsValue" [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
-              #drp="bsDaterangepicker" bsDaterangepicker>
+              #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="dateRange">
           </div>
-          <button type="submit" class="btn bg-c-brown text-white">ক্লিক করুন</button>
+          <button type="submit" class="btn bg-c-brown text-white" (click)="generateReport()">ক্লিক করুন</button>
         </div>
         <div class="col-sm-3"></div>
       </div>
