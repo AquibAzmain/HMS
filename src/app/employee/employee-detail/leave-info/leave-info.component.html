@@ -1,13 +1,13 @@
 <div class="card">
   <div class="card-header">
     <p class="card-header-text">ছুটি সংক্রান্ত তথ্যাবলী</p>
-    <button id="edit-btn" type="button" class="btn btn-sm btn-success waves-effect waves-light f-right" (click)="openAddLeaveModal(addLeave)">
+    <button *ngIf="this.role == 'hallOfficer'" id="edit-btn" type="button" class="btn btn-sm btn-success waves-effect waves-light f-right" (click)="openAddLeaveModal(addLeave)">
       ছুটির আবেদন
     </button>
   </div>
 
   <div class="card-body">
-    <div class="card b-l-success business-info services">
+    <div *ngIf ="this.pendingLeave==true" class="card b-l-success business-info services">
       <div class="card-body">
         <ul *ngFor="let leave of this.leaves; index as i;">
           <li *ngIf="leave.approval_status=='pending'"><i class="icofont icofont-hour-glass"></i> {{leave.date_to}} থেকে {{leave.date_from}} তারিখের ছুটি অনুমোদনের অপেক্ষায়
@@ -29,7 +29,7 @@
             <!-- <th>
               <mfDefaultSorter by="motherName">দিন</mfDefaultSorter>
             </th> -->
-            <th>
+            <th *ngIf="this.role == 'hallOfficer'">
               <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
             </th>
           </tr>
@@ -38,10 +38,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let leave of this.leaves; index as i;">
-            <td *ngIf="leave.approval_status=='approved'" >{{leave.date_to}}-{{leave.date_from}}</td>
+            <td *ngIf="leave.approval_status=='approved'" >{{leave.date_to}} - {{leave.date_from}}</td>
             <td *ngIf="leave.approval_status=='approved'">{{leave.category}}</td>
             <!-- <td>{{leave.numberOfDays}}</td> -->
-            <td *ngIf="leave.approval_status=='approved'">
+            <td *ngIf="leave.approval_status=='approved' && this.role == 'hallOfficer'">
               <a (click)="openUpdateLeaveModal(updateLeave)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
                 <ng-template #updateLeave>

@@ -90,7 +90,7 @@
         <tbody>
           <tr *ngFor="let employee of this.employees; index as i;">
             <td class="pointer normal-link" [routerLink]="['details/', employee.id]">{{employee.name}}</td>
-            <td>{{employee.joining_date| date}}</td>
+            <td>{{employee.joining_date}}</td>
             <td>{{employee.job_title}}</td>
             <td>{{employee.contact_number}}</td>
             <td>{{employee.department}}</td>
