@@ -18,27 +18,27 @@
                     <tbody>
                       <tr>
                         <th scope="row">পূর্ণ নাম</th>
-                        <td>Md. Aquib Azmain</td>
+                        <td>{{this.student.name}}</td>
                       </tr>
                       <tr>
                         <th scope="row">পিতার নাম</th>
-                        <td>Md. Mahfuzul Haque</td>
+                        <td>{{this.student.fathersName}}</td>
                       </tr>
                       <tr>
                         <th scope="row">মাতার নাম</th>
-                        <td>Makhluka Haque</td>
+                        <td>{{this.student.mothersName}}</td>
                       </tr>
                       <tr>
                         <th scope="row">অভিভাবকের বার্ষিক আয়</th>
-                        <td>12,0,000 tk</td>
+                        <td>{{this.student.legal_annual_income}}</td>
                       </tr>
                       <tr>
                         <th scope="row">জাতীয়তা</th>
-                        <td>Bangladeshi</td>
+                        <td>{{this.student.nationality}}</td>
                       </tr>
                       <tr>
                         <th scope="row">লিঙ্গ</th>
-                        <td>Male</td>
+                        <td>{{this.student.gender}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -51,27 +51,27 @@
                     <tbody>
                       <tr>
                         <th scope="row">জন্মতারিখ</th>
-                        <td>October 3, 1996</td>
+                        <td>{{this.student.dateOfBirth}}</td>
                       </tr>
                       <tr>
                         <th scope="row">ধর্ম</th>
-                        <td>Islam</td>
+                        <td>{{this.student.religion}}</td>
                       </tr>
                       <tr>
                         <th scope="row">NID</th>
-                        <td>1000012031</td>
+                        <td>{{this.student.NID}}</td>
                       </tr>
                       <tr>
                         <th scope="row">যোগাযোগের ঠিকানা</th>
-                        <td>Sankar, Dhaka</td>
+                        <td>{{this.student.contactAddress}}</td>
                       </tr>
                       <tr>
                         <th scope="row">স্থায়ী ঠিকানা</th>
-                        <td>Jaleshwaritola, Bogra</td>
+                        <td>{{this.student.permanentAddress}}</td>
                       </tr>
                       <tr>
                         <th scope="row">মোবাইল</th>
-                        <td>+880171111000</td>
+                        <td>{{this.student.mobileNumber}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -89,15 +89,15 @@
                     <tbody>
                       <tr>
                         <th scope="row">নাম</th>
-                        <td>Md. Mahfuzul Haque</td>
+                        <td>{{this.student.legal_guardian_name}}</td>
                       </tr>
                       <tr>
                         <th scope="row">ছাত্রের সাথে সম্পর্ক &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                        <td>Father</td>
+                        <td>{{this.student.legal_relation_with_student}}</td>
                       </tr>
                       <tr>
                         <th scope="row">ঠিকানা</th>
-                        <td>Bogura</td>
+                        <td>{{this.student.legal_address}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -109,15 +109,15 @@
                     <tbody>
                       <tr>
                         <th scope="row">মোবাইল</th>
-                        <td>+880171123000</td>
+                        <td>{{this.student.legal_mobile_no}}</td>
                       </tr>
                       <tr>
                         <th scope="row">পেশা</th>
-                        <td>Business</td>
+                        <td>{{this.student.legal_profession}}</td>
                       </tr>
                       <tr>
                         <th scope="row">মাসিক আয় &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                        <td>1,00,000 taka</td>
+                        <td>{{this.student.legal_monthly_income}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -135,15 +135,15 @@
                     <tbody>
                       <tr>
                         <th scope="row">নাম</th>
-                        <td>Md. Ariful Haque</td>
+                        <td>{{this.student.local_guardian_name}}</td>
                       </tr>
                       <tr>
                         <th scope="row">ছাত্রের সাথে সম্পর্ক</th>
-                        <td>Brother</td>
+                        <td>{{this.student.local_relation_with_student}}</td>
                       </tr>
                       <tr>
                         <th scope="row">ঠিকানা</th>
-                        <td>Dhaka</td>
+                        <td>{{this.student.local_address}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -155,15 +155,15 @@
                     <tbody>
                       <tr>
                         <th scope="row">মোবাইল</th>
-                        <td>+880171123000</td>
+                        <td>{{this.student.local_mobile_no}}</td>
                       </tr>
                       <tr>
                         <th scope="row">পেশা</th>
-                        <td>Job</td>
+                        <td>{{this.student.local_profession}}</td>
                       </tr>
                       <tr>
                         <th scope="row">মাসিক আয় &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                        <td>1,00,000 taka</td>
+                        <td>{{this.student.local_monthly_income}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -187,29 +187,29 @@
                     <tbody>
                       <tr>
                         <th scope="row">পূর্ণ নাম</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.name"/></td>
                       </tr>
                       <tr>
                         <th scope="row">পিতার নাম</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.fathersName"/></td>
                       </tr>
                       <tr>
                         <th scope="row">মাতার নাম</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.mothersName"/></td>
                       </tr>
                       <tr>
                         <th scope="row">অভিভাবকের বার্ষিক আয়</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.legal_annual_income"/></td>
                       </tr>
                       <tr>
                         <th scope="row">জাতীয়তা</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.nationality"/></td>
                       </tr>
                       <tr>
                         <th scope="row">লিঙ্গ</th>
-                        <td><select class="form-control">
-                          <option>Male</option>
-                          <option>Female</option>
+                        <td><select class="form-control" [(ngModel)]="student.gender">
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
                         </select></td>
                       </tr>
                     </tbody>
@@ -224,27 +224,27 @@
                       <tr>
                         <th scope="row">জন্মতারিখ</th>
                         <td><input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue"
-                          [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker></td>
+                          [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker [(ngModel)]="student.dateOfBirth"></td>
                       </tr>
                       <tr>
                         <th scope="row">ধর্ম</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.religion"/></td>
                       </tr>
                       <tr>
                         <th scope="row">NID</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.NID"/></td>
                       </tr>
                       <tr>
                         <th scope="row">যোগাযোগের ঠিকানা</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.contactAddress"/></td>
                       </tr>
                       <tr>
                         <th scope="row">স্থায়ী ঠিকানা</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.permanentAddress"/></td>
                       </tr>
                       <tr>
                         <th scope="row">মোবাইল</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.mobileNumber"/></td>
                       </tr>
                     </tbody>
                   </table>
@@ -262,15 +262,15 @@
                     <tbody>
                       <tr>
                         <th scope="row">নাম</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.legal_guardian_name"/></td>
                       </tr>
                       <tr>
                         <th scope="row">ছাত্রের সাথে সম্পর্ক &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.legal_relation_with_student"/></td>
                       </tr>
                       <tr>
                         <th scope="row">ঠিকানা</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.legal_address"/></td>
                       </tr>
                     </tbody>
                   </table>
@@ -282,15 +282,15 @@
                     <tbody>
                       <tr>
                         <th scope="row">মোবাইল</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.legal_mobile_no"/></td>
                       </tr>
                       <tr>
                         <th scope="row">পেশা</th>
-                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.legal_profession"/></td>
                       </tr>
                       <tr>
                         <th scope="row">মাসিক আয় &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                        <td><input class="form-control" type="text"/></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.legal_monthly_income"/></td>
                       </tr>
                     </tbody>
                   </table>
@@ -308,15 +308,15 @@
                     <tbody>
                       <tr>
                         <th scope="row">নাম</th>
-                        <td><input class="form-control" type="text"/></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.local_guardian_name"/></td>
                       </tr>
                       <tr>
                         <th scope="row">ছাত্রের সাথে সম্পর্ক</th>
-                        <td><input class="form-control" type="text"/></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.local_relation_with_student"/></td>
                       </tr>
                       <tr>
                         <th scope="row">ঠিকানা</th>
-                        <td><input class="form-control" type="text"/></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.local_address"/></td>
                       </tr>
                     </tbody>
                   </table>
@@ -328,15 +328,15 @@
                     <tbody>
                       <tr>
                         <th scope="row">মোবাইল</th>
-                        <td><input class="form-control" type="text"/></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.local_mobile_no"/></td>
                       </tr>
                       <tr>
                         <th scope="row">পেশা</th>
-                        <td><input class="form-control" type="text"/></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.local_profession"/></td>
                       </tr>
                       <tr>
                         <th scope="row">মাসিক আয় &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                        <td><input class="form-control" type="text"/></td>
+                        <td><input class="form-control" type="text" [(ngModel)]="student.local_monthly_income"/></td>
                       </tr>
                     </tbody>
                   </table>
@@ -344,7 +344,7 @@
               </div>
               <div class="col-lg-12 col-xl-12">
                 <div class="text-center">
-                  <a href="javascript:;" class="btn btn-danger waves-effect waves-light m-r-20">নিশ্চিত</a>
+                  <a href="javascript:;" class="btn btn-danger waves-effect waves-light m-r-20" (click)="confirmUpdateStudent()">নিশ্চিত</a>
                   <a href="javascript:;" id="edit-cancel" class="btn residence-button waves-effect" (click)="toggleEditProfile()">বাতিল</a>
                 </div>
               </div>

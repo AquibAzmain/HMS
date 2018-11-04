@@ -1,1 +1,27 @@
 .pointer {cursor: pointer;}
+
+.file-upload {
+	position: relative;
+	display: inline-block;
+}
+
+.file-upload__label {
+  padding: 1em 1em;
+  color: #fff;
+  background: rgb(104, 104, 104);
+  border-radius: .2em;
+  transition: background .3s;
+  cursor: pointer;
+}
+    
+.file-upload__input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 1;
+    width:0;
+    height: 100%;
+    opacity: 0;
+}

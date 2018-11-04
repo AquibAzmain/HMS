@@ -12,6 +12,22 @@ export class Student {
     public religion: string;
     public gender: string;
 
+    public legal_guardian_name:string;
+    public legal_annual_income:number;
+    public legal_relation_with_student:string;
+    public legal_address:string;
+    public legal_mobile_no:string;
+    public legal_profession:string;
+    public legal_monthly_income:number;
+    
+    public local_guardian_name:string;
+    public local_annual_income:number;
+    public local_relation_with_student:string;
+    public local_address:string;
+    public local_mobile_no:string;
+    public local_profession:string;
+    public local_monthly_income:number;
+
     public admissionExamMarks: string;
     public NID: string;
     public affiliatedSocietiesOrOrganizations: string;

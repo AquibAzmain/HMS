@@ -7,7 +7,7 @@
           <button type="button" class="btn btn-danger" (click)="isCollapsed = !isCollapsed">
             সার্চ ও সর্ট
           </button>
-          <button type="button" class="btn btn-danger" (click)="successToast()">
+          <button type="button" class="btn btn-danger">
             <i class="icofont icofont-printer"></i> প্রিন্ট
           </button>
           <div [collapse]="isCollapsed" class="card card-block">
@@ -75,8 +75,20 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-2">
-        <button class="btn btn-danger f-right" [routerLink]="['add_student/', 0]"><i class="icofont icofont-plus"></i>
-          নতুন ছাত্র</button>
+        <div class="btn-group" dropdown>
+          <button id="button-basic" dropdownToggle type="button" class="btn btn-danger f-right" aria-controls="dropdown-basic">
+            <i class="icofont icofont-plus"></i>
+            নতুন ছাত্র<span class="caret"></span>
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+            <li role="menuitem"><a class="dropdown-item" style="color:black" [routerLink]="['add_student/', 0]">নতুন
+                ছাত্রের ফর্ম</a></li>
+            <li role="menuitem"><a class="dropdown-item pointer" (click)="openFileUploadModal(fileUploadTemplate)">ফাইল
+                আপলোড</a></li>
+          </ul>
+        </div>
+        <!-- <button class="btn btn-danger f-right" [routerLink]="['add_student/', 0]"><i class="icofont icofont-plus"></i>
+          নতুন ছাত্র</button> -->
       </div>
     </div>
     <div class="table-responsive" style="margin-top:30px">
@@ -84,40 +96,22 @@
         [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
         <thead>
           <tr>
-            <th>
-              <mfDefaultSorter by="name">নাম</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="registrationNumber">রেজিস্ট্রেশন<br />নম্বর</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="presentAddress">শিক্ষাবর্ষ</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="residenceStatus">আবাসিক<br />স্ট্যাটাস</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="room">কক্ষ</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="department">অ্যাডমিশন<br />ফি</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="session">আবাসিক<br />ফি</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="session">মোবাইল<br />নম্বর</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
-            </th>
+            <th>নাম</th>
+            <th>রেজিস্ট্রেশন<br />নম্বর</th>
+            <th>শিক্ষাবর্ষ</th>
+            <th>আবাসিক<br />স্ট্যাটাস</th>
+            <th>কক্ষ</th>
+            <th>অ্যাডমিশন<br />ফি</th>
+            <th>আবাসিক<br />ফি</th>
+            <th>মোবাইল<br />নম্বর</th>
+            <th>অ্যাকশন</th>
           </tr>
           <tr>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of mf.data; index as i;">
-            <td class="pointer normal-link" [routerLink]="['details/', item.name]">{{item.name}}</td>
+            <td class="pointer normal-link" [routerLink]="['details/', item.registrationNumber]">{{item.name}}</td>
             <td>{{item.registrationNumber}}</td>
             <td>{{item.session}}</td>
             <td>{{item.residentialStatus}}</td>
@@ -222,3 +216,45 @@
 </ng-template>
 
 <ng2-toasty [position]="position"></ng2-toasty>
+<ng-template #fileUploadTemplate>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">ফাইল আপলোড</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="fileUploadModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="text-center">
+    <label for="upload" class="file-upload__label">ফাইল পছন্দ করুন</label> (ফরম্যাটঃ .xlsx)
+    <input id="upload" class="file-upload__input" type="file" name="file-upload" ng2FileSelect [uploader]="uploader">
+    </div>
+    <table class="table">
+      <thead>
+        <!-- <tr>
+          <th>ফাইলের নাম</th>
+          <th></th>
+          <th>অ্যাকশন</th>
+        </tr> -->
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of uploader.queue">
+          <td><strong>{{ item?.file?.name }}</strong></td>
+          <td class="text-center">
+            <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+            <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+            <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+          </td>
+          <td>
+            <button type="button" class="btn btn-success btn-xs" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+              <span class="glyphicon glyphicon-upload"></span> আপলোড
+            </button>
+            <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+              <span class="glyphicon glyphicon-trash"></span> ডিলিট
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>

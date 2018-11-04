@@ -19,27 +19,27 @@
                       <tbody>
                         <tr>
                           <th scope="row">ইউনিট</th>
-                          <td>A</td>
+                          <td>{{this.student.unit}}</td>
                         </tr>
                         <tr>
                           <th scope="row">রেজিস্ট্রেশন নম্বর</th>
-                          <td>1200-1452-7554</td>
+                          <td>{{this.student.registrationNumber}}</td>
                         </tr>
                         <tr>
                           <th scope="row">শিক্ষাবর্ষ</th>
-                          <td>2014-2015</td>
+                          <td>{{this.student.session}}</td>
                         </tr>
                         <tr>
                           <th scope="row">ক্লাস/বর্ষ</th>
-                          <td>4th (Hons)</td>
+                          <td>{{this.student.class_year_semester}}</td>
                         </tr>
                         <tr>
                           <th scope="row">ক্লাস রোল</th>
-                          <td>718</td>
+                          <td>{{this.student.roll}}</td>
                         </tr>
                         <tr>
                           <th scope="row">ডিপার্টমেন্ট</th>
-                          <td>IIT</td>
+                          <td>{{this.student.subject_name}}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -52,27 +52,23 @@
                       <tbody>
                         <tr>
                           <th scope="row">অ্যাডমিশন টেস্টের মার্ক</th>
-                          <td>163.25</td>
+                          <td>{{this.student.admissionExamMarks}}</td>
                         </tr>
                         <tr>
                           <th scope="row">মাধ্যমিক (প্রতিষ্ঠান)</th>
-                          <td>Bogra Cant Public</td>
+                          <td>{{this.student.sscInstitution}}</td>
                         </tr>
                         <tr>
                           <th scope="row">মাধ্যমিক (জিপিএ)</th>
-                          <td>5.00</td>
+                          <td>{{this.student.sscGPA}}</td>
                         </tr>
                         <tr>
                           <th scope="row">উচ্চমাধ্যমিক (প্রতিষ্ঠান)</th>
-                          <td>Bogra Azizul Haque College</td>
+                          <td>{{this.student.hscInstitution}}</td>
                         </tr>
                         <tr>
                           <th scope="row">উচ্চমাধ্যমিক (জিপিএ)</th>
-                          <td>5.00</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">উচ্চমাধ্যমিক (বিভাগ)</th>
-                          <td>Science</td>
+                          <td>{{this.student.hscGPA}}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -88,7 +84,7 @@
                       <tbody>
                         <tr>
                           <th scope="row">বর্তমান/প্রাক্তন</th>
-                          <td>বর্তমান <i style="color:green" class="icofont icofont-check-circled"></i></td>
+                          <td>{{this.student.alumni}}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -113,27 +109,27 @@
                       <tbody>
                         <tr>
                           <th scope="row">ইউনিট</th>
-                          <td><input class="form-control" type="text" /></td>
+                          <td><input class="form-control" type="text" [(ngModel)]="student.unit"/></td>
                         </tr>
                         <tr>
                           <th scope="row">রেজিস্ট্রেশন নম্বর</th>
-                          <td><input class="form-control" type="text" /></td>
+                          <td><input class="form-control" type="text" [(ngModel)]="student.registrationNumber"/></td>
                         </tr>
                         <tr>
                           <th scope="row">শিক্ষাবর্ষ</th>
-                          <td><input class="form-control" type="text" /></td>
+                          <td><input class="form-control" type="text" [(ngModel)]="student.session"/></td>
                         </tr>
                         <tr>
                           <th scope="row">ক্লাস/বর্ষ</th>
-                          <td><input class="form-control" type="text" /></td>
+                          <td><input class="form-control" type="text" [(ngModel)]="student.class_year_semester"/></td>
                         </tr>
                         <tr>
                           <th scope="row">ক্লাস রোল</th>
-                          <td><input class="form-control" type="text" /></td>
+                          <td><input class="form-control" type="text" [(ngModel)]="student.roll"/></td>
                         </tr>
                         <tr>
                           <th scope="row">ডিপার্টমেন্ট</th>
-                          <td><input class="form-control" type="text" /></td>
+                          <td><input class="form-control" type="text" [(ngModel)]="student.subject_name"/></td>
                         </tr>
                       </tbody>
                     </table>
@@ -146,27 +142,23 @@
                       <tbody>
                         <tr>
                           <th scope="row">অ্যাডমিশন টেস্টের মার্ক</th>
-                          <td><input class="form-control" type="text" /></td>
+                          <td><input class="form-control" type="text" [(ngModel)]="student.admissionExamMarks"/></td>
                         </tr>
                         <tr>
                           <th scope="row">মাধ্যমিক (প্রতিষ্ঠান)</th>
-                          <td><input class="form-control" type="text" /></td>
+                          <td><input class="form-control" type="text" [(ngModel)]="student.sscInstitution"/></td>
                         </tr>
                         <tr>
                           <th scope="row">মাধ্যমিক (জিপিএ)</th>
-                          <td><input class="form-control" type="text" /></td>
+                          <td><input class="form-control" type="text" [(ngModel)]="student.sscGPA"/></td>
                         </tr>
                         <tr>
                           <th scope="row">উচ্চমাধ্যমিক (প্রতিষ্ঠান)</th>
-                          <td><input class="form-control" type="text" /></td>
+                          <td><input class="form-control" type="text" [(ngModel)]="student.hscInstitution"/></td>
                         </tr>
                         <tr>
                           <th scope="row">উচ্চমাধ্যমিক (জিপিএ)</th>
-                          <td><input class="form-control" type="text" /></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">উচ্চমাধ্যমিক (বিভাগ)</th>
-                          <td><input class="form-control" type="text" /></td>
+                          <td><input class="form-control" type="text" [(ngModel)]="student.hscGPA"/></td>
                         </tr>
                       </tbody>
                     </table>
@@ -183,9 +175,9 @@
                         <tr>
                           <th scope="row">বর্তমান/প্রাক্তন</th>
                           <td>
-                          <td><select class="form-control">
-                              <option>Current</option>
-                              <option>Alumni</option>
+                          <td><select class="form-control" [(ngModel)]="student.alumni">
+                              <option value="no">Current</option>
+                              <option value="yes">Alumni</option>
                             </select>
                           </td>
                         </tr>
@@ -195,7 +187,7 @@
                 </div>
                 <div class="col-lg-12 col-xl-12">
                   <div class="text-center">
-                    <a href="javascript:;" class="btn btn-danger waves-effect waves-light m-r-20">নিশ্চিত</a>
+                    <a href="javascript:;" class="btn btn-danger waves-effect waves-light m-r-20" (click)="confirmUpdateStudent()">নিশ্চিত</a>
                     <a href="javascript:;" id="edit-cancel" class="btn residence-button waves-effect" (click)="toggleEditProfile()">বাতিল</a>
                   </div>
                 </div>

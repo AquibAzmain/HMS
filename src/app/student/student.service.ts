@@ -24,11 +24,11 @@ export class StudentService {
   }
 
   // id nei to ki dhore delete hobe dekhe nio
-  // deleteStudent(student:Student) {
-  //   return this.http.delete(Server.API_ENDPOINT +'student/'+student.id,this.httpOptions) //
-  // }
+  deleteStudent(student:Student) {
+    return this.http.delete(Server.API_ENDPOINT +'student/'+student.registrationNumber,this.httpOptions) //
+  }
 
-  getStudentById(studentId) : Observable<Student> {
-    return this.http.get<Student>(Server.API_ENDPOINT + 'student/'+studentId,this.httpOptions);
+  getStudentByReg(registrationNumber) : Observable<Student> {
+    return this.http.get<Student>(Server.API_ENDPOINT + 'student/'+registrationNumber,this.httpOptions);
   }
 }

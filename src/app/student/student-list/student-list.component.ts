@@ -1,29 +1,24 @@
-import { Component, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import {Http} from '@angular/http';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { StudentService } from '../student.service';
 import {ToastData, ToastOptions, ToastyService} from 'ng2-toasty';
 import { Router } from '@angular/router';
+import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import {Server} from '../../../utils/Server'
+
+const URL = Server.API_ENDPOINT+'/file';
 
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
-  styleUrls: ['./student-list.component.css',
-  '../../../../node_modules/ng2-toasty/style-bootstrap.css',
-  '../../../../node_modules/ng2-toasty/style-default.css',
-  '../../../../node_modules/ng2-toasty/style-material.css'
-  ],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./student-list.component.css']
 })
 export class StudentListComponent implements OnInit {
   position = 'bottom';
-  title: string;
-  msg: string;
-  showClose = true;
-  timeout = 5000;
-  theme = 'bootstrap';
-  type = 'default';
-  closeOther = false;
+  //role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
+  role = "hallOfficer";
+  public uploader:FileUploader = new FileUploader({url: URL});
 
   public data: any;
   public rowsOnPage = 10;
@@ -36,6 +31,7 @@ export class StudentListComponent implements OnInit {
   modalHeader:string;
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
+  public fileUploadModalRef :BsModalRef; 
 
   constructor(public http: Http, 
     private modalService: BsModalService,
@@ -48,6 +44,11 @@ export class StudentListComponent implements OnInit {
     // .subscribe((data) => {
     //   this.data = data.json();
     // });
+    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
+    }
+    else {
+      this.router.navigate(['/**']);
+    }
     this.getStudentList();
 
   }
@@ -57,13 +58,19 @@ export class StudentListComponent implements OnInit {
     .subscribe((response) => { 
       console.log(response);
       this.data = response;
+    }, error => {
+      this.errorViewToast();
     });
   }
 
   public openModal(template: TemplateRef<any>, type: string) {
     this.modalRef = this.modalService.show(template);
-    if(type=="add")this.modalHeader = "নতুন সম্পদ যুক্ত করুন";
+    if(type=="add")this.modalHeader = "";
     else this.modalHeader = "তথ্য সংশোধন";
+  }
+
+  public openFileUploadModal(template: TemplateRef<any>) {
+    this.fileUploadModalRef = this.modalService.show(template);
   }
 
   confirm(): void {
@@ -134,6 +141,16 @@ export class StudentListComponent implements OnInit {
       timeout: 5000, theme:'material', 
       position:'bottom', 
       type:'error'
+    });
+  }
+
+  errorViewToast() {
+    this.addToast({
+      title: 'Error',
+      msg: 'Check Internet Connection.',
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'error'
     });
   }
 
