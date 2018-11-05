@@ -20,16 +20,16 @@ export class EmployeeService {
   }
 
   addEmployee(employee:Employee) : Observable<Employee>{
-    return this.http.post<Employee>(Server.API_ENDPOINT +'employee', JSON.stringify(employee), this.httpOptions)
+    return this.http.post<Employee>(Server.API_ENDPOINT +'employee', JSON.stringify(employee), this.httpOptions);
   }
 
   updateEmployee(employee:Employee) {
     console.log(JSON.stringify(employee));
-    return this.http.put(Server.API_ENDPOINT +'employee', JSON.stringify(employee),this.httpOptions)
+    return this.http.put(Server.API_ENDPOINT +'employee', JSON.stringify(employee),this.httpOptions);
   }
 
   deleteEmployee(employee:Employee) {
-    return this.http.delete(Server.API_ENDPOINT +'employee/'+employee.id,this.httpOptions)
+    return this.http.delete(Server.API_ENDPOINT +'employee/'+employee.id,this.httpOptions);
   }
 
   getEmployeeById(employeeId) : Observable<Employee> {
@@ -41,10 +41,10 @@ export class EmployeeService {
   }
 
   addLeave(leave:Leave) {
-    return this.http.post(Server.API_ENDPOINT +'leave', JSON.stringify(leave), this.httpOptions)
+    return this.http.post(Server.API_ENDPOINT +'leave', JSON.stringify(leave), this.httpOptions);
   }
 
   updateLeave(leave:Leave) {
-    return this.http.put(Server.API_ENDPOINT +'leave', JSON.stringify(leave),this.httpOptions)
+    return this.http.put(Server.API_ENDPOINT +'leave', JSON.stringify(leave),this.httpOptions);
   }
 }
