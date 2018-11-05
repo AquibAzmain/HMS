@@ -24,7 +24,7 @@
               <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
                   <label for="filter">কক্ষ নম্বর</label>
-                  <input class="form-control" type="text" />
+                  <input class="form-control" type="text"  />
                 </div>
               </div>
             </div>
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4">
-        <button class="btn residence-button f-right" (click)="openModal(template, 'add')"><i class="icofont icofont-plus"></i>
+        <button class="btn residence-button f-right" (click)="openAddRoomModal(addRoom)"><i class="icofont icofont-plus"></i>
           নতুন কক্ষ</button>
       </div>
     </div>
@@ -63,16 +63,74 @@
 
         </thead>
         <tbody>
-          <tr *ngFor="let item of mf.data; index as i;">
-            <td class="pointer normal-link" [routerLink]="['details/', item.roomNumber]">{{item.roomNumber}}</td>
-            <td>{{item.block}}</td>
-            <td>{{item.capacity}}</td>
-            <td>{{item.assignedHouseTutor}}</td>
+          <tr *ngFor="let room of this.rooms; index as i;">
+            <td class="pointer normal-link" [routerLink]="['details/', item.roomNumber]">{{room.roomNumber}}</td>
+            <td>{{room.block}}</td>
+            <td>{{room.capacity}}</td>
+            <td>{{room.assignedHouseTutor}}</td>
             <td>
-              <a (click)="openModal(template, 'edit')" href="javascript:;" class="edit-delete-icon">
+              <a (click)="openUpdateRoomModal(updateRoom)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
+
+                <ng-template #updateRoom>
+                  <div class="modal-header">
+                    <h5 class="modal-title pull-left">তথ্য সংশোধন</h5>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">রুম নম্বর</label>
+                      <div class="col-sm-8">
+                        <input class="form-control" type="text"  [(ngModel)]="room.roomNumber"/>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">ব্লক</label>
+                      <div class="col-sm-8">
+                        <select class="form-control" [(ngModel)]="room.block">
+                          <option>--</option>
+                          <option *ngFor="let block of this.block; index as i;" value="block.name">{{block.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">ধারণ ক্ষমতা</label>
+                      <div class="col-sm-8">
+                        <input class="form-control" type="text"  [(ngModel)]="room.capacity"/>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">দায়িত্বপ্রাপ্ত শিক্ষক</label>
+                      <div class="col-sm-8">
+                        <input class="form-control" type="text"  [(ngModel)]="room.assignedHouseTutor" />
+                      </div>
+                    </div>
+                    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmUpdateRoom(room)">নিশ্চিত</button>
+                    <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
+                  </div>
+                </ng-template>
+                
+
+
+
+
               <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-ui-delete"></i></a>
+
+                <ng-template #deleteTemplate>
+                  <div class="modal-header">
+                    <h5 class="modal-title pull-left">তথ্য মুছে দিতে ইচ্ছুক?</h5>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmDelete(room)">নিশ্চিত</button>
+                    <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
+                  </div>
+                </ng-template>
             </td>
           </tr>
         </tbody>
@@ -89,9 +147,9 @@
 
 </div>
 
-<ng-template #template>
+<ng-template #addRoom>
   <div class="modal-header">
-    <h5 class="modal-title pull-left">{{modalHeader}}</h5>
+    <h5 class="modal-title pull-left">নতুন রুম যুক্ত করুন</h5>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -100,7 +158,7 @@
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">রুম নম্বর</label>
       <div class="col-sm-8">
-        <input class="form-control" type="text" />
+        <input class="form-control" type="text" [(ngModel)]="roomToBeAdded.roomNumber"/>
       </div>
     </div>
     <div class="form-group row">
@@ -116,29 +174,17 @@
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">ধারণ ক্ষমতা</label>
       <div class="col-sm-8">
-        <input class="form-control" type="text" />
+        <input class="form-control" type="text" [(ngModel)]="roomToBeAdded.capacity"/>
       </div>
     </div>
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">দায়িত্বপ্রাপ্ত শিক্ষক</label>
       <div class="col-sm-8">
-        <input class="form-control" type="text" />
+        <input class="form-control" type="text" [(ngModel)]="roomToBeAdded.assignedHouseTutor"/>
       </div>
     </div>
-    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirm()">নিশ্চিত</button>
+    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmAddRoom()">নিশ্চিত</button>
     <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
   </div>
 </ng-template>
 
-<ng-template #deleteTemplate>
-  <div class="modal-header">
-    <h5 class="modal-title pull-left">তথ্য মুছে দিতে ইচ্ছুক?</h5>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmDelete()">নিশ্চিত</button>
-    <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
-  </div>
-</ng-template>

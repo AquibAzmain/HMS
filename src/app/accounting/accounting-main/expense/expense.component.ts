@@ -3,6 +3,15 @@ import { Http } from '@angular/http';
 import {IMyDpOptions, IMyDateModel} from 'mydatepicker';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
+import { Transaction } from '../../../../models/Transaction';
+import { Transaction_Category } from '../../../../models/Transaction_Category';
+import { Transaction_SubCategory } from '../../../../models/Transaction_SubCategory';
+
+import { TransactionService } from '../transaction.service';
+import { TransactionCategoryService } from '../transaction-category.service';
+import { TransactionSubcategoryService } from '../transaction-subcategory.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-expense',
   templateUrl: './expense.component.html',
@@ -28,23 +37,129 @@ export class ExpenseComponent implements OnInit {
   };
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
-  constructor(public http: Http, private modalService: BsModalService) { }
+
+  role = "hallOfficer"//localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
+  
+  expenses: Transaction[] = [];
+  epenseToBeAdded: Transaction = new Transaction();
+
+  category: Transaction_Category[] = [];
+  subCategory: Transaction_SubCategory[] = [];
+
+  constructor(public http: Http, private modalService: BsModalService,
+    private transactionService : TransactionService, private transactionCategoryService : TransactionCategoryService,
+    private transactionSubcategoryService : TransactionSubcategoryService, private router: Router ) { }
 
   ngOnInit() {
+    
+    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
+      this.getExpenseData();
+      this.getCategoryData();
+      this.getSubCategoryData();
+    }
+    else {
+      this.router.navigate(['/**']);
+    }
+  }
 
-    this.http.get(`assets/data/expenseType.json`)
-    .subscribe((typeData) => {
-      this.typeData = typeData.json();
-    });
+  getExpenseData() {
+    this.transactionService.getExpenseList()
+      .subscribe((response) => { 
+        this.expenses = response;
+        console.log(this.expenses);
+      });
+  }
 
-    this.http.get(`assets/data/income.json`)
-    .subscribe((data) => {
-      this.data = data.json();
-    });
+  getCategoryData() {
+    this.transactionCategoryService.getCategoryList()
+      .subscribe((response) => { 
+        this.category = response;
+        console.log(this.category);
+      });
+  }
+
+  getSubCategoryData() {
+    this.transactionSubcategoryService.getSubCategoryList()
+      .subscribe((response) => { 
+        this.subCategory = response;
+        console.log(this.subCategory);
+      });
   }
 
 
+  public openAddExpenseModal(template: TemplateRef<any>) {
+    this.epenseToBeAdded = new Transaction();
+    this.modalRef = this.modalService.show(template);
+  }
   
+  confirmAddExpense(): void {
+    console.log(this.expenses.length);
+    this.modalRef.hide();
+    if(this.epenseToBeAdded.purchase_date != null){
+      this.epenseToBeAdded.purchase_date = this.formatDate(this.epenseToBeAdded.purchase_date);
+    }
+    this.transactionService.addExpense(this.epenseToBeAdded)
+    .subscribe((response) => { 
+      ////////////////////alert//////////////////////////
+      this.epenseToBeAdded = response;
+      this.expenses.push(this.epenseToBeAdded);
+      this.getExpenseData();
+    });
+  }
+
+  public openUpdateExpenseModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  confirmUpdateExpense(expense): void {
+    console.log(expense);
+    this.modalRef.hide();
+    if(expense.purchase_date != null){
+      expense.purchase_date = this.formatDate(expense.purchase_date);
+    }
+    
+    this.transactionService.updateExpense(expense)
+    .subscribe((response) => { 
+      this.getExpenseData();
+      console.log(response);
+      console.log(expense);
+    });
+  }
+
+  public openDeleteModal(template: TemplateRef<any>) {
+    this.deleteModalRef = this.modalService.show(template);
+  }
+
+  confirmDelete(expense): void {
+    console.log(expense)
+    this.deleteModalRef.hide();
+    this.transactionService.deleteExpense(expense)
+    .subscribe((response) => { 
+      let index = this.expenses.indexOf(expense);
+      this.expenses.splice(index,1);
+    });
+  }
+
+  public formatDate(date) {
+    var monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+  
+    var day = date.getDate();
+    var monthIndex = date.getMonth()+1;
+    var year = date.getFullYear();
+  
+    return day + '/' + monthIndex + '/' + year;
+  }
+
+
+
+
+
+  /* ********************************************* */
   selectMainType (event: any) {
     
     this.selectedMainType = event.target.value; 
@@ -91,14 +206,6 @@ export class ExpenseComponent implements OnInit {
   decline(): void {
     console.log('Declined!');
     this.modalRef.hide();
-  }
-
-  public openDeleteModal(template: TemplateRef<any>) {
-    this.deleteModalRef = this.modalService.show(template);
-  }
-
-  confirmDelete(): void {
-    this.deleteModalRef.hide();
   }
  
   declineDelete(): void {

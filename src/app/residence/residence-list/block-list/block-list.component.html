@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">
         <div>
-          <button type="button" class="btn residence-button f-right" (click)="openModal(template, 'add')">
+          <button type="button" class="btn residence-button f-right" (click)="openAddBlockModal(addBlock)">
             <i class="icofont icofont-plus"></i> নতুন ব্লক
           </button>
         </div>
@@ -26,14 +26,50 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of mf.data; index as i;">
-            <td>{{item.blockName}}</td>
-            <td>{{item.location}}</td>
+          <tr *ngFor="let block of this.blocks; index as i;">
+            <td>{{block.blockName}}</td>
+            <td>{{block.location}}</td>
             <td>
-              <a (click)="openModal(template, 'edit')" href="javascript:;" class="edit-delete-icon">
+              <a (click)="openUpdateBlockModal(updateBlock)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
+                <ng-template #updateBlock>
+                  <div class="modal-header">
+                    <h5 class="modal-title pull-left">তথ্য সংশোধন</h5>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">ব্লকের নাম</label>
+                      <div class="col-sm-8">
+                        <input class="form-control" type="text" [(ngModel)]="block.blockName"/>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">অবস্থান</label>
+                      <div class="col-sm-8">
+                        <input class="form-control" type="text" [(ngModel)]="block.location"/>
+                      </div>
+                    </div>
+                    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmUpdateBlock(block)">নিশ্চিত</button>
+                    <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
+                  </div>
+                </ng-template>
               <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-ui-delete"></i></a>
+                <ng-template #deleteTemplate>
+                  <div class="modal-header">
+                    <h5 class="modal-title pull-left">তথ্য মুছে দিতে ইচ্ছুক?</h5>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmDelete(block)">নিশ্চিত</button>
+                    <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
+                  </div>
+                </ng-template>
             </td>
           </tr>
         </tbody>
@@ -49,9 +85,9 @@
   </div>
 </div>
 
-<ng-template #template>
+<ng-template #addBlock>
   <div class="modal-header">
-    <h5 class="modal-title pull-left">{{modalHeader}}</h5>
+    <h5 class="modal-title pull-left">নতুন ব্লক যুক্ত করুন</h5>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -60,29 +96,17 @@
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">ব্লকের নাম</label>
       <div class="col-sm-8">
-        <input class="form-control" type="text" />
+        <input class="form-control" type="text" [(ngModel)]="blockToBeAdded.blockName"/>
       </div>
     </div>
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">অবস্থান</label>
       <div class="col-sm-8">
-        <input class="form-control" type="text" />
+        <input class="form-control" type="text" [(ngModel)]="blockToBeAdded.location"/>
       </div>
     </div>
-    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirm()">নিশ্চিত</button>
+    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmAddBlock()">নিশ্চিত</button>
     <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
   </div>
 </ng-template>
 
-<ng-template #deleteTemplate>
-  <div class="modal-header">
-    <h5 class="modal-title pull-left">তথ্য মুছে দিতে ইচ্ছুক?</h5>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmDelete()">নিশ্চিত</button>
-    <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
-  </div>
-</ng-template>
