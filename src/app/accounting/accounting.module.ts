@@ -17,6 +17,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CategoryEditComponent } from './accounting-main/category-edit/category-edit.component';
 import { IncomeCategoryComponent } from './accounting-main/category-edit/income-category/income-category.component';
 import { ExpenseCategoryComponent } from './accounting-main/category-edit/expense-category/expense-category.component'
+import { TransactionService } from './accounting-main/transaction.service';
+import { TransactionCategoryService } from './accounting-main/transaction-category.service';
+import { TransactionSubcategoryService } from './accounting-main/transaction-subcategory.service';
 
 export const AccountingRoutes: Routes = [
   {
@@ -42,6 +45,11 @@ export const AccountingRoutes: Routes = [
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     MyDatePickerModule
+  ],
+  providers:[
+    TransactionService,
+    TransactionCategoryService,
+    TransactionSubcategoryService
   ],
   declarations: [
     IncomeComponent,

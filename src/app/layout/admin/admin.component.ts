@@ -80,11 +80,15 @@ export class AdminComponent implements OnInit {
   isHeaderChecked: boolean;
   notificationSize: number;
 
+  username: string;
+
   @ViewChild('searchFriends') search_friends: ElementRef;
 /*  @ViewChild('toggleButton') toggle_button: ElementRef;
   @ViewChild('sideMenu') side_menu: ElementRef;*/
 
   constructor(public menuItems: MenuItems, private notificationService: NotificationService) {
+    this.username = localStorage.getItem('name');
+    
     this.navType = 'st2';
     this.themeLayout = 'vertical';
     this.vNavigationView = 'view1';
@@ -190,4 +194,10 @@ export class AdminComponent implements OnInit {
   toggleOpenedSidebar() {
     this.isCollapsedSideBar = this.isCollapsedSideBar === 'yes-block' ? 'no-block' : 'yes-block';
   }
+
+  logout(){
+    localStorage.clear();
+    console.log("session cleared");
+  }
+
 }
