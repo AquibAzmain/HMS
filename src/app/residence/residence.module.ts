@@ -29,7 +29,7 @@ export const ResidenceRoutes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: "details/:id",
+    path: "details/:roomNumber",
     component: RoomDetailsComponent,
     pathMatch: 'full'
   },

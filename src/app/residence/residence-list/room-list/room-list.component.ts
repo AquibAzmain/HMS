@@ -124,7 +124,9 @@ export class RoomListComponent implements OnInit {
     this.deleteModalRef = this.modalService.show(template);
   }
 
- 
+  public openUpdateRoomModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
  
   declineDelete(): void {
     this.deleteModalRef.hide();

@@ -1,6 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { Http } from '@angular/http';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Room } from '../../../models/Room';
+import { ResidenceService } from '../residence.service';
 
 @Component({
   selector: 'app-room-details',
@@ -21,18 +23,46 @@ export class RoomDetailsComponent implements OnInit {
   modalHeader:string;
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
-
-  constructor(public http: Http, private modalService: BsModalService) { }
+  room: Room = new Room();
+  role="hallOfficer";
+  //role = localStorage.getItem('role'); //"hallOfficer";
+  constructor(private route: ActivatedRoute, private modalService: BsModalService, private residenceService : ResidenceService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.http.get(`assets/data/room-Student.json`)
-    .subscribe((blockData) => {
-      this.data = blockData.json();
-    });
+    // this.http.get(`assets/data/room-Student.json`)
+    // .subscribe((blockData) => {
+    //   this.data = blockData.json();
+    // });
 
-    this.http.get(`assets/data/data.json`)
-    .subscribe((data) => {
-      this.studentList = data.json();
+    // this.http.get(`assets/data/data.json`)
+    // .subscribe((data) => {
+    //   this.studentList = data.json();
+    // });
+    //console.log(employeeId);
+    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
+      this.getRoomData();
+    }
+    else {
+      this.router.navigate(['/**']);
+    }
+  }
+
+  getRoomData() {
+    let roomNumber = this.route.snapshot.paramMap.get('roomNumber');
+    this.residenceService.getRoomById(roomNumber)
+    .subscribe((response) => { 
+      this.room = response;
+    });
+  }
+
+  confirmUpdateRoom(): void {
+    this.residenceService.updateRoom(this.room)
+    .subscribe((response) => { 
+      this.toggleEditProfile();
+      this.getRoomData();
+      console.log(this.room);
+       ////////////////////alert//////////////////////////
     });
   }
 

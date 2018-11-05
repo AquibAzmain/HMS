@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import {Server} from '../../utils/Server'
 import { Block } from '../../models/Block';
 import { Room } from '../../models/Room';
-import { SystemJsNgModuleLoader } from '@angular/core/src/linker/system_js_ng_module_factory_loader';
 
 @Injectable()
 export class ResidenceService {
@@ -47,6 +46,10 @@ export class ResidenceService {
 
   deleteRoom(room:Room) {
     return this.http.delete(Server.API_ENDPOINT +'room/'+room.roomNumber,this.httpOptions)
+  }
+
+  getRoomById(roomNumber) : Observable<Room> {
+    return this.http.get<Room>(Server.API_ENDPOINT + 'room/'+roomNumber,this.httpOptions);
   }
 
 }

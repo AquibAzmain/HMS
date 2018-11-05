@@ -30,6 +30,6 @@ export class StoreService {
   }
 
   searchSortAsset(asset:Asset) {
-    return this.http.post(Server.API_ENDPOINT +'store', JSON.stringify(asset), this.httpOptions);
+    return this.http.post(Server.API_ENDPOINT +'store_search', JSON.stringify(asset), this.httpOptions);
   }
 }

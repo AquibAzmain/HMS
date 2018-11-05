@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import {Server} from '../../../utils/Server'
 
-const URL = Server.API_ENDPOINT+'/file';
+const URL = Server.API_ENDPOINT+'excel';
 
 @Component({
   selector: 'app-student-list',
@@ -53,6 +53,17 @@ export class StudentListComponent implements OnInit {
 
   }
 
+  confirmDelete(student): void {
+    console.log(student)
+    this.deleteModalRef.hide();
+    this.studentService.deleteStudent(student)
+    .subscribe((response) => { 
+      let index = this.data.indexOf(student);
+      this.data.splice(index,1);
+        ////////////////////alert//////////////////////////
+    });
+  }
+
   getStudentList(){
     this.studentService.getStudentList()
     .subscribe((response) => { 
@@ -63,10 +74,26 @@ export class StudentListComponent implements OnInit {
     });
   }
 
+  confirmUpdateStudent(student): void {
+    this.modalRef.hide();
+    this.studentService.updateStudent(student)
+      .subscribe((response) => {
+        this.successToast();
+        this.getStudentList();
+      }, error => {
+        this.errorToast();
+      });
+
+  }
+
   public openModal(template: TemplateRef<any>, type: string) {
     this.modalRef = this.modalService.show(template);
     if(type=="add")this.modalHeader = "";
     else this.modalHeader = "তথ্য সংশোধন";
+  }
+
+  public openUpdateStudentModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
 
   public openFileUploadModal(template: TemplateRef<any>) {
@@ -85,10 +112,6 @@ export class StudentListComponent implements OnInit {
 
   public openDeleteModal(template: TemplateRef<any>) {
     this.deleteModalRef = this.modalService.show(template);
-  }
-
-  confirmDelete(): void {
-    this.deleteModalRef.hide();
   }
  
   declineDelete(): void {

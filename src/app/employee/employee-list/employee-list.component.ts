@@ -23,7 +23,8 @@ export class EmployeeListComponent implements OnInit {
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
 
-  role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
+  // role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
+  role = "hallOfficer";
   employees: Employee[] = [];
   employeeToBeAdded: Employee = new Employee();
   
