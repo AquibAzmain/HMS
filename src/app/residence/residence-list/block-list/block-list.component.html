@@ -27,7 +27,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of mf.data; index as i;">
-            <td class="pointer normal-link" [routerLink]="['block_details/', item.blockName]">{{item.blockName}}</td>
+            <td>{{item.blockName}}</td>
             <td>{{item.location}}</td>
             <td>
               <a (click)="openModal(template, 'edit')" href="javascript:;" class="edit-delete-icon">
