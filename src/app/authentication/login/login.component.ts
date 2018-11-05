@@ -21,15 +21,18 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.message = '';
     this.authenticationService.getlogin(this.loginData).subscribe(resp => {
       this.data = resp;
       localStorage.setItem('token', this.data.token);
-      localStorage.setItem('role', this.data.role)
+      localStorage.setItem('role', this.data.role);
+      localStorage.setItem('name', this.data.name);
       this.router.navigate(['dashboard']);
     }, err => {
-      console.log(err);
       
-      this.message = "Invalid mobile or password"; 
+      err = JSON.parse(err.error);
+      console.log(err);
+      this.message = err.msg; 
     });
   }
 

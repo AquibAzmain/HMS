@@ -11,11 +11,18 @@ import { Router } from '@angular/router';
 })
 export class UserProfileComponent implements OnInit {
   
-  user_info = { name: 'Mr. A', mobile_number: '01711456789'};
+  user_info = {
+    name: '',
+    mobile_number: ''
+  };
+  update_user_info: any;
   successMessage = '';
   errorMessage = '';
   editProfile = true;
   editProfileIcon = 'icofont-edit';
+  passwords = {old_password: '', new_password: ''}
+  confirmPassword = '';
+  errorMessageInPasswordChange = '';
 
   modalHeader:string;
   public modalRef: BsModalRef;
@@ -27,17 +34,18 @@ export class UserProfileComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    // this.profileService.getProfile(localStorage.getItem("token")).subscribe(resp => {
-    //   this.user_info = resp;
-    // }, err => {
-    //   this.router.navigate(['/**']);
-    // });
+    this.profileService.getProfile().subscribe(resp => {
+      this.user_info.name = resp["name"];
+      this.user_info.mobile_number = resp["mobile_number"];
+    }, err => {
+      this.router.navigate(['/**']);
+    });
   }
 
   editUserInfo(){
     this.successMessage = '';
     this.errorMessage = '';
-    this.profileService.editProfile(this.user_info).subscribe(resp => {
+    this.profileService.editProfile(this.update_user_info).subscribe(resp => {
       this.successMessage = "User info updated successfully.";
     }, err => {
       this.errorMessage = err.error.type;
@@ -45,24 +53,43 @@ export class UserProfileComponent implements OnInit {
   }
 
   toggleEditProfile() {
-    this.successMessage = '';
-    this.errorMessage = '';
     this.editProfileIcon = (this.editProfileIcon === 'icofont-close') ? 'icofont-edit' : 'icofont-close';
     this.editProfile = !this.editProfile;
+    this.update_user_info = this.user_info;
+    this.successMessage = '';
+    this.errorMessage = '';
   }
 
   public openModal(template: TemplateRef<any>, type: string) {
+    this.errorMessageInPasswordChange = '';
     this.modalRef = this.modalService.show(template);
     if(type=="add")this.modalHeader = "নতুন সম্পদ যুক্ত করুন";
     else this.modalHeader = "তথ্য সংশোধন";
   }
 
   confirm(): void {
+    this.successMessage = '';
+    this.errorMessageInPasswordChange = '';
+    this.errorMessage = '';
     console.log('Confirmed!');
-    this.modalRef.hide();
+    if(this.confirmPassword != this.passwords.new_password){
+      this.errorMessageInPasswordChange = "password does not matched.";
+      return;
+    }
+
+    this.profileService.changePassword(this.passwords).subscribe(resp => {
+      this.successMessage = JSON.parse(JSON.stringify(resp)).status;
+      this.editUserInfo = null;
+      this.modalRef.hide();
+    }, err => {
+      this.errorMessageInPasswordChange = JSON.parse(err.error).status;
+    });
+    
   }
  
   decline(): void {
+    this.successMessage = '';
+    this.errorMessage = '';
     console.log('Declined!');
     this.modalRef.hide();
   }
