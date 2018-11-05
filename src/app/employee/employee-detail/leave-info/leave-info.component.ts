@@ -28,6 +28,9 @@ export class LeaveInfoComponent implements OnInit {
   leaveToBeAdded: Leave = new Leave();
   pendingLeave = false;
   role = localStorage.getItem('role'); //"hallOfficer"; 
+  confirmAddError = false;
+  confirmUpdateError = false;
+
   constructor(public http: Http, private modalService: BsModalService,
     private route: ActivatedRoute,
     private employeeService : EmployeeService,
@@ -63,7 +66,10 @@ export class LeaveInfoComponent implements OnInit {
         console.log(response);
         this.leaves = response;
         this.checkPendingLeave();
-      });
+      },
+      (err) => {
+        console.log(err)
+      })
   }
 
   public openUpdateLeaveModal(template: TemplateRef<any>) {
@@ -92,30 +98,54 @@ export class LeaveInfoComponent implements OnInit {
   }
 
   confirmAddLeave(): void {
-    this.modalRef.hide();
-    this.leaveToBeAdded.approval_status = "pending";
-    this.leaveToBeAdded.employee_id = this.employeeId;
-    this.leaveToBeAdded.date_from = this.formatDate(this.leaveToBeAdded.date_from);
-    this.leaveToBeAdded.date_to = this.formatDate(this.leaveToBeAdded.date_to);
-    console.log(this.leaveToBeAdded);
-    this.employeeService.addLeave(this.leaveToBeAdded)
-    .subscribe((response) => { 
+    if(this.leaveToBeAdded.category==null || this.leaveToBeAdded.date_from==null || this.leaveToBeAdded.date_to==null ) {
+      this.confirmAddError = true;
+    }
+    else {
+      this.confirmAddError = false;
+      this.modalRef.hide();
+      this.leaveToBeAdded.approval_status = "pending";
+      this.leaveToBeAdded.employee_id = this.employeeId;
+      this.leaveToBeAdded.date_from = this.formatDate(this.leaveToBeAdded.date_from);
+      this.leaveToBeAdded.date_to = this.formatDate(this.leaveToBeAdded.date_to);
       console.log(this.leaveToBeAdded);
-      ////////////////////alert//////////////////////////
-      this.getLeaveData();
-    });
+      this.employeeService.addLeave(this.leaveToBeAdded)
+      .subscribe((response) => { 
+        console.log(this.leaveToBeAdded);
+        ////////////////////alert//////////////////////////
+        this.getLeaveData();
+      },
+      (err) => {
+        console.log(err)
+      })
+    }
   }
 
   confirmUpdateLeave(leave): void {
-    this.modalRef.hide();
-    leave.date_from = this.formatDate(leave.date_from);
-    leave.date_to = this.formatDate(leave.date_to);
-    this.employeeService.updateLeave(leave)
-    .subscribe((response) => { 
-      console.log(leave);
-      this.getLeaveData();
-       ////////////////////alert//////////////////////////
-    });
+    console.log(leave.category);
+    console.log(leave.date_from);
+    console.log(leave.date_to);
+    
+    if(leave.category==null || leave.date_from==null || leave.date_to==null || leave.category.length==0) {
+      this.confirmUpdateError = true;
+    }
+    else {
+      this.modalRef.hide();
+      this.confirmUpdateError = false;
+      if(leave.date_from!=null)
+        leave.date_from = this.formatDate(leave.date_from);
+      if(leave.date_to!=null)
+        leave.date_to = this.formatDate(leave.date_to);
+      this.employeeService.updateLeave(leave)
+      .subscribe((response) => { 
+        console.log(leave);
+        this.getLeaveData();
+        ////////////////////alert//////////////////////////
+      },
+      (err) => {
+        console.log(err)
+      })
+    }
   }
 
   public openDeleteModal(template: TemplateRef<any>) {

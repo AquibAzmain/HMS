@@ -33,7 +33,10 @@ export class BasicInfoComponent implements OnInit {
     this.employeeService.getEmployeeById(employeeId)
     .subscribe((response) => { 
       this.employee = response;
-    });
+    },
+    (err) => {
+      console.log(err)
+    })
   }
 
   toggleEditProfile() {
@@ -51,7 +54,10 @@ export class BasicInfoComponent implements OnInit {
       this.getEmployeeData();
       console.log(this.employee);
        ////////////////////alert//////////////////////////
-    });
+    },
+    (err) => {
+      console.log(err)
+    })
   }
 
   public formatDate(date) {

@@ -64,7 +64,10 @@ export class EmployeeListComponent implements OnInit {
       .subscribe((response) => { 
         this.employees = response;
         console.log(this.employees);
-      });
+      },
+      (err) => {
+        console.log(err)
+      })
   }
   // public openModal(template: TemplateRef<any>, type: string) {
   //   this.modalRef = this.modalService.show(template);
@@ -93,7 +96,10 @@ export class EmployeeListComponent implements OnInit {
       this.employeeToBeAdded = response;
       this.employees.push(this.employeeToBeAdded);
       this.getEmployeeData();
-    });
+    },
+    (err) => {
+      console.log(err)
+    })
   }
 
   confirmUpdateEmployee(employee): void {
@@ -109,7 +115,10 @@ export class EmployeeListComponent implements OnInit {
       console.log(response);
       console.log(employee);
        ////////////////////alert//////////////////////////
-    });
+    },
+    (err) => {
+      console.log(err)
+    })
   }
 
   // confirm(): void {
@@ -134,7 +143,10 @@ export class EmployeeListComponent implements OnInit {
       let index = this.employees.indexOf(employee);
       this.employees.splice(index,1);
         ////////////////////alert//////////////////////////
-    });
+    }, 
+    (err) => {
+      console.log(err)
+    })
   }
  
   declineDelete(): void {
