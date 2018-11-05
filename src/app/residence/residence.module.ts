@@ -12,6 +12,7 @@ import { RoomListComponent } from './residence-list/room-list/room-list.componen
 import { RoomDetailsComponent } from './room-details/room-details.component';
 import { BlockDetailsComponent } from './block-details/block-details.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ResidenceService } from './residence.service';
 
 export const ResidenceRoutes: Routes = [
   {
@@ -47,6 +48,9 @@ export const ResidenceRoutes: Routes = [
     DataTableModule,
     CollapseModule,
     ModalModule.forRoot()
+  ],
+  providers: [
+    ResidenceService
   ],
   declarations: [ResidenceListComponent, BlockListComponent, RoomListComponent, RoomDetailsComponent, BlockDetailsComponent]
 })
