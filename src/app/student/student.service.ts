@@ -31,4 +31,9 @@ export class StudentService {
   getStudentByReg(registrationNumber) : Observable<Student> {
     return this.http.get<Student>(Server.API_ENDPOINT + 'student/'+registrationNumber,this.httpOptions);
   }
+
+  searchSortStudent(student:Student) {
+    return this.http.post(Server.API_ENDPOINT +'student_search', JSON.stringify(student), this.httpOptions);
+  }
+
 }

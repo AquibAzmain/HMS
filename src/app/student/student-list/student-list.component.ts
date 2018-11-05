@@ -6,6 +6,7 @@ import {ToastData, ToastOptions, ToastyService} from 'ng2-toasty';
 import { Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import {Server} from '../../../utils/Server'
+import { Student } from '../../../models/Student';
 
 const URL = Server.API_ENDPOINT+'excel';
 
@@ -19,6 +20,7 @@ export class StudentListComponent implements OnInit {
   //role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
   role = "hallOfficer";
   public uploader:FileUploader = new FileUploader({url: URL});
+  public studentToBeSearched: Student = new Student();
 
   public data: any;
   public rowsOnPage = 10;
@@ -116,6 +118,16 @@ export class StudentListComponent implements OnInit {
  
   declineDelete(): void {
     this.deleteModalRef.hide();
+  }
+
+  searchSortStudent(student){
+    this.studentService.searchSortStudent(student)
+      .subscribe((response) => {
+        this.successToast();
+        this.data = response;
+      }, error => {
+        this.errorToast();
+      });
   }
 
   addToast(options) {
