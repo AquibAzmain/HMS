@@ -19,7 +19,10 @@ export class NotificationListComponent implements OnInit {
     .subscribe((response) => { 
       console.log(response);
       this.notifications = response;
-    });
+    },
+    (err) => {
+      console.log(err)
+    })
     // let notification: Notification = new Notification();
     // notification.text = "Approve account?";
     // notification.type = 'decision';
@@ -41,16 +44,32 @@ export class NotificationListComponent implements OnInit {
   }
 
   seenNotification(notification: Notification) {
-    this.deleteNotification(notification);
+    this.notificationService.seenNotification(notification)
+    .subscribe((response) => { 
+      this.deleteNotification(notification);
+    },
+    (err) => {
+      console.log(err)
+    })
   }
 
   acceptNotification(notification: Notification) {
-    this.deleteNotification(notification);
-    this.notificationService.sendDecisionOfNotification(notification,"accept");
+    this.notificationService.sendDecisionOfNotification(notification,"approved")
+    .subscribe((response) => { 
+      this.deleteNotification(notification);
+    },
+    (err) => {
+      console.log(err)
+    });
   }
 
   rejectNotification(notification: Notification) {
-    this.deleteNotification(notification);
-    this.notificationService.sendDecisionOfNotification(notification,"reject");
+    this.notificationService.sendDecisionOfNotification(notification,"declined")
+    .subscribe((response) => { 
+      this.deleteNotification(notification);
+    },
+    (err) => {
+      console.log(err)
+    })
   }
 }
