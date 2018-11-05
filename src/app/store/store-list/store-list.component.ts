@@ -33,6 +33,7 @@ export class StoreListComponent implements OnInit {
   role = "hallOfficer"; //admin hallOfficer localStorage.getItem('role');
   assets: Asset[] = [];
   assetToBeAdded: Asset = new Asset();
+  assetToBeSearched: Asset = new Asset();
 
   constructor(public http: Http, private modalService: BsModalService,
     private assetService: StoreService,
@@ -42,12 +43,7 @@ export class StoreListComponent implements OnInit {
 
   ngOnInit() {
     if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
-      this.assetService.getAssetList()
-        .subscribe((response) => {
-          this.data = response;
-        }, error => {
-          this.errorViewToast();
-        });
+      this.getAssetData();
     }
     else {
       this.router.navigate(['/**']);
@@ -57,6 +53,29 @@ export class StoreListComponent implements OnInit {
     // .subscribe((data) => {
     //   this.data = data.json();
     // });
+  }
+
+  getAssetData() {
+    this.assetService.getAssetList()
+      .subscribe((response) => { 
+        this.data = response;
+      }, error => {
+        this.errorViewToast();
+      });
+  }
+
+  searchSortAsset(asset){
+    if(asset.dateOfPurchase != null){
+      asset.dateOfPurchase = this.formatDate(asset.dateOfPurchase);
+    }
+    console.log(asset);
+    this.assetService.searchSortAsset(asset)
+      .subscribe((response) => {
+        this.successToast();
+        this.data = response;
+      }, error => {
+        this.errorToast();
+      });
   }
 
   public formatDate(date) {
@@ -89,6 +108,7 @@ export class StoreListComponent implements OnInit {
       .subscribe((response) => {
         this.successToast();
         this.data.push(this.assetToBeAdded);
+        this.getAssetData();
       }, error => {
         this.errorDuplicateIdToast();
       });
@@ -100,6 +120,7 @@ export class StoreListComponent implements OnInit {
       .subscribe((response) => {
         this.successToast();
         this.data.push(this.assetToBeAdded);
+        this.getAssetData();
       }, error => {
         this.errorToast();
       });

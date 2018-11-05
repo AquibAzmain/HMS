@@ -28,4 +28,8 @@ export class StoreService {
   deleteAsset(asset:Asset) {
     return this.http.delete(Server.API_ENDPOINT +'store/'+asset.assetID,this.httpOptions);
   }
+
+  searchSortAsset(asset:Asset) {
+    return this.http.post(Server.API_ENDPOINT +'store', JSON.stringify(asset), this.httpOptions);
+  }
 }

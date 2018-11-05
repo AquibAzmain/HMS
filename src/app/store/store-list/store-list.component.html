@@ -13,49 +13,49 @@
               <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
                   <label for="filter">আইডি</label>
-                  <input class="form-control" type="text" />
+                  <input class="form-control" type="text" [(ngModel)]="assetToBeSearched.assetID" />
                 </div>
                 <div class="form-group">
                   <label for="filter">ধরণ</label>
-                  <select class="form-control">
-                    <option>--</option>
-                    <option>Furniture</option>
-                    <option>Gardening tool</option>
-                    <option>Electronics</option>
-                    <option>Others</option>
+                  <select class="form-control" [(ngModel)]="assetToBeSearched.category">
+                    <option value="">--</option>
+                    <option value="Furniture">Furniture</option>
+                    <option value="Gardening tool">Gardening tool</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Others">Others</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="filter">অবস্থান</label>
-                  <input class="form-control" type="text" />
+                  <input class="form-control" type="text" [(ngModel)]="assetToBeSearched.location" />
                 </div>
               </div>
               <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
                   <label for="filter">অবস্থা</label>
-                  <select class="form-control">
-                    <option>--</option>
-                    <option>Needs repair</option>
-                    <option>Working</option>
-                    <option>Discarded</option>
+                  <select class="form-control" [(ngModel)]="assetToBeSearched.condition">
+                    <option value="">--</option>
+                    <option value="Needs repair">Needs repair</option>
+                    <option value="Working">Working</option>
+                    <option value="Discarded">Discarded</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="filter">ক্রয়ের তারিখ</label>
                   <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue"
-                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker>
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker [(ngModel)]="assetToBeSearched.dateOfPurchase">
                 </div>
-                <div class="form-group">
+                <div class="form-group" >
                   <label for="sel1"><b>কিভাবে সর্ট করতে চান?</b></label>
-                  <select class="form-control">
-                    <option>আইডি</option>
-                    <option>অবস্থান</option>
-                    <option>ক্রয়ের তারিখ</option>
+                  <select class="form-control" [(ngModel)]="assetToBeSearched.sortBy" >
+                    <option value ="assetID">আইডি</option>
+                    <option value ="location">অবস্থান</option>
+                    <option value="dateOfPurchase">ক্রয়ের তারিখ</option>
                   </select>
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-warning">
+            <button type="submit" class="btn btn-warning" (click)="searchSortAsset(assetToBeSearched)">
               ক্লিক করুন
             </button>
           </div>
@@ -72,22 +72,22 @@
         <thead>
           <tr>
             <th>
-              <mfDefaultSorter by="assetID">আইডি</mfDefaultSorter>
+              আইডি
             </th>
             <th>
-              <mfDefaultSorter by="category">ধরণ</mfDefaultSorter>
+              ধরণ
             </th>
             <th>
-              <mfDefaultSorter by="location">অবস্থান</mfDefaultSorter>
+              অবস্থান
             </th>
             <th>
-              <mfDefaultSorter by="condition">অবস্থা</mfDefaultSorter>
+              অবস্থা
             </th>
             <th>
-              <mfDefaultSorter by="dateOfPurchase">ক্রয়ের তারিখ</mfDefaultSorter>
+              ক্রয়ের তারিখ
             </th>
             <th>
-              <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
+              অ্যাকশন
             </th>
           </tr>
 
