@@ -128,13 +128,14 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
-    // setInterval(() => {
-    //     this.notificationService.getNotificationSize()
-    //     .subscribe((response) => { 
-    //       console.log(response);
-    //       this.notificationSize = response['size'];
-    //     });
-    //   }, 5000);
+    this.notificationSize = 0;
+    setInterval(() => {
+        this.notificationService.getNotificationSize()
+        .subscribe((response) => { 
+          console.log(response);
+          this.notificationSize = response['size'];
+        });
+      }, 5000);
   }
 
   onResize(event) {
