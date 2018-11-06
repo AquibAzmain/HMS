@@ -11,17 +11,17 @@ import { Router } from '@angular/router';
 })
 export class UserProfileComponent implements OnInit {
   
-  user_info = {
-    name: '',
-    mobile_number: ''
+  user_info: any = {
+    name: null,
+    mobile_number: null
   };
   update_user_info: any;
   successMessage = '';
   errorMessage = '';
   editProfile = true;
   editProfileIcon = 'icofont-edit';
-  passwords = {old_password: '', new_password: ''}
-  confirmPassword = '';
+  passwords: any = {old_password: null, new_password: null}
+  confirmPassword: any;
   errorMessageInPasswordChange = '';
 
   modalHeader:string;
@@ -46,9 +46,10 @@ export class UserProfileComponent implements OnInit {
     this.successMessage = '';
     this.errorMessage = '';
     this.profileService.editProfile(this.update_user_info).subscribe(resp => {
+      this.errorMessage = '';
       this.successMessage = "User info updated successfully.";
     }, err => {
-      this.errorMessage = err.error.type;
+      this.errorMessage = JSON.parse(err.error).status;
     });
   }
 
@@ -90,6 +91,7 @@ export class UserProfileComponent implements OnInit {
   decline(): void {
     this.successMessage = '';
     this.errorMessage = '';
+    this.errorMessageInPasswordChange = '';
     console.log('Declined!');
     this.modalRef.hide();
   }

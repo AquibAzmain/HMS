@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import {Http, Jsonp} from '@angular/http';
+import { Http } from '@angular/http';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
@@ -19,21 +19,22 @@ export class UserListComponent implements OnInit {
 
   message = '';
   errorMessage = '';
-  deleteUser = {
-    mobile_number: ''
+  errorMessageModal = '';
+  deleteUser: any = {
+    mobile_number: null
   };
   role = localStorage.getItem('role');
-  editUser = {
-    mobile_number: '',
-    role: ''
+  editUser: any = {
+    mobile_number: null,
+    role: null
   };
 
-  createUserData = {
-    name: '',
-    mobile_number: '',
-    password: '',
-    confirm_password: '',
-    role: ''
+  createUserData: any = {
+    name: null,
+    mobile_number: null,
+    password: null,
+    confirm_password: null,
+    role: null
   }
 
   modalHeader:string;
@@ -94,7 +95,17 @@ export class UserListComponent implements OnInit {
   }
 
   confirm(): void {
+    this.errorMessageModal = '';
     console.log('Confirmed!');
+    console.log(this.createUserData.name);
+    if(this.createUserData.name == null || this.createUserData.name == ""  || 
+    this.createUserData.mobile_number == null || this.createUserData.mobile_number == "" || 
+    this.createUserData.password == null || this.createUserData.password == "" || 
+    this.createUserData.confirm_password == null || this.createUserData.confirm_password == "" ||
+    this.createUserData.role == null){
+      this.errorMessageModal = "Please fill all the fields.";
+      return;
+    }
     this.userService.createUser(this.createUserData).subscribe(resp => {
       this.errorMessage = '';
       this.message = "User Created Successfully.";
@@ -106,9 +117,11 @@ export class UserListComponent implements OnInit {
       this.errorMessage = err.status;
     });
     
+    
   }
  
   decline(): void {
+    this.errorMessageModal = '';
     console.log('Declined!');
     this.modalRef.hide();
   }
