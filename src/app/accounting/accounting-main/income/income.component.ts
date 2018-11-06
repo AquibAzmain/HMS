@@ -105,7 +105,7 @@ export class IncomeComponent implements OnInit {
     }
     this.transactionService.addIncome(this.incomeToBeAdded)
     .subscribe((response) => { 
-      this.successToast();
+      //this.successToast();
       this.incomeToBeAdded = response;
       this.incomes.push(this.incomeToBeAdded);
       this.getIncomeData();
