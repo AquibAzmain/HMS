@@ -7,7 +7,7 @@
           <button type="button" class="btn btn-danger" (click)="isCollapsed = !isCollapsed">
             সার্চ ও সর্ট
           </button>
-          <button type="button" class="btn btn-danger">
+          <button type="button" class="btn btn-danger" (click)="convertToPdf()">
             <i class="icofont icofont-printer"></i> প্রিন্ট
           </button>
           <div [collapse]="isCollapsed" class="card card-block">

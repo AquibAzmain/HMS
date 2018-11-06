@@ -9,6 +9,7 @@ import {Server} from '../../../utils/Server'
 import { Student } from '../../../models/Student';
 
 const URL = Server.API_ENDPOINT+'excel';
+declare var jsPDF: any;
 
 @Component({
   selector: 'app-student-list',
@@ -189,7 +190,21 @@ export class StudentListComponent implements OnInit {
     });
   }
 
-  
+  convertToPdf(){
+    var doc = new jsPDF();
+    var col = ["Name", "Reg. No.", "Session", "Status", "Room","Department", "Class/Year", "Mobile"];
+    var rows = [];
+
+
+    for(var key in this.data){
+        var temp = [this.data[key]['name'], this.data[key]['registrationNumber'], this.data[key]['session'], this.data[key]['residentialStatus'], this.data[key]['room'], this.data[key]['subject_name'],this.data[key]['class_year_semester'], this.data[key]['mobileNumber']];
+        rows.push(temp);
+    }
+
+    doc.autoTable(col, rows);
+
+    doc.save('student_list.pdf');
+  }
 
 
 }
