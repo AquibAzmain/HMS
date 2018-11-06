@@ -77,7 +77,7 @@ export class ExpenseComponent implements OnInit {
   }
 
   getCategoryData() {
-    this.transactionCategoryService.getCategoryList()
+    this.transactionCategoryService.getExpenseCategoryList()
       .subscribe((response) => { 
         this.category = response;
         console.log(this.category);
@@ -85,11 +85,12 @@ export class ExpenseComponent implements OnInit {
   }
 
   getSubCategoryData() {
-    this.transactionSubcategoryService.getSubCategoryList()
-      .subscribe((response) => { 
-        this.subCategory = response;
-        console.log(this.subCategory);
-      });
+    
+    // this.transactionSubcategoryService.getSubCategoryList()
+    //   .subscribe((response) => { 
+    //     this.subCategory = response;
+    //     console.log(this.subCategory);
+    //   });
   }
 
 

@@ -43,6 +43,8 @@ export class IncomeComponent implements OnInit {
 
   category: Transaction_Category[] = [];
   subCategory: Transaction_SubCategory[] = [];
+  tc : Transaction_Category = new Transaction_Category();
+  singleCategory: Transaction_Category = new Transaction_Category;
 
   constructor(public http: Http, private modalService: BsModalService,
     private transactionService : TransactionService, private transactionCategoryService : TransactionCategoryService,
@@ -50,11 +52,10 @@ export class IncomeComponent implements OnInit {
     private toastyService: ToastyService ) { }
 
   ngOnInit() {
-    
+   
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
       this.getIncomeData();
       this.getCategoryData();
-      this.getSubCategoryData();
     }
     else {
       this.router.navigate(['/**']);
@@ -66,7 +67,7 @@ export class IncomeComponent implements OnInit {
     this.transactionService.getIncomeList()
       .subscribe((response) => { 
         this.incomes = response;
-        console.log(this.incomes);
+        //console.log(this.incomes);
         this.successToast();
       }, error => {
         this.errorToast();
@@ -74,18 +75,20 @@ export class IncomeComponent implements OnInit {
   }
 
   getCategoryData() {
-    this.transactionCategoryService.getCategoryList()
+
+    this.singleCategory.parent_type = "income";
+    this.transactionCategoryService.getIncomeCategoryList()
       .subscribe((response) => { 
         this.category = response;
         console.log(this.category);
       });
   }
 
-  getSubCategoryData() {
-    this.transactionSubcategoryService.getSubCategoryList()
+  getSubCategoryData(s: any) {
+    this.transactionSubcategoryService.getSubCategoryList(s)
       .subscribe((response) => { 
         this.subCategory = response;
-        console.log(this.subCategory);
+        //console.log(this.subCategory);
       });
   }
 
@@ -110,6 +113,7 @@ export class IncomeComponent implements OnInit {
     }, error => {
       this.errorToast();
     });
+
   }
   
 
@@ -161,33 +165,33 @@ export class IncomeComponent implements OnInit {
     });
   }
 
-   // *************************************
+
 
   selectMainType (event: any) {
     
-    this.selectedMainType = event.target.value; 
-    this.getSubTypes();
-  }
-
-
-  getSubTypes() {
+    this.incomeToBeAdded.cat_name = event.target.value; 
+    //console.log(event.target.value);
     
-    this.typeData.forEach(element => {
-      
-      if( element.typeMain === this.selectedMainType ) {
-        this.allSubType = element.subType;
-        console.log(this.allSubType);
-      }
-      
-    });
+    this.getSubCategoryData(this.incomeToBeAdded.cat_name);
+    //console.log(this.subCategory);
   }
-
 
   selectSubType (event: any) {
 
-    this.selectedSubType = event.target.value;
-    console.log(this.selectedSubType);
+    this.incomeToBeAdded.sub_name = event.target.value;
+    console.log(event.target.value);
   }
+
+
+   // *************************************
+
+  
+
+
+  
+
+
+  
 
 
   public openModal(template: TemplateRef<any>, type: string) {
