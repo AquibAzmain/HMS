@@ -47,4 +47,9 @@ export class EmployeeService {
   updateLeave(leave:Leave) {
     return this.http.put(Server.API_ENDPOINT +'leave', JSON.stringify(leave),this.httpOptions);
   }
+
+  searchSortEmployee(employeeSearch:Employee) : Observable<Employee[]>{
+    return this.http.post<Employee[]>(Server.API_ENDPOINT +'employee_search', JSON.stringify(employeeSearch), this.httpOptions);
+  }
+
 }

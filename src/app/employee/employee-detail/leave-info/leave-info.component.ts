@@ -4,6 +4,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Leave } from '../../../../models/Leave';
 import { EmployeeService } from '../../employee.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
 
 @Component({
   selector: 'app-leave-info',
@@ -11,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./leave-info.component.css']
 })
 export class LeaveInfoComponent implements OnInit {
+  position = 'bottom';
   public data: any;
   public rowsOnPage = 5;
   public filterQuery = '';
@@ -34,7 +36,8 @@ export class LeaveInfoComponent implements OnInit {
   constructor(public http: Http, private modalService: BsModalService,
     private route: ActivatedRoute,
     private employeeService : EmployeeService,
-    private router: Router) { }
+    private router: Router,
+    private toastyService: ToastyService) { }
 
   ngOnInit() {
     this.employeeId = this.route.snapshot.paramMap.get('id');
@@ -68,7 +71,7 @@ export class LeaveInfoComponent implements OnInit {
         this.checkPendingLeave();
       },
       (err) => {
-        console.log(err)
+        this.errorToast();
       })
   }
 
@@ -112,11 +115,11 @@ export class LeaveInfoComponent implements OnInit {
       this.employeeService.addLeave(this.leaveToBeAdded)
       .subscribe((response) => { 
         console.log(this.leaveToBeAdded);
-        ////////////////////alert//////////////////////////
+        this.successToast();
         this.getLeaveData();
       },
       (err) => {
-        console.log(err)
+        this.errorToast();
       })
     }
   }
@@ -140,10 +143,10 @@ export class LeaveInfoComponent implements OnInit {
       .subscribe((response) => { 
         console.log(leave);
         this.getLeaveData();
-        ////////////////////alert//////////////////////////
+        this.successToast();
       },
       (err) => {
-        console.log(err)
+        this.errorToast();
       })
     }
   }
@@ -171,17 +174,59 @@ export class LeaveInfoComponent implements OnInit {
   }
 
   public formatDate(date) {
-    var monthNames = [
-      "January", "February", "March",
-      "April", "May", "June", "July",
-      "August", "September", "October",
-      "November", "December"
-    ];
-  
     var day = date.getDate();
     var monthIndex = date.getMonth()+1;
     var year = date.getFullYear();
   
     return day + '/' + monthIndex + '/' + year;
+  }
+
+  addToast(options) {
+    if (options.closeOther) {
+      this.toastyService.clearAll();
+    }
+    this.position = options.position ? options.position : this.position;
+    const toastOptions: ToastOptions = {
+      title: options.title,
+      msg: options.msg,
+      showClose: options.showClose,
+      timeout: options.timeout,
+      theme: options.theme,
+      onAdd: (toast: ToastData) => {
+        /* added */
+      },
+      onRemove: (toast: ToastData) => {
+        /* removed */
+      }
+    };
+
+    switch (options.type) {
+      case 'default': this.toastyService.default(toastOptions); break;
+      case 'info': this.toastyService.info(toastOptions); break;
+      case 'success': this.toastyService.success(toastOptions); break;
+      case 'wait': this.toastyService.wait(toastOptions); break;
+      case 'error': this.toastyService.error(toastOptions); break;
+      case 'warning': this.toastyService.warning(toastOptions); break;
+    }
+  }
+
+  successToast() {
+    this.addToast({
+      title: 'Success',
+      msg: 'Operation successful.',
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'success'
+    });
+  }
+
+  errorToast() {
+    this.addToast({
+      title: 'Error',
+      msg: 'Operation not successful. Check your net connection.',
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'error'
+    });
   }
 }

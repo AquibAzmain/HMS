@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {Server} from '../../utils/Server'
 import { Student } from '../../models/Student';
+import { Remark } from '../../models/Remark';
 @Injectable()
 export class StudentService {
   token = localStorage.getItem('token');
@@ -25,7 +26,7 @@ export class StudentService {
 
   // id nei to ki dhore delete hobe dekhe nio
   deleteStudent(student:Student) {
-    return this.http.delete(Server.API_ENDPOINT +'student/'+student.registrationNumber,this.httpOptions) //
+    return this.http.delete(Server.API_ENDPOINT +'student'+"?registrationNumber="+student.registrationNumber,this.httpOptions) //
   }
 
   getStudentByReg(registrationNumber) : Observable<Student> {
@@ -33,7 +34,19 @@ export class StudentService {
   }
 
   searchSortStudent(student:Student) {
-    return this.http.post(Server.API_ENDPOINT +'student_search', JSON.stringify(student), this.httpOptions);
+    return this.http.post(Server.API_ENDPOINT +'stu_search', JSON.stringify(student), this.httpOptions);
   }
+
+  getComment(registrationNumber): Observable<Remark>{
+    return this.http.get<Remark>(Server.API_ENDPOINT + 'remark/'+registrationNumber,this.httpOptions);
+  }
+
+  addComment(comment:Comment) {
+    return this.http.post(Server.API_ENDPOINT +'remark', JSON.stringify(comment), this.httpOptions)
+  }
+
+  getCommentList() : Observable<Remark[]> {
+    return this.http.get<Remark[]>(Server.API_ENDPOINT +'remark');
+  } 
 
 }

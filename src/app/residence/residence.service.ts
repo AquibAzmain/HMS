@@ -28,7 +28,7 @@ export class ResidenceService {
   }
 
   deleteBlock(block:Block) {
-    return this.http.delete(Server.API_ENDPOINT +'block/'+block.id,this.httpOptions)
+    return this.http.delete(Server.API_ENDPOINT +'block?block_id='+block.id,this.httpOptions)
   }
 
   getRoomList() : Observable<Room[]> {
@@ -45,11 +45,23 @@ export class ResidenceService {
   }
 
   deleteRoom(room:Room) {
-    return this.http.delete(Server.API_ENDPOINT +'room/'+room.roomNumber,this.httpOptions)
+    return this.http.delete(Server.API_ENDPOINT +'room?roomNumber='+room.roomNumber,this.httpOptions)
   }
 
   getRoomById(roomNumber) : Observable<Room> {
     return this.http.get<Room>(Server.API_ENDPOINT + 'room/'+roomNumber,this.httpOptions);
+  }
+
+  searchSortRoom(asset:Room) {
+    return this.http.post(Server.API_ENDPOINT +'room_search', JSON.stringify(asset), this.httpOptions);
+  }
+
+  updateStudent(studentObject) {
+    return this.http.put(Server.API_ENDPOINT +'student', studentObject ,this.httpOptions)
+  }
+
+  getHouseTutors(){
+    return this.http.get(Server.API_ENDPOINT + 'users', this.httpOptions);
   }
 
 }

@@ -52,13 +52,6 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <!-- <div class="form-group row">
-                      <label class="col-sm-4 col-form-label">ছুটির ব্যাপ্তি</label>
-                      <div class="col-sm-8">
-                        <input type="text" placeholder="" class="form-control" [bsValue]="bsValue" [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
-                          #drp="bsDaterangepicker" bsDaterangepicker>
-                      </div>
-                    </div> -->
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label">ছুটি শুরুর তারিখ</label>
                       <div class="col-sm-8">
@@ -80,7 +73,7 @@
                       </div>
                     </div>
                     <div *ngIf="this.confirmUpdateError == true" class="form-group row">
-                      <label class="col-sm-12 col-form-label">*ঠিকমত ফর্ম পূরণ করুন</label>
+                      <label class="col-sm-12 col-form-label"><i>*ঠিকমত ফর্ম পূরণ করুন</i></label>
                     </div>
                     <button type="button" class="btn btn-success text-white" (click)="confirmUpdateLeave(leave)">নিশ্চিত</button>
                     <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
@@ -112,13 +105,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <!-- <div class="form-group row">
-      <label class="col-sm-4 col-form-label">ছুটির ব্যাপ্তি</label>
-      <div class="col-sm-8">
-        <input type="text" placeholder="" class="form-control" [bsValue]="bsValue" [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
-          #drp="bsDaterangepicker" bsDaterangepicker>
-      </div>
-    </div> -->
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">ছুটি শুরুর তারিখ</label>
       <div class="col-sm-8">
@@ -147,32 +133,6 @@
   </div>
 </ng-template>
 
-<!-- <ng-template #template>
-  <div class="modal-header">
-    <h5 class="modal-title pull-left">{{modalHeader}}</h5>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">ছুটির ব্যাপ্তি</label>
-      <div class="col-sm-8">
-        <input type="text" placeholder="" class="form-control" [bsValue]="bsValue" [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
-          #drp="bsDaterangepicker" bsDaterangepicker>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">ছুটির ধরণ</label>
-      <div class="col-sm-8">
-          <input class="form-control" type="text"/>
-      </div>
-    </div>
-    <button type="button" class="btn btn-success text-white" (click)="confirm()">নিশ্চিত</button>
-    <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
-  </div>
-</ng-template> -->
-
 <ng-template #deleteTemplate>
   <div class="modal-header">
     <h5 class="modal-title pull-left">তথ্য মুছে দিতে ইচ্ছুক?</h5>
@@ -185,3 +145,5 @@
     <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
   </div>
 </ng-template>
+
+<ng2-toasty [position]="position"></ng2-toasty>

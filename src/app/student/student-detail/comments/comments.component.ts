@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from '../../../../models/Student';
 import { StudentService } from '../../student.service';
 import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
+import { Remark } from '../../../../models/Remark';
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
@@ -10,9 +11,12 @@ import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
 })
 export class CommentsComponent implements OnInit {
   position = 'bottom';
-
+  userName = localStorage.getItem('name');
+  today = this.formatDate(new Date());
   role = "hallOfficer"; //localStorage.getItem('role'); 
   student: Student = new Student();
+  commentObject: Remark = new Remark();
+  comments: Remark[]=[];
   constructor(private route: ActivatedRoute,
     private studentService: StudentService,
     private router: Router,
@@ -27,6 +31,16 @@ export class CommentsComponent implements OnInit {
       }
     }
 
+    getComments(){
+      this.studentService.getCommentList()
+      .subscribe((response) => { 
+        console.log(response);
+        this.comments = response;
+      }, error => {
+        this.errorToast();
+      });
+    }
+
     getStudentData() {
       let studentReg = this.route.snapshot.paramMap.get('id');
       this.studentService.getStudentByReg(studentReg)
@@ -35,6 +49,29 @@ export class CommentsComponent implements OnInit {
         }, error => {
           this.errorToast();
         });
+    }
+
+    postComment(comment){
+      comment.registrationNumber = this.student.registrationNumber;
+      comment.date = this.today;
+      comment.user = this.userName;
+
+      console.log(comment);
+
+      this.studentService.addComment(comment)
+          .subscribe((response) => {
+            this.successToast();
+            this.getComments();
+          }, error => {
+            this.errorToast();
+          });
+    }
+
+    public formatDate(date) {
+      var day = date.getDate();
+      var monthIndex = date.getMonth()+1;
+      var year = date.getFullYear();
+      return day + '/' + monthIndex + '/' + year;
     }
   
     confirmUpdateStudent(): void {

@@ -13,6 +13,8 @@ import { RoomDetailsComponent } from './room-details/room-details.component';
 import { BlockDetailsComponent } from './block-details/block-details.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ResidenceService } from './residence.service';
+import { ToastyModule } from 'ng2-toasty';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 export const ResidenceRoutes: Routes = [
   {
@@ -47,7 +49,9 @@ export const ResidenceRoutes: Routes = [
     HttpModule,
     DataTableModule,
     CollapseModule,
-    ModalModule.forRoot()
+    Ng2SearchPipeModule,
+    ModalModule.forRoot(),
+    ToastyModule.forRoot()
   ],
   providers: [
     ResidenceService

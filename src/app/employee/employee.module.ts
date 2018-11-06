@@ -13,6 +13,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { EmployeeService } from './employee.service';
+import { ToastyModule } from 'ng2-toasty';
 
 export const EmployeeRoutes: Routes = [
   {
@@ -38,7 +39,8 @@ export const EmployeeRoutes: Routes = [
     DataTableModule,
     CollapseModule .forRoot(),
     ModalModule.forRoot(),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    ToastyModule.forRoot()
   ],
   providers: [
     EmployeeService

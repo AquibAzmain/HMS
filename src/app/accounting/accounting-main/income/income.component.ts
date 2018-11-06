@@ -10,6 +10,7 @@ import { TransactionService } from '../transaction.service';
 import { TransactionCategoryService } from '../transaction-category.service';
 import { TransactionSubcategoryService } from '../transaction-subcategory.service';
 import { Router } from '@angular/router';
+import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
 
 @Component({
   selector: 'app-income',
@@ -17,7 +18,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./income.component.css']
 })
 export class IncomeComponent implements OnInit {
-  
+  position = 'bottom';
+
   bsValue = new Date();
   public data: any;
   public rowsOnPage = 10;
@@ -41,17 +43,19 @@ export class IncomeComponent implements OnInit {
 
   category: Transaction_Category[] = [];
   subCategory: Transaction_SubCategory[] = [];
+  tc : Transaction_Category = new Transaction_Category();
+  singleCategory: Transaction_Category = new Transaction_Category;
 
   constructor(public http: Http, private modalService: BsModalService,
     private transactionService : TransactionService, private transactionCategoryService : TransactionCategoryService,
-    private transactionSubcategoryService : TransactionSubcategoryService, private router: Router ) { }
+    private transactionSubcategoryService : TransactionSubcategoryService, private router: Router,
+    private toastyService: ToastyService ) { }
 
   ngOnInit() {
-    
+   
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
       this.getIncomeData();
       this.getCategoryData();
-      this.getSubCategoryData();
     }
     else {
       this.router.navigate(['/**']);
@@ -63,23 +67,28 @@ export class IncomeComponent implements OnInit {
     this.transactionService.getIncomeList()
       .subscribe((response) => { 
         this.incomes = response;
-        console.log(this.incomes);
+        //console.log(this.incomes);
+        this.successToast();
+      }, error => {
+        this.errorToast();
       });
   }
 
   getCategoryData() {
-    this.transactionCategoryService.getCategoryList()
+
+    this.singleCategory.parent_type = "income";
+    this.transactionCategoryService.getIncomeCategoryList()
       .subscribe((response) => { 
         this.category = response;
         console.log(this.category);
       });
   }
 
-  getSubCategoryData() {
-    this.transactionSubcategoryService.getSubCategoryList()
+  getSubCategoryData(s: any) {
+    this.transactionSubcategoryService.getSubCategoryList(s)
       .subscribe((response) => { 
         this.subCategory = response;
-        console.log(this.subCategory);
+        //console.log(this.subCategory);
       });
   }
 
@@ -97,22 +106,18 @@ export class IncomeComponent implements OnInit {
     }
     this.transactionService.addIncome(this.incomeToBeAdded)
     .subscribe((response) => { 
-
+      this.successToast();
       this.incomeToBeAdded = response;
       this.incomes.push(this.incomeToBeAdded);
       this.getIncomeData();
+    }, error => {
+      this.errorToast();
     });
+
   }
   
 
   public formatDate(date) {
-    var monthNames = [
-      "January", "February", "March",
-      "April", "May", "June", "July",
-      "August", "September", "October",
-      "November", "December"
-    ];
-  
     var day = date.getDate();
     var monthIndex = date.getMonth()+1;
     var year = date.getFullYear();
@@ -134,9 +139,12 @@ export class IncomeComponent implements OnInit {
     
     this.transactionService.updateIncome(income)
     .subscribe((response) => { 
+      this.successToast();
       this.getIncomeData();
       console.log(response);
       console.log(income);
+    }, error => {
+      this.errorToast();
     });
   }
 
@@ -149,38 +157,41 @@ export class IncomeComponent implements OnInit {
     this.deleteModalRef.hide();
     this.transactionService.deleteIncome(income)
     .subscribe((response) => { 
+      this.successToast();
       let index = this.incomes.indexOf(income);
       this.incomes.splice(index,1);
+    }, error => {
+      this.errorToast();
     });
   }
 
-   // *************************************
+
 
   selectMainType (event: any) {
     
-    this.selectedMainType = event.target.value; 
-    this.getSubTypes();
-  }
-
-
-  getSubTypes() {
+    this.incomeToBeAdded.cat_name = event.target.value; 
+    //console.log(event.target.value);
     
-    this.typeData.forEach(element => {
-      
-      if( element.typeMain === this.selectedMainType ) {
-        this.allSubType = element.subType;
-        console.log(this.allSubType);
-      }
-      
-    });
+    this.getSubCategoryData(this.incomeToBeAdded.cat_name);
+    //console.log(this.subCategory);
   }
-
 
   selectSubType (event: any) {
 
-    this.selectedSubType = event.target.value;
-    console.log(this.selectedSubType);
+    this.incomeToBeAdded.sub_name = event.target.value;
+    console.log(event.target.value);
   }
+
+
+   // *************************************
+
+  
+
+
+  
+
+
+  
 
 
   public openModal(template: TemplateRef<any>, type: string) {
@@ -201,6 +212,55 @@ export class IncomeComponent implements OnInit {
   
   declineDelete(): void {
     this.deleteModalRef.hide();
+  }
+
+  addToast(options) {
+    if (options.closeOther) {
+      this.toastyService.clearAll();
+    }
+    this.position = options.position ? options.position : this.position;
+    const toastOptions: ToastOptions = {
+      title: options.title,
+      msg: options.msg,
+      showClose: options.showClose,
+      timeout: options.timeout,
+      theme: options.theme,
+      onAdd: (toast: ToastData) => {
+        /* added */
+      },
+      onRemove: (toast: ToastData) => {
+        /* removed */
+      }
+    };
+
+    switch (options.type) {
+      case 'default': this.toastyService.default(toastOptions); break;
+      case 'info': this.toastyService.info(toastOptions); break;
+      case 'success': this.toastyService.success(toastOptions); break;
+      case 'wait': this.toastyService.wait(toastOptions); break;
+      case 'error': this.toastyService.error(toastOptions); break;
+      case 'warning': this.toastyService.warning(toastOptions); break;
+    }
+  }
+
+  successToast() {
+    this.addToast({
+      title: 'Success',
+      msg: 'Operation successful.',
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'success'
+    });
+  }
+
+  errorToast() {
+    this.addToast({
+      title: 'Error',
+      msg: 'Operation not successful. Check your net connection',
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'error'
+    });
   }
 
 }
