@@ -29,6 +29,7 @@ export class ExpenseCategoryComponent implements OnInit {
   category: Transaction_Category[] = [];
   subCategory: Transaction_SubCategory[] = [];
   subCategoryToBeAdded: Transaction_SubCategory = new Transaction_SubCategory;
+  singleCategory: Transaction_Category = new Transaction_Category;
 
   constructor(public http: Http, private modalService: BsModalService,
     private transactionCategoryService : TransactionCategoryService,
@@ -37,7 +38,7 @@ export class ExpenseCategoryComponent implements OnInit {
   ngOnInit() {
     
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
-      this.getCategoryData();
+      this.getExpenseCategoryData();
       //this.getSubCategoryData();
       //this.subCategoryToBeAdded.parent_cat = "University expense";
 
@@ -58,12 +59,14 @@ export class ExpenseCategoryComponent implements OnInit {
   }
 
 
-  getCategoryData() {
-    // console.log(this.category);
-    // this.transactionCategoryService.getCategoryList()
-    //   .subscribe((response) => { 
-    //     this.category = response;
-    //   });
+  getExpenseCategoryData() {
+    console.log(this.category);
+
+    this.singleCategory.parent_type = "expense";
+    this.transactionCategoryService.getExpenseCategoryList()
+      .subscribe((response) => { 
+        this.category = response;
+      });
   }
 
   /*

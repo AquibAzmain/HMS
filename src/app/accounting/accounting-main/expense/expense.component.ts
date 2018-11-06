@@ -69,7 +69,7 @@ export class ExpenseComponent implements OnInit {
     this.transactionService.getExpenseList()
       .subscribe((response) => { 
         this.expenses = response;
-        //console.log(this.expenses);
+        console.log(this.expenses);
         this.successToast();
       }, error => {
         this.errorToast();
@@ -100,19 +100,19 @@ export class ExpenseComponent implements OnInit {
   }
   
   confirmAddExpense(): void {
-    console.log(this.expenses.length);
+    //console.log(this.expenses.length);
     this.modalRef.hide();
     if(this.expenseToBeAdded.purchase_date != null){
       this.expenseToBeAdded.purchase_date = this.formatDate(this.expenseToBeAdded.purchase_date);
     }
     this.transactionService.addExpense(this.expenseToBeAdded)
     .subscribe((response) => { 
-      this.successToast();
+      //this.successToast();
       this.expenseToBeAdded = response;
       this.expenses.push(this.expenseToBeAdded);
       this.getExpenseData();
     }, error => {
-      this.errorToast();
+      //this.errorToast();
     });
   }
 
@@ -127,9 +127,9 @@ export class ExpenseComponent implements OnInit {
       expense.purchase_date = this.formatDate(expense.purchase_date);
     }
     
-    this.transactionService.updateExpense(expense)
+    this.transactionService.addExpense(expense)
     .subscribe((response) => {
-      this.successToast(); 
+      //this.successToast(); 
       this.getExpenseData();
       console.log(response);
       console.log(expense);
@@ -147,7 +147,7 @@ export class ExpenseComponent implements OnInit {
     this.deleteModalRef.hide();
     this.transactionService.deleteExpense(expense)
     .subscribe((response) => { 
-      this.successToast();
+      //this.successToast();
       let index = this.expenses.indexOf(expense);
       this.expenses.splice(index,1);
     }, error => {

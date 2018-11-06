@@ -13,14 +13,15 @@
       <label class="col-sm-4 col-form-label">ক্যাটেগরি</label>
       <div class="col-sm-8">
         <select id="typeMain" class="form-control" (change)="getCategoryId($event)">
+            <option value="">--</option>
           <option *ngFor="let item of category" [value]="item.cat_name">
             {{item.cat_name}}
           </option>
         </select>
       </div>
     </div>
-    <button type="submit" class="btn btn-block bg-c-brown text-white">নিশ্চিত করুন</button>
-    <div class="table-responsive m-t-30">
+    <button type="submit" class="btn btn-block bg-c-brown text-white" (click)="confirmAddSubCategory()">নিশ্চিত করুন</button>
+    <!-- <div class="table-responsive m-t-30">
       <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
         [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
         <thead>
@@ -43,7 +44,7 @@
           </tr>
         </tfoot>
       </table>
-    </div>
+    </div> -->
     <!-- end of view-info -->
   </div>
 </div>

@@ -6,11 +6,12 @@
         <div class="col-sm-3"></div>
         <div class="col-xs-12 col-sm-6 col-md-6" style="text-align: center">
           <div class="form-group">
+            <label for="filter"><b>Current Balance: {{currentBalance.amount}}</b></label>
             <label for="filter">হিসাবের প্রতিবেদন পাওয়ার জন্য তারিখের ব্যাপ্তি নির্বাচন করুন</label>
             <input type="text" placeholder="" class="form-control" [bsValue]="bsValue" [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
               #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="dateRange">
           </div>
-          <button type="submit" class="btn bg-c-brown text-white" (click)="getDateRange()">ডাউনলোড করুন</button>
+          <button type="submit" class="btn bg-c-brown text-white" (click)="getData()">ডাউনলোড করুন</button>
         </div>
         <div class="col-sm-3"></div>
       </div>

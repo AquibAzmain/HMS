@@ -112,6 +112,7 @@
       <label class="col-sm-4 col-form-label">ক্যাটেগরি</label>
       <div class="col-sm-8">
         <select id="typeMain" class="form-control" (change)="selectMainType($event)">
+            <option value="">--</option>
           <option *ngFor="let item of category" [value]="item.cat_name" >
             {{item.cat_name}}
           </option>
@@ -122,6 +123,7 @@
       <label class="col-sm-4 col-form-label">সাব-ক্যাটেগরি</label>
       <div class="col-sm-8">
         <select id="typeSub" class="form-control" (change)="selectSubType($event)">
+         
           <option *ngFor="let item of subCategory" [value]="item.sub_name">
             {{item.sub_name}}
           </option>
