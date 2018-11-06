@@ -21,7 +21,7 @@ export class NotificationService {
   }
 
   getNotificationSize() {
-    return this.http.get(Server.API_ENDPOINT + 'notificationSize',this.httpOptions);
+    return this.http.get(Server.API_ENDPOINT + 'notificationsize',this.httpOptions);
   }
 
   seenNotification(notification: Notification) {
