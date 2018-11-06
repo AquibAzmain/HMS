@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {animate, AUTO_STYLE, state, style, transition, trigger} from '@angular/animations';
 import {MenuItems} from '../../shared/menu-items/menu-items';
 import { NotificationService } from '../../notifications/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -86,7 +87,9 @@ export class AdminComponent implements OnInit {
 /*  @ViewChild('toggleButton') toggle_button: ElementRef;
   @ViewChild('sideMenu') side_menu: ElementRef;*/
 
-  constructor(public menuItems: MenuItems, private notificationService: NotificationService) {
+  constructor(public menuItems: MenuItems, 
+    private notificationService: NotificationService, 
+    private router: Router) {
     this.username = localStorage.getItem('name');
     
     this.navType = 'st2';
@@ -132,6 +135,9 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(localStorage.getItem("token") == null){
+      this.router.navigate(['/authentication/login']);
+    }
     this.notificationSize = 0;
     // setInterval(() => {
     //     this.notificationService.getNotificationSize()
