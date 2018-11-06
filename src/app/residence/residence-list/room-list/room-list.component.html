@@ -82,9 +82,8 @@
                   <div class="form-group row">
                     <label class="col-sm-4 col-form-label">ব্লক</label>
                     <div class="col-sm-8">
-                      <select class="form-control" [(ngModel)]="room.block">
-                        <option>--</option>
-                        <option *ngFor="let block of this.block; index as i;" value="block.name">{{block.name}}</option>
+                      <select class="form-control" [(ngModel)]="room.block_id">
+                        <option *ngFor="let block of blocks">{{block.block_name}} {{block.location}}</option>
                       </select>
                     </div>
                   </div>
@@ -97,7 +96,9 @@
                   <div class="form-group row">
                     <label class="col-sm-4 col-form-label">দায়িত্বপ্রাপ্ত শিক্ষক</label>
                     <div class="col-sm-8">
-                      <input class="form-control" type="text" [(ngModel)]="room.assignedHouseTutor" />
+                        <select class="form-control" [(ngModel)]="room.assignedHouseTutor">
+                            <option *ngFor="let houreTutor of houseTutors" value="{{houreTutor.id}}">{{houreTutor.name}}</option>
+                          </select>
                     </div>
                   </div>
                   <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmUpdateRoom(room)">নিশ্চিত</button>
@@ -153,9 +154,8 @@
       <label class="col-sm-4 col-form-label">ব্লক</label>
       <div class="col-sm-8">
         <select class="form-control" [(ngModel)]="roomToBeAdded.block_id">
-          <option *ngFor="let block of blocks">{{block.block_name}} {{block.location}}</option>
+          <option *ngFor="let block of blocks" value="{{block.id}}">{{block.block_name}} {{block.location}}</option>
         </select>
-        <input class="form-control" type="text" [(ngModel)]="roomToBeAdded.block_id" />
       </div>
     </div>
     <div class="form-group row">
@@ -167,7 +167,9 @@
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">দায়িত্বপ্রাপ্ত শিক্ষক</label>
       <div class="col-sm-8">
-        <input class="form-control" type="text" [(ngModel)]="roomToBeAdded.assignedHouseTutor" />
+        <select class="form-control" [(ngModel)]="roomToBeAdded.assignedHouseTutor">
+          <option *ngFor="let houreTutor of houseTutors" value="{{houreTutor.id}}">{{houreTutor.name}}</option>
+        </select>
       </div>
     </div>
     <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmAddRoom()">নিশ্চিত</button>

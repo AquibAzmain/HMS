@@ -16,6 +16,7 @@ export class RoomDetailsComponent implements OnInit {
   position = 'bottom';
   editProfile = true;
   editProfileIcon = 'icofont-edit';
+  students: Student[] = [];
   public data: any;
   public studentList: any;
   public rowsOnPage = 10;
@@ -41,10 +42,6 @@ export class RoomDetailsComponent implements OnInit {
     //   this.data = blockData.json();
     // });
 
-    this.http.get(`assets/data/data.json`)
-      .subscribe((data) => {
-        this.studentList = data.json();
-      });
     //console.log(employeeId);
     if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
       this.getRoomData();
@@ -52,6 +49,7 @@ export class RoomDetailsComponent implements OnInit {
     else {
       this.router.navigate(['/**']);
     }
+    this.getStudentList();
   }
 
   getRoomData() {
@@ -67,10 +65,14 @@ export class RoomDetailsComponent implements OnInit {
     
     
   }
+  
 
-  addStudentToRoom(roomNumber) {
+  addStudentToRoom(student) {
+    console.log(student);
     let studentAdd = {
       registrationNumber: this.studentRegToBeAddedToRoom,
+      session: student.session,
+      name: student.name,
       residentialStatus: "Resident",
       room_no: this.room.roomNumber
     }
@@ -96,6 +98,16 @@ export class RoomDetailsComponent implements OnInit {
       this.houseTutors = response;
     });
   }
+
+  getStudentList(){
+    this.residenceService.getStudentList()
+    .subscribe((response) => { 
+      console.log(response);
+      this.students = response;
+    }, error => {
+    });
+  }
+
   confirmUpdateRoom(): void {
     this.residenceService.updateRoom(this.room)
       .subscribe((response) => {

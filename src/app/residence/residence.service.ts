@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import {Server} from '../../utils/Server'
 import { Block } from '../../models/Block';
 import { Room } from '../../models/Room';
+import { Student } from '../../models/Student';
 
 @Injectable()
 export class ResidenceService {
@@ -45,7 +46,7 @@ export class ResidenceService {
   }
 
   deleteRoom(room:Room) {
-    return this.http.delete(Server.API_ENDPOINT +'room?roomNumber='+room.roomNumber,this.httpOptions)
+    return this.http.delete(Server.API_ENDPOINT +'room/'+room.roomNumber,this.httpOptions)
   }
 
   getRoomById(roomNumber) : Observable<Room> {
@@ -62,5 +63,13 @@ export class ResidenceService {
 
   getHouseTutors(){
     return this.http.get(Server.API_ENDPOINT + 'users', this.httpOptions);
+  }
+
+  getStudentList() : Observable<Student[]> {
+    return this.http.get<Student[]>(Server.API_ENDPOINT +'student', this.httpOptions)
+  } 
+
+  getStudentByReg(registrationNumber) : Observable<Student> {
+    return this.http.get<Student>(Server.API_ENDPOINT + 'student/'+registrationNumber,this.httpOptions);
   }
 }

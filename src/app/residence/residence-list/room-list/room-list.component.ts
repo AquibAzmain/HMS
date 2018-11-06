@@ -30,7 +30,8 @@ export class RoomListComponent implements OnInit {
   blocks:Block[];
   roomToBeAdded: Room = new Room();
   roomToBeSearched: Room = new Room();
-  
+  houseTutors: any;
+
   constructor(public http: Http, private modalService: BsModalService,
               private residenceService : ResidenceService,
               private router: Router,
@@ -40,6 +41,7 @@ export class RoomListComponent implements OnInit {
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
       this.getRoomData();
       this.getBlockData();
+      this.getHouseTutorList()
     }
     else {
       this.router.navigate(['/**']);
@@ -73,6 +75,7 @@ export class RoomListComponent implements OnInit {
 
   confirmAddRoom(): void {
     this.modalRef.hide();
+    console.log(this.roomToBeAdded);
     this.residenceService.addRoom(this.roomToBeAdded)
     .subscribe((response) => { 
       this.successToast();
@@ -121,6 +124,14 @@ export class RoomListComponent implements OnInit {
       }, error => {
         this.errorToast();
       });
+  }
+
+  getHouseTutorList(){
+    this.residenceService.getHouseTutors()
+    .subscribe((response) => {
+      this.houseTutors = response;
+      console.log(this.houseTutors);
+    });
   }
 
 

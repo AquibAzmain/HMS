@@ -131,10 +131,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of mf.data; index as i;">
-                <td>{{item.studentName}}</td>
+              <tr *ngFor="let item of this.students; index as i;">
+                <td>{{item.name}}</td>
                 <td>{{item.registrationNumber}}</td>
-                <td>{{item.residenceStatus}}</td>
+                <td>{{item.residentialStatus}}</td>
                 <td>
                   <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
                     <i class="icofont icofont-ui-delete"></i></a>
@@ -166,16 +166,16 @@
   <div class="modal-body">
     <div class="list-group" style="overflow: scroll;height:450px;">
       <input type="text" class="form-control" placeholder="ছাত্রের নাম দিয়ে খুঁজুন" [(ngModel)]="searchStudent">
-      <div class="list-group-item list-group-item-action flex-column" *ngFor="let item of studentList | filter:searchStudent">
+      <div class="list-group-item list-group-item-action flex-column" *ngFor="let item of students | filter:searchStudent">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1"><input type="radio" name="studentChecked" (change)="onSelectionChange(item.registrationNumber)"  [value]="item.registrationNumber"> {{item.name}}</h5>
         </div>
         <p class="mb-1">রেজিস্ট্রেশান নম্বরঃ {{item.registrationNumber}}</p>
-        <p class="mb-1">আবাসিক স্ট্যাটাসঃ {{item.residenceStatus}}</p>
-        <p class="mb-1">কক্ষ নম্বরঃ {{item.room}}</p>
+        <p class="mb-1">আবাসিক স্ট্যাটাসঃ {{item.residentialStatus}}</p>
+        <p class="mb-1">কক্ষ নম্বরঃ {{item.room_no}}</p>
       </div>
     </div>
-    <button type="button" class="btn bg-c-lite-blue text-white" [disabled]="!studentRegToBeAddedToRoom" (click)="addStudentToRoom(this.room.roomNumber)">নিশ্চিত</button>
+    <button type="button" class="btn bg-c-lite-blue text-white" [disabled]="!studentRegToBeAddedToRoom" (click)="addStudentToRoom(item)">নিশ্চিত</button>
     <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
   </div>
 </ng-template>

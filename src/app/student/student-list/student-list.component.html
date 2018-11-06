@@ -31,13 +31,13 @@
                 </div>
                 <div class="form-group">
                   <label for="sel1">শ্রেণি/বর্ষ</label>
-                  <input class="form-control" type="text" [(ngModel)]="studentToBeSearched.class_year_semester"/>
+                  <input class="form-control" type="text" [(ngModel)]="studentToBeSearched.class_year_semester" />
                 </div>
               </div>
               <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
                   <label for="filter">শিক্ষাবর্ষ</label>
-                  <input class="form-control" type="text" [(ngModel)]="studentToBeSearched.session"/>
+                  <input class="form-control" type="text" [(ngModel)]="studentToBeSearched.session" />
                 </div>
                 <div class="form-group">
                   <label for="filter">ছাত্রত্ব স্ট্যাটাস</label>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="form-group">
                   <label for="filter">ডিপার্টমেন্ট</label>
-                  <input class="form-control" type="text" [(ngModel)]="studentToBeSearched.subject_name"/>
+                  <input class="form-control" type="text" [(ngModel)]="studentToBeSearched.subject_name" />
                 </div>
                 <div class="form-group">
                   <label for="sel1"><b>কিভাবে সর্ট করতে চান?</b></label>
@@ -70,16 +70,20 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-2">
         <div class="btn-group" dropdown>
-          <button id="button-basic" dropdownToggle type="button" class="btn btn-danger f-right" aria-controls="dropdown-basic">
+          <button id="button-basic" type="button" class="btn btn-danger f-right" [routerLink]="['add_student/', 0]">
+            <i class="icofont icofont-plus"></i>
+            নতুন ছাত্র
+          </button>
+          <!-- <button id="button-basic" dropdownToggle type="button" class="btn btn-danger f-right" aria-controls="dropdown-basic">
             <i class="icofont icofont-plus"></i>
             নতুন ছাত্র<span class="caret"></span>
-          </button>
-          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          </button> -->
+          <!-- <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
             <li role="menuitem"><a class="dropdown-item" style="color:black" [routerLink]="['add_student/', 0]">নতুন
                 ছাত্রের ফর্ম</a></li>
             <li role="menuitem"><a class="dropdown-item pointer" (click)="openFileUploadModal(fileUploadTemplate)">ফাইল
                 আপলোড</a></li>
-          </ul>
+          </ul> -->
         </div>
       </div>
     </div>
