@@ -11,6 +11,7 @@ import { TransactionService } from '../transaction.service';
 import { TransactionCategoryService } from '../transaction-category.service';
 import { TransactionSubcategoryService } from '../transaction-subcategory.service';
 import { Router } from '@angular/router';
+import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
 
 @Component({
   selector: 'app-expense',
@@ -18,6 +19,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./expense.component.css']
 })
 export class ExpenseComponent implements OnInit {
+  position = 'bottom';
   bsValue = new Date();
   public data: any;
   public rowsOnPage = 10;
@@ -48,7 +50,8 @@ export class ExpenseComponent implements OnInit {
 
   constructor(public http: Http, private modalService: BsModalService,
     private transactionService : TransactionService, private transactionCategoryService : TransactionCategoryService,
-    private transactionSubcategoryService : TransactionSubcategoryService, private router: Router ) { }
+    private transactionSubcategoryService : TransactionSubcategoryService, private router: Router,
+    private toastyService: ToastyService ) { }
 
   ngOnInit() {
     
@@ -67,6 +70,9 @@ export class ExpenseComponent implements OnInit {
       .subscribe((response) => { 
         this.expenses = response;
         console.log(this.expenses);
+        this.successToast();
+      }, error => {
+        this.errorToast();
       });
   }
 
@@ -100,10 +106,12 @@ export class ExpenseComponent implements OnInit {
     }
     this.transactionService.addExpense(this.epenseToBeAdded)
     .subscribe((response) => { 
-      ////////////////////alert//////////////////////////
+      this.successToast();
       this.epenseToBeAdded = response;
       this.expenses.push(this.epenseToBeAdded);
       this.getExpenseData();
+    }, error => {
+      this.errorToast();
     });
   }
 
@@ -119,10 +127,13 @@ export class ExpenseComponent implements OnInit {
     }
     
     this.transactionService.updateExpense(expense)
-    .subscribe((response) => { 
+    .subscribe((response) => {
+      this.successToast(); 
       this.getExpenseData();
       console.log(response);
       console.log(expense);
+    }, error => {
+      this.errorToast();
     });
   }
 
@@ -135,19 +146,15 @@ export class ExpenseComponent implements OnInit {
     this.deleteModalRef.hide();
     this.transactionService.deleteExpense(expense)
     .subscribe((response) => { 
+      this.successToast();
       let index = this.expenses.indexOf(expense);
       this.expenses.splice(index,1);
+    }, error => {
+      this.errorToast();
     });
   }
 
   public formatDate(date) {
-    var monthNames = [
-      "January", "February", "March",
-      "April", "May", "June", "July",
-      "August", "September", "October",
-      "November", "December"
-    ];
-  
     var day = date.getDate();
     var monthIndex = date.getMonth()+1;
     var year = date.getFullYear();
@@ -210,6 +217,55 @@ export class ExpenseComponent implements OnInit {
  
   declineDelete(): void {
     this.deleteModalRef.hide();
+  }
+
+  addToast(options) {
+    if (options.closeOther) {
+      this.toastyService.clearAll();
+    }
+    this.position = options.position ? options.position : this.position;
+    const toastOptions: ToastOptions = {
+      title: options.title,
+      msg: options.msg,
+      showClose: options.showClose,
+      timeout: options.timeout,
+      theme: options.theme,
+      onAdd: (toast: ToastData) => {
+        /* added */
+      },
+      onRemove: (toast: ToastData) => {
+        /* removed */
+      }
+    };
+
+    switch (options.type) {
+      case 'default': this.toastyService.default(toastOptions); break;
+      case 'info': this.toastyService.info(toastOptions); break;
+      case 'success': this.toastyService.success(toastOptions); break;
+      case 'wait': this.toastyService.wait(toastOptions); break;
+      case 'error': this.toastyService.error(toastOptions); break;
+      case 'warning': this.toastyService.warning(toastOptions); break;
+    }
+  }
+
+  successToast() {
+    this.addToast({
+      title: 'Success',
+      msg: 'Operation successful.',
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'success'
+    });
+  }
+
+  errorToast() {
+    this.addToast({
+      title: 'Error',
+      msg: 'Operation not successful. Check your net connection',
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'error'
+    });
   }
 
 }

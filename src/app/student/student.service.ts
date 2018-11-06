@@ -33,7 +33,7 @@ export class StudentService {
   }
 
   searchSortStudent(student:Student) {
-    return this.http.post(Server.API_ENDPOINT +'student_search', JSON.stringify(student), this.httpOptions);
+    return this.http.post(Server.API_ENDPOINT +'stu_search', JSON.stringify(student), this.httpOptions);
   }
 
 }

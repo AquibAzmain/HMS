@@ -20,6 +20,7 @@ import { ExpenseCategoryComponent } from './accounting-main/category-edit/expens
 import { TransactionService } from './accounting-main/transaction.service';
 import { TransactionCategoryService } from './accounting-main/transaction-category.service';
 import { TransactionSubcategoryService } from './accounting-main/transaction-subcategory.service';
+import { ToastyModule } from 'ng2-toasty';
 
 export const AccountingRoutes: Routes = [
   {
@@ -44,7 +45,8 @@ export const AccountingRoutes: Routes = [
     CollapseModule .forRoot(),
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    MyDatePickerModule
+    MyDatePickerModule,
+    ToastyModule.forRoot()
   ],
   providers:[
     TransactionService,

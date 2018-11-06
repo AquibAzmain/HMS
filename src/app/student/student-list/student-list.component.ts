@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, Input, OnInit, Inject, TemplateRef } from '@angular/core';
 import {Http} from '@angular/http';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { StudentService } from '../student.service';
@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import {Server} from '../../../utils/Server'
 import { Student } from '../../../models/Student';
+import * as jsPDF from 'jspdf';
 
 const URL = Server.API_ENDPOINT+'excel';
 
@@ -16,6 +17,7 @@ const URL = Server.API_ENDPOINT+'excel';
   styleUrls: ['./student-list.component.css']
 })
 export class StudentListComponent implements OnInit {
+  
   position = 'bottom';
   //role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
   role = "hallOfficer";
@@ -34,7 +36,7 @@ export class StudentListComponent implements OnInit {
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
   public fileUploadModalRef :BsModalRef; 
-
+  
   constructor(public http: Http, 
     private modalService: BsModalService,
     private studentService: StudentService,
@@ -53,6 +55,38 @@ export class StudentListComponent implements OnInit {
     }
     this.getStudentList();
 
+  }
+
+  makePDF(){
+    let doc = new jsPDF();
+    var col = ["Id", "TypeID","Accnt","Amnt","Start","End","Contrapartida"];
+    var rows = [];
+
+var rowCountModNew = [
+["1721079361", "0001", "2100074911", "200", "22112017", "23112017", "51696"],
+["1721079362", "0002", "2100074912", "300", "22112017", "23112017", "51691"],
+["1721079363", "0003", "2100074913", "400", "22112017", "23112017", "51692"],
+["1721079364", "0004", "2100074914", "500", "22112017", "23112017", "51693"]
+]
+
+
+rowCountModNew.forEach(element => {
+      rows.push(element);
+
+    });
+
+
+    //this.doc.autoTable(col, rows);
+    doc.table(7,5,rowCountModNew,col,{
+      left:80,
+      right:10,
+      top:500,
+      bottom: 50,
+      width: 60,
+      autoSize:false,
+      printHeaders: true
+      });
+    doc.save('Test.pdf');
   }
 
   confirmDelete(student): void {

@@ -13,41 +13,40 @@
               <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
                   <label for="filter">নাম</label>
-                  <input class="form-control" type="text" />
+                  <input class="form-control" type="text" [(ngModel)]="employeeToBeSearched.name"/>
                 </div>
                 <div class="form-group">
                   <label for="filter">পদমর্যাদা</label>
-                  <input class="form-control" type="text" />
+                  <input class="form-control" type="text" [(ngModel)]="employeeToBeSearched.job_title"/>
                 </div>
                 <div class="form-group">
                   <label for="filter">ডিপার্টমেন্ট</label>
-                  <input class="form-control" type="text" />
+                  <input class="form-control" type="text" [(ngModel)]="employeeToBeSearched.department"/>
                 </div>
               </div>
               <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
                   <label for="filter">আবাসিক স্ট্যাটাস</label>
-                  <select class="form-control">
+                  <select class="form-control" [(ngModel)]="employeeToBeSearched.campus_residency">
                     <option>--</option>
-                    <option>Yes</option>
-                    <option>No</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="sel1">
                     <b>কিভাবে সর্ট করতে চান?</b>
                   </label>
-                  <select class="form-control">
-                    <option>নাম</option>
-                    <option>যোগদান তারিখ</option>
-                    <option>ডিপার্টমেন্ট</option>
-                    <option>ক্যাম্পাসে অবস্থান স্ট্যাটাস</option>
+                  <select class="form-control" [(ngModel)]="employeeToBeSearched.sortBy">
+                    <option value="name">নাম</option>
+                    <option value="joining_date">যোগদান তারিখ</option>
+                    <option value="department">ডিপার্টমেন্ট</option>
                   </select>
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-success">
-              ক্লিক করুন
+            <button type="submit" class="btn btn-success" (click)="searchSortEmployee(employeeToBeSearched)">
+              নিশ্চিত করুন
             </button>
           </div>
         </div>
@@ -58,37 +57,23 @@
       </div>
     </div>
     <div class="table-responsive" style="margin-top:30px">
-      <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+      <table class="table table-striped table-bordered full-data-table" [mfData]="employees | dataFilter : filterQuery" #mf="mfDataTable"
         [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
         <thead>
           <tr>
-            <th>
-              <mfDefaultSorter by="name">নাম</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="fatherName">যোগদান তারিখ</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="motherName">পদমর্যাদা</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="department">মোবাইল</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="session">ডিপার্টমেন্ট</mfDefaultSorter>
-            </th>
-            <th>
-              <mfDefaultSorter by="presentAddress">ক্যাম্পাসে অবস্থান স্ট্যাটাস</mfDefaultSorter>
-            </th>
-            <th *ngIf="this.role == 'hallOfficer'">
-              <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
-            </th>
+            <th>নাম </th>
+            <th>যোগদান তারিখ</th>
+            <th>পদমর্যাদা</th>
+            <th>মোবাইল</th>
+            <th>ডিপার্টমেন্ট</th>
+            <th>ক্যাম্পাসে অবস্থান স্ট্যাটাস</th>
+            <th *ngIf="this.role == 'hallOfficer'">অ্যাকশন</th>
           </tr>
           <tr>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let employee of this.employees; index as i;">
+          <tr *ngFor="let employee of mf.data; index as i;">
             <td class="pointer normal-link" [routerLink]="['details/', employee.id]">{{employee.name}}</td>
             <td>{{employee.joining_date}}</td>
             <td>{{employee.job_title}}</td>
@@ -102,7 +87,7 @@
               <ng-template #updateEmployee>
                 <div class="modal-header">
                   <h5 class="modal-title pull-left">তথ্য সংশোধন</h5>
-                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="decline()">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -262,80 +247,4 @@
   </div>
 </ng-template>
 
-<!-- <ng-template #template>
-    <div class="modal-header">
-      <h5 class="modal-title pull-left">{{modalHeader}}</h5>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">নাম</label>
-        <div class="col-sm-8">
-          <input class="form-control" type="text" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">যোগদানের তারিখ</label>
-        <div class="col-sm-8">
-          <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue"
-            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">ঠিকানা</label>
-        <div class="col-sm-8">
-          <input class="form-control" type="text" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">মোবাইল</label>
-        <div class="col-sm-8">
-          <input class="form-control" type="text" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">পদমর্যাদা</label>
-        <div class="col-sm-8">
-          <input class="form-control" type="text" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">ডিপার্টমেন্ট</label>
-        <div class="col-sm-8">
-          <input class="form-control" type="text" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">ক্যাম্পাসের আবাসিক</label>
-        <div class="col-sm-8">
-          <select class="form-control">
-            <option>হ্যাঁ</option>
-            <option>না</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">অনুষ্ঠানে অংশগ্রহণ</label>
-        <div class="col-sm-8">
-          <input class="form-control" type="text" />
-        </div>
-      </div>
-      <button type="button" class="btn btn-success text-white" (click)="confirm()">নিশ্চিত</button>
-      <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
-    </div>
-  </ng-template> -->
-
-<!-- <ng-template #deleteTemplate>
-    <div class="modal-header">
-      <h5 class="modal-title pull-left">তথ্য মুছে দিতে ইচ্ছুক?</h5>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <button type="button" class="btn btn-success text-white" (click)="confirmDelete()">নিশ্চিত</button>
-      <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
-    </div>
-  </ng-template> -->
+  <ng2-toasty [position]="position"></ng2-toasty>

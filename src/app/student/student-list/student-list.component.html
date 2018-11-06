@@ -7,7 +7,7 @@
           <button type="button" class="btn btn-danger" (click)="isCollapsed = !isCollapsed">
             সার্চ ও সর্ট
           </button>
-          <button type="button" class="btn btn-danger">
+          <button type="button" class="btn btn-danger" (click)="makePDF()">
             <i class="icofont icofont-printer"></i> প্রিন্ট
           </button>
           <div [collapse]="isCollapsed" class="card card-block">
@@ -53,7 +53,7 @@
                 </div>
                 <div class="form-group">
                   <label for="sel1"><b>কিভাবে সর্ট করতে চান?</b></label>
-                  <select class="form-control" [(ngModel)]="studentToBeSearched.sortBy">
+                  <select class="form-control" [(ngModel)]="studentToBeSearched.sort_by">
                     <option value="name">নাম</option>
                     <option value="session">শিক্ষাবর্ষ</option>
                     <option value="registrationNumber">রেজিস্ট্রেশন নম্বর</option>

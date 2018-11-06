@@ -13,23 +13,28 @@
               <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
                   <label for="filter">ব্লক নাম</label>
-                  <select class="form-control">
-                    <option>--</option>
-                    <option>West block ground floor</option>
-                    <option>East block ground floor</option>
+                  <select class="form-control" [(ngModel)]="roomToBeSearched.block_id">
+                    <option *ngFor="let block of blocks">{{block.block_name}} {{block.location}}</option>
                   </select>
                 </div>
-
+                <div class="form-group">
+                  <label for="sel1">
+                    <b>কিভাবে সর্ট করতে চান?</b>
+                  </label>
+                  <select class="form-control" [(ngModel)]="roomToBeSearched.sortBy">
+                    <option value="roomNumber">রুম নম্বর</option>
+                  </select>
+                </div>
               </div>
               <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
                   <label for="filter">কক্ষ নম্বর</label>
-                  <input class="form-control" type="text" />
+                  <input class="form-control" type="text" [(ngModel)]="roomToBeSearched.roomNumber"/>
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn residence-button">
-              ক্লিক করুন
+            <button type="submit" class="btn residence-button" (click) = "searchSortRoom(roomToBeSearched)">
+              নিশ্চিত করুন
             </button>
           </div>
         </div>
@@ -147,11 +152,9 @@
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">ব্লক</label>
       <div class="col-sm-8">
-        <!-- <select class="form-control" [(ngModel)]="roomToBeAdded.roomNumber">
-          <option>--</option>
-          <option>East block ground floor</option>
-          <option>West block ground floor</option>
-        </select> -->
+        <select class="form-control" [(ngModel)]="roomToBeAdded.block_id">
+          <option *ngFor="let block of blocks">{{block.block_name}} {{block.location}}</option>
+        </select>
         <input class="form-control" type="text" [(ngModel)]="roomToBeAdded.block_id" />
       </div>
     </div>
@@ -171,3 +174,5 @@
     <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
   </div>
 </ng-template>
+
+<ng2-toasty [position]="position"></ng2-toasty>

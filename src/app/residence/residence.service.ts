@@ -52,4 +52,16 @@ export class ResidenceService {
     return this.http.get<Room>(Server.API_ENDPOINT + 'room/'+roomNumber,this.httpOptions);
   }
 
+  searchSortRoom(asset:Room) {
+    return this.http.post(Server.API_ENDPOINT +'room_search', JSON.stringify(asset), this.httpOptions);
+  }
+
+  updateStudent(studentObject) {
+    return this.http.put(Server.API_ENDPOINT +'student', studentObject ,this.httpOptions)
+  }
+
+  getHouseTutors(){
+    return this.http.get(Server.API_ENDPOINT + 'users', this.httpOptions);
+  }
+
 }
