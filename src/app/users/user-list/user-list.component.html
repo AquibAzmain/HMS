@@ -12,23 +12,23 @@
         {{errorMessage}}
       </div>
       <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
-        [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+        [mfRowsOnPage]="rowsOnPage">
         <thead>
           <tr>
             <th>
-              <mfDefaultSorter by="name">নাম</mfDefaultSorter>
+              নাম
             </th>
             <th>
-              <mfDefaultSorter by="mobile">মোবাইল নাম্বার</mfDefaultSorter>
+              মোবাইল নাম্বার
             </th>
             <th>
-              <mfDefaultSorter by="role">ভূমিকা</mfDefaultSorter>
+              ভূমিকা
             </th>
             <th>
-              <mfDefaultSorter by="role">অ্যাকাউন্ট</mfDefaultSorter>
+              অ্যাকাউন্ট
             </th>
             <th>
-              <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
+              অ্যাকশন
             </th>
           </tr>
 
@@ -46,7 +46,7 @@
               <ng-template #updateUser>
                 <div class="modal-header">
                   <h5 class="modal-title pull-left">তথ্য সংশোধন</h5>
-                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="updateModalRef.hide()">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
