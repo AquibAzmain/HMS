@@ -4,6 +4,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Leave } from '../../../../models/Leave';
 import { EmployeeService } from '../../employee.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
 
 @Component({
   selector: 'app-leave-info',
@@ -11,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./leave-info.component.css']
 })
 export class LeaveInfoComponent implements OnInit {
+  position = 'bottom';
   public data: any;
   public rowsOnPage = 5;
   public filterQuery = '';
@@ -28,10 +30,14 @@ export class LeaveInfoComponent implements OnInit {
   leaveToBeAdded: Leave = new Leave();
   pendingLeave = false;
   role = localStorage.getItem('role'); //"hallOfficer"; 
+  confirmAddError = false;
+  confirmUpdateError = false;
+
   constructor(public http: Http, private modalService: BsModalService,
     private route: ActivatedRoute,
     private employeeService : EmployeeService,
-    private router: Router) { }
+    private router: Router,
+    private toastyService: ToastyService) { }
 
   ngOnInit() {
     this.employeeId = this.route.snapshot.paramMap.get('id');
@@ -63,7 +69,10 @@ export class LeaveInfoComponent implements OnInit {
         console.log(response);
         this.leaves = response;
         this.checkPendingLeave();
-      });
+      },
+      (err) => {
+        this.errorToast();
+      })
   }
 
   public openUpdateLeaveModal(template: TemplateRef<any>) {
@@ -92,30 +101,54 @@ export class LeaveInfoComponent implements OnInit {
   }
 
   confirmAddLeave(): void {
-    this.modalRef.hide();
-    this.leaveToBeAdded.approval_status = "pending";
-    this.leaveToBeAdded.employee_id = this.employeeId;
-    this.leaveToBeAdded.date_from = this.formatDate(this.leaveToBeAdded.date_from);
-    this.leaveToBeAdded.date_to = this.formatDate(this.leaveToBeAdded.date_to);
-    console.log(this.leaveToBeAdded);
-    this.employeeService.addLeave(this.leaveToBeAdded)
-    .subscribe((response) => { 
+    if(this.leaveToBeAdded.category==null || this.leaveToBeAdded.date_from==null || this.leaveToBeAdded.date_to==null ) {
+      this.confirmAddError = true;
+    }
+    else {
+      this.confirmAddError = false;
+      this.modalRef.hide();
+      this.leaveToBeAdded.approval_status = "pending";
+      this.leaveToBeAdded.employee_id = this.employeeId;
+      this.leaveToBeAdded.date_from = this.formatDate(this.leaveToBeAdded.date_from);
+      this.leaveToBeAdded.date_to = this.formatDate(this.leaveToBeAdded.date_to);
       console.log(this.leaveToBeAdded);
-      ////////////////////alert//////////////////////////
-      this.getLeaveData();
-    });
+      this.employeeService.addLeave(this.leaveToBeAdded)
+      .subscribe((response) => { 
+        console.log(this.leaveToBeAdded);
+        this.successToast();
+        this.getLeaveData();
+      },
+      (err) => {
+        this.errorToast();
+      })
+    }
   }
 
   confirmUpdateLeave(leave): void {
-    this.modalRef.hide();
-    leave.date_from = this.formatDate(leave.date_from);
-    leave.date_to = this.formatDate(leave.date_to);
-    this.employeeService.updateLeave(leave)
-    .subscribe((response) => { 
-      console.log(leave);
-      this.getLeaveData();
-       ////////////////////alert//////////////////////////
-    });
+    console.log(leave.category);
+    console.log(leave.date_from);
+    console.log(leave.date_to);
+    
+    if(leave.category==null || leave.date_from==null || leave.date_to==null || leave.category.length==0) {
+      this.confirmUpdateError = true;
+    }
+    else {
+      this.modalRef.hide();
+      this.confirmUpdateError = false;
+      if(leave.date_from!=null)
+        leave.date_from = this.formatDate(leave.date_from);
+      if(leave.date_to!=null)
+        leave.date_to = this.formatDate(leave.date_to);
+      this.employeeService.updateLeave(leave)
+      .subscribe((response) => { 
+        console.log(leave);
+        this.getLeaveData();
+        this.successToast();
+      },
+      (err) => {
+        this.errorToast();
+      })
+    }
   }
 
   public openDeleteModal(template: TemplateRef<any>) {
@@ -141,17 +174,59 @@ export class LeaveInfoComponent implements OnInit {
   }
 
   public formatDate(date) {
-    var monthNames = [
-      "January", "February", "March",
-      "April", "May", "June", "July",
-      "August", "September", "October",
-      "November", "December"
-    ];
-  
     var day = date.getDate();
     var monthIndex = date.getMonth()+1;
     var year = date.getFullYear();
   
     return day + '/' + monthIndex + '/' + year;
+  }
+
+  addToast(options) {
+    if (options.closeOther) {
+      this.toastyService.clearAll();
+    }
+    this.position = options.position ? options.position : this.position;
+    const toastOptions: ToastOptions = {
+      title: options.title,
+      msg: options.msg,
+      showClose: options.showClose,
+      timeout: options.timeout,
+      theme: options.theme,
+      onAdd: (toast: ToastData) => {
+        /* added */
+      },
+      onRemove: (toast: ToastData) => {
+        /* removed */
+      }
+    };
+
+    switch (options.type) {
+      case 'default': this.toastyService.default(toastOptions); break;
+      case 'info': this.toastyService.info(toastOptions); break;
+      case 'success': this.toastyService.success(toastOptions); break;
+      case 'wait': this.toastyService.wait(toastOptions); break;
+      case 'error': this.toastyService.error(toastOptions); break;
+      case 'warning': this.toastyService.warning(toastOptions); break;
+    }
+  }
+
+  successToast() {
+    this.addToast({
+      title: 'Success',
+      msg: 'Operation successful.',
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'success'
+    });
+  }
+
+  errorToast() {
+    this.addToast({
+      title: 'Error',
+      msg: 'Operation not successful. Check your net connection.',
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'error'
+    });
   }
 }

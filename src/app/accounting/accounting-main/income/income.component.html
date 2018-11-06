@@ -49,7 +49,7 @@
               </div>
             </div>
             <button type="submit" class="btn bg-c-brown text-white">
-              ক্লিক করুন
+              নিশ্চিত করুন
             </button>
           </div>
         </div>
@@ -63,24 +63,11 @@
           #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
           <thead>
             <tr>
-              <th>
-                <mfDefaultSorter by="assetID">ক্যাটেগরি</mfDefaultSorter>
-              </th>
-              <th>
-                <mfDefaultSorter by="category">সাব-ক্যাটেগরি</mfDefaultSorter>
-              </th>
-              <th>
-                <mfDefaultSorter by="location">টাকার পরিমাণ</mfDefaultSorter>
-              </th>
-              <th>
-                <mfDefaultSorter by="condition">তারিখ</mfDefaultSorter>
-              </th>
-              <th>
-                <mfDefaultSorter by="purchaseDate">মন্তব্য</mfDefaultSorter>
-              </th>
-              <th>
-                <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
-              </th>
+              <th>ক্যাটেগরি</th><th>সাব-ক্যাটেগরি</th>
+              <th>টাকার পরিমাণ</th>
+              <th>তারিখ</th>
+              <th>মন্তব্য</th>
+              <th>অ্যাকশন</th>
             </tr>
 
           </thead>
@@ -115,7 +102,7 @@
 
 <ng-template #addIncome>
   <div class="modal-header">
-    <h5 class="modal-title pull-left">{{modalHeader}}</h5>
+    <h5 class="modal-title pull-left">নতুন আয়ের হিসাব যুক্ত করুন</h5>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -178,3 +165,5 @@
     <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
   </div>
 </ng-template>
+
+<ng2-toasty [position]="position"></ng2-toasty>

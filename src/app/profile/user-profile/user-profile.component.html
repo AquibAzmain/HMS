@@ -4,18 +4,18 @@
     <div class="col-xl-3"></div>
     <div class="col-xl-6">
       <div class="card">
+        <div class="alert alert-success alert-dismissible" role="alert" *ngIf="successMessage !== ''">
+          {{successMessage}}
+        </div>
+        <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="errorMessage !== ''">
+          {{errorMessage}}
+        </div>
         <div class="card-header">
           <button id="edit-btn" type="button" class="btn btn-sm bg-c-blue text-white waves-effect waves-light" (click)="toggleEditProfile()">
             তথ্য সংশোধন <i class="icofont {{ editProfileIcon }}"></i>
           </button>
           <button id="edit-btn" type="button" class="btn btn-sm bg-c-blue text-white waves-effect waves-light f-right" (click)="openModal(template, 'add')">
             পাসওয়ার্ড পরিবর্তন</button>
-        </div>
-        <div class="alert alert-success alert-dismissible" role="alert" *ngIf="successMessage !== ''">
-          {{successMessage}}
-        </div>
-        <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="errorMessage !== ''">
-          {{errorMessage}}
         </div>
         <div class="card-body">
           <div class="view-info" *ngIf="editProfile">
@@ -47,11 +47,11 @@
                     <tbody>
                       <tr>
                         <th scope="row">নাম</th>
-                        <td><input class="form-control" type="text" name="name" [(ngModel)]="user_info.name"/></td>
+                        <td><input class="form-control" type="text" name="name" [(ngModel)]="update_user_info.name"/></td>
                       </tr>
                       <tr>
                         <th scope="row">মোবাইল নম্বর</th>
-                        <td><input class="form-control" type="text" name="mobile_number" [(ngModel)]="user_info.mobile_number" /></td>
+                        <td><input class="form-control" type="text" name="mobile_number" [(ngModel)]="update_user_info.mobile_number" /></td>
                       </tr>
                     </tbody>
                   </table>
@@ -83,20 +83,23 @@
     <div class="form-group row">
       <label class="col-sm-6 col-form-label">পুরাতন পাসওয়ার্ড</label>
       <div class="col-sm-6">
-        <input class="form-control" type="password" />
+        <input class="form-control" type="password" [(ngModel)]="passwords.old_password" required/>
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-6 col-form-label">নতুন পাসওয়ার্ড</label>
+      <label class="col-sm-6 col-form-label" >নতুন পাসওয়ার্ড</label>
       <div class="col-sm-6">
-        <input class="form-control" type="password" />
+        <input class="form-control" type="password" name="password" [(ngModel)]="passwords.new_password" required/>
       </div>
     </div>
     <div class="form-group row">
       <label class="col-sm-6 col-form-label">পুনরায় নতুন পাসওয়ার্ড</label>
       <div class="col-sm-6">
-        <input class="form-control" type="password" />
+        <input class="form-control" type="password" name="confirmPassword" [(ngModel)]="confirmPassword" required/>
       </div>
+    </div>
+    <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="errorMessageInPasswordChange !== ''">
+      {{errorMessageInPasswordChange}}
     </div>
     <button type="button" class="btn bg-c-blue text-white" (click)="confirm()">নিশ্চিত</button>
     <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>

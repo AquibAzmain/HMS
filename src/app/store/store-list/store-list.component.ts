@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Http } from '@angular/http';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { StoreService } from '../store.service';
@@ -9,11 +9,7 @@ import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
 @Component({
   selector: 'app-store-list',
   templateUrl: './store-list.component.html',
-  styleUrls: ['./store-list.component.css',
-    '../../../../node_modules/ng2-toasty/style-bootstrap.css',
-    '../../../../node_modules/ng2-toasty/style-default.css',
-    '../../../../node_modules/ng2-toasty/style-material.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./store-list.component.css']
 })
 export class StoreListComponent implements OnInit {
   position = 'bottom';
@@ -102,7 +98,9 @@ export class StoreListComponent implements OnInit {
   }
 
   confirmAddAsset(): void {
+    if(this.assetToBeAdded.dateOfPurchase != null){
     this.assetToBeAdded.dateOfPurchase = this.formatDate(this.assetToBeAdded.dateOfPurchase);
+    }
     this.modalRef.hide();
     this.assetService.addAsset(this.assetToBeAdded)
       .subscribe((response) => {
@@ -116,6 +114,9 @@ export class StoreListComponent implements OnInit {
 
   confirmUpdateAsset(asset): void {
     this.modalRef.hide();
+    if(this.assetToBeAdded.dateOfPurchase != null){
+      this.assetToBeAdded.dateOfPurchase = this.formatDate(this.assetToBeAdded.dateOfPurchase);
+      }
     this.assetService.updateAsset(asset)
       .subscribe((response) => {
         this.successToast();

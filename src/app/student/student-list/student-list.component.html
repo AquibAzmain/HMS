@@ -7,7 +7,7 @@
           <button type="button" class="btn btn-danger" (click)="isCollapsed = !isCollapsed">
             সার্চ ও সর্ট
           </button>
-          <button type="button" class="btn btn-danger">
+          <button type="button" class="btn btn-danger" (click)="makePDF()">
             <i class="icofont icofont-printer"></i> প্রিন্ট
           </button>
           <div [collapse]="isCollapsed" class="card card-block">
@@ -15,60 +15,54 @@
               <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
                   <label for="filter">নাম</label>
-                  <input class="form-control" type="text" />
+                  <input class="form-control" type="text" [(ngModel)]="studentToBeSearched.name" />
+                </div>
+                <div class="form-group">
+                  <label for="filter">রেজিস্ট্রেশন নম্বর</label>
+                  <input class="form-control" type="text" [(ngModel)]="studentToBeSearched.registrationNumber" />
                 </div>
                 <div class="form-group">
                   <label for="filter">আবাসিক স্ট্যাটাস</label>
-                  <select class="form-control">
-                    <option>--</option>
-                    <option>আবাসিক</option>
-                    <option>অনাবাসিক</option>
+                  <select class="form-control" [(ngModel)]="studentToBeSearched.residentialStatus">
+                    <option value="Non-resident">Non-resident</option>
+                    <option value="Resident">Resident</option>
+                    <option value="Doubler">Doubler</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="filter">ডিপার্টমেন্ট</label>
-                  <input class="form-control" type="text" />
+                  <label for="sel1">শ্রেণি/বর্ষ</label>
+                  <input class="form-control" type="text" [(ngModel)]="studentToBeSearched.class_year_semester"/>
                 </div>
-                <div class="form-group">
-                  <label for="sel1">শ্রেণি</label>
-                  <select class="form-control">
-                    <option>১ম</option>
-                    <option>২য়</option>
-                    <option>৩য়</option>
-                    <option>৪র্থ</option>
-                  </select>
-                </div>
-
               </div>
               <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
                   <label for="filter">শিক্ষাবর্ষ</label>
-                  <input class="form-control" type="text" />
+                  <input class="form-control" type="text" [(ngModel)]="studentToBeSearched.session"/>
                 </div>
                 <div class="form-group">
                   <label for="filter">ছাত্রত্ব স্ট্যাটাস</label>
-                  <select class="form-control">
+                  <select class="form-control" [(ngModel)]="studentToBeSearched.alumni">
                     <option>--</option>
-                    <option>বর্তমান</option>
-                    <option>প্রাক্তন</option>
+                    <option value="no">বর্তমান</option>
+                    <option value="yes">প্রাক্তন</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="filter">জন্মতারিখ</label>
-                  <input class="form-control" type="text" />
+                  <label for="filter">ডিপার্টমেন্ট</label>
+                  <input class="form-control" type="text" [(ngModel)]="studentToBeSearched.subject_name"/>
                 </div>
                 <div class="form-group">
                   <label for="sel1"><b>কিভাবে সর্ট করতে চান?</b></label>
-                  <select class="form-control">
-                    <option>নাম</option>
-                    <option>শিক্ষাবর্ষ</option>
-                    <option>জন্মতারিখ</option>
-                    <option>ডিপার্টমেন্ট</option>
+                  <select class="form-control" [(ngModel)]="studentToBeSearched.sort_by">
+                    <option value="name">নাম</option>
+                    <option value="session">শিক্ষাবর্ষ</option>
+                    <option value="registrationNumber">রেজিস্ট্রেশন নম্বর</option>
+                    <option value="class_year_semester">শ্রেণি/বর্ষ</option>
                   </select>
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-danger">
+            <button type="submit" class="btn btn-danger" (click)="searchSortStudent(studentToBeSearched)">
               নিশ্চিত করুন
             </button>
           </div>
@@ -87,8 +81,6 @@
                 আপলোড</a></li>
           </ul>
         </div>
-        <!-- <button class="btn btn-danger f-right" [routerLink]="['add_student/', 0]"><i class="icofont icofont-plus"></i>
-          নতুন ছাত্র</button> -->
       </div>
     </div>
     <div class="table-responsive" style="margin-top:30px">
@@ -101,8 +93,8 @@
             <th>শিক্ষাবর্ষ</th>
             <th>আবাসিক<br />স্ট্যাটাস</th>
             <th>কক্ষ</th>
-            <th>অ্যাডমিশন<br />ফি</th>
-            <th>আবাসিক<br />ফি</th>
+            <th>ডিপার্টমেন্ট</th>
+            <th>শ্রেণি/বর্ষ</th>
             <th>মোবাইল<br />নম্বর</th>
             <th>অ্যাকশন</th>
           </tr>
@@ -116,14 +108,92 @@
             <td>{{item.session}}</td>
             <td>{{item.residentialStatus}}</td>
             <td>{{item.room? item.room : 'No'}}</td>
-            <td>{{item.admissionFeesStatus ? 'Paid' : 'Due'}}</td>
-            <td>{{item.residenceFeesStatus ? 'Paid' : 'Due'}}</td>
+            <!-- <td>{{item.admissionFeesStatus ? 'Paid' : 'Due'}}</td> -->
+            <td>{{item.subject_name}}</td>
+            <td>{{item.class_year_semester}}</td>
             <td>{{item.mobileNumber}}</td>
             <td>
-              <a (click)="openModal(template, 'edit')" href="javascript:;" class="edit-delete-icon">
+              <a (click)="openUpdateStudentModal(template)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
+              <ng-template #template>
+                <div class="modal-header">
+                  <h5 class="modal-title pull-left">তথ্য সংশোধন</h5>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">নাম</label>
+                    <div class="col-sm-8">
+                      <input class="form-control" type="text" [(ngModel)]="item.name" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">রেজিস্ট্রেশান নম্বর</label>
+                    <div class="col-sm-8">
+                      <input class="form-control" type="text" [(ngModel)]="item.registrationNumber" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">শিক্ষাবর্ষ</label>
+                    <div class="col-sm-8">
+                      <input class="form-control" type="text" [(ngModel)]="item.session" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">আবাসিক স্ট্যাটাস</label>
+                    <div class="col-sm-8">
+                      <select class="form-control" [(ngModel)]="item.residentialStatus">
+                        <option>--</option>
+                        <option value="Resident">Resident</option>
+                        <option value="Doubler">Doubler</option>
+                        <option value="Non-resident">Non-resident</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">হলের কক্ষ নম্বর</label>
+                    <div class="col-sm-8">
+                      <input class="form-control" type="text" [(ngModel)]="item.room_no" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">ডিপার্টমেন্ট</label>
+                    <div class="col-sm-8">
+                      <input class="form-control" type="text" [(ngModel)]="item.subject_name" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">শ্রেণি/বর্ষ</label>
+                    <div class="col-sm-8">
+                      <input class="form-control" type="text" [(ngModel)]="item.class_year_semester" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">মোবাইল নম্বর</label>
+                    <div class="col-sm-8">
+                      <input class="form-control" type="text" [(ngModel)]="item.mobileNumber" />
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-danger text-white" (click)="confirmUpdateStudent(item)">নিশ্চিত</button>
+                  <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
+                </div>
+              </ng-template>
               <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-ui-delete"></i></a>
+              <ng-template #deleteTemplate>
+                <div class="modal-header">
+                  <h5 class="modal-title pull-left">তথ্য মুছে দিতে ইচ্ছুক?</h5>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <button type="button" class="btn btn-danger text-white" (click)="confirmDelete(item)">নিশ্চিত</button>
+                  <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
+                </div>
+              </ng-template>
             </td>
           </tr>
         </tbody>
@@ -140,81 +210,6 @@
 
 </div>
 
-
-<ng-template #template>
-  <div class="modal-header">
-    <h5 class="modal-title pull-left">{{modalHeader}}</h5>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">নাম</label>
-      <div class="col-sm-8">
-        <input class="form-control" type="text" />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">রেজিস্ট্রেশান নম্বর</label>
-      <div class="col-sm-8">
-        <input class="form-control" type="text" />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">আবাসিক স্ট্যাটাস</label>
-      <div class="col-sm-8">
-        <select class="form-control">
-          <option>--</option>
-          <option>Resident</option>
-          <option>Doubler</option>
-          <option>Non-resident</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">হলের কক্ষ নম্বর</label>
-      <div class="col-sm-8">
-        <input class="form-control" type="text" />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">ডিপার্টমেন্ট</label>
-      <div class="col-sm-8">
-        <input class="form-control" type="text" />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">শিক্ষাবর্ষ</label>
-      <div class="col-sm-8">
-        <input class="form-control" type="text" />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-4 col-form-label">বর্তমান ঠিকানা</label>
-      <div class="col-sm-8">
-        <input class="form-control" type="text" />
-      </div>
-    </div>
-    <button type="button" class="btn btn-danger text-white" (click)="confirm()">নিশ্চিত</button>
-    <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
-  </div>
-</ng-template>
-
-
-<ng-template #deleteTemplate>
-  <div class="modal-header">
-    <h5 class="modal-title pull-left">তথ্য মুছে দিতে ইচ্ছুক?</h5>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <button type="button" class="btn btn-danger text-white" (click)="confirmDelete()">নিশ্চিত</button>
-    <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
-  </div>
-</ng-template>
-
 <ng2-toasty [position]="position"></ng2-toasty>
 <ng-template #fileUploadTemplate>
   <div class="modal-header">
@@ -226,16 +221,11 @@
 
   <div class="modal-body">
     <div class="text-center">
-    <label for="upload" class="file-upload__label">ফাইল নির্ধারণ করুন</label> (ফরম্যাটঃ .xlsx)
-    <input id="upload" class="file-upload__input" type="file" name="file-upload" ng2FileSelect [uploader]="uploader">
+      <label for="upload" class="file-upload__label">ফাইল নির্ধারণ করুন</label> (ফরম্যাটঃ .xlsx)
+      <input id="upload" class="file-upload__input" type="file" name="file-upload" ng2FileSelect [uploader]="uploader">
     </div>
     <table class="table">
       <thead>
-        <!-- <tr>
-          <th>ফাইলের নাম</th>
-          <th></th>
-          <th>অ্যাকশন</th>
-        </tr> -->
       </thead>
       <tbody>
         <tr *ngFor="let item of uploader.queue">

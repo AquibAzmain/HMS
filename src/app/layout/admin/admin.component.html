@@ -34,12 +34,12 @@
             <li class="header-notification">
               <a [routerLink]="['/notifications']">
                 <i class="ti-bell"></i>
-                <span class="badge bg-c-pink">3</span>
+                <span class="badge bg-c-pink">{{this.notificationSize}}</span>
               </a>
             </li>
             <li class="user-profile header-notification">
-              <a [routerLink]="['/']">
-                <span>Md. Mahbubul Alam Joarder</span>
+              <a [routerLink]="['/profile']">
+                <span>{{username}}</span>
                 <i class="ti-angle-down"></i>
               </a>
               <ul class="show-notification profile-notification">
@@ -49,7 +49,7 @@
                   </a>
                 </li>
                 <li>
-                  <a [routerLink]="['/authentication/login']">
+                  <a [routerLink]="['/authentication/login']" (click)="logout()">
                     <i class="ti-layout-sidebar-left"></i> লগআউট
                   </a>
                 </li>

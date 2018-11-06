@@ -7,7 +7,7 @@
         <span style="padding: 0px; margin: 0px"><i class="icofont icofont-address-book bg-c-lite-blue"></i></span>
         <div class="d-inline">
           <span class="d-block">
-            <h4>কক্ষ নম্বরঃ 23</h4>
+            <h4>কক্ষ নম্বরঃ {{this.room.roomNumber}}</h4>
           </span>
           <!-- <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit</span> -->
         </div>
@@ -51,15 +51,15 @@
                         <tbody>
                           <tr>
                             <th scope="column">ব্লক</th>
-                            <td>East-Ground floor</td>
+                            <td>{{this.room.block_id}}</td>
                           </tr>
                           <tr>
                             <th scope="column">ধারণ ক্ষমতা</th>
-                            <td>3</td>
+                            <td>{{this.room.capacity}}</td>
                           </tr>
                           <tr>
                             <th scope="column">দায়িত্বপ্রাপ্ত শিক্ষক</th>
-                            <td>Ariful Haque</td>
+                            <td>{{this.room.assignedHouseTutor}}</td>
                           </tr>
                         </tbody>
                       </table>
@@ -83,20 +83,20 @@
                         <tbody>
                           <tr>
                             <th scope="column">ব্লক</th>
-                            <td><input class="form-control" type="text" /></td>
+                            <td><input class="form-control" type="text"  [(ngModel)]="room.block_id"/></td>
                           </tr>
                           <tr>
                             <th scope="column">ধারণ ক্ষমতা</th>
-                            <td><input class="form-control" type="text" /></td>
+                            <td><input class="form-control" type="text" [(ngModel)]="room.capacity"/></td>
                           </tr>
                           <tr>
                             <th scope="column">দায়িত্বপ্রাপ্ত শিক্ষক</th>
-                            <td><input class="form-control" type="text" /></td>
+                            <td><input class="form-control" type="text" [(ngModel)]="room.assignedHouseTutor"/></td>
                           </tr>
                         </tbody>
                       </table>
                       <div class="text-center">
-                        <a href="javascript:;" class="btn btn-sm bg-c-lite-blue text-white waves-effect waves-light m-r-20">নিশ্চিত</a>
+                        <a href="javascript:;" class="btn btn-sm bg-c-lite-blue text-white waves-effect waves-light m-r-20" (click)="confirmUpdateRoom()">নিশ্চিত</a>
                         <a href="javascript:;" id="edit-cancel" class="btn btn-sm waves-effect" (click)="toggleEditProfile()">বাতিল</a>
                       </div>
                     </div>
@@ -165,16 +165,17 @@
   </div>
   <div class="modal-body">
     <div class="list-group" style="overflow: scroll;height:450px;">
-      <div class="list-group-item list-group-item-action flex-column" *ngFor="let item of studentList; index as i;">
+      <input type="text" class="form-control" placeholder="ছাত্রের নাম দিয়ে খুঁজুন" [(ngModel)]="searchStudent">
+      <div class="list-group-item list-group-item-action flex-column" *ngFor="let item of studentList | filter:searchStudent">
         <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1"><input type="checkbox" value="item.name"> {{item.name}}</h5>
+          <h5 class="mb-1"><input type="radio" name="studentChecked" (change)="onSelectionChange(item.registrationNumber)"  [value]="item.registrationNumber"> {{item.name}}</h5>
         </div>
         <p class="mb-1">রেজিস্ট্রেশান নম্বরঃ {{item.registrationNumber}}</p>
         <p class="mb-1">আবাসিক স্ট্যাটাসঃ {{item.residenceStatus}}</p>
         <p class="mb-1">কক্ষ নম্বরঃ {{item.room}}</p>
       </div>
     </div>
-    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirm()">নিশ্চিত</button>
+    <button type="button" class="btn bg-c-lite-blue text-white" [disabled]="!studentRegToBeAddedToRoom" (click)="addStudentToRoom(this.room.roomNumber)">নিশ্চিত</button>
     <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
   </div>
 </ng-template>
@@ -191,3 +192,5 @@
     <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
   </div>
 </ng-template>
+
+<ng2-toasty [position]="position"></ng2-toasty>

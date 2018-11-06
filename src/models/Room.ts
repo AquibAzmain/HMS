@@ -1,5 +1,5 @@
 export class Room {
-    public roomNumber: number;
+    public roomNumber: any;
     public block_id: number;
     public capacity: number;
     public assignedHouseTutor: string

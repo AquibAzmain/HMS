@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../authentication.service';
-import {ToastData, ToastOptions, ToastyService} from 'ng2-toasty';
+import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
+import { Router} from '@angular/router';
 
 
 @Component({
@@ -32,7 +33,8 @@ export class ForgetPasswordComponent implements OnInit {
   
   constructor(private http: HttpClient, 
     private authenticationService: AuthenticationService, 
-    private toastyService: ToastyService) { }
+    private toastyService: ToastyService, 
+    private router: Router) { }
 
   ngOnInit() {
   }
@@ -46,10 +48,12 @@ export class ForgetPasswordComponent implements OnInit {
     }
     this.authenticationService.forgetPasswordRequest(this.forgetPasswordData).subscribe(resp => {
       this.data = resp;
-      this.addToast({title:'Success', msg:'Student added successfully.', timeout: 5000, theme:'material', position:'bottom', type:'success'});
-      this.message = "Request Send Succeussfully.";
+      this.addToast({title:'Success', msg:'Request Send successfully.', timeout: 5000, theme:'material', position:'bottom', type:'success'});
+      this.router.navigate(['authentication/login']);
     }, err => {
-      this.message = "Error in Sending Request.";
+      err = JSON.parse(err.error);
+      console.log(err);
+      this.message = err.status;
     })
   }
 

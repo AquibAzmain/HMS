@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../../../../models/Employee';
 import { EmployeeService } from '../../employee.service';
+import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
 
 @Component({
   selector: 'employee-basic-info',
@@ -9,6 +10,7 @@ import { EmployeeService } from '../../employee.service';
   styleUrls: ['./basic-info.component.css']
 })
 export class BasicInfoComponent implements OnInit {
+  position = 'bottom';
   editProfile = true;
   editProfileIcon = 'icofont-edit';
   role = localStorage.getItem('role'); //"hallOfficer";
@@ -16,7 +18,8 @@ export class BasicInfoComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private employeeService : EmployeeService,
-    private router: Router) { }
+    private router: Router,
+    private toastyService: ToastyService) { }
 
   ngOnInit() {
     //console.log(employeeId);
@@ -33,7 +36,10 @@ export class BasicInfoComponent implements OnInit {
     this.employeeService.getEmployeeById(employeeId)
     .subscribe((response) => { 
       this.employee = response;
-    });
+    },
+    (err) => {
+      this.errorToast();
+    })
   }
 
   toggleEditProfile() {
@@ -50,22 +56,68 @@ export class BasicInfoComponent implements OnInit {
       this.toggleEditProfile();
       this.getEmployeeData();
       console.log(this.employee);
-       ////////////////////alert//////////////////////////
-    });
+       this.successToast();
+    },
+    (err) => {
+      this.errorToast();
+    })
   }
 
   public formatDate(date) {
-    var monthNames = [
-      "January", "February", "March",
-      "April", "May", "June", "July",
-      "August", "September", "October",
-      "November", "December"
-    ];
-  
     var day = date.getDate();
     var monthIndex = date.getMonth()+1;
     var year = date.getFullYear();
   
     return day + '/' + monthIndex + '/' + year;
   }
+
+  addToast(options) {
+    if (options.closeOther) {
+      this.toastyService.clearAll();
+    }
+    this.position = options.position ? options.position : this.position;
+    const toastOptions: ToastOptions = {
+      title: options.title,
+      msg: options.msg,
+      showClose: options.showClose,
+      timeout: options.timeout,
+      theme: options.theme,
+      onAdd: (toast: ToastData) => {
+        /* added */
+      },
+      onRemove: (toast: ToastData) => {
+        /* removed */
+      }
+    };
+
+    switch (options.type) {
+      case 'default': this.toastyService.default(toastOptions); break;
+      case 'info': this.toastyService.info(toastOptions); break;
+      case 'success': this.toastyService.success(toastOptions); break;
+      case 'wait': this.toastyService.wait(toastOptions); break;
+      case 'error': this.toastyService.error(toastOptions); break;
+      case 'warning': this.toastyService.warning(toastOptions); break;
+    }
+  }
+
+  successToast() {
+    this.addToast({
+      title: 'Success',
+      msg: 'Operation successful.',
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'success'
+    });
+  }
+
+  errorToast() {
+    this.addToast({
+      title: 'Error',
+      msg: 'Operation not successful. Check your net connection.',
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'error'
+    });
+  }
+
 }

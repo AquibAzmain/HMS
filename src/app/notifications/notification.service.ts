@@ -21,17 +21,17 @@ export class NotificationService {
   }
 
   getNotificationSize() {
-    return this.http.get(Server.API_ENDPOINT + 'notificationSize',this.httpOptions);
+    return this.http.get(Server.API_ENDPOINT + 'notificationsize',this.httpOptions);
   }
 
   seenNotification(notification: Notification) {
-    this.http.post(Server.API_ENDPOINT +'seenNotification', {
+    return this.http.post(Server.API_ENDPOINT +'seenNotification', {
       id: notification.id,
     },this.httpOptions)
   }
 
   sendDecisionOfNotification(notification: Notification, decision: string) {
-    this.http.post(Server.API_ENDPOINT +'decision', {
+    return this.http.post(Server.API_ENDPOINT +'decision', {
       id: notification.id,
       type: notification.type,
       decision: decision
