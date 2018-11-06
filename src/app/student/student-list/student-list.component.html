@@ -8,7 +8,7 @@
             সার্চ ও সর্ট
           </button>
           <button type="button" class="btn btn-danger" (click)="convertToPdf()">
-            <i class="icofont icofont-printer"></i> প্রিন্ট
+            <i class="icofont icofont-download"></i> ডাউনলোড
           </button>
           <div [collapse]="isCollapsed" class="card card-block">
             <div class="row">
@@ -43,8 +43,8 @@
                   <label for="filter">ছাত্রত্ব স্ট্যাটাস</label>
                   <select class="form-control" [(ngModel)]="studentToBeSearched.alumni">
                     <option>--</option>
-                    <option value="no">বর্তমান</option>
-                    <option value="yes">প্রাক্তন</option>
+                    <option value="false">বর্তমান</option>
+                    <option value="true">প্রাক্তন</option>
                   </select>
                 </div>
                 <div class="form-group">
@@ -107,7 +107,7 @@
             <td>{{item.registrationNumber}}</td>
             <td>{{item.session}}</td>
             <td>{{item.residentialStatus}}</td>
-            <td>{{item.room? item.room : 'No'}}</td>
+            <td>{{item.room_no? item.room_no : 'N/A'}}</td>
             <!-- <td>{{item.admissionFeesStatus ? 'Paid' : 'Due'}}</td> -->
             <td>{{item.subject_name}}</td>
             <td>{{item.class_year_semester}}</td>

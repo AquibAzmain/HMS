@@ -74,6 +74,7 @@ export class CommentsComponent implements OnInit {
 
       this.studentService.addComment(comment)
           .subscribe((response) => {
+            this.commentObject.comment ="";
             this.successToast();
             this.getComments();
           }, error => {

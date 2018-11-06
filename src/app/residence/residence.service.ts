@@ -28,7 +28,7 @@ export class ResidenceService {
   }
 
   deleteBlock(block:Block) {
-    return this.http.delete(Server.API_ENDPOINT +'block?block_id='+block.id,this.httpOptions)
+    return this.http.delete(Server.API_ENDPOINT +'block/'+block.id,this.httpOptions)
   }
 
   getRoomList() : Observable<Room[]> {
@@ -63,5 +63,4 @@ export class ResidenceService {
   getHouseTutors(){
     return this.http.get(Server.API_ENDPOINT + 'users', this.httpOptions);
   }
-
 }

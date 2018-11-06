@@ -37,11 +37,11 @@ export class Student {
     public hscGPA: number;
 
     public residentialStatus: string;
-    public expulsionStatus: boolean;
-    public admissionFeesStatus: boolean;
-    public residenceFeesStatus: boolean;
-    public roomApprovalStatus: boolean;
-    public alumni: boolean;
+    public expulsionStatus: string;
+    public admissionFeesStatus: string;
+    public residenceFeesStatus: string;
+    public roomApprovalStatus: string;
+    public alumni: string;
     public room_no: number;
 
     public subject_name: string;

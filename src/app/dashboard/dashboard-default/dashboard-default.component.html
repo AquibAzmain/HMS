@@ -1,28 +1,28 @@
 <div class="row">
   <!-- card1 start -->
-  <div class="col-md-6 col-xl-3">
+  <div class="col-md-6 col-xl-4">
     <div class="card widget-card-1">
       <div class="card-block-small">
         <i class="icofont icofont-id bg-c-pink card1-icon pointer" [routerLink]="['/student']"></i>
-        <span class="text-c-blue f-w-600">আবাসিক ছাত্র</span>
-        <h4>১২০০ জন</h4>
+        <span class="text-c-blue f-w-600">ছাত্র</span>
+        <h4>{{this.numberOfStudents}} জন</h4>
       </div>
     </div>
   </div>
   <!-- card1 end -->
   <!-- card2 start -->
-  <div class="col-md-6 col-xl-3">
+  <div class="col-md-6 col-xl-4">
     <div class="card widget-card-1">
       <div class="card-block-small">
         <i class="icofont icofont-user bg-c-green card1-icon pointer" [routerLink]="['/employee']"></i>
         <span class="text-c-green f-w-600">কর্মকর্তা/কর্মচারী</span>
-        <h4>২৫ জন</h4>
+        <h4>{{this.numberOfEmployees}} জন</h4>
       </div>
     </div>
   </div>
   <!-- card2 end -->
   <!-- card3 start -->
-  <div class="col-md-6 col-xl-3">
+  <!-- <div class="col-md-6 col-xl-3">
     <div class="card widget-card-1">
       <div class="card-block-small">
         <i class="icofont icofont-money bg-c-brown card1-icon pointer" [routerLink]="['/accounting']"></i>
@@ -30,15 +30,15 @@
         <h4>৫০,০০০ টাকা</h4>
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- card3 end -->
   <!-- card4 start -->
-  <div class="col-md-6 col-xl-3">
+  <div class="col-md-6 col-xl-4">
     <div class="card widget-card-1">
       <div class="card-block-small">
         <i class="icofont icofont-building bg-c-lite-blue card1-icon pointer" [routerLink]="['/residence']"></i>
         <span class="text-c-yellow f-w-600">আবাসিক কক্ষ</span>
-        <h4>৪৫ টি</h4>
+        <h4>{{this.numberOfRooms}} টি</h4>
       </div>
     </div>
   </div>

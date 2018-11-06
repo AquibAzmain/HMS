@@ -107,6 +107,9 @@ export class StudentListComponent implements OnInit {
 
   confirmUpdateStudent(student): void {
     this.modalRef.hide();
+    if(student.room_no == 0  ){
+      student.room_no = null;
+    }
     this.studentService.updateStudent(student)
       .subscribe((response) => {
         this.successToast();
@@ -223,9 +226,11 @@ export class StudentListComponent implements OnInit {
     var col = ["Name", "Reg. No.", "Session", "Status", "Room","Department", "Class/Year", "Mobile"];
     var rows = [];
 
-
+    if(this.data[key]['room_no'] == 0  ){
+      this.data[key]['room_no'] = null;
+    }
     for(var key in this.data){
-        var temp = [this.data[key]['name'], this.data[key]['registrationNumber'], this.data[key]['session'], this.data[key]['residentialStatus'], this.data[key]['room'], this.data[key]['subject_name'],this.data[key]['class_year_semester'], this.data[key]['mobileNumber']];
+        var temp = [this.data[key]['name'], this.data[key]['registrationNumber'], this.data[key]['session'], this.data[key]['residentialStatus'], this.data[key]['room_no'], this.data[key]['subject_name'],this.data[key]['class_year_semester'], this.data[key]['mobileNumber']];
         rows.push(temp);
     }
 

@@ -109,9 +109,9 @@ export class EmployeeListComponent implements OnInit {
     
     this.employeeService.updateEmployee(employee)
     .subscribe((response) => { 
-      this.getEmployeeData();
-      console.log(response);
-      console.log(employee);
+     this.getEmployeeData();
+      // console.log(response);
+      // console.log(employee);
       this.successToast();
     },
     (err) => {

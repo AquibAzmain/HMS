@@ -23,7 +23,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let block of this.blocks; index as i;">
-            <td>{{block.blockName}}</td>
+            <td>{{block.block_name}}</td>
             <td>{{block.location}}</td>
             <td>
               <a (click)="openUpdateBlockModal(updateBlock)" href="javascript:;" class="edit-delete-icon">
@@ -39,7 +39,7 @@
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label">ব্লকের নাম</label>
                       <div class="col-sm-8">
-                        <input class="form-control" type="text" [(ngModel)]="block.blockName"/>
+                        <input class="form-control" type="text" [(ngModel)]="block.block_name"/>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -92,7 +92,7 @@
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">ব্লকের নাম</label>
       <div class="col-sm-8">
-        <input class="form-control" type="text" [(ngModel)]="blockToBeAdded.blockName"/>
+        <input class="form-control" type="text" [(ngModel)]="blockToBeAdded.block_name"/>
       </div>
     </div>
     <div class="form-group row">
@@ -100,6 +100,9 @@
       <div class="col-sm-8">
         <input class="form-control" type="text" [(ngModel)]="blockToBeAdded.location"/>
       </div>
+    </div>
+    <div *ngIf="this.hasAddError == true" class="form-group row">
+      <label class="col-sm-12 col-form-label">*ঠিকমত ফর্ম পূরণ করুন</label>
     </div>
     <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmAddBlock()">নিশ্চিত</button>
     <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>

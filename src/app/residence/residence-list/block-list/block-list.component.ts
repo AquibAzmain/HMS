@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import {Http} from '@angular/http';
+import { Http } from '@angular/http';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ResidenceService } from '../../residence.service';
 import { Block } from '../../../../models/Block';
@@ -18,24 +18,25 @@ export class BlockListComponent implements OnInit {
   public filterQuery = '';
   public sortBy = '';
   public sortOrder = 'desc';
-  public isCollapsed:boolean = true;
+  public isCollapsed: boolean = true;
 
-  modalHeader:string;
+  modalHeader: string;
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
 
+  hasAddError = false;
   //role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
-  role="hallOfficer";
+  role = "hallOfficer";
   blocks: Block[] = [];
   blockToBeAdded: Block = new Block();
-  
+
   constructor(public http: Http, private modalService: BsModalService,
-              private residenceService : ResidenceService,
-              private router: Router,
-              private toastyService: ToastyService) { }
+    private residenceService: ResidenceService,
+    private router: Router,
+    private toastyService: ToastyService) { }
 
   ngOnInit() {
-    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
+    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
       this.getBlockData();
     }
     else {
@@ -45,7 +46,7 @@ export class BlockListComponent implements OnInit {
 
   getBlockData() {
     this.residenceService.getBlockList()
-      .subscribe((response) => { 
+      .subscribe((response) => {
         this.blocks = response;
         console.log(this.blocks);
       });
@@ -61,16 +62,20 @@ export class BlockListComponent implements OnInit {
   */
 
 
- public openAddBlockModal(template: TemplateRef<any>) {
-  this.blockToBeAdded = new Block();
-  this.modalRef = this.modalService.show(template);
-}
+  public openAddBlockModal(template: TemplateRef<any>) {
+    this.blockToBeAdded = new Block();
+    this.modalRef = this.modalService.show(template);
+  }
+
+  public openUpdateBlockModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
 
   confirm(): void {
     console.log('Confirmed!');
     this.modalRef.hide();
   }
- 
+
   decline(): void {
     console.log('Declined!');
     this.modalRef.hide();
@@ -79,34 +84,41 @@ export class BlockListComponent implements OnInit {
   public openDeleteModal(template: TemplateRef<any>) {
     this.deleteModalRef = this.modalService.show(template);
   }
- 
+
   declineDelete(): void {
     this.deleteModalRef.hide();
   }
 
-  confirmAddEmployee(): void {
-    this.modalRef.hide();
-    this.residenceService.addBlock(this.blockToBeAdded)
-    .subscribe((response) => { 
-      this.successToast();
-      this.blockToBeAdded = response;
-      this.blocks.push(this.blockToBeAdded);
-      this.getBlockData();
-    }, 
-    (err) => {
-      this.errorToast();
-    })
+  confirmAddBlock(): void {
+    console.log(this.blockToBeAdded);
+    if (this.blockToBeAdded.block_name == null || this.blockToBeAdded.location == null) {
+      this.hasAddError = true;
+    }
+    else {
+      this.hasAddError = false;
+      this.modalRef.hide();
+      this.residenceService.addBlock(this.blockToBeAdded)
+        .subscribe((response) => {
+          this.successToast();
+          this.blockToBeAdded = response;
+          this.blocks.push(this.blockToBeAdded);
+          this.getBlockData();
+        },
+        (err) => {
+          this.errorToast();
+        })
+    }
   }
 
   confirmUpdateBlock(block): void {
     this.modalRef.hide();
     this.residenceService.updateBlock(block)
-    .subscribe((response) => { 
-      this.getBlockData();
-      console.log(response);
-      console.log(block);
-       this.successToast();
-      }, 
+      .subscribe((response) => {
+        this.getBlockData();
+        console.log(response);
+        console.log(block);
+        this.successToast();
+      },
       (err) => {
         this.errorToast();
       })
@@ -116,11 +128,11 @@ export class BlockListComponent implements OnInit {
     console.log(block)
     this.deleteModalRef.hide();
     this.residenceService.deleteBlock(block)
-    .subscribe((response) => { 
-      let index = this.blocks.indexOf(block);
-      this.blocks.splice(index,1);
+      .subscribe((response) => {
+        let index = this.blocks.indexOf(block);
+        this.blocks.splice(index, 1);
         this.successToast();
-      }, 
+      },
       (err) => {
         this.errorToast();
       })

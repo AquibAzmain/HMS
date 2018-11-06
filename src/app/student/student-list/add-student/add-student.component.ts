@@ -17,9 +17,11 @@ export class AddStudentComponent implements OnInit {
   students: Student[] = [];
   studentToBeAdded: Student = new Student();
 
+  hasError = false;
   constructor(private router: Router, private studentService : StudentService, private toastyService: ToastyService) { }
 
   ngOnInit() {
+    this.hasError = false;
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
     }
     else {
@@ -32,13 +34,24 @@ export class AddStudentComponent implements OnInit {
     if(this.studentToBeAdded.dateOfBirth != null){
       this.studentToBeAdded.dateOfBirth = this.formatDate(this.studentToBeAdded.dateOfBirth);
     }
-    this.studentService.addStudent(this.studentToBeAdded)
-    .subscribe((response) => {    
-      this.successToast();
-      this.router.navigate(['/student/details/'+this.studentToBeAdded.registrationNumber]);
-    }, error => {
-      this.errorToast();
-    });
+
+    if(this.studentToBeAdded.room_no == 0  ){
+      this.studentToBeAdded.room_no = null;
+    }
+
+    if(this.studentToBeAdded.session == null || this.studentToBeAdded.registrationNumber == null || this.studentToBeAdded.name == null){
+      this.hasError = true;
+    }
+    else {
+      this.hasError = false;      
+      this.studentService.addStudent(this.studentToBeAdded)
+      .subscribe((response) => {    
+        this.successToast();
+        this.router.navigate(['/student/details/'+this.studentToBeAdded.registrationNumber]);
+      }, error => {
+        this.errorToast();
+      });
+    }
 
   }
 

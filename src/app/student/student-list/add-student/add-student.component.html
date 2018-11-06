@@ -78,7 +78,7 @@
                   <tr>
                     <th scope="row">জন্মতারিখ</th>
                     <td><input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue"
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker></td>
+                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker [(ngModel)]="studentToBeAdded.dateOfBirth"></td>
                   </tr>
                   <tr>
                     <th scope="row">ধর্ম</th>
@@ -317,13 +317,16 @@
                   <tr>
                     <th scope="row">হল অ্যাডমিশন ফি স্ট্যাটাস</th>
                     <td><select class="form-control" [(ngModel)]="studentToBeAdded.admissionFeesStatus">
-                        <option>Due</option>
-                        <option>Paid</option>
+                        <option value="false">Due</option>
+                        <option value="true">Paid</option>
                       </select></td>
                   </tr>
                 </tbody>
               </table>
             </div>
+          </div>
+          <div *ngIf="this.hasError == true" class="form-group row">
+            <label class="col-sm-12 col-form-label">&nbsp;&nbsp;*ঠিকমত ফর্ম পূরণ করুন</label>
           </div>
           <!-- <div class="card-header">
             <p class="card-header-text">বছরপ্রতি আবাসিক ফি স্ট্যাটাস</p>

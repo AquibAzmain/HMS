@@ -14,8 +14,8 @@ export class StudentService {
   
   constructor(private http: HttpClient) { }
 
-  getStudentList() : Observable<Student> {
-    return this.http.get<Student>(Server.API_ENDPOINT +'student', this.httpOptions)
+  getStudentList() : Observable<Student[]> {
+    return this.http.get<Student[]>(Server.API_ENDPOINT +'student', this.httpOptions)
   } 
 
   addStudent(student:Student) {
@@ -32,8 +32,8 @@ export class StudentService {
     //   headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+this.token}),
     //   params: new HttpParams().set('registrationNumber', student.registrationNumber)
     // };
-    const params = new HttpParams().set('registrationNumber', student.registrationNumber);
-    return this.http.delete(Server.API_ENDPOINT +'student', {params}) //
+    // const params = new HttpParams().set('registrationNumber', student.registrationNumber);
+    return this.http.delete(Server.API_ENDPOINT +'student/'+student.registrationNumber,this.httpOptions) //
   }
 
   getStudentByReg(registrationNumber) : Observable<Student> {
@@ -64,5 +64,7 @@ export class StudentService {
     return this.http.get(Server.API_ENDPOINT +'clean_data', this.httpOptions);
   }
 
-
+  // getNumberOfStudents() {
+  //   return this.http.get(Server.API_ENDPOINT +'numberOfStudents', this.httpOptions)
+  // }
 }

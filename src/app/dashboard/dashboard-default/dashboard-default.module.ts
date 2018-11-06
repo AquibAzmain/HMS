@@ -4,6 +4,9 @@ import { DashboardDefaultComponent } from './dashboard-default.component';
 import {RouterModule, Routes} from '@angular/router';
 import {SharedModule} from '../../shared/shared.module';
 import {ChartModule} from 'angular2-chartjs';
+import { EmployeeService } from '../../employee/employee.service';
+import { StudentService } from '../../student/student.service';
+import { ResidenceService } from '../../residence/residence.service';
 
 export const DashboardDefaultRoutes: Routes = [
   {
@@ -23,6 +26,11 @@ export const DashboardDefaultRoutes: Routes = [
     RouterModule.forChild(DashboardDefaultRoutes),
     SharedModule,
     ChartModule
+  ],
+  providers: [
+    EmployeeService,
+    StudentService,
+    ResidenceService
   ],
   declarations: [DashboardDefaultComponent]
 })
