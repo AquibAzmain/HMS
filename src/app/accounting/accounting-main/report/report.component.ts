@@ -3,6 +3,10 @@ import {animate, style, transition, trigger} from '@angular/animations';
 import { Http } from '@angular/http';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import * as jsPDF from 'jspdf';
+import {Report} from '../../../../models/Report';
+import { Transaction } from '../../../../models/Transaction';
+import { Router } from '@angular/router';
+import { TransactionService } from '../transaction.service';
 
 @Component({
   selector: 'app-report',
@@ -15,19 +19,46 @@ export class ReportComponent implements OnInit {
   startDate:any;
   endDate:any;
   selectedData: Array<any> = [];
+  report : Report = new Report();
+  transactions: Transaction[] = [];
 
-  constructor(public http: Http, private modalService: BsModalService) { }
+
+  modalHeader:string;
+  public modalRef: BsModalRef;
+  public deleteModalRef: BsModalRef;
+
+  role = "hallOfficer"//localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
+
+  constructor(public http: Http, private modalService: BsModalService,
+    private transactionService : TransactionService, private router: Router) { }
 
   
 
   ngOnInit() {
+    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
+
+    }
+    else {
+      this.router.navigate(['/**']);
+    }
   }
 
   getData() {
-    this.http.get(`assets/data/income.json`)
-    .subscribe((selectedData) => {
-      this.selectedData = selectedData.json();
-    });
+    this.report.start_date = this.formatDate(this.dateRange[0]);
+    this.report.end_date = this.formatDate(this.dateRange[1]);
+    console.log(this.report.start_date);
+    console.log(this.report.end_date);
+    
+    this.transactionService.generateReport(this.report)
+      .subscribe((response) => { 
+        
+        
+        this.transactions = response;
+        console.log(this.transactions);
+        
+      }, error => {
+       
+      });
 
     
   }
@@ -42,12 +73,11 @@ export class ReportComponent implements OnInit {
 
 
   getDateRange(){
-    this.startDate = this.formatDate(this.dateRange[0]);
-    this.endDate = this.formatDate(this.dateRange[1]);
-    //console.log(this.startDate);
-    //console.log(this.endDate);
+    
+
+
     this.getData();
-    this.makePDF();
+    //this.makePDF();
     
   }
 

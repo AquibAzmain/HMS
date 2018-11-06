@@ -67,7 +67,6 @@ export class IncomeComponent implements OnInit {
     this.transactionService.getIncomeList()
       .subscribe((response) => { 
         this.incomes = response;
-        //console.log(this.incomes);
         this.successToast();
       }, error => {
         this.errorToast();

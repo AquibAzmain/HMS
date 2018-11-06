@@ -3,6 +3,7 @@ import { HttpHeaders, HttpClient, HttpParams  } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import {Server} from '../../../utils/Server'
 import { Transaction } from '../../../models/Transaction';
+import { Report } from '../../../models/Report';
 
 
 @Injectable()
@@ -15,6 +16,9 @@ export class TransactionService {
 
   constructor(private http: HttpClient) { }
 
+  generateReport(report:Report) : Observable<Transaction[]>{
+    return this.http.post<Transaction[]>(Server.API_ENDPOINT +'protibedon', JSON.stringify(report), this.httpOptions);
+  }
   getIncomeList() : Observable<Transaction[]> {
     return this.http.get<Transaction[]>(Server.API_ENDPOINT + 'income_transactions');
   }
