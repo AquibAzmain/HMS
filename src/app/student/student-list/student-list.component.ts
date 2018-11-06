@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import {Server} from '../../../utils/Server'
 import { Student } from '../../../models/Student';
-import * as jsPDF from 'jspdf';
+
 
 const URL = Server.API_ENDPOINT+'excel';
 declare var jsPDF: any;
@@ -18,13 +18,12 @@ declare var jsPDF: any;
   styleUrls: ['./student-list.component.css']
 })
 export class StudentListComponent implements OnInit {
-  
+  alumniStudent:any;
   position = 'bottom';
   //role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
   role = "hallOfficer";
   public uploader:FileUploader = new FileUploader({url: URL});
   public studentToBeSearched: Student = new Student();
-
   public data: any;
   public rowsOnPage = 10;
   public filterQuery = '';
@@ -55,39 +54,8 @@ export class StudentListComponent implements OnInit {
       this.router.navigate(['/**']);
     }
     this.getStudentList();
+    
 
-  }
-
-  makePDF(){
-    let doc = new jsPDF();
-    var col = ["Id", "TypeID","Accnt","Amnt","Start","End","Contrapartida"];
-    var rows = [];
-
-var rowCountModNew = [
-["1721079361", "0001", "2100074911", "200", "22112017", "23112017", "51696"],
-["1721079362", "0002", "2100074912", "300", "22112017", "23112017", "51691"],
-["1721079363", "0003", "2100074913", "400", "22112017", "23112017", "51692"],
-["1721079364", "0004", "2100074914", "500", "22112017", "23112017", "51693"]
-]
-
-
-rowCountModNew.forEach(element => {
-      rows.push(element);
-
-    });
-
-
-    //this.doc.autoTable(col, rows);
-    doc.table(7,5,rowCountModNew,col,{
-      left:80,
-      right:10,
-      top:500,
-      bottom: 50,
-      width: 60,
-      autoSize:false,
-      printHeaders: true
-      });
-    doc.save('Test.pdf');
   }
 
   confirmDelete(student): void {
@@ -101,6 +69,31 @@ rowCountModNew.forEach(element => {
       this.errorToast();
     });
   }
+
+  getCleanUpData(){
+    this.studentService.getCleanUpData()
+    .subscribe((response) => { 
+      this.getStudentList();
+      console.log(response);
+      this.alumniStudent = response;
+      var doc = new jsPDF();
+      var col = ["Name", "Reg. No.", "Session", "Status", "Room","Department", "Class/Year", "Mobile"];
+      var rows = [];
+
+
+      for(var key in this.alumniStudent){
+          var temp = [this.alumniStudent[key]['name'], this.alumniStudent[key]['registrationNumber'], this.alumniStudent[key]['session'], this.alumniStudent[key]['residentialStatus'], this.alumniStudent[key]['room'], this.alumniStudent[key]['subject_name'],this.alumniStudent[key]['class_year_semester'], this.alumniStudent[key]['mobileNumber']];
+          rows.push(temp);
+      }
+
+      doc.autoTable(col, rows);
+
+      doc.save('alumni_student_list.pdf');
+    }, error => {
+      this.errorViewToast();
+    });
+  }
+
 
   getStudentList(){
     this.studentService.getStudentList()

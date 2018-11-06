@@ -46,6 +46,7 @@ export class PersonalInfoComponent implements OnInit {
     if (this.student.dateOfBirth != null) {
       this.student.dateOfBirth = this.formatDate(this.student.dateOfBirth);
     }
+    console.log(this.student);
     this.studentService.updateStudent(this.student)
       .subscribe((response) => {
         this.toggleEditProfile();

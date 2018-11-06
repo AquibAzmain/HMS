@@ -17,6 +17,7 @@ export class CommentsComponent implements OnInit {
   student: Student = new Student();
   commentObject: Remark = new Remark();
   comments: Remark[]=[];
+  userData:any;
   constructor(private route: ActivatedRoute,
     private studentService: StudentService,
     private router: Router,
@@ -25,14 +26,27 @@ export class CommentsComponent implements OnInit {
     ngOnInit() {
       if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
         this.getStudentData();
+        this.getUserData();
+        
       }
       else {
         this.router.navigate(['/**']);
       }
     }
 
+    getUserData(){
+      this.studentService.getProfile()
+      .subscribe((response) => { 
+        console.log(response);
+        this.userData = response;
+        this.getComments();
+      }, error => {
+        this.errorToast();
+      });
+    }
+
     getComments(){
-      this.studentService.getCommentList()
+      this.studentService.getCommentList(this.student)
       .subscribe((response) => { 
         console.log(response);
         this.comments = response;
@@ -54,7 +68,7 @@ export class CommentsComponent implements OnInit {
     postComment(comment){
       comment.registrationNumber = this.student.registrationNumber;
       comment.date = this.today;
-      comment.user = this.userName;
+      comment.user = this.userData.mobile_number;
 
       console.log(comment);
 

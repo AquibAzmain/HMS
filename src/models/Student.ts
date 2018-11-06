@@ -1,5 +1,5 @@
 export class Student {
-    public registrationNumber: number;
+    public registrationNumber: string;
     public session: string;
     public name: string;
     public fathersName: string;

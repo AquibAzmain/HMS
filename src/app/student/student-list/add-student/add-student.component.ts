@@ -10,6 +10,7 @@ import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
   styleUrls: ['./add-student.component.css']
 })
 export class AddStudentComponent implements OnInit {
+  alumni:boolean = true;
   position = 'bottom';
   //role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
   role = "hallOfficer";

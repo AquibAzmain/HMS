@@ -10,10 +10,12 @@ export class StudentService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+this.token})
   };
+
+  
   constructor(private http: HttpClient) { }
 
   getStudentList() : Observable<Student> {
-    return this.http.get<Student>(Server.API_ENDPOINT +'student')
+    return this.http.get<Student>(Server.API_ENDPOINT +'student', this.httpOptions)
   } 
 
   addStudent(student:Student) {
@@ -26,7 +28,12 @@ export class StudentService {
 
   // id nei to ki dhore delete hobe dekhe nio
   deleteStudent(student:Student) {
-    return this.http.delete(Server.API_ENDPOINT +'student'+"?registrationNumber="+student.registrationNumber,this.httpOptions) //
+    // let httpOptionsForDelete = {
+    //   headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+this.token}),
+    //   params: new HttpParams().set('registrationNumber', student.registrationNumber)
+    // };
+    const params = new HttpParams().set('registrationNumber', student.registrationNumber);
+    return this.http.delete(Server.API_ENDPOINT +'student', {params}) //
   }
 
   getStudentByReg(registrationNumber) : Observable<Student> {
@@ -37,16 +44,25 @@ export class StudentService {
     return this.http.post(Server.API_ENDPOINT +'stu_search', JSON.stringify(student), this.httpOptions);
   }
 
-  getComment(registrationNumber): Observable<Remark>{
-    return this.http.get<Remark>(Server.API_ENDPOINT + 'remark/'+registrationNumber,this.httpOptions);
-  }
+  // getComment(registrationNumber): Observable<Remark>{
+  //   return this.http.get<Remark>(Server.API_ENDPOINT + 'remark/'+registrationNumber,this.httpOptions);
+  // }
 
   addComment(comment:Comment) {
     return this.http.post(Server.API_ENDPOINT +'remark', JSON.stringify(comment), this.httpOptions)
   }
 
-  getCommentList() : Observable<Remark[]> {
-    return this.http.get<Remark[]>(Server.API_ENDPOINT +'remark');
+  getCommentList(student) : Observable<Remark[]> {
+    return this.http.get<Remark[]>(Server.API_ENDPOINT +'remark/'+student.registrationNumber);
   } 
+
+  getProfile(){
+    return this.http.get(Server.API_ENDPOINT +'profile', this.httpOptions);
+  }
+
+  getCleanUpData(){
+    return this.http.get(Server.API_ENDPOINT +'clean_data', this.httpOptions);
+  }
+
 
 }

@@ -32,6 +32,7 @@ export class StudentDetailComponent implements OnInit {
     this.studentService.getStudentByReg(studentReg)
       .subscribe((response) => {
         this.student = response;
+        console.log(response);
       });
   }
 
