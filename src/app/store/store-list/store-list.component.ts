@@ -120,7 +120,7 @@ export class StoreListComponent implements OnInit {
     this.assetService.updateAsset(asset)
       .subscribe((response) => {
         this.successToast();
-        this.data.push(this.assetToBeAdded);
+        //this.data.push(this.assetToBeAdded);
         this.getAssetData();
       }, error => {
         this.errorToast();

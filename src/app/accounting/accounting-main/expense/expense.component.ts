@@ -70,7 +70,6 @@ export class ExpenseComponent implements OnInit {
       .subscribe((response) => { 
         this.expenses = response;
         console.log(this.expenses);
-        this.successToast();
       }, error => {
         this.errorToast();
       });
