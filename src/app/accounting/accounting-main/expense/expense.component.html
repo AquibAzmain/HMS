@@ -4,7 +4,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-8">
-          <button type="button" class="btn bg-c-brown text-white" (click)="isCollapsed = !isCollapsed">
+          <!-- <button type="button" class="btn bg-c-brown text-white" (click)="isCollapsed = !isCollapsed">
             সার্চ ও সর্ট
           </button>
           <div [collapse]="isCollapsed" class="card card-block">
@@ -51,7 +51,7 @@
             <button type="submit" class="btn bg-c-brown text-white">
               নিশ্চিত করুন
             </button>
-          </div>
+          </div> -->
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4">
           <button class="btn bg-c-brown text-white f-right" (click)="openModal(template, 'add')"><i class="icofont icofont-plus"></i>
@@ -78,9 +78,9 @@
               <th>
                 <mfDefaultSorter by="purchaseDate">মন্তব্য</mfDefaultSorter>
               </th>
-              <th>
+              <!-- <th>
                 <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
-              </th>
+              </th> -->
             </tr>
 
           </thead>
@@ -91,12 +91,12 @@
               <td>{{item.amount}}</td>
               <td>{{item.date}}</td>
               <td>{{item.comment}}</td>
-              <td>
+              <!-- <td>
                 <a (click)="openModal(template, 'edit')" href="javascript:;" class="edit-delete-icon">
                   <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
                 <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
                   <i class="icofont icofont-ui-delete"></i></a>
-              </td>
+              </td> -->
             </tr>
           </tbody>
           <tfoot>

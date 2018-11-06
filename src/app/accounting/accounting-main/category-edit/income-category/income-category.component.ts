@@ -40,7 +40,7 @@ export class IncomeCategoryComponent implements OnInit {
     
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
       this.getIncomeCategoryData();
-      this.getSubCategoryData();
+      //this.getSubCategoryData();
       this.subCategoryToBeAdded.parent_cat = "University funding";
 
     }
@@ -55,16 +55,16 @@ export class IncomeCategoryComponent implements OnInit {
     console.log(this.category);
 
     this.singleCategory.parent_type = "income";
-    this.transactionCategoryService.getIncomeCategoryList(this.singleCategory)
+    this.transactionCategoryService.getIncomeCategoryList()
       .subscribe((response) => { 
         this.category = response;
       });
   }
 
 
-  getSubCategoryData() {
+  getSubCategoryData(s: any) {
     console.log(this.subCategory);
-    this.transactionSubcategoryService.getSubCategoryList()
+    this.transactionSubcategoryService.getSubCategoryList(s)
       .subscribe((response) => { 
         this.subCategory = response;
       });

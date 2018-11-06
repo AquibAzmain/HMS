@@ -13,8 +13,8 @@ export class TransactionSubcategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getSubCategoryList() : Observable<Transaction_SubCategory[]> {
-    return this.http.get<Transaction_SubCategory[]>(Server.API_ENDPOINT + 'transaction_subcategories');
+  getSubCategoryList(s:string) : Observable<Transaction_SubCategory[]> {
+    return this.http.get<Transaction_SubCategory[]>(Server.API_ENDPOINT + 'transaction_subcategories?parent_cat=' + s);
   }
 
   addSubCategory(subCategory: Transaction_SubCategory) : Observable<Transaction_SubCategory>{
