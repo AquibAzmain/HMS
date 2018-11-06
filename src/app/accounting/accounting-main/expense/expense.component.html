@@ -59,7 +59,7 @@
         </div>
       </div>
       <div class="table-responsive" style="margin-top:30px">
-        <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery"
+        <table class="table table-striped table-bordered full-data-table" [mfData]="expenses | dataFilter : filterQuery"
           #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
           <thead>
             <tr>
@@ -86,10 +86,10 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of mf.data; index as i;">
-              <td>{{item.category}}</td>
-              <td>{{item.subCategory}}</td>
+              <td>{{item.cat_name}}</td>
+              <td>{{item.sub_name}}</td>
               <td>{{item.amount}}</td>
-              <td>{{item.date}}</td>
+              <td>{{item.purchase_date}}</td>
               <td>{{item.comment}}</td>
               <!-- <td>
                 <a (click)="openModal(template, 'edit')" href="javascript:;" class="edit-delete-icon">
@@ -125,8 +125,8 @@
       <label class="col-sm-4 col-form-label">ক্যাটেগরি</label>
       <div class="col-sm-8">
         <select id="typeMain" class="form-control" (change)="selectMainType($event)">
-          <option *ngFor="let item of typeData" [value]="item.typeMain">
-            {{item.typeMain}}
+          <option *ngFor="let item of category" [value]="item.cat_name">
+            {{item.cat_name}}
           </option>
         </select>
       </div>
@@ -135,8 +135,8 @@
       <label class="col-sm-4 col-form-label">সাব-ক্যাটেগরি</label>
       <div class="col-sm-8">
         <select id="typeSub" class="form-control" (change)="selectSubType($event)">
-          <option *ngFor="let item of allSubType" [value]="item">
-            {{item}}
+          <option *ngFor="let item of subCategory" [value]="item.sub_name">
+            {{item.sub_name}}
           </option>
         </select>
       </div>

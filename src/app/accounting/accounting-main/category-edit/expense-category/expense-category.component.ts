@@ -38,7 +38,7 @@ export class ExpenseCategoryComponent implements OnInit {
     
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
       this.getCategoryData();
-      this.getSubCategoryData();
+      //this.getSubCategoryData();
       //this.subCategoryToBeAdded.parent_cat = "University expense";
 
     }
@@ -66,6 +66,7 @@ export class ExpenseCategoryComponent implements OnInit {
     //   });
   }
 
+  /*
   getSubCategoryData() {
     console.log(this.subCategory);
     this.transactionSubcategoryService.getSubCategoryList()
@@ -73,7 +74,7 @@ export class ExpenseCategoryComponent implements OnInit {
         this.subCategory = response;
       });
   }
-
+  */
   getCategoryId (event: any) {
     
     console.log(event.target.value);

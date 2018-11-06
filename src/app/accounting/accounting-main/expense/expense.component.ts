@@ -43,7 +43,7 @@ export class ExpenseComponent implements OnInit {
   role = "hallOfficer"//localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
   
   expenses: Transaction[] = [];
-  epenseToBeAdded: Transaction = new Transaction();
+  expenseToBeAdded: Transaction = new Transaction();
 
   category: Transaction_Category[] = [];
   subCategory: Transaction_SubCategory[] = [];
@@ -58,7 +58,7 @@ export class ExpenseComponent implements OnInit {
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
       this.getExpenseData();
       this.getCategoryData();
-      this.getSubCategoryData();
+      //this.getSubCategoryData();
     }
     else {
       this.router.navigate(['/**']);
@@ -69,7 +69,7 @@ export class ExpenseComponent implements OnInit {
     this.transactionService.getExpenseList()
       .subscribe((response) => { 
         this.expenses = response;
-        console.log(this.expenses);
+        //console.log(this.expenses);
         this.successToast();
       }, error => {
         this.errorToast();
@@ -84,32 +84,32 @@ export class ExpenseComponent implements OnInit {
       });
   }
 
-  getSubCategoryData() {
+  getSubCategoryData(s: any) {
     
-    // this.transactionSubcategoryService.getSubCategoryList()
-    //   .subscribe((response) => { 
-    //     this.subCategory = response;
-    //     console.log(this.subCategory);
-    //   });
+    this.transactionSubcategoryService.getSubCategoryList(s)
+      .subscribe((response) => { 
+        this.subCategory = response;
+        //console.log(this.subCategory);
+      });
   }
 
 
   public openAddExpenseModal(template: TemplateRef<any>) {
-    this.epenseToBeAdded = new Transaction();
+    this.expenseToBeAdded = new Transaction();
     this.modalRef = this.modalService.show(template);
   }
   
   confirmAddExpense(): void {
     console.log(this.expenses.length);
     this.modalRef.hide();
-    if(this.epenseToBeAdded.purchase_date != null){
-      this.epenseToBeAdded.purchase_date = this.formatDate(this.epenseToBeAdded.purchase_date);
+    if(this.expenseToBeAdded.purchase_date != null){
+      this.expenseToBeAdded.purchase_date = this.formatDate(this.expenseToBeAdded.purchase_date);
     }
-    this.transactionService.addExpense(this.epenseToBeAdded)
+    this.transactionService.addExpense(this.expenseToBeAdded)
     .subscribe((response) => { 
       this.successToast();
-      this.epenseToBeAdded = response;
-      this.expenses.push(this.epenseToBeAdded);
+      this.expenseToBeAdded = response;
+      this.expenses.push(this.expenseToBeAdded);
       this.getExpenseData();
     }, error => {
       this.errorToast();
@@ -163,36 +163,25 @@ export class ExpenseComponent implements OnInit {
     return day + '/' + monthIndex + '/' + year;
   }
 
-
-
-
-
-  /* ********************************************* */
   selectMainType (event: any) {
     
-    this.selectedMainType = event.target.value; 
-    this.getSubTypes();
-  }
-
-
-  getSubTypes() {
+    this.expenseToBeAdded.cat_name = event.target.value; 
+    //console.log(event.target.value);
     
-    this.typeData.forEach(element => {
-      
-      if( element.typeMain === this.selectedMainType ) {
-        this.allSubType = element.subType;
-        console.log(this.allSubType);
-      }
-      
-    });
+    this.getSubCategoryData(this.expenseToBeAdded.cat_name);
+    //console.log(this.subCategory);
   }
-
 
   selectSubType (event: any) {
 
-    this.selectedSubType = event.target.value;
-    console.log(this.selectedSubType);
+    this.expenseToBeAdded.sub_name = event.target.value;
+    console.log(event.target.value);
   }
+
+
+  /* ********************************************* */
+  
+  
 
 
   onDateChanged(event: IMyDateModel) {
