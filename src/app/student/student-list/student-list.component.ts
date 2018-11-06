@@ -8,7 +8,6 @@ import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import {Server} from '../../../utils/Server'
 import { Student } from '../../../models/Student';
 
-
 const URL = Server.API_ENDPOINT+'excel';
 declare var jsPDF: any;
 
