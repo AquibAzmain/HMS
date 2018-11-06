@@ -69,7 +69,7 @@ export class ExpenseComponent implements OnInit {
     this.transactionService.getExpenseList()
       .subscribe((response) => { 
         this.expenses = response;
-        //console.log(this.expenses);
+        console.log(this.expenses);
         this.successToast();
       }, error => {
         this.errorToast();
@@ -100,7 +100,7 @@ export class ExpenseComponent implements OnInit {
   }
   
   confirmAddExpense(): void {
-    console.log(this.expenses.length);
+    //console.log(this.expenses.length);
     this.modalRef.hide();
     if(this.expenseToBeAdded.purchase_date != null){
       this.expenseToBeAdded.purchase_date = this.formatDate(this.expenseToBeAdded.purchase_date);
@@ -127,7 +127,7 @@ export class ExpenseComponent implements OnInit {
       expense.purchase_date = this.formatDate(expense.purchase_date);
     }
     
-    this.transactionService.updateExpense(expense)
+    this.transactionService.addExpense(expense)
     .subscribe((response) => {
       this.successToast(); 
       this.getExpenseData();
