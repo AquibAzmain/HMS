@@ -41,13 +41,15 @@ export class IncomeComponent implements OnInit {
 
   category: Transaction_Category[] = [];
   subCategory: Transaction_SubCategory[] = [];
+  tc : Transaction_Category = new Transaction_Category();
+  singleCategory: Transaction_Category = new Transaction_Category;
 
   constructor(public http: Http, private modalService: BsModalService,
     private transactionService : TransactionService, private transactionCategoryService : TransactionCategoryService,
     private transactionSubcategoryService : TransactionSubcategoryService, private router: Router ) { }
 
   ngOnInit() {
-    
+   
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
       this.getIncomeData();
       this.getCategoryData();
@@ -68,7 +70,9 @@ export class IncomeComponent implements OnInit {
   }
 
   getCategoryData() {
-    this.transactionCategoryService.getCategoryList()
+
+    this.singleCategory.parent_type = "income";
+    this.transactionCategoryService.getIncomeCategoryList(this.singleCategory)
       .subscribe((response) => { 
         this.category = response;
         console.log(this.category);
@@ -102,6 +106,7 @@ export class IncomeComponent implements OnInit {
       this.incomes.push(this.incomeToBeAdded);
       this.getIncomeData();
     });
+
   }
   
 

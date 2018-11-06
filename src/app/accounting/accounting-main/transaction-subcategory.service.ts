@@ -16,4 +16,9 @@ export class TransactionSubcategoryService {
   getSubCategoryList() : Observable<Transaction_SubCategory[]> {
     return this.http.get<Transaction_SubCategory[]>(Server.API_ENDPOINT + 'transaction_subcategories');
   }
+
+  addSubCategory(subCategory: Transaction_SubCategory) : Observable<Transaction_SubCategory>{
+    return this.http.post<Transaction_SubCategory>(Server.API_ENDPOINT +'transaction_subcategories', JSON.stringify(subCategory), this.httpOptions);
+  }
+  
 }

@@ -15,7 +15,13 @@ export class TransactionCategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getCategoryList() : Observable<Transaction_Category[]> {
+  getIncomeCategoryList(category: Transaction_Category) : Observable<Transaction_Category[]> {
     return this.http.get<Transaction_Category[]>(Server.API_ENDPOINT + 'transaction_categories');
   }
+
+  addCategory(category: Transaction_Category) : Observable<Transaction_Category>{
+    return this.http.post<Transaction_Category>(Server.API_ENDPOINT +'transaction_categories', JSON.stringify(category), this.httpOptions);
+  }
+
+  
 }
