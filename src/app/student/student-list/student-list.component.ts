@@ -96,7 +96,8 @@ rowCountModNew.forEach(element => {
     .subscribe((response) => { 
       let index = this.data.indexOf(student);
       this.data.splice(index,1);
-        ////////////////////alert//////////////////////////
+    }, error => {
+      this.errorToast();
     });
   }
 
