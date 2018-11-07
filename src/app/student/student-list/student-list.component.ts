@@ -226,10 +226,10 @@ export class StudentListComponent implements OnInit {
     var col = ["Name", "Reg. No.", "Session", "Status", "Room","Department", "Class/Year", "Mobile"];
     var rows = [];
 
-    if(this.data[key]['room_no'] == 0  ){
-      this.data[key]['room_no'] = null;
-    }
     for(var key in this.data){
+        if(this.data[key]['room_no'] == 0  ){
+          this.data[key]['room_no'] = null;
+        }
         var temp = [this.data[key]['name'], this.data[key]['registrationNumber'], this.data[key]['session'], this.data[key]['residentialStatus'], this.data[key]['room_no'], this.data[key]['subject_name'],this.data[key]['class_year_semester'], this.data[key]['mobileNumber']];
         rows.push(temp);
     }
