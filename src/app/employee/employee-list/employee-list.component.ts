@@ -35,6 +35,10 @@ export class EmployeeListComponent implements OnInit {
               private toastyService: ToastyService) { }
 
   ngOnInit() {
+    if(localStorage.getItem("token") == null){
+      this.router.navigate(['/authentication/login']);
+      return;
+    }
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
       this.getEmployeeData();
     }

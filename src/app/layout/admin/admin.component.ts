@@ -137,6 +137,7 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     if(localStorage.getItem("token") == null){
       this.router.navigate(['/authentication/login']);
+      return;
     }
     this.notificationSize = 0;
     setInterval(() => {
