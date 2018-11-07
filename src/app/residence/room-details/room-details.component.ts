@@ -100,7 +100,8 @@ export class RoomDetailsComponent implements OnInit {
   }
 
   getStudentList(){
-    this.residenceService.getStudentList()
+    let roomNumber = this.route.snapshot.paramMap.get('roomNumber');
+    this.residenceService.getStudentList(roomNumber)
     .subscribe((response) => { 
       console.log(response);
       this.students = response;

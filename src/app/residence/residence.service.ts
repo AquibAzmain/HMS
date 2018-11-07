@@ -65,8 +65,8 @@ export class ResidenceService {
     return this.http.get(Server.API_ENDPOINT + 'users', this.httpOptions);
   }
 
-  getStudentList() : Observable<Student[]> {
-    return this.http.get<Student[]>(Server.API_ENDPOINT +'student', this.httpOptions)
+  getStudentList(roomNumber) : Observable<Student[]> {
+    return this.http.get<Student[]>(Server.API_ENDPOINT +'room_students/'+roomNumber, this.httpOptions)
   } 
 
   getStudentByReg(registrationNumber) : Observable<Student> {
