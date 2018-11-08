@@ -93,7 +93,7 @@
                 </div>
                 <div class="modal-body">
                   <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">নাম</label>
+                    <label class="col-sm-4 col-form-label">নাম<span style="color: red">*</span></label>
                     <div class="col-sm-8">
                       <input class="form-control" type="text" [(ngModel)]="employee.name" />
                     </div>
@@ -113,13 +113,13 @@
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">মোবাইল</label>
+                    <label class="col-sm-4 col-form-label">মোবাইল<span style="color: red">*</span></label>
                     <div class="col-sm-8">
                       <input class="form-control" type="text" [(ngModel)]="employee.contact_number" />
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">পদমর্যাদা</label>
+                    <label class="col-sm-4 col-form-label">পদমর্যাদা<span style="color: red">*</span></label>
                     <div class="col-sm-8">
                       <input class="form-control" type="text" [(ngModel)]="employee.job_title" />
                     </div>
@@ -190,7 +190,7 @@
   </div>
   <div class="modal-body">
     <div class="form-group row">
-      <label class="col-sm-4 col-form-label">নাম</label>
+      <label class="col-sm-4 col-form-label">নাম<span style="color: red">*</span></label>
       <div class="col-sm-8">
         <input class="form-control" type="text" [(ngModel)]="employeeToBeAdded.name" />
       </div>
@@ -210,13 +210,13 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-4 col-form-label">মোবাইল</label>
+      <label class="col-sm-4 col-form-label">মোবাইল<span style="color: red">*</span></label>
       <div class="col-sm-8">
         <input class="form-control" type="text" [(ngModel)]="employeeToBeAdded.contact_number" />
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-4 col-form-label">পদমর্যাদা</label>
+      <label class="col-sm-4 col-form-label">পদমর্যাদা<span style="color: red">*</span></label>
       <div class="col-sm-8">
         <input class="form-control" type="text" [(ngModel)]="employeeToBeAdded.job_title" />
       </div>
@@ -241,6 +241,9 @@
       <div class="col-sm-8">
         <input class="form-control" type="text" [(ngModel)]="employeeToBeAdded.event_participation" />
       </div>
+    </div>
+    <div *ngIf="this.confirmAddError == true" class="form-group row" style="color: red">
+      <label class="col-sm-12 col-form-label">*ঠিকমত ফর্ম পূরণ করুন</label>
     </div>
     <button type="button" class="btn btn-success text-white" (click)="confirmAddEmployee()">নিশ্চিত</button>
     <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>

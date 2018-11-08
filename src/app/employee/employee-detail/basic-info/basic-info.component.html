@@ -60,7 +60,7 @@
       </div>
     </div>
     <!-- end of view-info-->
-    <div class="this.role == 'hallOfficer' && edit-info" *ngIf="!editProfile">
+    <div class="edit-info" *ngIf="!editProfile">
       <div class="row">
         <div class="col-lg-12">
           <div class="general-info">
@@ -90,7 +90,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <th scope="row">মোবাইল</th>
+                        <th scope="row">মোবাইল </th>
                         <td>
                           <input class="form-control" type="text" [(ngModel)]="employee.contact_number" />
                         </td>

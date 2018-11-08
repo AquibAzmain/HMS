@@ -25,9 +25,12 @@ export class EmployeeListComponent implements OnInit {
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
 
-  role = "hallOfficer"//localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
+  role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
   employees: Employee[] = [];
   employeeToBeAdded: Employee = new Employee();
+  
+  confirmAddError = false
+  confirmUpdateError = false
   
   constructor(public http: Http, private modalService: BsModalService,
               private employeeService : EmployeeService,
@@ -88,39 +91,52 @@ export class EmployeeListComponent implements OnInit {
 
   confirmAddEmployee(): void {
     console.log(this.employees.length);
-    this.modalRef.hide();
-    if(this.employeeToBeAdded.joining_date != null){
-      this.employeeToBeAdded.joining_date = this.formatDate(this.employeeToBeAdded.joining_date);
+    if(this.employeeToBeAdded.name==null || this.employeeToBeAdded.contact_number==null || this.employeeToBeAdded.job_title==null ) {
+      this.confirmAddError = true;
     }
-    this.employeeService.addEmployee(this.employeeToBeAdded)
-    .subscribe((response) => { 
-      this.successToast();
-      this.employeeToBeAdded = response;
-      this.employees.push(this.employeeToBeAdded);
-      this.getEmployeeData();
-    },
-    (err) => {
-      this.errorToast();
-    })
+    else {
+      this.confirmAddError = false;
+
+      this.modalRef.hide();
+      if(this.employeeToBeAdded.joining_date != null){
+        this.employeeToBeAdded.joining_date = this.formatDate(this.employeeToBeAdded.joining_date);
+      }
+      this.employeeService.addEmployee(this.employeeToBeAdded)
+      .subscribe((response) => { 
+        this.successToast();
+        this.employeeToBeAdded = response;
+        this.employees.push(this.employeeToBeAdded);
+        this.getEmployeeData();
+      },
+      (err) => {
+        this.errorToast();
+      })
+    }
   }
 
   confirmUpdateEmployee(employee): void {
-    console.log(employee)
-    this.modalRef.hide();
-    if(employee.joining_date != null){
-      employee.joining_date = this.formatDate(employee.joining_date);
+    if(employee.name==null || employee.contact_number==null || employee.job_title==null ) {
+      this.confirmUpdateError = true;
     }
-    
-    this.employeeService.updateEmployee(employee)
-    .subscribe((response) => { 
-     this.getEmployeeData();
-      // console.log(response);
-      // console.log(employee);
-      this.successToast();
-    },
-    (err) => {
-      this.errorToast();
-    })
+    else {
+      this.confirmUpdateError = false;      
+      console.log(employee)
+      this.modalRef.hide();
+      if(employee.joining_date != null){
+        employee.joining_date = this.formatDate(employee.joining_date);
+      }
+      
+      this.employeeService.updateEmployee(employee)
+      .subscribe((response) => { 
+      this.getEmployeeData();
+        // console.log(response);
+        // console.log(employee);
+        this.successToast();
+      },
+      (err) => {
+        this.errorToast();
+      })
+    }
   }
 
   // confirm(): void {

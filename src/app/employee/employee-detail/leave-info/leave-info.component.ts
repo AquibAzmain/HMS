@@ -96,6 +96,7 @@ export class LeaveInfoComponent implements OnInit {
   }
  
   decline(): void {
+    this.getLeaveData();
     console.log('Declined!');
     this.modalRef.hide();
   }

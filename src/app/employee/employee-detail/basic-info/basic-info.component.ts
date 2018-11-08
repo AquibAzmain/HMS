@@ -45,6 +45,7 @@ export class BasicInfoComponent implements OnInit {
   toggleEditProfile() {
     this.editProfileIcon = (this.editProfileIcon === 'icofont-close') ? 'icofont-edit' : 'icofont-close';
     this.editProfile = !this.editProfile;
+    this.getEmployeeData();
   }
 
   confirmUpdateEmployee(): void {
