@@ -70,20 +70,21 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-2">
         <div class="btn-group" dropdown>
-          <button id="button-basic" type="button" class="btn btn-danger f-right" [routerLink]="['add_student/', 0]">
+          <!-- <button id="button-basic" type="button" class="btn btn-danger f-right" [routerLink]="['add_student/', 0]">
             <i class="icofont icofont-plus"></i>
             নতুন ছাত্র
-          </button>
-          <!-- <button id="button-basic" dropdownToggle type="button" class="btn btn-danger f-right" aria-controls="dropdown-basic">
+          </button> -->
+
+          <button id="button-basic" dropdownToggle type="button" class="btn btn-danger f-right" aria-controls="dropdown-basic">
             <i class="icofont icofont-plus"></i>
             নতুন ছাত্র<span class="caret"></span>
-          </button> -->
-          <!-- <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
             <li role="menuitem"><a class="dropdown-item" style="color:black" [routerLink]="['add_student/', 0]">নতুন
                 ছাত্রের ফর্ম</a></li>
             <li role="menuitem"><a class="dropdown-item pointer" (click)="openFileUploadModal(fileUploadTemplate)">ফাইল
                 আপলোড</a></li>
-          </ul> -->
+          </ul>
         </div>
       </div>
     </div>
@@ -223,7 +224,7 @@
     </button>
   </div>
 
-  <div class="modal-body">
+  <!-- <div class="modal-body">
     <div class="text-center">
       <label for="upload" class="file-upload__label">ফাইল নির্ধারণ করুন</label> (ফরম্যাটঃ .xlsx)
       <input id="upload" class="file-upload__input" type="file" name="file-upload" ng2FileSelect [uploader]="uploader">
@@ -250,6 +251,13 @@
         </tr>
       </tbody>
     </table>
+  </div> -->
+
+  <div class="modal-body">
+    <div class="text-center">
+        <label for="upload" class="file-upload__label">ফাইল নির্ধারণ করুন</label> (ফরম্যাটঃ .xlsx)
+        <input id="upload" class="file-upload__input" type="file" (change)="fileChange($event)" accept=".xls, .xlsx,.csv">
+    </div>
   </div>
 </ng-template>
 <button type="button" class="btn btn-xs" style="background-color:brown; color:white" (click)="getCleanUpData()">

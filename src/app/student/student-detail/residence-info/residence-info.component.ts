@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from '../../../../models/Student';
 import { StudentService } from '../../student.service';
 import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ResidentialFee } from '../../../../models/ResidentialFee';
 @Component({
   selector: 'app-residence-info',
   templateUrl: './residence-info.component.html',
@@ -13,13 +15,16 @@ export class ResidenceInfoComponent implements OnInit {
   editProfileIcon = 'icofont-edit';
 
   position = 'bottom';
-
+  public modalRef: BsModalRef;
+  public deleteModalRef: BsModalRef;
   role = "hallOfficer"; //localStorage.getItem('role'); 
   student: Student = new Student();
+  yearToBeAdded: ResidentialFee = new ResidentialFee();
   constructor(private route: ActivatedRoute,
     private studentService: StudentService,
     private router: Router,
-    private toastyService: ToastyService) { }
+    private toastyService: ToastyService,
+    private modalService: BsModalService) { }
 
   ngOnInit() {
     if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
@@ -49,6 +54,15 @@ export class ResidenceInfoComponent implements OnInit {
       }, error => {
         this.errorToast();
       });
+  }
+
+  public openAddResidentialStatusModal(template: TemplateRef<any>) {
+  this.yearToBeAdded = new ResidentialFee();
+    this.modalRef = this.modalService.show(template);
+  }
+
+  public openUpdateResidentialStatusModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
 
   toggleEditProfile() {

@@ -4,7 +4,7 @@
         </div>
         <div class="card-body">
             <ul class="media-list">
-                <li class="media"  *ngFor="let item of this.comments;">
+                <li class="media" *ngFor="let item of this.comments;">
                     <div class="media-left">
                         <i class="icofont icofont-business-man-alt-1"></i>
                     </div>
@@ -20,12 +20,12 @@
             </ul>
             <div class="md-float-material d-flex">
                 <div class="md-group-add-on p-relative col-lg-12">
-                    <div class="input-group input-group-button input-group-danger">
+                    <div class="input-group">
                         <!-- <span class="input-group-addon"><i class="icofont icofont-comment"></i></span> -->
-                        <input type="text" class="form-control" placeholder="মন্তব্য লিখুন" [(ngModel)]="commentObject.comment">
-                        <span class="input-group-addon">
-                            <button class="btn btn-danger" [disabled]="!commentObject.comment" (click)="postComment(commentObject)"><i class="icofont icofont-plus"></i> নিশ্চিত করুন</button>
-                        </span>
+                        <input type="text" class="form-control" placeholder="মন্তব্য লিখুন" [(ngModel)]="commentObject.comment"
+                            required>
+                        <button class="btn btn-danger" [disabled]="!commentObject.comment" (click)="postComment(commentObject)"><i
+                                class="icofont icofont-plus"></i> নিশ্চিত করুন</button>
                     </div>
                 </div>
             </div>

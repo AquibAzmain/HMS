@@ -67,4 +67,8 @@ export class StudentService {
   // getNumberOfStudents() {
   //   return this.http.get(Server.API_ENDPOINT +'numberOfStudents', this.httpOptions)
   // }
+
+  uploadFile(formData){
+    return this.http.post(Server.API_ENDPOINT +'upload', formData, this.httpOptions)
+  }
 }
