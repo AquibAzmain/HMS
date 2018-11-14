@@ -5,4 +5,5 @@ export class Leave {
     public date_from: string;
     public approval_status: string;
     public category: string;
+    public days: number;
 }

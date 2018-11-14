@@ -143,7 +143,7 @@ export class AdminComponent implements OnInit {
     setInterval(() => {
         this.notificationService.getNotificationSize()
         .subscribe((response) => { 
-          console.log(response);
+          // console.log(response);
           this.notificationSize = response['size'];
         });
       }, 5000);

@@ -10,74 +10,80 @@
     <div *ngIf ="this.pendingLeave==true" class="card b-l-success business-info services">
       <div class="card-body">
         <ul *ngFor="let leave of this.leaves; index as i;">
-          <li *ngIf="leave.approval_status=='pending'"><i class="icofont icofont-hour-glass"></i> {{leave.date_to}} থেকে {{leave.date_from}} তারিখের ছুটি অনুমোদনের অপেক্ষায়
+          <li *ngIf="leave.approval_status=='pending'"><i class="icofont icofont-hour-glass"></i> {{leave.date_from}} থেকে {{leave.date_to}} তারিখের ছুটি অনুমোদনের অপেক্ষায়
             আছে।</li>
         </ul>
       </div>
     </div>
-    <div class="table-responsive">
+    <div *ngIf ="this.casualLeave==true" class="table-responsive">
       <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
         [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
         <thead>
           <tr>
-            <th>ছুটির ব্যাপ্তি</th>
-            <th>ছুটির ধরণ</th>
-            <!-- <th>
-              <mfDefaultSorter by="motherName">দিন</mfDefaultSorter>
-            </th> -->
-            <!-- <th *ngIf="this.role == 'hallOfficer'">
-              <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
-            </th> -->
+            <th>ক্যাজুয়াল ছুটির তারিখ</th>
+            <th>ব্যাপ্তি</th>
           </tr>
           <tr>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let leave of this.leaves; index as i;">
-            <td *ngIf="leave.approval_status=='approved'" >{{leave.date_to}} - {{leave.date_from}}</td>
-            <td *ngIf="leave.approval_status=='approved'">{{leave.category}}</td>
-            <!-- <td>{{leave.numberOfDays}}</td> -->
-            <!-- <td *ngIf="leave.approval_status=='approved' && this.role == 'hallOfficer'">
-              <a (click)="openUpdateLeaveModal(updateLeave)" href="javascript:;" class="edit-delete-icon">
-                <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
-                <ng-template #updateLeave>
-                  <div class="modal-header">
-                    <h5 class="modal-title pull-left">তথ্য সংশোধন</h5>
-                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="form-group row">
-                      <label class="col-sm-4 col-form-label">ছুটি শুরুর তারিখ</label>
-                      <div class="col-sm-8">
-                        <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
-                          bsDatepicker [(ngModel)]="leave.date_to">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-4 col-form-label">ছুটি শেষের তারিখ</label>
-                      <div class="col-sm-8">
-                        <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
-                          bsDatepicker [(ngModel)]="leave.date_from">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-4 col-form-label">ছুটির ধরণ</label>
-                      <div class="col-sm-8">
-                          <input class="form-control" type="text" [(ngModel)]="leave.category"/>
-                      </div>
-                    </div>
-                    <div *ngIf="this.confirmUpdateError == true" class="form-group row">
-                      <label class="col-sm-12 col-form-label"><i>*ঠিকমত ফর্ম পূরণ করুন</i></label>
-                    </div>
-                    <button type="button" class="btn btn-success text-white" (click)="confirmUpdateLeave(leave)">নিশ্চিত</button>
-                    <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
-                  </div>
-                </ng-template>
-              <!-- <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
-                <i class="icofont icofont-ui-delete"></i></a> 
-            </td> -->
+            <td *ngIf="leave.approval_status=='approved' && leave.category =='casual'" >{{leave.date_from}} - {{leave.date_to}}</td>
+            <td *ngIf="leave.approval_status=='approved' && leave.category =='casual'">{{leave.days}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="7"><span style="color: red">এই বছরে সর্বমোট {{this.totalCasualLeave}} টি ক্যাজুয়াল ছুটি নিয়েছেন।</span>
+              <!-- <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator> -->
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div *ngIf ="this.sickLeave==true" class="table-responsive">
+      <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+        [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+        <thead>
+          <tr>
+            <th>অসুস্থতা ছুটির তারিখ</th>
+            <th>ছুটির ব্যাপ্তি</th>
+          </tr>
+          <tr>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let leave of this.leaves; index as i;">
+            <td *ngIf="leave.approval_status=='approved' && leave.category =='sick'" >{{leave.date_from}} - {{leave.date_to}}</td>
+            <td *ngIf="leave.approval_status=='approved' && leave.category =='sick'">{{leave.days}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="7"><span style="color: red">এই বছরে সর্বমোট {{this.totalSickLeave}} টি অসুস্থতা ছুটি নিয়েছেন।</span>
+              <!-- <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator> -->
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div *ngIf ="this.entertainmentLeave==true" class="table-responsive">
+      <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+        [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+        <thead>
+          <tr>
+            <th>বিনোদন ছুটির তারিখ</th>
+            <th>ব্যাপ্তি</th>
+          </tr>
+          <tr>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let leave of this.leaves; index as i;">
+            <td *ngIf="leave.approval_status=='approved' && leave.category =='entertainment'" >{{leave.date_from}} - {{leave.date_to}}</td>
+            <td *ngIf="leave.approval_status=='approved' && leave.category =='entertainment'">{{leave.days}}</td>
           </tr>
         </tbody>
         <tfoot>
@@ -89,6 +95,10 @@
         </tfoot>
       </table>
     </div>
+
+    
+
+    
   </div>
 </div>
 
@@ -104,24 +114,24 @@
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">ছুটি শুরুর তারিখ<span style="color: red">*</span></label>
       <div class="col-sm-8">
-        <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
-          bsDatepicker [(ngModel)]="leaveToBeAdded.date_to">
+        <input [maxDate]="leaveToBeAdded.date_to" type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
+          bsDatepicker [(ngModel)]="leaveToBeAdded.date_from">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">ছুটি শেষের তারিখ<span style="color: red">*</span></label>
       <div class="col-sm-8">
-        <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
-          bsDatepicker [(ngModel)]="leaveToBeAdded.date_from">
+        <input [minDate]="leaveToBeAdded.date_from" type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
+          bsDatepicker [(ngModel)]="leaveToBeAdded.date_to">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">ছুটির ধরণ<span style="color: red">*</span></label>
       <div class="col-sm-8">
           <select class="form-control" [(ngModel)]="leaveToBeAdded.category">
-            <option value="Sick">Sick</option>
-            <option value="Casual">Casual</option>
-            <option value="Yearly">Yearly</option>
+            <option value="sick">Sick</option>
+            <option value="casual">Casual</option>
+            <option value="entertainment">Entertainment</option>
           </select>
       </div>
     </div>
