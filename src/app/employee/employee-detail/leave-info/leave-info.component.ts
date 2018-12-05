@@ -29,9 +29,14 @@ export class LeaveInfoComponent implements OnInit {
   leaves: Leave[] = [];
   leaveToBeAdded: Leave = new Leave();
   pendingLeave = false;
+  casualLeave = false;
+  entertainmentLeave = false;
+  sickLeave = false;
   role = localStorage.getItem('role'); //"hallOfficer"; 
   confirmAddError = false;
   confirmUpdateError = false;
+  totalSickLeave = 0;
+  totalCasualLeave = 0;
 
   constructor(public http: Http, private modalService: BsModalService,
     private route: ActivatedRoute,
@@ -69,6 +74,33 @@ export class LeaveInfoComponent implements OnInit {
         console.log(response);
         this.leaves = response;
         this.checkPendingLeave();
+        this.checkCasualLeave();
+        this.checkEntertainmentLeave();
+        this.checkSickLeave();
+        this.getSickLeave();
+        this.getCasualLeave();
+      },
+      (err) => {
+        this.errorToast();
+      })
+  }
+
+  public getSickLeave() {
+    this.employeeService.getNumberofSickLeaves(this.employeeId)
+      .subscribe((response) => { 
+        console.log(response);
+        this.totalSickLeave = response['days'];
+      },
+      (err) => {
+        this.errorToast();
+      })
+  }
+
+  public getCasualLeave() {
+    this.employeeService.getNumberofCasualLeaves(this.employeeId)
+      .subscribe((response) => { 
+        console.log(response);
+        this.totalCasualLeave = response['days'];
       },
       (err) => {
         this.errorToast();
@@ -169,6 +201,36 @@ export class LeaveInfoComponent implements OnInit {
       if(this.leaves[i].approval_status =="pending") {
         this.pendingLeave = true;
         console.log("pending ache!");
+        break;
+      }
+    }
+  }
+
+  checkSickLeave() {
+    for(let i=0; i<this.leaves.length; i++) {
+      if(this.leaves[i].category =="sick" && this.leaves[i].approval_status == "approved") {
+        this.sickLeave = true;
+        console.log(" ache!");
+        break;
+      }
+    }
+  }
+
+  checkEntertainmentLeave() {
+    for(let i=0; i<this.leaves.length; i++) {
+      if(this.leaves[i].category =="entertainment" && this.leaves[i].approval_status == "approved") {
+        this.entertainmentLeave = true;
+        console.log(" ache!");
+        break;
+      }
+    }
+  }
+
+  checkCasualLeave() {
+    for(let i=0; i<this.leaves.length; i++) {
+      if(this.leaves[i].category =="casual" && this.leaves[i].approval_status == "approved") {
+        this.casualLeave = true;
+        console.log(" ache!");
         break;
       }
     }
