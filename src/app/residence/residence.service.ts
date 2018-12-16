@@ -5,7 +5,7 @@ import {Server} from '../../utils/Server'
 import { Block } from '../../models/Block';
 import { Room } from '../../models/Room';
 import { Student } from '../../models/Student';
-
+import { User } from '../../models/User';
 @Injectable()
 export class ResidenceService {
   token = localStorage.getItem('token');
@@ -16,7 +16,7 @@ export class ResidenceService {
   constructor(private http: HttpClient) { }
 
   getBlockList() : Observable<Block[]> {
-    return this.http.get<Block[]>(Server.API_ENDPOINT + 'block');
+    return this.http.get<Block[]>(Server.API_ENDPOINT + 'block', this.httpOptions);
   }
 
   addBlock(block:Block) : Observable<Block>{
@@ -33,7 +33,7 @@ export class ResidenceService {
   }
 
   getRoomList() : Observable<Room[]> {
-    return this.http.get<Room[]>(Server.API_ENDPOINT + 'room');
+    return this.http.get<Room[]>(Server.API_ENDPOINT + 'room', this.httpOptions);
   }
 
   addRoom(room: Room) : Observable<Room>{
@@ -53,8 +53,8 @@ export class ResidenceService {
     return this.http.get<Room>(Server.API_ENDPOINT + 'room/'+roomNumber,this.httpOptions);
   }
 
-  searchSortRoom(asset:Room) {
-    return this.http.post(Server.API_ENDPOINT +'room_search', JSON.stringify(asset), this.httpOptions);
+  searchSortRoom(room:Room) {
+    return this.http.post(Server.API_ENDPOINT +'room_search', JSON.stringify(room), this.httpOptions);
   }
 
   updateStudent(studentObject) {
@@ -62,14 +62,22 @@ export class ResidenceService {
   }
 
   getHouseTutors(){
-    return this.http.get(Server.API_ENDPOINT + 'users', this.httpOptions);
+    return this.http.get(Server.API_ENDPOINT + 'users_housetutors', this.httpOptions);
   }
 
   getStudentList(roomNumber) : Observable<Student[]> {
     return this.http.get<Student[]>(Server.API_ENDPOINT +'room_students/'+roomNumber, this.httpOptions)
   } 
 
+  getSuggestionForAdd() : Observable<Student[]> {
+    return this.http.get<Student[]>(Server.API_ENDPOINT +'room_suggest', this.httpOptions)
+  } 
+
   getStudentByReg(registrationNumber) : Observable<Student> {
     return this.http.get<Student>(Server.API_ENDPOINT + 'student/'+registrationNumber,this.httpOptions);
+  }
+
+  getUserById(id) : Observable<User>{
+    return this.http.get<User>(Server.API_ENDPOINT + 'user/'+id,this.httpOptions);
   }
 }

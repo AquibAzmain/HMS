@@ -19,7 +19,8 @@ export class ResidenceInfoComponent implements OnInit {
   public deleteModalRef: BsModalRef;
   role = "hallOfficer"; //localStorage.getItem('role'); 
   student: Student = new Student();
-  yearToBeAdded: ResidentialFee = new ResidentialFee();
+  residentialList = [];
+  residentialFeeToBeAdded: ResidentialFee = new ResidentialFee();
   constructor(private route: ActivatedRoute,
     private studentService: StudentService,
     private router: Router,
@@ -29,6 +30,7 @@ export class ResidenceInfoComponent implements OnInit {
   ngOnInit() {
     if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
       this.getStudentData();
+      this.getResidenceFeeStatusData();
     }
     else {
       this.router.navigate(['/**']);
@@ -45,6 +47,17 @@ export class ResidenceInfoComponent implements OnInit {
       });
   }
 
+  getResidenceFeeStatusData() {
+    let studentReg = this.route.snapshot.paramMap.get('id');
+    this.studentService.getResidenceFeeStatusData(studentReg)
+      .subscribe((response) => {
+        console.log(response)
+        this.residentialList = response;
+      }, error => {
+        this.errorToast();
+      });
+  }
+
   confirmUpdateStudent(): void {
     this.studentService.updateStudent(this.student)
       .subscribe((response) => {
@@ -56,13 +69,66 @@ export class ResidenceInfoComponent implements OnInit {
       });
   }
 
+  confirmUpdateYear(residenceFee): void {
+    this.modalRef.hide();
+    let studentReg = this.route.snapshot.paramMap.get('id');
+    residenceFee.registrationNumber = studentReg;
+    this.studentService.updateResidentialFeeStatus(residenceFee)
+      .subscribe((response) => {
+        this.getResidenceFeeStatusData();
+        this.successToast();
+      }, error => {
+        this.errorToast();
+      });
+  }
+
+  confirmAddYear(): void {
+    this.modalRef.hide();
+    let studentReg = this.route.snapshot.paramMap.get('id');
+    this.residentialFeeToBeAdded.registrationNumber = studentReg;
+    this.studentService.addResidentialFeeStatus(this.residentialFeeToBeAdded)
+      .subscribe((response) => {
+        this.getResidenceFeeStatusData();    
+        this.successToast();
+      }, error => {
+        this.errorDuplicateYearToast();
+      });
+  }
+
   public openAddResidentialStatusModal(template: TemplateRef<any>) {
-  this.yearToBeAdded = new ResidentialFee();
+    this.residentialFeeToBeAdded = new ResidentialFee();
     this.modalRef = this.modalService.show(template);
   }
 
   public openUpdateResidentialStatusModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
+  }
+
+  public openDeleteModal(template: TemplateRef<any>) {
+    this.deleteModalRef = this.modalService.show(template);
+  }
+
+  decline(): void {
+    console.log('Declined!');
+    this.modalRef.hide();
+    this.getResidenceFeeStatusData();
+  }
+
+  declineDelete(): void {
+    this.deleteModalRef.hide();
+  }
+  
+  confirmResidentialDelete(residence): void {
+
+    this.deleteModalRef.hide();
+    this.studentService.deleteResidentialFeeStatus(residence)
+    .subscribe((response) => { 
+      this.getResidenceFeeStatusData()
+      this.successToast();
+      },
+      (err) => {
+        this.errorToast();
+      })
   }
 
   toggleEditProfile() {
@@ -113,6 +179,16 @@ export class ResidenceInfoComponent implements OnInit {
     this.addToast({
       title: 'Error',
       msg: 'Operation not successful.',
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'error'
+    });
+  }
+
+  errorDuplicateYearToast() {
+    this.addToast({
+      title: 'Error',
+      msg: 'Operation not successful. Same year in not allowed',
       timeout: 5000, theme: 'material',
       position: 'bottom',
       type: 'error'

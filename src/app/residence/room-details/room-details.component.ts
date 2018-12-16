@@ -17,6 +17,7 @@ export class RoomDetailsComponent implements OnInit {
   editProfile = true;
   editProfileIcon = 'icofont-edit';
   students: Student[] = [];
+  suggestionStudents: Student[] = [];
   public data: any;
   public studentList: any;
   public rowsOnPage = 10;
@@ -30,7 +31,9 @@ export class RoomDetailsComponent implements OnInit {
   room: Room = new Room();
   role = "hallOfficer";
   houseTutors: any;
+  assignedHouseTutorName:any;
   studentRegToBeAddedToRoom: "";
+  numberOfStudentInRoom: number;
   //role = localStorage.getItem('role'); //"hallOfficer";
   constructor(private route: ActivatedRoute, private modalService: BsModalService, private residenceService: ResidenceService,
     private router: Router,
@@ -50,6 +53,8 @@ export class RoomDetailsComponent implements OnInit {
       this.router.navigate(['/**']);
     }
     this.getStudentList();
+    this.getSuggestionForAdd();
+    this.getHouseTutorList();
   }
 
   getRoomData() {
@@ -58,12 +63,21 @@ export class RoomDetailsComponent implements OnInit {
     this.residenceService.getRoomById(roomNumber)
     .subscribe((response) => {
       this.room = response;
+      this.getHouseTutorName(this.room.block_id);
     },
     (err) => {
       this.errorToast();
     });
-    
-    
+  }
+
+  getHouseTutorName(assignedHouseTutor) {
+    this.residenceService.getUserById(assignedHouseTutor)
+    .subscribe((response) => {
+      this.assignedHouseTutorName = response.name
+    },
+    (err) => {
+      this.errorToast();
+    });
   }
   
 
@@ -105,11 +119,26 @@ export class RoomDetailsComponent implements OnInit {
     .subscribe((response) => { 
       console.log(response);
       this.students = response;
+      this.numberOfStudentInRoom = response.length;
     }, error => {
+      this.errorToast();
+    });
+  }
+
+  getSuggestionForAdd(){
+    this.residenceService.getSuggestionForAdd()
+    .subscribe((response) => { 
+      console.log(response);
+      this.suggestionStudents = response;
+    }, error => {
+      this.errorToast();
     });
   }
 
   confirmUpdateRoom(): void {
+    if(this.room.capacity==null){
+      this.room.capacity =0;
+    }
     this.residenceService.updateRoom(this.room)
       .subscribe((response) => {
         this.toggleEditProfile();

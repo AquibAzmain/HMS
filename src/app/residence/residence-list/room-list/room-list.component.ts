@@ -31,13 +31,14 @@ export class RoomListComponent implements OnInit {
   roomToBeAdded: Room = new Room();
   roomToBeSearched: Room = new Room();
   houseTutors: any;
-
+  hasError = false;
   constructor(public http: Http, private modalService: BsModalService,
               private residenceService : ResidenceService,
               private router: Router,
               private toastyService: ToastyService) { }
 
   ngOnInit() {
+    this.hasError = false;
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
       this.getRoomData();
       this.getBlockData();
@@ -90,6 +91,9 @@ export class RoomListComponent implements OnInit {
 
 
   confirmUpdateRoom(room): void {
+    if(!room.capacity){
+      room.capacity =0;
+    }
     this.modalRef.hide();
     this.residenceService.updateRoom(room)
     .subscribe((response) => { 
@@ -120,7 +124,7 @@ export class RoomListComponent implements OnInit {
     this.residenceService.searchSortRoom(room)
       .subscribe((response) => {
         this.successToast();
-        this.data = response;
+        this.rooms = response;
       }, error => {
         this.errorToast();
       });

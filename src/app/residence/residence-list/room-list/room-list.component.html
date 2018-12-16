@@ -14,15 +14,7 @@
                 <div class="form-group">
                   <label for="filter">ব্লক নাম</label>
                   <select class="form-control" [(ngModel)]="roomToBeSearched.block_id">
-                    <option *ngFor="let block of blocks">{{block.block_name}} {{block.location}}</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="sel1">
-                    <b>কিভাবে সর্ট করতে চান?</b>
-                  </label>
-                  <select class="form-control" [(ngModel)]="roomToBeSearched.sortBy">
-                    <option value="roomNumber">রুম নম্বর</option>
+                    <option *ngFor="let block of blocks" value="{{block.id}}">{{block.block_name}} {{block.location}}</option>
                   </select>
                 </div>
               </div>
@@ -76,14 +68,14 @@
                   <div class="form-group row">
                     <label class="col-sm-4 col-form-label">রুম নম্বর</label>
                     <div class="col-sm-8">
-                      <input class="form-control" type="text" [(ngModel)]="room.roomNumber" />
+                      <input class="form-control" type="text" [(ngModel)]="room.roomNumber" required/>
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-sm-4 col-form-label">ব্লক</label>
                     <div class="col-sm-8">
                       <select class="form-control" [(ngModel)]="room.block_id">
-                        <option *ngFor="let block of blocks">{{block.block_name}} {{block.location}}</option>
+                        <option *ngFor="let block of blocks" value="{{block.id}}">{{block.block_name}} {{block.location}}</option>
                       </select>
                     </div>
                   </div>
@@ -98,7 +90,7 @@
                     <div class="col-sm-8">
                         <select class="form-control" [(ngModel)]="room.assignedHouseTutor">
                             <option *ngFor="let houreTutor of houseTutors" value="{{houreTutor.id}}">{{houreTutor.name}}</option>
-                          </select>
+                        </select>
                     </div>
                   </div>
                   <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmUpdateRoom(room)">নিশ্চিত</button>
@@ -147,7 +139,7 @@
     <div class="form-group row">
       <label class="col-sm-4 col-form-label">রুম নম্বর</label>
       <div class="col-sm-8">
-        <input class="form-control" type="text" [(ngModel)]="roomToBeAdded.roomNumber" />
+        <input class="form-control" type="text" [(ngModel)]="roomToBeAdded.roomNumber" required/>
       </div>
     </div>
     <div class="form-group row">

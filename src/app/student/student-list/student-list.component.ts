@@ -65,6 +65,7 @@ export class StudentListComponent implements OnInit {
     this.deleteModalRef.hide();
     this.studentService.deleteStudent(student)
       .subscribe((response) => {
+        this.successToast();
         let index = this.data.indexOf(student);
         this.data.splice(index, 1);
       }, error => {

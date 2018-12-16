@@ -112,7 +112,8 @@
             <td>{{item.registrationNumber}}</td>
             <td>{{item.session}}</td>
             <td>{{item.residentialStatus}}</td>
-            <td>{{item.room_no? item.room_no : 'N/A'}}</td>
+            <td *ngIf = "item.room_no==-1">N/A</td>
+            <td *ngIf = "item.room_no!=-1">{{item.room_no}}</td>
             <!-- <td>{{item.admissionFeesStatus ? 'Paid' : 'Due'}}</td> -->
             <td>{{item.subject_name}}</td>
             <td>{{item.class_year_semester}}</td>
@@ -137,7 +138,7 @@
                   <div class="form-group row">
                     <label class="col-sm-4 col-form-label">রেজিস্ট্রেশান নম্বর</label>
                     <div class="col-sm-8">
-                      <input class="form-control" type="text" [(ngModel)]="item.registrationNumber" />
+                      <input class="form-control" type="text" [(ngModel)]="item.registrationNumber" readonly/>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -150,7 +151,6 @@
                     <label class="col-sm-4 col-form-label">আবাসিক স্ট্যাটাস</label>
                     <div class="col-sm-8">
                       <select class="form-control" [(ngModel)]="item.residentialStatus">
-                        <option>--</option>
                         <option value="Resident">Resident</option>
                         <option value="Doubler">Doubler</option>
                         <option value="Non-resident">Non-resident</option>

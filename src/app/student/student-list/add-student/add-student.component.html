@@ -39,8 +39,14 @@
               <table class="table m-0">
                 <tbody>
                   <tr>
-                    <th scope="row">পূর্ণ নাম*</th>
+                    <th scope="row">পূর্ণ নাম<span style="color:red">*</span>
+                    </th>
                     <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.name" /></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">রেজিস্ট্রেশন নম্বর<span style="color:red">*</span>
+                    </th>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.registrationNumber" /></td>
                   </tr>
                   <tr>
                     <th scope="row">পিতার নাম</th>
@@ -51,16 +57,12 @@
                     <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.mothersName" /></td>
                   </tr>
                   <tr>
-                    <th scope="row">রেজিস্ট্রেশন নম্বর*</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.registrationNumber" /></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">শিক্ষাবর্ষ*</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.session"/></td>
+                    <th scope="row">শিক্ষাবর্ষ</th>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.session" /></td>
                   </tr>
                   <tr>
                     <th scope="row">অভিভাবকের বার্ষিক আয়</th>
-                    <td><input class="form-control" type="number" [(ngModel)]="studentToBeAdded.legal_annual_income"/></td>
+                    <td><input class="form-control" type="number" [(ngModel)]="studentToBeAdded.legal_annual_income" /></td>
                   </tr>
                   <tr>
                     <th scope="row">জাতীয়তা</th>
@@ -78,27 +80,28 @@
                   <tr>
                     <th scope="row">জন্মতারিখ</th>
                     <td><input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue"
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker [(ngModel)]="studentToBeAdded.dateOfBirth"></td>
+                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker
+                        [(ngModel)]="studentToBeAdded.dateOfBirth"></td>
                   </tr>
                   <tr>
                     <th scope="row">ধর্ম</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.religion"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.religion" /></td>
                   </tr>
                   <tr>
                     <th scope="row">NID</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.NID"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.NID" /></td>
                   </tr>
                   <tr>
                     <th scope="row">যোগাযোগের ঠিকানা</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.contactAddress"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.contactAddress" /></td>
                   </tr>
                   <tr>
                     <th scope="row">স্থায়ী ঠিকানা</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.permanentAddress"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.permanentAddress" /></td>
                   </tr>
                   <tr>
                     <th scope="row">মোবাইল</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.mobileNumber"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.mobileNumber" /></td>
                   </tr>
                   <tr>
                     <th scope="row">লিঙ্গ</th>
@@ -123,15 +126,15 @@
                 <tbody>
                   <tr>
                     <th scope="row">নাম</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.legal_guardian_name"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.legal_guardian_name" /></td>
                   </tr>
                   <tr>
                     <th scope="row">ছাত্রের সাথে সম্পর্ক &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.legal_relation_with_student"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.legal_relation_with_student" /></td>
                   </tr>
                   <tr>
                     <th scope="row">ঠিকানা</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.legal_address"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.legal_address" /></td>
                   </tr>
                 </tbody>
               </table>
@@ -143,15 +146,15 @@
                 <tbody>
                   <tr>
                     <th scope="row">মোবাইল</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.legal_mobile_no"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.legal_mobile_no" /></td>
                   </tr>
                   <tr>
                     <th scope="row">পেশা</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.legal_profession"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.legal_profession" /></td>
                   </tr>
                   <tr>
                     <th scope="row">মাসিক আয় &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <td><input class="form-control" type="number" [(ngModel)]="studentToBeAdded.legal_monthly_income"/></td>
+                    <td><input class="form-control" type="number" [(ngModel)]="studentToBeAdded.legal_monthly_income" /></td>
                   </tr>
                 </tbody>
               </table>
@@ -169,15 +172,15 @@
                 <tbody>
                   <tr>
                     <th scope="row">নাম</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.local_guardian_name"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.local_guardian_name" /></td>
                   </tr>
                   <tr>
                     <th scope="row">ছাত্রের সাথে সম্পর্ক</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.local_relation_with_student"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.local_relation_with_student" /></td>
                   </tr>
                   <tr>
                     <th scope="row">ঠিকানা</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.local_address"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.local_address" /></td>
                   </tr>
                 </tbody>
               </table>
@@ -189,15 +192,15 @@
                 <tbody>
                   <tr>
                     <th scope="row">মোবাইল</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.local_mobile_no"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.local_mobile_no" /></td>
                   </tr>
                   <tr>
                     <th scope="row">পেশা</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.local_profession"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.local_profession" /></td>
                   </tr>
                   <tr>
                     <th scope="row">মাসিক আয় &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.local_monthly_income"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.local_monthly_income" /></td>
                   </tr>
                 </tbody>
               </table>
@@ -213,23 +216,23 @@
                 <tbody>
                   <tr>
                     <th scope="row">ইউনিট</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.unit"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.unit" /></td>
                   </tr>
                   <tr>
                     <th scope="row">ক্লাস/বর্ষ</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.class_year_semester"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.class_year_semester" /></td>
                   </tr>
                   <tr>
                     <th scope="row">ক্লাস রোল</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.roll"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.roll" /></td>
                   </tr>
                   <tr>
                     <th scope="row">ডিপার্টমেন্ট</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.subject_name"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.subject_name" /></td>
                   </tr>
                   <tr>
                     <th scope="row">অ্যাডমিশন টেস্টের মার্ক</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.admissionExamMarks"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.admissionExamMarks" /></td>
                   </tr>
                 </tbody>
               </table>
@@ -242,19 +245,19 @@
                 <tbody>
                   <tr>
                     <th scope="row">মাধ্যমিক (প্রতিষ্ঠান)</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.sscInstitution"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.sscInstitution" /></td>
                   </tr>
                   <tr>
                     <th scope="row">মাধ্যমিক (জিপিএ)</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.sscGPA"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.sscGPA" /></td>
                   </tr>
                   <tr>
                     <th scope="row">উচ্চমাধ্যমিক (প্রতিষ্ঠান)</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.hscInstitution"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.hscInstitution" /></td>
                   </tr>
                   <tr>
                     <th scope="row">উচ্চমাধ্যমিক (জিপিএ)</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.hscGPA"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.hscGPA" /></td>
                   </tr>
                 </tbody>
               </table>
@@ -292,14 +295,14 @@
                   <tr>
                     <th scope="row">আবাসিক স্ট্যাটাস</th>
                     <td><select class="form-control" [(ngModel)]="studentToBeAdded.residentialStatus">
-                        <option value = "Non-resident">Non-resident</option>
-                        <option value = "Resident">Resident</option>
-                        <option value = "Doubler">Doubler</option>                       
+                        <option value="Non-resident">Non-resident</option>
+                        <option value="Resident">Resident</option>
+                        <option value="Doubler">Doubler</option>
                       </select></td>
                   </tr>
                   <tr>
                     <th scope="row">হলের কক্ষ নম্বর</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.room_no"/></td>
+                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.room_no" /></td>
                   </tr>
                 </tbody>
               </table>
@@ -311,10 +314,6 @@
               <table class="table">
                 <tbody>
                   <tr>
-                    <th scope="row">সংশ্লিষ্ট সোসাইটি/সংস্থা</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.affiliatedSocietiesOrOrganizations"/></td>
-                  </tr>
-                  <tr>
                     <th scope="row">হল অ্যাডমিশন ফি স্ট্যাটাস</th>
                     <td><select class="form-control" [(ngModel)]="studentToBeAdded.admissionFeesStatus">
                         <option value="false">Due</option>
@@ -325,8 +324,9 @@
               </table>
             </div>
           </div>
+
           <div *ngIf="this.hasError == true" class="form-group row">
-            <label class="col-sm-12 col-form-label">&nbsp;&nbsp;*ঠিকমত ফর্ম পূরণ করুন</label>
+            <label class="col-sm-12 col-form-label" style="color:red">&nbsp;&nbsp;*ঠিকমত ফর্ম পূরণ করুন</label>
           </div>
           <!-- <div class="card-header">
             <p class="card-header-text">বছরপ্রতি আবাসিক ফি স্ট্যাটাস</p>
@@ -376,7 +376,8 @@
           <div class="col-lg-12 col-xl-12">
             <div class="text-center">
               <a href="javascript:;" class="btn btn-danger waves-effect waves-light m-r-20" (click)="addStudent()">নিশ্চিত</a>
-              <a href="javascript:;" id="edit-cancel" class="btn residence-button waves-effect" (click)="navigateToList()">ফিরে যান</a>
+              <a href="javascript:;" id="edit-cancel" class="btn residence-button waves-effect" (click)="navigateToList()">ফিরে
+                যান</a>
             </div>
           </div>
         </div>

@@ -58,9 +58,14 @@
                             <td>{{this.room.capacity}}</td>
                           </tr>
                           <tr>
+                              <th scope="column">কক্ষের ছাত্র সংখ্যা</th>
+                              <td>{{this.numberOfStudentInRoom}}</td>
+                            </tr>
+                          <tr>
                             <th scope="column">দায়িত্বপ্রাপ্ত শিক্ষক</th>
-                            <td>{{this.room.assignedHouseTutor}}</td>
+                            <td>{{this.assignedHouseTutorName}}</td>
                           </tr>
+                          
                         </tbody>
                       </table>
                     </div>
@@ -87,11 +92,14 @@
                           </tr>
                           <tr>
                             <th scope="column">ধারণ ক্ষমতা</th>
-                            <td><input class="form-control" type="text" [(ngModel)]="room.capacity"/></td>
+                            <td><input class="form-control" type="text" [(ngModel)]="room.capacity" required/></td>
                           </tr>
                           <tr>
                             <th scope="column">দায়িত্বপ্রাপ্ত শিক্ষক</th>
-                            <td><input class="form-control" type="text" [(ngModel)]="room.assignedHouseTutor"/></td>
+                            <td>
+                              <select class="form-control" [(ngModel)]="room.assignedHouseTutor">
+                                  <option *ngFor="let houreTutor of houseTutors" value="{{houreTutor.id}}">{{houreTutor.name}}</option>
+                                </select></td>
                           </tr>
                         </tbody>
                       </table>
@@ -115,9 +123,9 @@
     <div class="card">
       <div class="card-header">
         <p class="card-header-text">কক্ষের ছাত্রদের তালিকা</p>
-        <!-- <button type="button" class="btn btn-sm f-right residence-button" (click)="openModal(template, 'add')">
+        <button type="button" class="btn btn-sm f-right residence-button" (click)="openModal(template, 'add')">
           <i class="icofont icofont-plus"></i> নতুন ছাত্র
-        </button> -->
+        </button>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -127,7 +135,7 @@
                 <th>ছাত্রের নাম</th>
                 <th>রেজিস্ট্রেশান নম্বর</th>
                 <th>আবাসিক স্ট্যাটাস</th>
-                <!-- <th>অ্যাকশন</th> -->
+                <th>অ্যাকশন</th>
               </tr>
             </thead>
             <tbody>
@@ -135,10 +143,10 @@
                 <td>{{item.name}}</td>
                 <td>{{item.registrationNumber}}</td>
                 <td>{{item.residentialStatus}}</td>
-                <!-- <td>
+                <td>
                   <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
                     <i class="icofont icofont-ui-delete"></i></a>
-                </td> -->
+                </td>
               </tr>
             </tbody>
             <tfoot>
@@ -166,13 +174,14 @@
   <div class="modal-body">
     <div class="list-group" style="overflow: scroll;height:450px;">
       <input type="text" class="form-control" placeholder="ছাত্রের নাম দিয়ে খুঁজুন" [(ngModel)]="searchStudent">
-      <div class="list-group-item list-group-item-action flex-column" *ngFor="let item of students | filter:searchStudent">
+      <div class="list-group-item list-group-item-action flex-column" *ngFor="let item of suggestionStudents | filter:searchStudent">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1"><input type="radio" name="studentChecked" (change)="onSelectionChange(item.registrationNumber)"  [value]="item.registrationNumber"> {{item.name}}</h5>
         </div>
         <p class="mb-1">রেজিস্ট্রেশান নম্বরঃ {{item.registrationNumber}}</p>
         <p class="mb-1">আবাসিক স্ট্যাটাসঃ {{item.residentialStatus}}</p>
-        <p class="mb-1">কক্ষ নম্বরঃ {{item.room_no}}</p>
+        <p class="mb-1" *ngIf="item.room_no!=-1">কক্ষ নম্বরঃ {{item.room_no}}</p>
+        <p class="mb-1" *ngIf="item.room_no==-1">কক্ষ নম্বরঃ None</p>
       </div>
     </div>
     <button type="button" class="btn bg-c-lite-blue text-white" [disabled]="!studentRegToBeAddedToRoom" (click)="addStudentToRoom(item)">নিশ্চিত</button>

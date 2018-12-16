@@ -35,12 +35,13 @@ export class AddStudentComponent implements OnInit {
       this.studentToBeAdded.dateOfBirth = this.formatDate(this.studentToBeAdded.dateOfBirth);
     }
 
-    if(this.studentToBeAdded.room_no == 0  ){
-      this.studentToBeAdded.room_no = null;
+    if(this.studentToBeAdded.room_no == null  ){
+      this.studentToBeAdded.room_no = -1;
     }
 
-    if(this.studentToBeAdded.session == null || this.studentToBeAdded.registrationNumber == null || this.studentToBeAdded.name == null){
+    if(this.studentToBeAdded.registrationNumber == null || this.studentToBeAdded.name == null){
       this.hasError = true;
+      this.requiredFillMissingToast();
     }
     else {
       this.hasError = false;      
@@ -112,7 +113,16 @@ export class AddStudentComponent implements OnInit {
       timeout: 5000, theme: 'material',
       position: 'bottom',
       type: 'error'
-    });
+    });  
   }
 
+  requiredFillMissingToast() {
+    this.addToast({
+      title: 'Error',
+      msg: 'Name and registration number must be filled.',
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'error'
+    });
+  }
 }

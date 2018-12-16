@@ -25,15 +25,17 @@
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">হলের কক্ষ নম্বর</th>
-                                                        <td>{{this.student.room_no}}</td>
+                                                        <td *ngIf="this.student.room_no!=-1">{{this.student.room_no}}</td>
+                                                        <td *ngIf="this.student.room_no==-1">N/A</td>
                                                     </tr>
-                                                    <tr>
+                                                    <!-- <tr>
                                                         <th scope="row">সংশ্লিষ্ট সোসাইটি/সংস্থা</th>
                                                         <td>{{this.student.affiliatedSocietiesOrOrganizations}}</td>
-                                                    </tr>
+                                                    </tr> -->
                                                     <tr>
                                                         <th scope="row">হল অ্যাডমিশন ফি স্ট্যাটাস</th>
-                                                        <td>{{this.student.admissionFeesStatus}} </td>
+                                                        <td *ngIf="this.student.admissionFeesStatus=='true'">Paid</td>
+                                                        <td *ngIf="this.student.admissionFeesStatus=='false'">Due</td>
                                                         <!-- <i style="color:green" class="icofont icofont-check-circled"></i> -->
                                                     </tr>
                                                 </tbody>
@@ -42,44 +44,12 @@
                                     </div>
                                     <!-- end of table col-lg-6 -->
 
-                                    <!-- <div class="card-header">
-                                        <p class="card-header-text">বছরপ্রতি আবাসিক ফি স্ট্যাটাস</p>
-                                    </div>
-                                    <div class="col-lg-12 col-xl-12">
-                                    </div>
-                                    <div class="col-lg-12 col-xl-12">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover">
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">বছর</th>
-                                                        <th scope="row">স্ট্যাটাস</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <td scope="row">2015</td>
-                                                        <td scope="row">Paid <i style="color:green" class="icofont icofont-check-circled"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td scope="row">2016</td>
-                                                        <td scope="row">Paid <i style="color:green" class="icofont icofont-check-circled"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td scope="row">2017</td>
-                                                        <td scope="row">Paid <i style="color:green" class="icofont icofont-check-circled"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td scope="row">2018</td>
-                                                        <td scope="row">Due <i style="color:red" class="icofont icofont-warning-alt"></i></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div> -->
                                 </div>
                             </div>
 
                         </div>
                     </div>
+
                     <!-- end of view-info -->
                     <div class="edit-info" *ngIf="!editProfile">
                         <div class="row">
@@ -101,10 +71,10 @@
                                                         <th scope="row">হলের কক্ষ নম্বর</th>
                                                         <td><input class="form-control" type="text" [(ngModel)]="student.room_no" /></td>
                                                     </tr>
-                                                    <tr>
+                                                    <!-- <tr>
                                                         <th scope="row">সংশ্লিষ্ট সোসাইটি/সংস্থা</th>
                                                         <td><input class="form-control" type="text" [(ngModel)]="student.affiliatedSocietiesOrOrganizations" /></td>
-                                                    </tr>
+                                                    </tr> -->
                                                     <tr>
                                                         <th scope="row">হল অ্যাডমিশন ফি স্ট্যাটাস</th>
                                                         <td><select class="form-control" [(ngModel)]="student.admissionFeesStatus">
@@ -117,7 +87,14 @@
                                         </div>
                                     </div>
                                     <!-- end of table col-lg-6 -->
-
+                                    <div class="col-lg-12 col-xl-12">
+                                        <div class="text-center">
+                                            <a href="javascript:;" class="btn btn-danger waves-effect waves-light m-r-20"
+                                                (click)="confirmUpdateStudent()">নিশ্চিত</a>
+                                            <a href="javascript:;" id="edit-cancel" class="btn residence-button waves-effect"
+                                                (click)="toggleEditProfile()">বাতিল</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -133,7 +110,7 @@
                 <div class="card-header">
                     <p class="card-header-text">বছরপ্রতি আবাসিক ফি স্ট্যাটাস</p>
                     <button id="edit-btn" type="button" class="btn btn-sm btn-danger waves-effect waves-light f-right"
-                    (click)=openAddResidentialStatusModal(add)>
+                        (click)=openAddResidentialStatusModal(add)>
                         <i class="icofont icofont-plus"></i> নতুন বছর
                     </button>
                 </div>
@@ -145,14 +122,16 @@
                                 <tr>
                                     <th>বছর</th>
                                     <th>স্ট্যাটাস</th>
+                                    <th>অ্যাকশন</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let item of mf.data; index as i;">
+                                <tr *ngFor="let item of residentialList; index as i;">
                                     <td>{{item.year}}</td>
-                                    <td>{{item.residentialStatus}}</td>
+                                    <td>{{item.is_paid}}</td>
                                     <td>
-                                        <a (click)="openUpdateResidentialStatusModal(updateTemplate)" href="javascript:;" class="edit-delete-icon">
+                                        <a (click)="openUpdateResidentialStatusModal(updateTemplate)" href="javascript:;"
+                                            class="edit-delete-icon">
                                             <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
                                         <ng-template #updateTemplate>
                                             <div class="modal-header">
@@ -166,13 +145,16 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-4 col-form-label">বছর</label>
                                                     <div class="col-sm-8">
-                                                        <input class="form-control" type="text" [(ngModel)]="item.year" />
+                                                        <input class="form-control" type="text" [(ngModel)]="item.year" readonly/>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-sm-4 col-form-label">আবাসিক ফি স্ট্যাটাস</label>
                                                     <div class="col-sm-8">
-                                                        <input class="form-control" type="text" [(ngModel)]="item.status" />
+                                                        <select class="form-control" [(ngModel)]="item.is_paid">
+                                                            <option value="Paid">Paid</option>
+                                                            <option value="Due">Due</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <button type="button" class="btn btn-danger text-white" (click)="confirmUpdateYear(item)">নিশ্চিত</button>
@@ -191,7 +173,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <button type="button" class="btn btn-danger text-white" (click)="confirmDelete(item)">নিশ্চিত</button>
+                                                <button type="button" class="btn btn-danger text-white" (click)="confirmResidentialDelete(item)">নিশ্চিত</button>
                                                 <button type="button" class="btn text-white cancel-button f-right"
                                                     (click)="declineDelete()">বাতিল</button>
                                             </div>
@@ -216,25 +198,29 @@
 
 <ng-template #add>
     <div class="modal-header">
-      <h5 class="modal-title pull-left">নতুন বছর যুক্ত করুন</h5>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
+        <h5 class="modal-title pull-left">নতুন বছর যুক্ত করুন</h5>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">বছর<span style="color: red">*</span></label>
-        <div class="col-sm-8">
-          <input class="form-control" type="text" [(ngModel)]="yearToBeAdded.year" required />
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">বছর<span style="color: red">*</span></label>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" [(ngModel)]="residentialFeeToBeAdded.year" required />
+            </div>
         </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">আবাসিক ফি স্ট্যাটাস<span style="color: red">*</span></label>
-        <div class="col-sm-8">
-          <input class="form-control" type="text" [(ngModel)]="yearToBeAdded.status" required/>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">আবাসিক ফি স্ট্যাটাস<span style="color: red">*</span></label>
+            <div class="col-sm-8">
+                <select class="form-control" [(ngModel)]="residentialFeeToBeAdded.is_paid">
+                    <option value="Paid">Paid</option>
+                    <option value="Due">Due</option>
+                </select>
+            </div>
         </div>
-      </div>
-      <button type="button" class="btn btn-danger text-white" [disabled]="!yearToBeAdded.year && !yearToBeAdded.status" (click)="confirmAddYear()">নিশ্চিত</button>
-      <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
+        <button type="button" class="btn btn-danger text-white" [disabled]="!residentialFeeToBeAdded.year && !residentialFeeToBeAdded.is_paid"
+            (click)="confirmAddYear()">নিশ্চিত</button>
+        <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
     </div>
-  </ng-template>
+</ng-template>

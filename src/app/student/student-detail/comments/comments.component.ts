@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from '../../../../models/Student';
 import { StudentService } from '../../student.service';
 import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Remark } from '../../../../models/Remark';
+import { StudentClub } from '../../../../models/StudentClub';
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
@@ -18,16 +20,24 @@ export class CommentsComponent implements OnInit {
   commentObject: Remark = new Remark();
   comments: Remark[]=[];
   userData:any;
+  clubList: StudentClub[] = [];
+  uniqueClubList : any;
+  clubToBeAdded: StudentClub;
+  public modalRef: BsModalRef;
+  public deleteModalRef: BsModalRef;
   constructor(private route: ActivatedRoute,
     private studentService: StudentService,
     private router: Router,
-    private toastyService: ToastyService) { }
+    private toastyService: ToastyService,
+    private modalService: BsModalService) { }
 
     ngOnInit() {
       if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
         this.getStudentData();
         this.getUserData();
-        
+        this.getComments();
+        this.getUniqueClubData();
+        this.getClubData();
       }
       else {
         this.router.navigate(['/**']);
@@ -39,18 +49,28 @@ export class CommentsComponent implements OnInit {
       .subscribe((response) => { 
         console.log(response);
         this.userData = response;
-        this.getComments();
       }, error => {
         this.errorToast();
       });
     }
 
     getComments(){
-      this.studentService.getCommentList(this.student)
+      let studentReg = this.route.snapshot.paramMap.get('id');
+      this.studentService.getCommentList(studentReg)
       .subscribe((response) => { 
         console.log(response);
         this.comments = response;
       }, error => {
+        this.errorToast();
+      });
+    }
+
+    getUsername(userID){
+      this.studentService.getUserById(userID)
+      .subscribe((response) => {
+        console.log(response.name);
+      },
+      (err) => {
         this.errorToast();
       });
     }
@@ -68,7 +88,7 @@ export class CommentsComponent implements OnInit {
     postComment(comment){
       comment.registrationNumber = this.student.registrationNumber;
       comment.date = this.today;
-      comment.user = this.userData.mobile_number;
+      comment.user = this.userName;
 
       console.log(comment);
 
@@ -99,6 +119,88 @@ export class CommentsComponent implements OnInit {
         });
     }
 
+    getClubData() {
+      let studentReg = this.route.snapshot.paramMap.get('id');
+      this.studentService.getClubData(studentReg)
+        .subscribe((response) => {
+          console.log(response)
+          this.clubList = response;
+        }, error => {
+          this.errorToast();
+        });
+    }
+
+    getUniqueClubData(){
+      this.studentService.getUniqueClubList()
+      .subscribe((response) => {
+        console.log(response);
+        this.uniqueClubList = response;
+      }, error => {
+        this.errorToast();
+      });
+    }
+
+    confirmAddClub(): void {
+      this.modalRef.hide();
+      let studentReg = this.route.snapshot.paramMap.get('id');
+      this.clubToBeAdded.registrationNumber = studentReg;
+      this.studentService.addClub(this.clubToBeAdded)
+        .subscribe((response) => {
+          this.getClubData();    
+          this.successToast();
+        }, error => {
+          this.errorDuplicateClubToast();
+        });
+    }
+
+    confirmUpdateClub(club): void {
+      this.modalRef.hide();
+      let studentReg = this.route.snapshot.paramMap.get('id');
+      club.registrationNumber = studentReg;
+      this.studentService.updateClub(club)
+        .subscribe((response) => {
+          this.getClubData();
+          this.successToast();
+        }, error => {
+          this.errorToast();
+        });
+    }
+
+    confirmDeleteClub(club): void {
+      this.deleteModalRef.hide();
+      this.studentService.deleteClub(club)
+      .subscribe((response) => { 
+        this.getClubData()
+        this.successToast();
+        },
+        (err) => {
+          this.errorToast();
+        })
+    }
+
+    public openAddClubModal(template: TemplateRef<any>) {
+      this.clubToBeAdded = new StudentClub();
+      this.modalRef = this.modalService.show(template);
+    }
+  
+    public openUpdateClubModal(template: TemplateRef<any>) {
+      this.modalRef = this.modalService.show(template);
+    }
+  
+    public openDeleteModal(template: TemplateRef<any>) {
+      this.deleteModalRef = this.modalService.show(template);
+    }
+  
+    decline(): void {
+      console.log('Declined!');
+      this.modalRef.hide();
+      this.getClubData();
+    }
+  
+    declineDelete(): void {
+      this.deleteModalRef.hide();
+    }
+    
     addToast(options) {
       if (options.closeOther) {
         this.toastyService.clearAll();
@@ -142,6 +244,16 @@ export class CommentsComponent implements OnInit {
       this.addToast({
         title: 'Error',
         msg: 'Operation not successful.',
+        timeout: 5000, theme: 'material',
+        position: 'bottom',
+        type: 'error'
+      });
+    }
+
+    errorDuplicateClubToast() {
+      this.addToast({
+        title: 'Error',
+        msg: 'Operation not successful. Same club/society in not allowed',
         timeout: 5000, theme: 'material',
         position: 'bottom',
         type: 'error'
