@@ -35,7 +35,7 @@ export class BlockListComponent implements OnInit {
     private toastyService: ToastyService) { }
 
   ngOnInit() {
-    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
+    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
       this.getBlockData();
     }
     else {
