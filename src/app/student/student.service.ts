@@ -7,6 +7,7 @@ import { Remark } from '../../models/Remark';
 import { ResidentialFee } from '../../models/ResidentialFee';
 import { User } from '../../models/User';
 import { StudentClub } from '../../models/StudentClub';
+import { Room } from '../../models/Room';
 @Injectable()
 export class StudentService {
   httpOptions = {
@@ -113,5 +114,9 @@ export class StudentService {
 
   deleteClub(club: StudentClub) {
     return this.http.delete(Server.API_ENDPOINT +'student_club/'+club.id,this.httpOptions) 
+  }
+
+  getRoomList() : Observable<Room[]> {
+    return this.http.get<Room[]>(Server.API_ENDPOINT + 'room', this.httpOptions);
   }
 }

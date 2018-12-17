@@ -10,7 +10,7 @@ import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
   styleUrls: ['./add-student.component.css']
 })
 export class AddStudentComponent implements OnInit {
-  alumni:boolean = true;
+  alumni: boolean = true;
   position = 'bottom';
   //role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
   role = "hallOfficer";
@@ -18,13 +18,15 @@ export class AddStudentComponent implements OnInit {
   studentToBeAdded: Student = new Student();
   today = new Date();
   hasError = false;
-  constructor(private router: Router, private studentService : StudentService, private toastyService: ToastyService) { }
+  rooms: any;
+  constructor(private router: Router, private studentService: StudentService, private toastyService: ToastyService) { }
 
   ngOnInit() {
+    this.getRoomData();
     this.today = new Date();
     console.log(this.today)
     this.hasError = false;
-    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
+    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
     }
     else {
       this.router.navigate(['/dashboard']);
@@ -33,13 +35,13 @@ export class AddStudentComponent implements OnInit {
 
   addStudent(): void {
     console.log(this.studentToBeAdded);
-    if(this.studentToBeAdded.dateOfBirth != null){
+    if (this.studentToBeAdded.dateOfBirth != null) {
       this.studentToBeAdded.dateOfBirth = this.formatDate(this.studentToBeAdded.dateOfBirth);
     }
-    if(this.studentToBeAdded.room_no == null  ){
+    if (this.studentToBeAdded.room_no == null) {
       this.studentToBeAdded.room_no = -1;
     }
-    if(this.studentToBeAdded.registrationNumber == null || this.studentToBeAdded.name == null){
+    if (this.studentToBeAdded.registrationNumber == null || this.studentToBeAdded.name == null) {
       this.hasError = true;
       this.requiredFillMissingToast();
     }
@@ -49,10 +51,10 @@ export class AddStudentComponent implements OnInit {
     else if (this.studentToBeAdded.mobileNumber.match(/[a-z]/i)) {
       this.errorToast('Error in Mobile Number.');
     }
-    else if (this.studentToBeAdded.local_annual_income<0) {
+    else if (this.studentToBeAdded.local_annual_income < 0) {
       this.errorToast('Error in Annual Income.');
     }
-    else if (this.studentToBeAdded.legal_monthly_income<0) {
+    else if (this.studentToBeAdded.legal_monthly_income < 0) {
       this.errorToast('Error in Monthly Income.');
     }
     else if (this.studentToBeAdded.sscGPA < 0 || this.studentToBeAdded.sscGPA > 5) {
@@ -62,26 +64,26 @@ export class AddStudentComponent implements OnInit {
       this.errorToast('Error in HSC GPA');
     }
     else {
-      this.hasError = false;      
+      this.hasError = false;
       this.studentService.addStudent(this.studentToBeAdded)
-      .subscribe((response) => {    
-        this.successToast();
-        this.router.navigate(['/student/details/'+this.studentToBeAdded.registrationNumber]);
-      }, error => {
-        this.errorToast('Operation not successful.');
-      });
+        .subscribe((response) => {
+          this.successToast();
+          this.router.navigate(['/student/details/' + this.studentToBeAdded.registrationNumber]);
+        }, error => {
+          this.errorToast('Operation not successful.');
+        });
     }
 
   }
 
-  navigateToList(){
+  navigateToList() {
     this.router.navigate(['/student']);
   }
 
   public formatDate(date) {
     var day = date.getDate();
-    var monthIndex = date.getMonth()+1;
-    var year = date.getFullYear(); 
+    var monthIndex = date.getMonth() + 1;
+    var year = date.getFullYear();
     return day + '/' + monthIndex + '/' + year;
   }
 
@@ -131,9 +133,9 @@ export class AddStudentComponent implements OnInit {
       timeout: 5000, theme: 'material',
       position: 'bottom',
       type: 'error'
-    }); 
+    });
     if (this.studentToBeAdded.room_no == -1) {
-      this.studentToBeAdded.room_no = null; 
+      this.studentToBeAdded.room_no = null;
     }
   }
 
@@ -146,7 +148,18 @@ export class AddStudentComponent implements OnInit {
       type: 'error'
     });
     if (this.studentToBeAdded.room_no == -1) {
-      this.studentToBeAdded.room_no = null; 
+      this.studentToBeAdded.room_no = null;
     }
+  }
+
+  getRoomData() {
+    this.studentService.getRoomList()
+      .subscribe((response) => {
+        this.rooms = response;
+        console.log(this.rooms);
+      },
+        (err) => {
+          this.errorToast("Error");
+        })
   }
 }

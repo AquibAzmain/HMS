@@ -17,7 +17,6 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AddStudentComponent } from './student-list/add-student/add-student.component';
 import { StudentService } from './student.service';
 import {ToastyModule} from 'ng2-toasty';
-import { FileSelectDirective } from 'ng2-file-upload';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 export const StudentRoutes: Routes = [
@@ -64,8 +63,7 @@ export const StudentRoutes: Routes = [
     PersonalInfoComponent,
     ResidenceInfoComponent,
     AddStudentComponent,
-    CommentsComponent,
-    FileSelectDirective
+    CommentsComponent
   ]
 })
 export class StudentModule { }

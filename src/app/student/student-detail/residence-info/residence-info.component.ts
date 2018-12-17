@@ -21,6 +21,7 @@ export class ResidenceInfoComponent implements OnInit {
   student: Student = new Student();
   residentialList = [];
   residentialFeeToBeAdded: ResidentialFee = new ResidentialFee();
+  rooms: any;
   constructor(private route: ActivatedRoute,
     private studentService: StudentService,
     private router: Router,
@@ -31,6 +32,7 @@ export class ResidenceInfoComponent implements OnInit {
     if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
       this.getStudentData();
       this.getResidenceFeeStatusData();
+      this.getRoomData();
     }
     else {
       this.router.navigate(['/dashboard']);
@@ -93,6 +95,17 @@ export class ResidenceInfoComponent implements OnInit {
       }, error => {
         this.errorDuplicateYearToast();
       });
+  }
+
+  getRoomData() {
+    this.studentService.getRoomList()
+      .subscribe((response) => { 
+        this.rooms = response;
+        console.log(this.rooms);
+      },
+      (err) => {
+        this.errorToast();
+      })
   }
 
   public openAddResidentialStatusModal(template: TemplateRef<any>) {

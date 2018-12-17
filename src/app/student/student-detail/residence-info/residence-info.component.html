@@ -69,7 +69,9 @@
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">হলের কক্ষ নম্বর</th>
-                                                        <td><input class="form-control" type="text" [(ngModel)]="student.room_no" /></td>
+                                                        <td> <select class="form-control" [(ngModel)]="student.room_no">
+                                                                <option *ngFor="let x of this.rooms" value="{{x.roomNumber}}">{{x.roomNumber}}</option>
+                                                            </select></td>
                                                     </tr>
                                                     <!-- <tr>
                                                         <th scope="row">সংশ্লিষ্ট সোসাইটি/সংস্থা</th>
@@ -116,8 +118,8 @@
                 </div>
                 <div class="card-body contact-details">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery"
-                            #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                        <table class="table table-striped table-bordered full-data-table" [mfData]="residentialList | dataFilter : filterQuery"
+                            #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage">
                             <thead>
                                 <tr>
                                     <th>বছর</th>

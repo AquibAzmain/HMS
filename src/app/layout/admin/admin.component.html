@@ -37,19 +37,19 @@
                 <span class="badge bg-c-pink">{{this.notificationSize}}</span>
               </a>
             </li>
-            <li class="user-profile header-notification">
-              <a [routerLink]="['/profile']">
+            <li class="user-profile header-notification" style="cursor: pointer;">
+              <a>
                 <span>{{username}}</span>
                 <i class="ti-angle-down"></i>
               </a>
               <ul class="show-notification profile-notification">
-                <li>
-                  <a [routerLink]="['/profile']">
+                <li [routerLink]="['/profile']" style="cursor: pointer;">
+                  <a>
                     <i class="ti-user"></i> প্রোফাইল
                   </a>
                 </li>
-                <li>
-                  <a [routerLink]="['/authentication/login']" (click)="logout()">
+                <li style="cursor: pointer;" [routerLink]="['/authentication/login']" (click)="logout()">
+                  <a>
                     <i class="ti-layout-sidebar-left"></i> লগআউট
                   </a>
                 </li>

@@ -5,7 +5,6 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { StudentService } from '../student.service';
 import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
 import { Router } from '@angular/router';
-import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { Server } from '../../../utils/Server'
 import { Student } from '../../../models/Student';
 import { Angular5Csv } from 'angular5-csv/Angular5-csv';
@@ -23,7 +22,6 @@ export class StudentListComponent implements OnInit {
   position = 'bottom';
   role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
   //role = "hallOfficer";
-  public uploader: FileUploader = new FileUploader({ url: URL });
   public studentToBeSearched: Student = new Student();
   public studentToBeFiltered: Student = new Student();
   public data: any;

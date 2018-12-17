@@ -302,7 +302,9 @@
                   </tr>
                   <tr>
                     <th scope="row">হলের কক্ষ নম্বর</th>
-                    <td><input class="form-control" type="text" [(ngModel)]="studentToBeAdded.room_no" /></td>
+                    <td><select class="form-control" [(ngModel)]="studentToBeAdded.room_no">
+                        <option *ngFor="let x of this.rooms" value="{{x.roomNumber}}">{{x.roomNumber}}</option>
+                    </select></td>
                   </tr>
                 </tbody>
               </table>

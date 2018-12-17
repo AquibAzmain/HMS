@@ -61,7 +61,7 @@
         </div>
       <div class="table-responsive" style="margin-top:30px">
         <table class="table table-striped table-bordered full-data-table" [mfData]="expenses | dataFilter : filterQuery" #mf="mfDataTable"
-          [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+          [mfRowsOnPage]="rowsOnPage" >
           <thead>
             <tr>
               <th>ক্যাটেগরি</th>
@@ -149,7 +149,7 @@
                 <ng-template #changeHistory>
                   <div class="table-responsive" style="margin-top:30px">
                     <table class="table table-striped table-bordered full-data-table" [mfData]="history | dataFilter : filterQuery" #mf="mfDataTable"
-                      [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                      [mfRowsOnPage]="rowsOnPage">
                       <thead>
                         <tr>
                           <th>টাকার পরিমাণ</th>
