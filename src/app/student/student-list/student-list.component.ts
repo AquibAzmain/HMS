@@ -71,7 +71,7 @@ export class StudentListComponent implements OnInit {
   getUniqueClubData(){
     this.studentService.getUniqueClubList()
     .subscribe((response) => {
-      this.uniqueClubList = response;
+      this.uniqueClubList = response['clubs'];
       console.log(this.uniqueClubList);
     }, error => {
       this.errorToast();
