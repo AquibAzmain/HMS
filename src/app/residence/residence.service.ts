@@ -53,8 +53,9 @@ export class ResidenceService {
     return this.http.get<Room>(Server.API_ENDPOINT + 'room/'+roomNumber,this.httpOptions);
   }
 
-  searchSortRoom(room:Room) {
-    return this.http.post(Server.API_ENDPOINT +'room_search', JSON.stringify(room), this.httpOptions);
+  searchSortRoom(room:Room) : Observable<Room[]>{
+    console.log(room)
+    return this.http.post<Room[]>(Server.API_ENDPOINT +'room_search', JSON.stringify(room), this.httpOptions);
   }
 
   updateStudent(studentObject) {

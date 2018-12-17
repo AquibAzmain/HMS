@@ -51,7 +51,7 @@
         <tbody>
           <tr *ngFor="let room of mf.data; index as i;">
             <td class="pointer normal-link" [routerLink]="['details/', room.roomNumber]">{{room.roomNumber}}</td>
-            <td>{{room.block_id}}</td>
+            <td>{{room.block_name}}</td>
             <td>{{room.capacity}}</td>
             <td>{{room.assignedHouseTutor}}</td>
             <td>

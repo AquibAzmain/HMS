@@ -16,11 +16,13 @@ export class AddStudentComponent implements OnInit {
   role = "hallOfficer";
   students: Student[] = [];
   studentToBeAdded: Student = new Student();
-
+  today = new Date();
   hasError = false;
   constructor(private router: Router, private studentService : StudentService, private toastyService: ToastyService) { }
 
   ngOnInit() {
+    this.today = new Date();
+    console.log(this.today)
     this.hasError = false;
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
     }
@@ -34,14 +36,30 @@ export class AddStudentComponent implements OnInit {
     if(this.studentToBeAdded.dateOfBirth != null){
       this.studentToBeAdded.dateOfBirth = this.formatDate(this.studentToBeAdded.dateOfBirth);
     }
-
     if(this.studentToBeAdded.room_no == null  ){
       this.studentToBeAdded.room_no = -1;
     }
-
     if(this.studentToBeAdded.registrationNumber == null || this.studentToBeAdded.name == null){
       this.hasError = true;
       this.requiredFillMissingToast();
+    }
+    else if (this.studentToBeAdded.registrationNumber.match(/[a-z]/i)) {
+      this.errorToast('Error in Registration Number.');
+    }
+    else if (this.studentToBeAdded.mobileNumber.match(/[a-z]/i)) {
+      this.errorToast('Error in Mobile Number.');
+    }
+    else if (this.studentToBeAdded.local_annual_income<0) {
+      this.errorToast('Error in Annual Income.');
+    }
+    else if (this.studentToBeAdded.legal_monthly_income<0) {
+      this.errorToast('Error in Monthly Income.');
+    }
+    else if (this.studentToBeAdded.sscGPA < 0 || this.studentToBeAdded.sscGPA > 5) {
+      this.errorToast('Error in SSC GPA');
+    }
+    else if (this.studentToBeAdded.hscGPA < 0 || this.studentToBeAdded.hscGPA > 5) {
+      this.errorToast('Error in HSC GPA');
     }
     else {
       this.hasError = false;      
@@ -50,7 +68,7 @@ export class AddStudentComponent implements OnInit {
         this.successToast();
         this.router.navigate(['/student/details/'+this.studentToBeAdded.registrationNumber]);
       }, error => {
-        this.errorToast();
+        this.errorToast('Operation not successful.');
       });
     }
 
@@ -106,14 +124,17 @@ export class AddStudentComponent implements OnInit {
     });
   }
 
-  errorToast() {
+  errorToast(errorMessage) {
     this.addToast({
       title: 'Error',
-      msg: 'Operation not successful.',
+      msg: errorMessage,
       timeout: 5000, theme: 'material',
       position: 'bottom',
       type: 'error'
-    });  
+    }); 
+    if (this.studentToBeAdded.room_no == -1) {
+      this.studentToBeAdded.room_no = null; 
+    }
   }
 
   requiredFillMissingToast() {
@@ -124,5 +145,8 @@ export class AddStudentComponent implements OnInit {
       position: 'bottom',
       type: 'error'
     });
+    if (this.studentToBeAdded.room_no == -1) {
+      this.studentToBeAdded.room_no = null; 
+    }
   }
 }

@@ -26,7 +26,7 @@ export class RoomListComponent implements OnInit {
 
   //role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
   role="hallOfficer";
-  rooms: any;
+  rooms: Room[] = [];
   blocks:Block[];
   roomToBeAdded: Room = new Room();
   roomToBeSearched: Room = new Room();
@@ -123,7 +123,8 @@ export class RoomListComponent implements OnInit {
   searchSortRoom(room){
     this.residenceService.searchSortRoom(room)
       .subscribe((response) => {
-        this.successToast();
+        console.log(response)
+        // this.successToast();
         this.rooms = response;
       }, error => {
         this.errorToast();
