@@ -6,6 +6,8 @@ import { Block } from '../../models/Block';
 import { Room } from '../../models/Room';
 import { Student } from '../../models/Student';
 import { User } from '../../models/User';
+import { BehaviorSubject } from 'rxjs';
+
 @Injectable()
 export class ResidenceService {
   token = localStorage.getItem('token');
@@ -13,7 +15,14 @@ export class ResidenceService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+this.token})
   };
 
+  private changeNotifier = new BehaviorSubject('default');
+  currentState = this.changeNotifier.asObservable();
+
   constructor(private http: HttpClient) { }
+
+  changeMessage(message: string) {
+    this.changeNotifier.next(message)
+  }
 
   getBlockList() : Observable<Block[]> {
     return this.http.get<Block[]>(Server.API_ENDPOINT + 'block', this.httpOptions);

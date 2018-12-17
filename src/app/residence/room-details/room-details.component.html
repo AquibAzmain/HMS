@@ -87,7 +87,13 @@
                         <tbody>
                           <tr>
                             <th scope="column">ব্লক</th>
-                            <td><input class="form-control" type="text"  [(ngModel)]="room.block_id"/></td>
+                            <td>
+                              <div>
+                                <select class="form-control" [(ngModel)]="room.block_id">
+                                  <option *ngFor="let block of blocks" value="{{block.id}}">{{block.block_name}} {{block.location}}</option>
+                                </select>
+                              </div>
+                            </td>
                           </tr>
                           <tr>
                             <th scope="column">ধারণ ক্ষমতা</th>
@@ -95,7 +101,13 @@
                           </tr>
                           <tr>
                             <th scope="column">দায়িত্বপ্রাপ্ত শিক্ষক</th>
-                            <td><input class="form-control" type="text" [(ngModel)]="room.assignedHouseTutor"/></td>
+                            <td>
+                              <div>
+                                  <select class="form-control" [(ngModel)]="room.assignedHouseTutor">
+                                      <option *ngFor="let houreTutor of houseTutors" value="{{houreTutor.id}}">{{houreTutor.name}}</option>
+                                  </select>
+                              </div>
+                            </td>
                           </tr>
                         </tbody>
                       </table>

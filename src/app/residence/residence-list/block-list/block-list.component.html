@@ -16,8 +16,8 @@
           <tr>
             <th>ব্লক নাম</th>
             <th>অবস্থান</th>
-            <th>
-              <mfDefaultSorter *ngIf="this.role == 'hallOfficer'">অ্যাকশন</mfDefaultSorter>
+            <th *ngIf="this.role == 'hallOfficer'">
+              <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
             </th>
           </tr>
         </thead>

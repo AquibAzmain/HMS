@@ -114,6 +114,7 @@ export class BlockListComponent implements OnInit {
     this.residenceService.updateBlock(block)
       .subscribe((response) => {
         this.getBlockData();
+        this.residenceService.changeMessage("change occured");
         console.log(response);
         console.log(block);
         this.successToast();
