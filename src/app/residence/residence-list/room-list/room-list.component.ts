@@ -42,7 +42,11 @@ export class RoomListComponent implements OnInit {
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
       this.getRoomData();
       this.getBlockData();
-      this.getHouseTutorList()
+      this.getHouseTutorList();
+      this.residenceService.currentState.subscribe((message) => {
+        console.log("change hoyeche");
+        this.getRoomData();
+      })
     }
     else {
       this.router.navigate(['/dashboard']);

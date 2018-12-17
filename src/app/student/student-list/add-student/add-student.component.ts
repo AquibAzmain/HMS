@@ -48,7 +48,7 @@ export class AddStudentComponent implements OnInit {
     else if (this.studentToBeAdded.registrationNumber.match(/[a-z]/i)) {
       this.errorToast('Error in Registration Number.');
     }
-    else if (this.studentToBeAdded.mobileNumber.match(/[a-z]/i)) {
+    else if (this.studentToBeAdded.mobileNumber!=null && this.studentToBeAdded.mobileNumber.match(/[a-z]/i)) {
       this.errorToast('Error in Mobile Number.');
     }
     else if (this.studentToBeAdded.local_annual_income < 0) {
@@ -124,6 +124,9 @@ export class AddStudentComponent implements OnInit {
       position: 'bottom',
       type: 'success'
     });
+    if (this.studentToBeAdded.room_no == -1) {
+      this.studentToBeAdded.room_no = null; 
+    }
   }
 
   errorToast(errorMessage) {

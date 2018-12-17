@@ -32,6 +32,8 @@ export class EmployeeListComponent implements OnInit {
   confirmAddError = false
   confirmUpdateError = false
   
+  today = new Date();
+
   constructor(public http: Http, private modalService: BsModalService,
               private employeeService : EmployeeService,
               private router: Router,
@@ -43,30 +45,12 @@ export class EmployeeListComponent implements OnInit {
       return;
     }
     if((this.role == "provost" || this.role == "hallOfficer")) {
+      this.today = new Date();
       this.getEmployeeData();
     }
     else {
       this.router.navigate(['/dashboard']);
     }
-   
-    // let e : Employee = new Employee();
-    // e.id = 1;
-    // e.name = "Md. Joarder";
-    // e.address = "dhaka university";
-    // e.job_title = "provost";
-    // e.contact_number = "01913224407";
-    // e.department = "IIT";
-    // e.campus_residency = "yes";
-    // this.employees.push(e);
-
-    // let e2 : Employee = new Employee();
-    // e2.id = 2;
-    // e2.name = "Md. Majhar";
-    // e2.address ="fuller road";
-    // e2.contact_number ="01815224407";
-    // e2.job_title = "hall officer";
-    // e2.campus_residency = "no";    
-    // this.employees.push(e2);
   }
 
   getEmployeeData() {
@@ -76,7 +60,7 @@ export class EmployeeListComponent implements OnInit {
         console.log(this.employees);
       },
       (err) => {
-        this.errorToast();
+        this.errorToast('Operation not successful.');
       })
   }
 
@@ -94,6 +78,10 @@ export class EmployeeListComponent implements OnInit {
     if(this.employeeToBeAdded.name==null || this.employeeToBeAdded.contact_number==null || this.employeeToBeAdded.job_title==null ) {
       this.confirmAddError = true;
     }
+    else if (this.employeeToBeAdded.contact_number.match(/[a-z]/i)) {
+      this.confirmAddError = true;
+      this.errorToast('Error in Mobile Number.');
+    }
     else {
       this.confirmAddError = false;
 
@@ -109,7 +97,7 @@ export class EmployeeListComponent implements OnInit {
         this.getEmployeeData();
       },
       (err) => {
-        this.errorToast();
+        this.errorToast('Operation not successful. Check your net connection');
       })
     }
   }
@@ -117,6 +105,10 @@ export class EmployeeListComponent implements OnInit {
   confirmUpdateEmployee(employee): void {
     if(employee.name==null || employee.contact_number==null || employee.job_title==null ) {
       this.confirmUpdateError = true;
+    }
+    else if (employee.contact_number.match(/[a-z]/i)) {
+      this.confirmUpdateError = true;
+      this.errorToast('Error in Mobile Number.');
     }
     else {
       this.confirmUpdateError = false;      
@@ -134,7 +126,7 @@ export class EmployeeListComponent implements OnInit {
         this.successToast();
       },
       (err) => {
-        this.errorToast();
+        this.errorToast('Operation not successful. Check your net connection');
       })
     }
   }
@@ -164,7 +156,7 @@ export class EmployeeListComponent implements OnInit {
       this.successToast();
     }, 
     (err) => {
-      this.errorToast();
+      this.errorToast('Operation not successful.');
     })
   }
  
@@ -179,7 +171,7 @@ export class EmployeeListComponent implements OnInit {
       this.successToast();
     }, 
     (err) => {
-      this.errorToast();
+      this.errorToast('Operation not successful.');
     })
   }
 
@@ -229,10 +221,10 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
-  errorToast() {
+  errorToast(errorMessage) {
     this.addToast({
       title: 'Error',
-      msg: 'Operation not successful. Check your net connection',
+      msg: errorMessage,
       timeout: 5000, theme: 'material',
       position: 'bottom',
       type: 'error'

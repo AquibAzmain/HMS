@@ -6,6 +6,7 @@ import { ResidenceService } from '../residence.service';
 import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
 import { Http } from '@angular/http';
 import { Student } from '../../../models/Student';
+import { Block } from '../../../models/Block';
 
 @Component({
   selector: 'app-room-details',
@@ -35,6 +36,7 @@ export class RoomDetailsComponent implements OnInit {
   studentRegToBeAddedToRoom: "";
   numberOfStudentInRoom: number;
   selectedValue = [];
+  blocks:Block[];
   //role = localStorage.getItem('role'); //"hallOfficer";
   role = localStorage.getItem('role'); //"hallOfficer";
   constructor(private route: ActivatedRoute, private modalService: BsModalService, private residenceService: ResidenceService,
@@ -53,6 +55,7 @@ export class RoomDetailsComponent implements OnInit {
       this.getStudentList();
       this.getSuggestionForAdd();
       this.getHouseTutorList();
+      this.getBlockData();
     }
     else {
       this.router.navigate(['/dashboard']);
@@ -70,6 +73,14 @@ export class RoomDetailsComponent implements OnInit {
     (err) => {
       this.errorToast();
     });
+  }
+
+  getBlockData() {
+    this.residenceService.getBlockList()
+      .subscribe((response) => { 
+        this.blocks = response;
+        console.log(this.blocks);
+      });
   }
 
   getHouseTutorName(assignedHouseTutor) {
@@ -249,7 +260,7 @@ export class RoomDetailsComponent implements OnInit {
   errorToast() {
     this.addToast({
       title: 'Error',
-      msg: 'Operation not successful. Check your net connection',
+      msg: 'Operation not successful.',
       timeout: 5000, theme: 'material',
       position: 'bottom',
       type: 'error'
