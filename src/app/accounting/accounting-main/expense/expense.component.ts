@@ -175,6 +175,7 @@ export class ExpenseComponent implements OnInit {
     
     this.getSubCategoryData(this.expenseToBeAdded.cat_name);
     //console.log(this.subCategory);
+    this.expenseToBeAdded.sub_name = this.subCategory[0].sub_name;
   }
 
   selectSubType (event: any) {

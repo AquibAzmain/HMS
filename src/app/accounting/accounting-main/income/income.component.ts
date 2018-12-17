@@ -183,6 +183,7 @@ export class IncomeComponent implements OnInit {
 
     this.getSubCategoryData(this.incomeToBeAdded.cat_name);
     //console.log(this.subCategory);
+    this.incomeToBeAdded.sub_name = this.subCategory[0].sub_name;
   }
 
   selectSubType(event: any) {
