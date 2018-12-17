@@ -6,4 +6,5 @@ export class Transaction {
     public amount : number;
     public purchase_date : string;
     public comment : string;
+    public check: string;
 }

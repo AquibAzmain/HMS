@@ -3,6 +3,7 @@ import { HttpHeaders, HttpClient, HttpParams  } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import {Server} from '../../../utils/Server'
 import { Transaction } from '../../../models/Transaction';
+import { Transaction_History } from '../../../models/Transaction_History';
 import { Report } from '../../../models/Report';
 import { Balance } from '../../../models/Balance';
 
@@ -19,6 +20,11 @@ export class TransactionService {
   getBalance() : Observable<Balance> {
     return this.http.get<Balance>(Server.API_ENDPOINT + 'bank_balance');
   }
+
+  getTransactionHistory(tranid: number) : Observable<Transaction_History[]> {
+    return this.http.get<Transaction_History[]>(Server.API_ENDPOINT + 'transaction_versions?tranid=' + tranid );
+  }
+
 
   generateReport(report:Report) : Observable<Transaction[]>{
     return this.http.post<Transaction[]>(Server.API_ENDPOINT +'protibedon', JSON.stringify(report), this.httpOptions);
