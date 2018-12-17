@@ -33,7 +33,7 @@
     <div class="card">
       <div class="card-header">
         <p class="card-header-text">সাধারণ তথ্যাবলী</p>
-        <button *ngIf="this.role == 'hallOfficer'" id="edit-btn" type="button" class="btn btn-sm residence-button waves-effect waves-light f-right"
+        <button id="edit-btn" type="button" class="btn btn-sm residence-button waves-effect waves-light f-right"
           (click)="toggleEditProfile()">
           তথ্য সংশোধন <i class="icofont {{ editProfileIcon }}"></i>
         </button>
@@ -58,14 +58,13 @@
                             <td>{{this.room.capacity}}</td>
                           </tr>
                           <tr>
-                              <th scope="column">কক্ষের ছাত্র সংখ্যা</th>
-                              <td>{{this.numberOfStudentInRoom}}</td>
+                              <th scope="column">বর্তমান ছাত্র সংখ্যা</th>
+                              <td>{{this.numberOfStudentsInRoom}}</td>
                             </tr>
                           <tr>
                             <th scope="column">দায়িত্বপ্রাপ্ত শিক্ষক</th>
-                            <td>{{this.assignedHouseTutorName}}</td>
+                            <td>{{this.room.assignedHouseTutor}}</td>
                           </tr>
-                          
                         </tbody>
                       </table>
                     </div>
@@ -92,14 +91,11 @@
                           </tr>
                           <tr>
                             <th scope="column">ধারণ ক্ষমতা</th>
-                            <td><input class="form-control" type="text" [(ngModel)]="room.capacity" required/></td>
+                            <td><input class="form-control" type="text" [(ngModel)]="room.capacity"/></td>
                           </tr>
                           <tr>
                             <th scope="column">দায়িত্বপ্রাপ্ত শিক্ষক</th>
-                            <td>
-                              <select class="form-control" [(ngModel)]="room.assignedHouseTutor">
-                                  <option *ngFor="let houseTutor of houseTutors" value="{{houseTutor.id}}">{{houseTutor.name}}</option>
-                                </select></td>
+                            <td><input class="form-control" type="text" [(ngModel)]="room.assignedHouseTutor"/></td>
                           </tr>
                         </tbody>
                       </table>
@@ -123,7 +119,7 @@
     <div class="card">
       <div class="card-header">
         <p class="card-header-text">কক্ষের ছাত্রদের তালিকা</p>
-        <button *ngIf="this.role == 'houseTutor'" type="button" class="btn btn-sm f-right residence-button" (click)="openModal(template, 'add')">
+        <button type="button" class="btn btn-sm f-right residence-button" (click)="openModal(template, 'add')">
           <i class="icofont icofont-plus"></i> নতুন ছাত্র
         </button>
       </div>
@@ -135,7 +131,7 @@
                 <th>ছাত্রের নাম</th>
                 <th>রেজিস্ট্রেশান নম্বর</th>
                 <th>আবাসিক স্ট্যাটাস</th>
-                <th  *ngIf="this.role == 'houseTutor'">অ্যাকশন</th>
+                <th>অ্যাকশন</th>
               </tr>
             </thead>
             <tbody>
@@ -143,10 +139,22 @@
                 <td>{{item.name}}</td>
                 <td>{{item.registrationNumber}}</td>
                 <td>{{item.residentialStatus}}</td>
-                <td  *ngIf="this.role == 'houseTutor'">
+                <td>
                   <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
                     <i class="icofont icofont-ui-delete"></i></a>
                 </td>
+                <ng-template #deleteTemplate>
+                    <div class="modal-header">
+                      <h5 class="modal-title pull-left">কক্ষ হতে ছাত্রটিকে অপসারন করতে ইচ্ছুক?</h5>
+                      <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <button type="button" class="btn bg-c-lite-blue text-white" (click)="deleteStudentFromRoom(item.registrationNumber)">নিশ্চিত</button>
+                      <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
+                    </div>
+                  </ng-template>
               </tr>
             </tbody>
             <tfoot>
@@ -180,26 +188,15 @@
         </div>
         <p class="mb-1">রেজিস্ট্রেশান নম্বরঃ {{item.registrationNumber}}</p>
         <p class="mb-1">আবাসিক স্ট্যাটাসঃ {{item.residentialStatus}}</p>
-        <p class="mb-1" *ngIf="item.room_no!=-1">কক্ষ নম্বরঃ {{item.room_no}}</p>
         <p class="mb-1" *ngIf="item.room_no==-1">কক্ষ নম্বরঃ None</p>
+        <p class="mb-1" *ngIf="item.room_no!=-1">কক্ষ নম্বরঃ {{item.room_no}}</p>
       </div>
     </div>
-    <button type="button" class="btn bg-c-lite-blue text-white" (click)="addStudentToRoom(item)">নিশ্চিত</button>
+    <button type="button" class="btn bg-c-lite-blue text-white" [disabled]="!studentRegToBeAddedToRoom" (click)="addStudentToRoom(item)">নিশ্চিত</button>
     <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
   </div>
 </ng-template>
 
-<ng-template #deleteTemplate>
-  <div class="modal-header">
-    <h5 class="modal-title pull-left">কক্ষ হতে ছাত্রটিকে অপসারন করতে ইচ্ছুক?</h5>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmDelete()">নিশ্চিত</button>
-    <button type="button" class="btn text-white cancel-button f-right" (click)="declineDelete()">বাতিল</button>
-  </div>
-</ng-template>
+
 
 <ng2-toasty [position]="position"></ng2-toasty>

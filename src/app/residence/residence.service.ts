@@ -71,7 +71,11 @@ export class ResidenceService {
   } 
 
   addStudentToRoom(student){
-    return this.http.put(Server.API_ENDPOINT +'room_students/', student ,this.httpOptions)
+    return this.http.put(Server.API_ENDPOINT +'room_students', student ,this.httpOptions)
+  }
+
+  deleteStudentFromRoom(reg){
+    return this.http.delete(Server.API_ENDPOINT +'room_students_del/'+reg ,this.httpOptions)
   }
 
   getSuggestionForAdd() : Observable<Student[]> {

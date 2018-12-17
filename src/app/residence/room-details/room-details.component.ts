@@ -15,6 +15,7 @@ import { Student } from '../../../models/Student';
 export class RoomDetailsComponent implements OnInit {
   position = 'bottom';
   editProfile = true;
+  numberOfStudentsInRoom: number=0;
   editProfileIcon = 'icofont-edit';
   students: Student[] = [];
   suggestionStudents: Student[] = [];
@@ -80,6 +81,10 @@ export class RoomDetailsComponent implements OnInit {
       this.errorToast();
     });
   }
+
+  onSelectionChange(entry) {
+    this.studentRegToBeAddedToRoom = entry;
+  }
   
 
   addStudentToRoom(student) {
@@ -94,7 +99,30 @@ export class RoomDetailsComponent implements OnInit {
       .subscribe((response) => {
         this.successToast();
         this.getRoomData();
+        this.getStudentList();
+        this.getSuggestionForAdd();
         this.modalRef.hide();
+      }, error => {
+        this.errorToast();
+      });
+  }
+
+  deleteStudentFromRoom(student) {
+    console.log(student);
+    // let studentAdd = {
+    //   registrationNumber: this.studentRegToBeAddedToRoom,
+    //   roomNumber: this.room.roomNumber
+    // }
+    // console.log(studentAdd);
+
+    this.residenceService.deleteStudentFromRoom(student)
+      .subscribe((response) => {
+        this.successToast();
+        this.getRoomData();
+        this.getStudentList();
+        this.getSuggestionForAdd();
+        
+        this.deleteModalRef.hide();
       }, error => {
         this.errorToast();
       });
@@ -113,6 +141,7 @@ export class RoomDetailsComponent implements OnInit {
     .subscribe((response) => { 
       console.log(response);
       this.students = response;
+      this.numberOfStudentsInRoom = this.students.length;
       this.numberOfStudentInRoom = response.length;
     }, error => {
       this.errorToast();

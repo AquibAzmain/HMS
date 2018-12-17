@@ -75,8 +75,9 @@ export class StudentListComponent implements OnInit {
       });
       filteredData.push(temp);
     });
-    console.log(filteredData);
-    new Angular5Csv(filteredData, "student_report_"+this.today, this.options);
+    console.log(item);
+
+    //new Angular5Csv(filteredData, "student_report_"+this.today, this.options);
   }
 
   confirmDelete(student): void {
