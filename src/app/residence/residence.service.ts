@@ -70,6 +70,10 @@ export class ResidenceService {
     return this.http.get<Student[]>(Server.API_ENDPOINT +'room_students/'+roomNumber, this.httpOptions)
   } 
 
+  addStudentToRoom(student){
+    return this.http.put(Server.API_ENDPOINT +'room_students/', student ,this.httpOptions)
+  }
+
   getSuggestionForAdd() : Observable<Student[]> {
     return this.http.get<Student[]>(Server.API_ENDPOINT +'room_suggest', this.httpOptions)
   } 

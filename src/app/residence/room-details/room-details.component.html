@@ -98,7 +98,7 @@
                             <th scope="column">দায়িত্বপ্রাপ্ত শিক্ষক</th>
                             <td>
                               <select class="form-control" [(ngModel)]="room.assignedHouseTutor">
-                                  <option *ngFor="let houreTutor of houseTutors" value="{{houreTutor.id}}">{{houreTutor.name}}</option>
+                                  <option *ngFor="let houseTutor of houseTutors" value="{{houseTutor.id}}">{{houseTutor.name}}</option>
                                 </select></td>
                           </tr>
                         </tbody>
@@ -123,7 +123,7 @@
     <div class="card">
       <div class="card-header">
         <p class="card-header-text">কক্ষের ছাত্রদের তালিকা</p>
-        <button *ngIf="this.role == 'houreTutor'" type="button" class="btn btn-sm f-right residence-button" (click)="openModal(template, 'add')">
+        <button *ngIf="this.role == 'houseTutor'" type="button" class="btn btn-sm f-right residence-button" (click)="openModal(template, 'add')">
           <i class="icofont icofont-plus"></i> নতুন ছাত্র
         </button>
       </div>
@@ -135,7 +135,7 @@
                 <th>ছাত্রের নাম</th>
                 <th>রেজিস্ট্রেশান নম্বর</th>
                 <th>আবাসিক স্ট্যাটাস</th>
-                <th  *ngIf="this.role == 'houreTutor'">অ্যাকশন</th>
+                <th  *ngIf="this.role == 'houseTutor'">অ্যাকশন</th>
               </tr>
             </thead>
             <tbody>
@@ -143,7 +143,7 @@
                 <td>{{item.name}}</td>
                 <td>{{item.registrationNumber}}</td>
                 <td>{{item.residentialStatus}}</td>
-                <td  *ngIf="this.role == 'houreTutor'">
+                <td  *ngIf="this.role == 'houseTutor'">
                   <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
                     <i class="icofont icofont-ui-delete"></i></a>
                 </td>
@@ -184,7 +184,7 @@
         <p class="mb-1" *ngIf="item.room_no==-1">কক্ষ নম্বরঃ None</p>
       </div>
     </div>
-    <button type="button" class="btn bg-c-lite-blue text-white" [disabled]="!studentRegToBeAddedToRoom" (click)="addStudentToRoom(item)">নিশ্চিত</button>
+    <button type="button" class="btn bg-c-lite-blue text-white" (click)="addStudentToRoom(item)">নিশ্চিত</button>
     <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
   </div>
 </ng-template>

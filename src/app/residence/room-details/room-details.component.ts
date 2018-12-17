@@ -86,14 +86,11 @@ export class RoomDetailsComponent implements OnInit {
     console.log(student);
     let studentAdd = {
       registrationNumber: this.studentRegToBeAddedToRoom,
-      session: student.session,
-      name: student.name,
-      residentialStatus: "Resident",
-      room_no: this.room.roomNumber
+      roomNumber: this.room.roomNumber
     }
     console.log(studentAdd);
 
-    this.residenceService.updateStudent(studentAdd)
+    this.residenceService.addStudentToRoom(studentAdd)
       .subscribe((response) => {
         this.successToast();
         this.getRoomData();
