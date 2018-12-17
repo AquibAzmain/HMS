@@ -5,7 +5,7 @@ import { StoreService } from '../store.service';
 import { Asset } from '../../../models/Asset';
 import { Router } from '@angular/router';
 import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
-
+import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 @Component({
   selector: 'app-store-list',
   templateUrl: './store-list.component.html',
@@ -25,8 +25,8 @@ export class StoreListComponent implements OnInit {
   modalHeader: string;
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
-
-  role = "hallOfficer"; //admin hallOfficer localStorage.getItem('role');
+  today = new Date();
+  role = localStorage.getItem('role');
   assets: Asset[] = [];
   assetToBeAdded: Asset = new Asset();
   assetToBeSearched: Asset = new Asset();
@@ -38,17 +38,13 @@ export class StoreListComponent implements OnInit {
 
 
   ngOnInit() {
-    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
+    this.today = new Date();
+    if ((this.role == "provost" || this.role == "hallOfficer")) {
       this.getAssetData();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
-
-    // this.http.get(`assets/data/store.json`)
-    // .subscribe((data) => {
-    //   this.data = data.json();
-    // });
   }
 
   getAssetData() {
@@ -147,6 +143,18 @@ export class StoreListComponent implements OnInit {
         this.errorToast();
       });
 
+  }
+
+  options = {
+    fieldSeparator: ',',
+    quoteStrings: '"',
+    decimalseparator: '.',
+    showLabels: true,
+    headers: ["ID", "Category", "Location", "Condition", "Date"]
+  };
+
+  downloadCSV() {
+    new Angular5Csv(this.data, "store_report_"+this.today, this.options);
   }
 
   declineDelete(): void {

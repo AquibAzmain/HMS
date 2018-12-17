@@ -7,8 +7,11 @@
           <button type="button" class="btn btn-danger" (click)="isCollapsed = !isCollapsed">
             সার্চ ও সর্ট
           </button>
-          <button type="button" class="btn btn-danger" (click)="convertToPdf()">
+          <!-- <button type="button" class="btn btn-danger" (click)="convertToPdf()">
             <i class="icofont icofont-download"></i> ডাউনলোড
+          </button> -->
+          <button type="button" class="btn btn-danger" (click)="openReportModal(reportTemplate)">
+             রিপোর্ট
           </button>
           <div [collapse]="isCollapsed" class="card card-block">
             <div class="row">
@@ -68,7 +71,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-2">
+      <div class="col-xs-12 col-sm-12 col-md-2" *ngIf="role == 'hallOfficer'">
         <div class="btn-group" dropdown>
           <!-- <button id="button-basic" type="button" class="btn btn-danger f-right" [routerLink]="['add_student/', 0]">
             <i class="icofont icofont-plus"></i>
@@ -101,7 +104,7 @@
             <th>ডিপার্টমেন্ট</th>
             <th>শ্রেণি/বর্ষ</th>
             <th>মোবাইল<br />নম্বর</th>
-            <th>অ্যাকশন</th>
+            <th *ngIf="role == 'hallOfficer'">অ্যাকশন</th>
           </tr>
           <tr>
           </tr>
@@ -112,13 +115,13 @@
             <td>{{item.registrationNumber}}</td>
             <td>{{item.session}}</td>
             <td>{{item.residentialStatus}}</td>
-            <td *ngIf = "item.room_no==-1">N/A</td>
-            <td *ngIf = "item.room_no!=-1">{{item.room_no}}</td>
+            <td *ngIf="item.room_no==-1">N/A</td>
+            <td *ngIf="item.room_no!=-1">{{item.room_no}}</td>
             <!-- <td>{{item.admissionFeesStatus ? 'Paid' : 'Due'}}</td> -->
             <td>{{item.subject_name}}</td>
             <td>{{item.class_year_semester}}</td>
             <td>{{item.mobileNumber}}</td>
-            <td>
+            <td *ngIf="role == 'hallOfficer'">
               <a (click)="openUpdateStudentModal(template)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
               <ng-template #template>
@@ -138,7 +141,7 @@
                   <div class="form-group row">
                     <label class="col-sm-4 col-form-label">রেজিস্ট্রেশান নম্বর</label>
                     <div class="col-sm-8">
-                      <input class="form-control" type="text" [(ngModel)]="item.registrationNumber" readonly/>
+                      <input class="form-control" type="text" [(ngModel)]="item.registrationNumber" readonly />
                     </div>
                   </div>
                   <div class="form-group row">
@@ -255,11 +258,94 @@
 
   <div class="modal-body">
     <div class="text-center">
-        <label for="upload" class="file-upload__label">ফাইল নির্ধারণ করুন</label> (ফরম্যাটঃ .xlsx)
-        <input id="upload" class="file-upload__input" type="file" (change)="fileChange($event)" accept=".xls, .xlsx,.csv">
+      <label for="upload" class="file-upload__label">ফাইল নির্ধারণ করুন</label> (ফরম্যাটঃ .xlsx)
+      <input id="upload" class="file-upload__input" type="file" (change)="fileChange($event)" accept=".xls, .xlsx,.csv">
     </div>
   </div>
 </ng-template>
-<button type="button" class="btn btn-xs" style="background-color:brown; color:white" (click)="getCleanUpData()">
+<button *ngIf="role == 'hallOfficer'" type="button" class="btn btn-xs" style="background-color:brown; color:white" (click)="getCleanUpData()">
   <span class="glyphicon glyphicon-upload"></span> পুরাতন তথ্য মুছে দিন
 </button>
+
+
+<ng-template #reportTemplate>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">রিপোর্ট</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="reportModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="row" style="overflow-y: scroll;height:450px;">
+      <div class="col-md-6">
+        <div>
+          <p><b>রিপোর্ট এ কোন কোন তথ্য দেখাতে চান?</b></p>
+          <input type="checkbox" name="name" [value]="name" checked disabled> ছাত্রের নাম<br />
+          <input type="checkbox" name="registrationNumber" value="registrationNumber" checked disabled> রেজিস্ট্রেশান
+          নম্বর<br />
+
+          <input type="checkbox" (change)="change($event, session)" [(ngModel)]="session" value="session"> শিক্ষাবর্ষ<br />
+          <input type="checkbox" (change)="change($event, fathersName)" [(ngModel)]="fathersName" value="fathersName"> পিতার নাম<br />
+          <input type="checkbox" (change)="change($event, mothersName)" [(ngModel)]="mothersName" value="mothersName"> মাতার নাম<br />
+          <input type="checkbox" (change)="change($event, mobileNumber)" [(ngModel)]="mobileNumber" value="mobileNumber"> মোবাইল নম্বর<br />
+          <input type="checkbox" (change)="change($event, contactAddress)" [(ngModel)]="contactAddress" value="contactAddress"> যোগাযোগের ঠিকানা<br />
+          <input type="checkbox" (change)="change($event, permanentAddress)" [(ngModel)]="permanentAddress" value="permanentAddress"> স্থায়ী ঠিকানা<br />
+          <input type="checkbox" (change)="change($event, nationality)" [(ngModel)]="nationality" value="nationality"> জাতীয়তা<br />
+          <input type="checkbox" (change)="change($event, dateOfBirth)" [(ngModel)]="dateOfBirth" value="dateOfBirth"> জন্ম তারিখ<br />
+          <input type="checkbox" (change)="change($event, religion)" [(ngModel)]="religion" value="religion"> ধর্ম<br />
+          <input type="checkbox" (change)="change($event, gender)" [(ngModel)]="gender" value="gender"> লিঙ্গ<br />
+          <input type="checkbox" (change)="change($event, admissionExamMarks)" [(ngModel)]="admissionExamMarks" value="admissionExamMarks"> অ্যাডমিশন মার্ক<br />
+          <input type="checkbox" (change)="change($event, NID)" [(ngModel)]="NID" value="NID"> NID<br />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <p><b>রিপোর্ট কিভাবে ফিল্টার করতে চান?</b></p>
+        <div class="form-group">
+          <label for="filter">আবাসিক স্ট্যাটাস</label>
+          <select class="form-control" [(ngModel)]="studentToBeFiltered.residentialStatus">
+            <option value="Non-resident">Non-resident</option>
+            <option value="Resident">Resident</option>
+            <option value="Doubler">Doubler</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="sel1">শ্রেণি/বর্ষ</label>
+          <input class="form-control" type="text" [(ngModel)]="studentToBeFiltered.class_year_semester" />
+        </div>
+
+        <div class="form-group">
+          <label for="filter">শিক্ষাবর্ষ</label>
+          <input class="form-control" type="text" [(ngModel)]="studentToBeFiltered.session" />
+        </div>
+        <div class="form-group">
+          <label for="filter">ছাত্রত্ব স্ট্যাটাস</label>
+          <select class="form-control" [(ngModel)]="studentToBeFiltered.alumni">
+            <option value="false">বর্তমান</option>
+            <option value="true">প্রাক্তন</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="filter">ডিপার্টমেন্ট</label>
+          <input class="form-control" type="text" [(ngModel)]="studentToBeFiltered.subject_name" />
+        </div>
+        <div class="form-group">
+          <label for="sel1"><b>কিভাবে সর্ট করতে চান?</b></label>
+          <select class="form-control" [(ngModel)]="studentToBeFiltered.sort_by">
+            <option value="name">নাম</option>
+            <option value="session">শিক্ষাবর্ষ</option>
+            <option value="registrationNumber">রেজিস্ট্রেশন নম্বর</option>
+            <option value="class_year_semester">শ্রেণি/বর্ষ</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-danger text-white" (click)="downloadCSV(studentToBeFiltered)"><i class="icofont icofont-download"></i> ডাউনলোড</button>
+      <button type="button" class="btn text-white cancel-button f-right" (click)="reportModalRef.hide()">বাতিল</button>
+  </div>
+</ng-template>
+
+<!-- <form method="POST" action="10.100.106.17:5000/api/upload" enctype="multipart/form-data">
+  <input type="file" name="pic" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+  <button type="submit">submit</button>
+</form> -->

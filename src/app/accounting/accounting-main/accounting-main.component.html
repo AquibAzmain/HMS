@@ -20,7 +20,7 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab title="ক্যাটেগরি সংশোধন">
+        <ngb-tab title="ক্যাটেগরি সংশোধন" *ngIf="role == 'accountant'">
           <ng-template ngbTabContent>
             <app-category-edit></app-category-edit>
           </ng-template>

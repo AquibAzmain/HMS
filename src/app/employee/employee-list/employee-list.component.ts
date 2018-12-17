@@ -42,11 +42,11 @@ export class EmployeeListComponent implements OnInit {
       this.router.navigate(['/authentication/login']);
       return;
     }
-    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
+    if((this.role == "provost" || this.role == "hallOfficer")) {
       this.getEmployeeData();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
    
     // let e : Employee = new Employee();

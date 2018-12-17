@@ -14,7 +14,7 @@ export class EducationInfoComponent implements OnInit {
 
   position = 'bottom';
 
-  role = "hallOfficer"; //localStorage.getItem('role'); 
+  role = localStorage.getItem('role'); 
   student: Student = new Student();
   constructor(private route: ActivatedRoute,
     private studentService: StudentService,
@@ -23,11 +23,11 @@ export class EducationInfoComponent implements OnInit {
 
 
   ngOnInit() {
-    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
+    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
       this.getStudentData();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
   }
 

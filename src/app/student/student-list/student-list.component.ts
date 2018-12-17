@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { Server } from '../../../utils/Server'
 import { Student } from '../../../models/Student';
-
+import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 
 const URL = Server.API_ENDPOINT + 'excel';
 declare var jsPDF: any;
@@ -21,22 +21,25 @@ declare var jsPDF: any;
 export class StudentListComponent implements OnInit {
   alumniStudent: any;
   position = 'bottom';
-  //role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
-  role = "hallOfficer";
+  role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
+  //role = "hallOfficer";
   public uploader: FileUploader = new FileUploader({ url: URL });
   public studentToBeSearched: Student = new Student();
+  public studentToBeFiltered: Student = new Student();
   public data: any;
   public rowsOnPage = 10;
   public filterQuery = '';
   public sortBy = '';
   public sortOrder = 'desc';
   public isCollapsed: boolean = true;
-
+  selectedValue = ['name', 'registrationNumber'];
   bsValue = new Date();
   modalHeader: string;
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
   public fileUploadModalRef: BsModalRef;
+  public reportModalRef: BsModalRef;
+  today = new Date();
   @ViewChild('fileInput') fileInput: ElementRef;
   constructor(public http: Http,
     private modalService: BsModalService,
@@ -46,18 +49,34 @@ export class StudentListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.http.get(`assets/data/data.json`)
-    // .subscribe((data) => {
-    //   this.data = data.json();
-    // });
-    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
+    this.today = new Date();
+    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
+      this.getStudentList();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
-    this.getStudentList();
+  }  
 
+  options = {
+    fieldSeparator: ',',
+    quoteStrings: '"',
+    decimalseparator: '.',
+    showLabels: true,
+    headers: this.selectedValue
+  };
 
+  downloadCSV(item) {
+    let filteredData: any = new Array();
+    this.data.forEach(std => {
+      let temp = {};
+      this.selectedValue.forEach(val => {
+        temp[val] = std[val];
+      });
+      filteredData.push(temp);
+    });
+    console.log(filteredData);
+    new Angular5Csv(filteredData, "student_report_"+this.today, this.options);
   }
 
   confirmDelete(student): void {
@@ -137,6 +156,20 @@ export class StudentListComponent implements OnInit {
     this.fileUploadModalRef = this.modalService.show(template);
   }
 
+  public openReportModal(template: TemplateRef<any>) {
+    this.reportModalRef = this.modalService.show(template);
+  }
+
+  change(e, type) {
+    if (type) {
+      this.selectedValue.push(e.target.defaultValue);
+    }
+    else {
+      let index = this.selectedValue.indexOf(e.target.defaultValue);
+      this.selectedValue.splice(index, 1);
+    }
+  }
+
   confirm(): void {
     console.log('Confirmed!');
     this.modalRef.hide();
@@ -214,6 +247,16 @@ export class StudentListComponent implements OnInit {
     });
   }
 
+  errorFileToast(title) {
+    this.addToast({
+      title: 'Error',
+      msg: title,
+      timeout: 5000, theme: 'material',
+      position: 'bottom',
+      type: 'error'
+    });
+  }
+
   errorViewToast() {
     this.addToast({
       title: 'Error',
@@ -243,18 +286,23 @@ export class StudentListComponent implements OnInit {
   }
 
   fileChange(event) {
+    let tempData = new FormData();
+    this.fileUploadModalRef.hide();
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       let file: File = fileList[0];
-      let formData: FormData = new FormData();
-      formData.append('file', file, file.name);
-      console.log(formData);
-      this.studentService.uploadFile(formData)
+      console.log(file)
+      //tempData.append("name", 'mou');
+      let temp = {}
+      temp['excel'] = file
+      tempData.append('excel', file);
+      console.log(tempData.get('excel'));
+      this.studentService.uploadFile(tempData)
         .subscribe((response) => {
           this.successToast();
           this.getStudentList();
         }, error => {
-          this.errorToast();
+          this.errorFileToast("File upload error");
         });
     }
   }
