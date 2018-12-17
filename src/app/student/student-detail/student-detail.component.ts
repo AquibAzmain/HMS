@@ -15,15 +15,15 @@ export class StudentDetailComponent implements OnInit {
     private studentService: StudentService,
     private router: Router) { }
 
-  role = "hallOfficer" ; //localStorage.getItem('role'); 
+  role = localStorage.getItem('role'); 
   student: Student = new Student();
   
   ngOnInit() {
-    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
+    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
       this.getStudentData();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
   }
 

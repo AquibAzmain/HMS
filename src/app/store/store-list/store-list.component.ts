@@ -26,7 +26,7 @@ export class StoreListComponent implements OnInit {
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
 
-  role = "hallOfficer"; //admin hallOfficer localStorage.getItem('role');
+  role = localStorage.getItem('role');
   assets: Asset[] = [];
   assetToBeAdded: Asset = new Asset();
   assetToBeSearched: Asset = new Asset();
@@ -38,17 +38,12 @@ export class StoreListComponent implements OnInit {
 
 
   ngOnInit() {
-    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
+    if ((this.role == "provost" || this.role == "hallOfficer")) {
       this.getAssetData();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
-
-    // this.http.get(`assets/data/store.json`)
-    // .subscribe((data) => {
-    //   this.data = data.json();
-    // });
   }
 
   getAssetData() {

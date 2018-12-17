@@ -21,8 +21,8 @@ declare var jsPDF: any;
 export class StudentListComponent implements OnInit {
   alumniStudent: any;
   position = 'bottom';
-  //role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
-  role = "hallOfficer";
+  role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
+  //role = "hallOfficer";
   public uploader: FileUploader = new FileUploader({ url: URL });
   public studentToBeSearched: Student = new Student();
   public data: any;
@@ -46,16 +46,12 @@ export class StudentListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.http.get(`assets/data/data.json`)
-    // .subscribe((data) => {
-    //   this.data = data.json();
-    // });
-    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
+    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
+      this.getStudentList();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
-    this.getStudentList();
 
 
   }

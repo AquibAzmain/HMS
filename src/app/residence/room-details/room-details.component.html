@@ -33,7 +33,7 @@
     <div class="card">
       <div class="card-header">
         <p class="card-header-text">সাধারণ তথ্যাবলী</p>
-        <button id="edit-btn" type="button" class="btn btn-sm residence-button waves-effect waves-light f-right"
+        <button *ngIf="this.role == 'hallOfficer'" id="edit-btn" type="button" class="btn btn-sm residence-button waves-effect waves-light f-right"
           (click)="toggleEditProfile()">
           তথ্য সংশোধন <i class="icofont {{ editProfileIcon }}"></i>
         </button>
@@ -123,7 +123,7 @@
     <div class="card">
       <div class="card-header">
         <p class="card-header-text">কক্ষের ছাত্রদের তালিকা</p>
-        <button type="button" class="btn btn-sm f-right residence-button" (click)="openModal(template, 'add')">
+        <button *ngIf="this.role == 'houreTutor'" type="button" class="btn btn-sm f-right residence-button" (click)="openModal(template, 'add')">
           <i class="icofont icofont-plus"></i> নতুন ছাত্র
         </button>
       </div>
@@ -135,7 +135,7 @@
                 <th>ছাত্রের নাম</th>
                 <th>রেজিস্ট্রেশান নম্বর</th>
                 <th>আবাসিক স্ট্যাটাস</th>
-                <th>অ্যাকশন</th>
+                <th  *ngIf="this.role == 'houreTutor'">অ্যাকশন</th>
               </tr>
             </thead>
             <tbody>
@@ -143,7 +143,7 @@
                 <td>{{item.name}}</td>
                 <td>{{item.registrationNumber}}</td>
                 <td>{{item.residentialStatus}}</td>
-                <td>
+                <td  *ngIf="this.role == 'houreTutor'">
                   <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">
                     <i class="icofont icofont-ui-delete"></i></a>
                 </td>

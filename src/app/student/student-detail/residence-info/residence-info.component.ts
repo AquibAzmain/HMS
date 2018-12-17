@@ -17,7 +17,7 @@ export class ResidenceInfoComponent implements OnInit {
   position = 'bottom';
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
-  role = "hallOfficer"; //localStorage.getItem('role'); 
+  role = localStorage.getItem('role'); 
   student: Student = new Student();
   residentialList = [];
   residentialFeeToBeAdded: ResidentialFee = new ResidentialFee();
@@ -28,12 +28,12 @@ export class ResidenceInfoComponent implements OnInit {
     private modalService: BsModalService) { }
 
   ngOnInit() {
-    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
+    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
       this.getStudentData();
       this.getResidenceFeeStatusData();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
   }
 

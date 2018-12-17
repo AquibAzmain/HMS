@@ -47,11 +47,11 @@ export class LeaveInfoComponent implements OnInit {
   ngOnInit() {
     this.employeeId = this.route.snapshot.paramMap.get('id');
     console.log(this.role);
-    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
+    if((this.role == "provost" || this.role == "hallOfficer")) {
       this.getLeaveData();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
     // let l = new Leave();
     // l.approval_status = "approved";

@@ -23,11 +23,11 @@ export class BasicInfoComponent implements OnInit {
 
   ngOnInit() {
     //console.log(employeeId);
-    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
+    if((this.role == "provost" || this.role == "hallOfficer")) {
       this.getEmployeeData();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
   }
 

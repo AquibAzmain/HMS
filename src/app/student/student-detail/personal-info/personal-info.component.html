@@ -3,7 +3,7 @@
   <div class="card">
     <div class="card-header">
       <p class="card-header-text">ব্যক্তিগত তথ্যাবলী</p>
-      <button id="edit-btn" type="button" class="btn btn-sm btn-danger waves-effect waves-light f-right" (click)="toggleEditProfile()">
+      <button *ngIf="this.role == 'hallOfficer'" id="edit-btn" type="button" class="btn btn-sm btn-danger waves-effect waves-light f-right" (click)="toggleEditProfile()">
         তথ্য সংশোধন <i class="icofont {{ editProfileIcon }}"></i>
       </button>
     </div>

@@ -61,7 +61,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4">
+      <div class="col-xs-12 col-sm-12 col-md-4" *ngIf="role == 'hallOfficer'">
         <button class="btn btn-warning f-right" (click)="openAddAssetModal(addAsset)"><i class="icofont icofont-plus"></i>
           নতুন সম্পদ</button>
       </div>
@@ -76,7 +76,7 @@
             <th> অবস্থান</th>
             <th>অবস্থা</th>
             <th>ক্রয়ের তারিখ</th>
-            <th>অ্যাকশন</th>
+            <th  *ngIf="role == 'hallOfficer'">অ্যাকশন</th>
           </tr>
 
         </thead>
@@ -87,7 +87,7 @@
             <td>{{item.location}}</td>
             <td>{{item.condition}}</td>
             <td>{{item.dateOfPurchase | date:'dd/MM/yyyy'}}</td>
-            <td>
+            <td *ngIf="role == 'hallOfficer'">
               <a (click)="openUpdateAssetModal(updateAsset)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
               <ng-template #updateAsset>
