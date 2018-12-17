@@ -50,7 +50,7 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab title="মন্তব্য">
+        <ngb-tab title="মন্তব্য" *ngIf="role == 'provost' || role == 'houseTutor'">
           <ng-template ngbTabContent>
             <app-comments></app-comments>
           </ng-template>

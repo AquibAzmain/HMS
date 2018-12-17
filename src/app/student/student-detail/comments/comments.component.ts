@@ -16,7 +16,7 @@ export class CommentsComponent implements OnInit {
   userName = localStorage.getItem('name');
   userID = localStorage.getItem('id');
   today = this.formatDate(new Date());
-  role = "hallOfficer"; //localStorage.getItem('role'); 
+  role = localStorage.getItem('role'); 
   student: Student = new Student();
   commentObject: Remark = new Remark();
   comments: Remark[]=[];
@@ -33,8 +33,7 @@ export class CommentsComponent implements OnInit {
     private modalService: BsModalService) { }
 
     ngOnInit() {
-      console.log(this.userID);
-      if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
+      if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
         this.getStudentData();
         this.getUserData();
         this.getComments();
@@ -42,7 +41,7 @@ export class CommentsComponent implements OnInit {
         this.getClubData();
       }
       else {
-        this.router.navigate(['/**']);
+        this.router.navigate(['/dashboard']);
       }
     }
 

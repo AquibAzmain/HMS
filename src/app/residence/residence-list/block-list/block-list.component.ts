@@ -25,8 +25,7 @@ export class BlockListComponent implements OnInit {
   public deleteModalRef: BsModalRef;
 
   hasAddError = false;
-  //role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
-  role = "hallOfficer";
+  role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
   blocks: Block[] = [];
   blockToBeAdded: Block = new Block();
 
@@ -40,7 +39,7 @@ export class BlockListComponent implements OnInit {
       this.getBlockData();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
   }
 

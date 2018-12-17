@@ -24,8 +24,7 @@ export class RoomListComponent implements OnInit {
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
 
-  //role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
-  role="hallOfficer";
+  role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
   rooms: any;
   blocks:Block[];
   roomToBeAdded: Room = new Room();
@@ -39,13 +38,13 @@ export class RoomListComponent implements OnInit {
 
   ngOnInit() {
     this.hasError = false;
-    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
+    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
       this.getRoomData();
       this.getBlockData();
       this.getHouseTutorList()
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
   }
 

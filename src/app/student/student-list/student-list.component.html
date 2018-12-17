@@ -71,7 +71,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-2">
+      <div class="col-xs-12 col-sm-12 col-md-2" *ngIf="role == 'hallOfficer'">
         <div class="btn-group" dropdown>
           <!-- <button id="button-basic" type="button" class="btn btn-danger f-right" [routerLink]="['add_student/', 0]">
             <i class="icofont icofont-plus"></i>
@@ -104,7 +104,7 @@
             <th>ডিপার্টমেন্ট</th>
             <th>শ্রেণি/বর্ষ</th>
             <th>মোবাইল<br />নম্বর</th>
-            <th>অ্যাকশন</th>
+            <th *ngIf="role == 'hallOfficer'">অ্যাকশন</th>
           </tr>
           <tr>
           </tr>
@@ -121,7 +121,7 @@
             <td>{{item.subject_name}}</td>
             <td>{{item.class_year_semester}}</td>
             <td>{{item.mobileNumber}}</td>
-            <td>
+            <td *ngIf="role == 'hallOfficer'">
               <a (click)="openUpdateStudentModal(template)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
               <ng-template #template>
@@ -263,7 +263,7 @@
     </div>
   </div>
 </ng-template>
-<button type="button" class="btn btn-xs" style="background-color:brown; color:white" (click)="getCleanUpData()">
+<button *ngIf="role == 'hallOfficer'" type="button" class="btn btn-xs" style="background-color:brown; color:white" (click)="getCleanUpData()">
   <span class="glyphicon glyphicon-upload"></span> পুরাতন তথ্য মুছে দিন
 </button>
 

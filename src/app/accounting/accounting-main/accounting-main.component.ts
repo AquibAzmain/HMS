@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, style, transition, trigger} from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accounting-main',
@@ -8,9 +9,16 @@ import {animate, style, transition, trigger} from '@angular/animations';
 })
 export class AccountingMainComponent implements OnInit {
 
-  constructor() { }
+  role = localStorage.getItem('role');
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    if((this.role == "provost" || this.role == "accountant")) {
+    }
+    else {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
 }

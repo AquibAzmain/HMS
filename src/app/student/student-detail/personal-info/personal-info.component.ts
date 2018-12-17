@@ -17,18 +17,18 @@ export class PersonalInfoComponent implements OnInit {
     private toastyService: ToastyService) { }
   position = 'bottom';
 
-  role = "hallOfficer"; //localStorage.getItem('role'); 
+  role = localStorage.getItem('role'); 
   student: Student = new Student();
   editProfile = true;
   editProfileIcon = 'icofont-edit';
   bsValue = new Date();
 
   ngOnInit() {
-    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
+    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
       this.getStudentData();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
   }
 

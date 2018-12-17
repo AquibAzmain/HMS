@@ -31,7 +31,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4">
+      <div class="col-xs-12 col-sm-12 col-md-4" *ngIf="this.role == 'hallOfficer'">
         <button class="btn residence-button f-right" (click)="openAddRoomModal(addRoom)"><i class="icofont icofont-plus"></i>
           নতুন কক্ষ</button>
       </div>
@@ -45,7 +45,7 @@
             <th>ব্লক</th>
             <th>ধারণ ক্ষমতা</th>
             <th>দায়িত্বপ্রাপ্ত শিক্ষক</th>
-            <th>অ্যাকশন</th>
+            <th *ngIf="this.role == 'hallOfficer'">অ্যাকশন</th>
           </tr>
         </thead>
         <tbody>
@@ -54,7 +54,7 @@
             <td>{{room.block_id}}</td>
             <td>{{room.capacity}}</td>
             <td>{{room.assignedHouseTutor}}</td>
-            <td>
+            <td *ngIf="this.role == 'hallOfficer'">
               <a (click)="openUpdateRoomModal(updateRoom)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
               <ng-template #updateRoom>

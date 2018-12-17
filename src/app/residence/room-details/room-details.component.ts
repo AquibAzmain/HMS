@@ -29,13 +29,13 @@ export class RoomDetailsComponent implements OnInit {
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
   room: Room = new Room();
-  role = "hallOfficer";
   houseTutors: any;
   assignedHouseTutorName:any;
   studentRegToBeAddedToRoom: "";
   numberOfStudentInRoom: number;
   selectedValue = [];
   //role = localStorage.getItem('role'); //"hallOfficer";
+  role = localStorage.getItem('role'); //"hallOfficer";
   constructor(private route: ActivatedRoute, private modalService: BsModalService, private residenceService: ResidenceService,
     private router: Router,
     private toastyService: ToastyService, private http: Http) { }
@@ -47,15 +47,15 @@ export class RoomDetailsComponent implements OnInit {
     // });
 
     //console.log(employeeId);
-    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
+    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
       this.getRoomData();
+      this.getStudentList();
+      this.getSuggestionForAdd();
+      this.getHouseTutorList();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
-    this.getStudentList();
-    this.getSuggestionForAdd();
-    this.getHouseTutorList();
   }
 
   getRoomData() {

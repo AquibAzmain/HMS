@@ -47,11 +47,13 @@ export class UserListComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    // this.http.get(`assets/data/users.json`)
-    // .subscribe((data) => {
-    //   this.data = data.json();
-    // });
-    this.loadUsers();
+    if((this.role == "admin")) {
+      this.loadUsers();
+    }
+    else {
+      this.router.navigate(['/dashboard']);
+    }
+    
   }
 
   loadUsers(){
