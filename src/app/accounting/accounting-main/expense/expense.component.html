@@ -54,10 +54,11 @@
           </div> -->
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4" *ngIf="role == 'accountant'">
-          <button class="btn bg-c-brown text-white f-right" (click)="openModal(template, 'add')"><i class="icofont icofont-plus"></i>
+          <button class="btn bg-c-brown text-white f-right" (click)="openAddExpenseModal(template)">
+            <i class="icofont icofont-plus"></i>
             নতুন ব্যয়</button>
         </div>
-      </div>
+        </div>
       <div class="table-responsive" style="margin-top:30px">
         <table class="table table-striped table-bordered full-data-table" [mfData]="expenses | dataFilter : filterQuery" #mf="mfDataTable"
           [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
