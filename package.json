@@ -32,6 +32,7 @@
     "angular2-material-datepicker": "^0.5.0",
     "angular2-notifications": "^0.7.8",
     "angular2-wizard": "^0.4.0",
+    "angular5-csv": "^0.2.10",
     "bootstrap": "^4.0.0-beta",
     "c3": "^0.4.18",
     "core-js": "^2.4.1",

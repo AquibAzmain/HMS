@@ -14,6 +14,7 @@ import { StudentClub } from '../../../../models/StudentClub';
 export class CommentsComponent implements OnInit {
   position = 'bottom';
   userName = localStorage.getItem('name');
+  userID = localStorage.getItem('id');
   today = this.formatDate(new Date());
   role = "hallOfficer"; //localStorage.getItem('role'); 
   student: Student = new Student();
@@ -32,6 +33,7 @@ export class CommentsComponent implements OnInit {
     private modalService: BsModalService) { }
 
     ngOnInit() {
+      console.log(this.userID);
       if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
         this.getStudentData();
         this.getUserData();
@@ -88,7 +90,7 @@ export class CommentsComponent implements OnInit {
     postComment(comment){
       comment.registrationNumber = this.student.registrationNumber;
       comment.date = this.today;
-      comment.user = this.userName;
+      comment.user = this.userID;
 
       console.log(comment);
 
@@ -146,7 +148,8 @@ export class CommentsComponent implements OnInit {
       this.clubToBeAdded.registrationNumber = studentReg;
       this.studentService.addClub(this.clubToBeAdded)
         .subscribe((response) => {
-          this.getClubData();    
+          this.getClubData();
+          this.getUniqueClubData();    
           this.successToast();
         }, error => {
           this.errorDuplicateClubToast();

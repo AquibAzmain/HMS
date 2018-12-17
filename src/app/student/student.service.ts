@@ -9,9 +9,8 @@ import { User } from '../../models/User';
 import { StudentClub } from '../../models/StudentClub';
 @Injectable()
 export class StudentService {
-  token = localStorage.getItem('token');
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+this.token})
+    headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+localStorage.getItem('token')})
   };
 
   
@@ -72,7 +71,8 @@ export class StudentService {
   // }
 
   uploadFile(formData){
-    return this.http.post(Server.API_ENDPOINT +'upload', formData, this.httpOptions)
+    console.log(formData)
+    return this.http.post(Server.API_ENDPOINT +'upload', formData)
   }
 
   getResidenceFeeStatusData(registrationNumber): Observable<ResidentialFee[]>  {

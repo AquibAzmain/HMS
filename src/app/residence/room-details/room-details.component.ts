@@ -34,6 +34,7 @@ export class RoomDetailsComponent implements OnInit {
   assignedHouseTutorName:any;
   studentRegToBeAddedToRoom: "";
   numberOfStudentInRoom: number;
+  selectedValue = [];
   //role = localStorage.getItem('role'); //"hallOfficer";
   constructor(private route: ActivatedRoute, private modalService: BsModalService, private residenceService: ResidenceService,
     private router: Router,
@@ -100,10 +101,6 @@ export class RoomDetailsComponent implements OnInit {
       }, error => {
         this.errorToast();
       });
-  }
-
-  onSelectionChange(entry) {
-    this.studentRegToBeAddedToRoom = entry;
   }
 
   getHouseTutorList(){
