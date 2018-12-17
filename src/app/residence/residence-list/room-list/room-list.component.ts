@@ -24,8 +24,9 @@ export class RoomListComponent implements OnInit {
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
 
-  role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
-  rooms: any;
+  //role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
+  role = localStorage.getItem('role');
+  rooms: Room[] = [];
   blocks:Block[];
   roomToBeAdded: Room = new Room();
   roomToBeSearched: Room = new Room();
@@ -122,7 +123,8 @@ export class RoomListComponent implements OnInit {
   searchSortRoom(room){
     this.residenceService.searchSortRoom(room)
       .subscribe((response) => {
-        this.successToast();
+        console.log(response)
+        // this.successToast();
         this.rooms = response;
       }, error => {
         this.errorToast();
