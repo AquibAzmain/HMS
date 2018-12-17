@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import { Transaction } from '../../../../models/Transaction';
+import { Transaction_History } from '../../../../models/Transaction_History';
 import { Transaction_Category } from '../../../../models/Transaction_Category';
 import { Transaction_SubCategory } from '../../../../models/Transaction_SubCategory';
 
@@ -26,34 +27,37 @@ export class IncomeComponent implements OnInit {
   public filterQuery = '';
   public sortBy = '';
   public sortOrder = 'desc';
-  public isCollapsed:boolean = true;
+  public isCollapsed: boolean = true;
   public typeData: any;
   selectedMainType: any = '';
   allSubType: Array<any> = [];
   selectedSubType: any = '';
-  
-  modalHeader:string;
+
+  modalHeader: string;
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
 
   role = "hallOfficer"//localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
-  
+
   incomes: Transaction[] = [];
   incomeToBeAdded: Transaction = new Transaction();
+  history: Transaction_History[] = [];
+
 
   category: Transaction_Category[] = [];
   subCategory: Transaction_SubCategory[] = [];
-  tc : Transaction_Category = new Transaction_Category();
+  tc: Transaction_Category = new Transaction_Category();
   singleCategory: Transaction_Category = new Transaction_Category;
+  hasError: boolean = false;
 
   constructor(public http: Http, private modalService: BsModalService,
-    private transactionService : TransactionService, private transactionCategoryService : TransactionCategoryService,
-    private transactionSubcategoryService : TransactionSubcategoryService, private router: Router,
-    private toastyService: ToastyService ) { }
+    private transactionService: TransactionService, private transactionCategoryService: TransactionCategoryService,
+    private transactionSubcategoryService: TransactionSubcategoryService, private router: Router,
+    private toastyService: ToastyService) { }
 
   ngOnInit() {
-   
-    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
+    this.hasError = false;
+    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
       this.getIncomeData();
       this.getCategoryData();
     }
@@ -65,8 +69,9 @@ export class IncomeComponent implements OnInit {
 
   getIncomeData() {
     this.transactionService.getIncomeList()
-      .subscribe((response) => { 
+      .subscribe((response) => {
         this.incomes = response;
+        console.log(this.incomes);
       }, error => {
         this.errorToast();
       });
@@ -76,7 +81,7 @@ export class IncomeComponent implements OnInit {
 
     this.singleCategory.parent_type = "income";
     this.transactionCategoryService.getIncomeCategoryList()
-      .subscribe((response) => { 
+      .subscribe((response) => {
         this.category = response;
         console.log(this.category);
       });
@@ -84,7 +89,7 @@ export class IncomeComponent implements OnInit {
 
   getSubCategoryData(s: any) {
     this.transactionSubcategoryService.getSubCategoryList(s)
-      .subscribe((response) => { 
+      .subscribe((response) => {
         this.subCategory = response;
         //console.log(this.subCategory);
       });
@@ -94,56 +99,62 @@ export class IncomeComponent implements OnInit {
     this.incomeToBeAdded = new Transaction();
     this.modalRef = this.modalService.show(template);
   }
-  
+
   confirmAddIncome(): void {
     console.log(this.incomes.length);
     this.modalRef.hide();
 
-    if(this.incomeToBeAdded.purchase_date != null){
+    if (this.incomeToBeAdded.purchase_date != null) {
       this.incomeToBeAdded.purchase_date = this.formatDate(this.incomeToBeAdded.purchase_date);
     }
     this.transactionService.addIncome(this.incomeToBeAdded)
-    .subscribe((response) => { 
-      //this.successToast();
-      this.incomeToBeAdded = response;
-      this.incomes.push(this.incomeToBeAdded);
-      this.getIncomeData();
-    }, error => {
-      this.errorToast();
-    });
+      .subscribe((response) => {
+        //this.successToast();
+        this.incomeToBeAdded = response;
+        this.incomes.push(this.incomeToBeAdded);
+        this.getIncomeData();
+      }, error => {
+        this.errorToast();
+      });
 
   }
-  
+
 
   public formatDate(date) {
     var day = date.getDate();
-    var monthIndex = date.getMonth()+1;
+    var monthIndex = date.getMonth() + 1;
     var year = date.getFullYear();
-  
+
     return day + '/' + monthIndex + '/' + year;
   }
 
 
   public openUpdateIncomeModal(template: TemplateRef<any>) {
+
     this.modalRef = this.modalService.show(template);
   }
 
-  confirmUpdateIncome(income): void {
-    console.log(income);
-    this.modalRef.hide();
-    if(income.purchase_date != null){
-      income.purchase_date = this.formatDate(income.purchase_date);
-    }
+  confirmUpdateIncome(income: Transaction): void {
     
-    this.transactionService.updateIncome(income)
-    .subscribe((response) => { 
-      this.successToast();
-      this.getIncomeData();
-      console.log(response);
-      console.log(income);
-    }, error => {
-      this.errorToast();
-    });
+    console.log(income.comment);
+    if (income.comment == null) {
+      this.hasError = true;
+    }
+
+    else {
+      this.modalRef.hide();
+      this.hasError = false;
+      this.transactionService.updateIncome(income)
+      .subscribe((response) => {
+        this.successToast();
+        this.getIncomeData();
+        console.log(response);
+        console.log(income);
+      }, error => {
+        this.errorToast();
+      });
+    }
+
   }
 
   public openDeleteModal(template: TemplateRef<any>) {
@@ -154,60 +165,70 @@ export class IncomeComponent implements OnInit {
     console.log(income)
     this.deleteModalRef.hide();
     this.transactionService.deleteIncome(income)
-    .subscribe((response) => { 
-      this.successToast();
-      let index = this.incomes.indexOf(income);
-      this.incomes.splice(index,1);
-    }, error => {
-      this.errorToast();
-    });
+      .subscribe((response) => {
+        this.successToast();
+        let index = this.incomes.indexOf(income);
+        this.incomes.splice(index, 1);
+      }, error => {
+        this.errorToast();
+      });
   }
 
 
 
-  selectMainType (event: any) {
-    
-    this.incomeToBeAdded.cat_name = event.target.value; 
+  selectMainType(event: any) {
+
+    this.incomeToBeAdded.cat_name = event.target.value;
     //console.log(event.target.value);
-    
+
     this.getSubCategoryData(this.incomeToBeAdded.cat_name);
     //console.log(this.subCategory);
+    this.incomeToBeAdded.sub_name = this.subCategory[0].sub_name;
   }
 
-  selectSubType (event: any) {
+  selectSubType(event: any) {
 
     this.incomeToBeAdded.sub_name = event.target.value;
     console.log(event.target.value);
   }
 
+  public openIncomeHistoryModal(template: TemplateRef<any>) {
 
-   // *************************************
-
-  
-
-
-  
-
-
-  
-
-
-  public openModal(template: TemplateRef<any>, type: string) {
     this.modalRef = this.modalService.show(template);
-    if(type=="add")this.modalHeader = "নতুন আয়ের হিসাব যুক্ত করুন";
-    else this.modalHeader = "হিসাব সংশোধন";
   }
+
+
+  getIncomeHistoryData(tranid: number, template: TemplateRef<any>) {
+    this.openIncomeHistoryModal(template);
+    this.transactionService.getTransactionHistory(tranid)
+      .subscribe((response) => {
+        this.history = response;
+        console.log(this.history);
+      });
+  }
+  // *************************************
+
+
+
+
+
+
+
+
+
+
+
 
   confirm(): void {
     console.log('Confirmed!');
     this.modalRef.hide();
   }
- 
+
   decline(): void {
     console.log('Declined!');
     this.modalRef.hide();
   }
-  
+
   declineDelete(): void {
     this.deleteModalRef.hide();
   }

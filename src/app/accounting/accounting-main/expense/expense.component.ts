@@ -12,6 +12,7 @@ import { TransactionCategoryService } from '../transaction-category.service';
 import { TransactionSubcategoryService } from '../transaction-subcategory.service';
 import { Router } from '@angular/router';
 import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
+import { Transaction_History } from '../../../../models/Transaction_History';
 
 @Component({
   selector: 'app-expense',
@@ -44,9 +45,11 @@ export class ExpenseComponent implements OnInit {
   
   expenses: Transaction[] = [];
   expenseToBeAdded: Transaction = new Transaction();
-
+  history: Transaction_History[] = [];
+  
   category: Transaction_Category[] = [];
   subCategory: Transaction_SubCategory[] = [];
+  hasError: boolean = false;
 
   constructor(public http: Http, private modalService: BsModalService,
     private transactionService : TransactionService, private transactionCategoryService : TransactionCategoryService,
@@ -54,7 +57,7 @@ export class ExpenseComponent implements OnInit {
     private toastyService: ToastyService ) { }
 
   ngOnInit() {
-    
+    this.hasError = false;
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
       this.getExpenseData();
       this.getCategoryData();
@@ -120,21 +123,24 @@ export class ExpenseComponent implements OnInit {
   }
 
   confirmUpdateExpense(expense): void {
-    console.log(expense);
-    this.modalRef.hide();
-    if(expense.purchase_date != null){
-      expense.purchase_date = this.formatDate(expense.purchase_date);
+    console.log(expense.comment);
+    if (expense.comment == null) {
+      this.hasError = true;
     }
-    
-    this.transactionService.addExpense(expense)
-    .subscribe((response) => {
-      //this.successToast(); 
-      this.getExpenseData();
-      console.log(response);
-      console.log(expense);
-    }, error => {
-      this.errorToast();
-    });
+
+    else {
+      this.modalRef.hide();
+      this.hasError = false;
+      this.transactionService.updateExpense(expense)
+      .subscribe((response) => {
+        this.successToast();
+        this.getExpenseData();
+        console.log(response);
+        console.log(expense);
+      }, error => {
+        this.errorToast();
+      });
+    }
   }
 
   public openDeleteModal(template: TemplateRef<any>) {
@@ -169,12 +175,26 @@ export class ExpenseComponent implements OnInit {
     
     this.getSubCategoryData(this.expenseToBeAdded.cat_name);
     //console.log(this.subCategory);
+    this.expenseToBeAdded.sub_name = this.subCategory[0].sub_name;
   }
 
   selectSubType (event: any) {
 
     this.expenseToBeAdded.sub_name = event.target.value;
     console.log(event.target.value);
+  }
+
+  public openIncomeHistoryModal(template: TemplateRef<any>) {
+
+    this.modalRef = this.modalService.show(template);
+  }
+  getExpenseHistoryData(tranid: number, template: TemplateRef<any>) {
+    this.openIncomeHistoryModal(template);
+    this.transactionService.getTransactionHistory(tranid)
+      .subscribe((response) => {
+        this.history = response;
+        console.log(this.history);
+      });
   }
 
 

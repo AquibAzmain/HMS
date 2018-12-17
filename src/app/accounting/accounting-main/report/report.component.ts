@@ -42,17 +42,19 @@ export class ReportComponent implements OnInit {
 
   ngOnInit() {
     if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
-      this.getBalance();
+      //this.getBalance();
+      this.getPresentBalance();
     }
     else {
       this.router.navigate(['/**']);
     }
   }
 
+  /*
   getBalance() {
     this.transactionService.getBalance()
       .subscribe((response) => { 
-        
+        this.calculateSummary();
         
         this.currentBalance = response;
         console.log(this.currentBalance);
@@ -60,6 +62,39 @@ export class ReportComponent implements OnInit {
       }, error => {
        
       });
+  }
+  */
+ 
+  getPresentBalance() {
+    
+    this.netValue = 0;
+    this.transactionService.getIncomeList()
+      .subscribe((response) => {  
+        this.transactions = response;
+        console.log(this.transactions);
+        for(var key in this.transactions){
+          this.netValue += this.transactions[key].amount;
+        }
+      }, error => {
+       
+      });
+      
+      
+
+      this.transactionService.getExpenseList()
+      .subscribe((response) => {  
+        this.transactions = response;
+        console.log(this.transactions);
+        for(var key in this.transactions){
+          this.netValue -= this.transactions[key].amount;
+        }
+        console.log("Net: "+ this.netValue);
+      }, error => {
+       
+      });
+
+      
+      
   }
 
   getData() {
