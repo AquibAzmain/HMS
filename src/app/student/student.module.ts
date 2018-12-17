@@ -19,7 +19,6 @@ import { StudentService } from './student.service';
 import {ToastyModule} from 'ng2-toasty';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { SelectModule } from 'ng2-select';
 
 export const StudentRoutes: Routes = [
 {
