@@ -38,7 +38,7 @@ export class UserProfileComponent implements OnInit {
       this.user_info.name = resp["name"];
       this.user_info.mobile_number = resp["mobile_number"];
     }, err => {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     });
   }
 

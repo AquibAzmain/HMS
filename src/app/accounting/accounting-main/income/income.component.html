@@ -70,7 +70,7 @@
               <th>চেক নং</th>
               <th>তারিখ</th>
               <th>মন্তব্য</th>
-              <th *ngIf="this.role == 'hallOfficer'">অ্যাকশন</th>
+              <th *ngIf="this.role == 'provost'">অ্যাকশন</th>
               <!-- <th>অ্যাকশন</th> -->
             </tr>
 
@@ -84,7 +84,7 @@
               <td>{{item.purchase_date |date:'dd/MM/yyyy'}}</td>
               <td>{{item.comment}}</td>
 
-              <td *ngIf="this.role == 'hallOfficer'">
+              <td *ngIf="this.role == 'provost'">
                 <a (click)="openUpdateIncomeModal(updateTransaction)" href="javascript:;" class="edit-delete-icon">
                   <i class="icofont icofont-edit"></i>
                 </a>&nbsp;&nbsp;

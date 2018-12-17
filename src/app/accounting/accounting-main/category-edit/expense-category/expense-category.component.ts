@@ -37,14 +37,14 @@ export class ExpenseCategoryComponent implements OnInit {
 
   ngOnInit() {
     
-    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
+    if((this.role == "account")) {
       this.getExpenseCategoryData();
       //this.getSubCategoryData();
       //this.subCategoryToBeAdded.parent_cat = "University expense";
 
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
     
     // this.http.get(`assets/data/incomeCategory.json`)

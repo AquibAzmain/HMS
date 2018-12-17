@@ -41,7 +41,7 @@ export class ExpenseComponent implements OnInit {
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
 
-  role = "hallOfficer"//localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
+  role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
   
   expenses: Transaction[] = [];
   expenseToBeAdded: Transaction = new Transaction();
@@ -58,13 +58,13 @@ export class ExpenseComponent implements OnInit {
 
   ngOnInit() {
     this.hasError = false;
-    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
+    if((this.role == "provost" || this.role == "accountant")) {
       this.getExpenseData();
       this.getCategoryData();
       //this.getSubCategoryData();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
   }
 

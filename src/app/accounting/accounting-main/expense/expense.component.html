@@ -70,7 +70,7 @@
               <th>চেক নং</th>
               <th>তারিখ</th>
               <th>মন্তব্য</th>
-              <th *ngIf="this.role == 'hallOfficer'">অ্যাকশন</th>
+              <th *ngIf="this.role == 'provost'">অ্যাকশন</th>
               <!-- <th>
                 <mfDefaultSorter>অ্যাকশন</mfDefaultSorter>
               </th> -->
@@ -92,7 +92,7 @@
                   <i class="icofont icofont-ui-delete"></i></a>
               </td> -->
 
-              <td *ngIf="this.role == 'hallOfficer'">
+              <td *ngIf="this.role == 'provost'">
                 <a (click)="openUpdateExpenseModal(updateTransaction)" href="javascript:;" class="edit-delete-icon">
                   <i class="icofont icofont-edit"></i>
                 </a>&nbsp;&nbsp;

@@ -33,7 +33,7 @@ export class ReportComponent implements OnInit {
   totalExpense: number;
   netValue: number;
 
-  role = "hallOfficer"//localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
+  role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
 
   constructor(public http: Http, private modalService: BsModalService,
     private transactionService : TransactionService, private router: Router) { }
@@ -41,12 +41,12 @@ export class ReportComponent implements OnInit {
   
 
   ngOnInit() {
-    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
+    if((this.role == "provost" || this.role == "accountant")) {
       //this.getBalance();
       this.getPresentBalance();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
   }
 

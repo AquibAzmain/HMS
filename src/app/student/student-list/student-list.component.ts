@@ -41,6 +41,7 @@ export class StudentListComponent implements OnInit {
   public reportModalRef: BsModalRef;
   today = new Date();
   @ViewChild('fileInput') fileInput: ElementRef;
+  uniqueClubList: any;
   constructor(public http: Http,
     private modalService: BsModalService,
     private studentService: StudentService,
@@ -52,11 +53,12 @@ export class StudentListComponent implements OnInit {
     this.today = new Date();
     if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
       this.getStudentList();
+      this.getUniqueClubData();
     }
     else {
       this.router.navigate(['/dashboard']);
     }
-  }  
+  }
 
   options = {
     fieldSeparator: ',',
@@ -66,18 +68,40 @@ export class StudentListComponent implements OnInit {
     headers: this.selectedValue
   };
 
-  downloadCSV(item) {
-    let filteredData: any = new Array();
-    this.data.forEach(std => {
-      let temp = {};
-      this.selectedValue.forEach(val => {
-        temp[val] = std[val];
-      });
-      filteredData.push(temp);
+  getUniqueClubData(){
+    this.studentService.getUniqueClubList()
+    .subscribe((response) => {
+      this.uniqueClubList = response;
+      console.log(this.uniqueClubList);
+    }, error => {
+      this.errorToast();
     });
-    console.log(item);
+  }
 
-    //new Angular5Csv(filteredData, "student_report_"+this.today, this.options);
+  downloadCSV(item) {
+    let filteredStudent: any;
+    this.studentService.searchSortStudent(item)
+      .subscribe((response) => {
+        this.successToast();
+        filteredStudent = response;
+
+        let filteredData: any = new Array();
+        filteredStudent.forEach(std => {
+          let temp = {};
+          this.selectedValue.forEach(val => {
+            temp[val] = std[val];
+          });
+          filteredData.push(temp);
+        });
+        console.log(item);
+
+        new Angular5Csv(filteredData, "student_report_"+this.today, this.options);
+
+      }, error => {
+        this.errorToast();
+      });
+
+
   }
 
   confirmDelete(student): void {

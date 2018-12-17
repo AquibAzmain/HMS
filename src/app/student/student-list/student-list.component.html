@@ -11,7 +11,7 @@
             <i class="icofont icofont-download"></i> ডাউনলোড
           </button> -->
           <button type="button" class="btn btn-danger" (click)="openReportModal(reportTemplate)">
-             রিপোর্ট
+            রিপোর্ট
           </button>
           <div [collapse]="isCollapsed" class="card card-block">
             <div class="row">
@@ -263,7 +263,8 @@
     </div>
   </div>
 </ng-template>
-<button *ngIf="role == 'hallOfficer'" type="button" class="btn btn-xs" style="background-color:brown; color:white" (click)="getCleanUpData()">
+<button *ngIf="role == 'provost'" type="button" class="btn btn-xs" style="background-color:brown; color:white"
+  (click)="getCleanUpData()">
   <span class="glyphicon glyphicon-upload"></span> পুরাতন তথ্য মুছে দিন
 </button>
 
@@ -286,16 +287,24 @@
           নম্বর<br />
 
           <input type="checkbox" (change)="change($event, session)" [(ngModel)]="session" value="session"> শিক্ষাবর্ষ<br />
-          <input type="checkbox" (change)="change($event, fathersName)" [(ngModel)]="fathersName" value="fathersName"> পিতার নাম<br />
-          <input type="checkbox" (change)="change($event, mothersName)" [(ngModel)]="mothersName" value="mothersName"> মাতার নাম<br />
-          <input type="checkbox" (change)="change($event, mobileNumber)" [(ngModel)]="mobileNumber" value="mobileNumber"> মোবাইল নম্বর<br />
-          <input type="checkbox" (change)="change($event, contactAddress)" [(ngModel)]="contactAddress" value="contactAddress"> যোগাযোগের ঠিকানা<br />
-          <input type="checkbox" (change)="change($event, permanentAddress)" [(ngModel)]="permanentAddress" value="permanentAddress"> স্থায়ী ঠিকানা<br />
-          <input type="checkbox" (change)="change($event, nationality)" [(ngModel)]="nationality" value="nationality"> জাতীয়তা<br />
-          <input type="checkbox" (change)="change($event, dateOfBirth)" [(ngModel)]="dateOfBirth" value="dateOfBirth"> জন্ম তারিখ<br />
+          <input type="checkbox" (change)="change($event, fathersName)" [(ngModel)]="fathersName" value="fathersName">
+          পিতার নাম<br />
+          <input type="checkbox" (change)="change($event, mothersName)" [(ngModel)]="mothersName" value="mothersName">
+          মাতার নাম<br />
+          <input type="checkbox" (change)="change($event, mobileNumber)" [(ngModel)]="mobileNumber" value="mobileNumber">
+          মোবাইল নম্বর<br />
+          <input type="checkbox" (change)="change($event, contactAddress)" [(ngModel)]="contactAddress" value="contactAddress">
+          যোগাযোগের ঠিকানা<br />
+          <input type="checkbox" (change)="change($event, permanentAddress)" [(ngModel)]="permanentAddress" value="permanentAddress">
+          স্থায়ী ঠিকানা<br />
+          <input type="checkbox" (change)="change($event, nationality)" [(ngModel)]="nationality" value="nationality">
+          জাতীয়তা<br />
+          <input type="checkbox" (change)="change($event, dateOfBirth)" [(ngModel)]="dateOfBirth" value="dateOfBirth">
+          জন্ম তারিখ<br />
           <input type="checkbox" (change)="change($event, religion)" [(ngModel)]="religion" value="religion"> ধর্ম<br />
           <input type="checkbox" (change)="change($event, gender)" [(ngModel)]="gender" value="gender"> লিঙ্গ<br />
-          <input type="checkbox" (change)="change($event, admissionExamMarks)" [(ngModel)]="admissionExamMarks" value="admissionExamMarks"> অ্যাডমিশন মার্ক<br />
+          <input type="checkbox" (change)="change($event, admissionExamMarks)" [(ngModel)]="admissionExamMarks" value="admissionExamMarks">
+          অ্যাডমিশন মার্ক<br />
           <input type="checkbox" (change)="change($event, NID)" [(ngModel)]="NID" value="NID"> NID<br />
         </div>
       </div>
@@ -319,6 +328,17 @@
           <input class="form-control" type="text" [(ngModel)]="studentToBeFiltered.session" />
         </div>
         <div class="form-group">
+          <label for="filter">সংশ্লিষ্ট সোসাইটি/সংস্থা</label>
+          <input class="form-control" type="text" list="categoryList" autocomplete="off" [(ngModel)]="studentToBeFiltered.club" />
+          <div class="input-group-btn">
+            <div class="btn-group" role="group">
+              <datalist id="categoryList">
+                <option *ngFor="let item of this.uniqueClubList.clubs" value="{{item.club}}">
+              </datalist>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
           <label for="filter">ছাত্রত্ব স্ট্যাটাস</label>
           <select class="form-control" [(ngModel)]="studentToBeFiltered.alumni">
             <option value="false">বর্তমান</option>
@@ -340,8 +360,9 @@
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-danger text-white" (click)="downloadCSV(studentToBeFiltered)"><i class="icofont icofont-download"></i> ডাউনলোড</button>
-      <button type="button" class="btn text-white cancel-button f-right" (click)="reportModalRef.hide()">বাতিল</button>
+    <button type="button" class="btn btn-danger text-white" (click)="downloadCSV(studentToBeFiltered)"><i class="icofont icofont-download"></i>
+      ডাউনলোড</button>
+    <button type="button" class="btn text-white cancel-button f-right" (click)="reportModalRef.hide()">বাতিল</button>
   </div>
 </ng-template>
 

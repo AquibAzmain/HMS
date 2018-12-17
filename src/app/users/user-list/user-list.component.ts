@@ -60,7 +60,7 @@ export class UserListComponent implements OnInit {
     this.userService.getUsers().subscribe(resp => {
       this.data = resp;
     }, err => {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     });
   }
 

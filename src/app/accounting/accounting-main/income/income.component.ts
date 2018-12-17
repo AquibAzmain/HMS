@@ -37,7 +37,7 @@ export class IncomeComponent implements OnInit {
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
 
-  role = "hallOfficer"//localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
+  role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
 
   incomes: Transaction[] = [];
   incomeToBeAdded: Transaction = new Transaction();
@@ -57,12 +57,12 @@ export class IncomeComponent implements OnInit {
 
   ngOnInit() {
     this.hasError = false;
-    if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer" || this.role == "admin")) {
+    if ((this.role == "provost" || this.role == "accountant")) {
       this.getIncomeData();
       this.getCategoryData();
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
   }
 

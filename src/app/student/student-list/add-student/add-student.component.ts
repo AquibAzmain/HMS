@@ -24,10 +24,10 @@ export class AddStudentComponent implements OnInit {
     this.today = new Date();
     console.log(this.today)
     this.hasError = false;
-    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
+    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
   }
 
