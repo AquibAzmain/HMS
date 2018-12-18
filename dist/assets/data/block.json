@@ -1,0 +1,18 @@
+[
+  {
+    "blockName": "East block",
+    "location": "Ground floor"
+  },
+  {
+    "blockName": "West block",
+    "location": "Ground floor"
+  },
+  {
+    "blockName": "East block",
+    "location": "1st floor"
+  },
+  {
+    "blockName": "West block",
+    "location": "1st floor"
+  }
+]
