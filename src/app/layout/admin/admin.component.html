@@ -96,7 +96,7 @@
                     <ng-template #mainContent>
                       <a [routerLink]="['/', asideItem.state]" target="{{asideItem.target ? '_blank' : '_self'}}"
                         appAccordionToggle>
-                        <span class="pcoded-micon"><i class="{{ asideItem.icon }}"></i><b>{{ asideItem.short_label }}</b></span>
+                        <span class="pcoded-micon" style="background-color: #303549"><i class="{{ asideItem.icon }}"></i><b>{{ asideItem.short_label }}</b></span>
                         <span class="pcoded-mtext">{{ asideItem.name }}</span>
                         <span *ngFor="let asideBadge of asideItem.badge" class="pcoded-badge label label-{{ asideBadge.type }}">{{asideBadge.value}}</span>
                         <span class="pcoded-mcaret"></span>
