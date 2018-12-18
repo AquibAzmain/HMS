@@ -63,7 +63,8 @@
                             </tr>
                           <tr>
                             <th scope="column">দায়িত্বপ্রাপ্ত শিক্ষক</th>
-                            <td>{{this.room.assignedHouseTutor}}</td>
+                            <td *ngIf="this.room.assignedHouseTutor=='DUMMY'">N/A</td>
+                            <td *ngIf="this.room.assignedHouseTutor!='DUMMY'">{{this.room.assignedHouseTutor}}</td>
                           </tr>
                         </tbody>
                       </table>
