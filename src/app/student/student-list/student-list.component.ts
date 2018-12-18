@@ -350,13 +350,16 @@ export class StudentListComponent implements OnInit {
       console.log(tempData.get('excel'));
       this.studentService.uploadFile(tempData)
         .subscribe((response) => {
+          console.log(response)
           if (response['status']=='done'){
             this.successToast();
             this.getStudentList();
           }
-          else this.errorFileToast(response['message']);
+          // else this.errorFileToast(response['message']);
         }, error => {
-          //this.errorFileToast("File upload error");
+          let errorMessage = JSON.parse(error.error);
+          // console.log(errorMessage['message'])
+          this.errorFileToast(errorMessage['message']);
         });
     }
   }
