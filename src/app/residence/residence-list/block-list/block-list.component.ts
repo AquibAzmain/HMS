@@ -51,6 +51,11 @@ export class BlockListComponent implements OnInit {
       });
   }
 
+  declineUpdate(){
+    this.modalRef.hide();
+    this.getBlockData()
+  }
+
 
   /*
   public openModal(template: TemplateRef<any>, type: string) {

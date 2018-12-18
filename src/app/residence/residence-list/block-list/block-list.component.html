@@ -30,7 +30,7 @@
                 <ng-template #updateBlock>
                   <div class="modal-header">
                     <h5 class="modal-title pull-left">তথ্য সংশোধন</h5>
-                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="declineUpdate()">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
@@ -48,7 +48,7 @@
                       </div>
                     </div>
                     <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmUpdateBlock(block)">নিশ্চিত</button>
-                    <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
+                    <button type="button" class="btn text-white cancel-button f-right" (click)="declineUpdate()">বাতিল</button>
                   </div>
                 </ng-template>
               <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">

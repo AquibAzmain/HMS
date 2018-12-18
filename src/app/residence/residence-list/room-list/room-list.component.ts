@@ -124,6 +124,11 @@ export class RoomListComponent implements OnInit {
       })
   }
 
+  declineUpdate(){
+    this.modalRef.hide();
+    this.getRoomData()
+  }
+
   searchSortRoom(room){
     this.residenceService.searchSortRoom(room)
       .subscribe((response) => {

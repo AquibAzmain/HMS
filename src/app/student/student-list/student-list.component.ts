@@ -8,6 +8,7 @@ import { Server } from '../../../utils/Server'
 import { Student } from '../../../models/Student';
 import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 import { ActivatedRoute, Router } from '@angular/router';
+import { forEach } from '@angular/router/src/utils/collection';
 
 const URL = Server.API_ENDPOINT + 'excel';
 declare var jsPDF: any;
@@ -30,6 +31,7 @@ export class StudentListComponent implements OnInit {
   public sortBy = '';
   public sortOrder = 'desc';
   public isCollapsed: boolean = true;
+  residenceFeesStatusData: any;
   selectedValue = ['name', 'registrationNumber'];
   bsValue = new Date();
   modalHeader: string;
@@ -42,6 +44,7 @@ export class StudentListComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef;
   uniqueClubList: any;
   residentialList: any;
+  hasError: boolean;
   constructor(public http: Http,
     private modalService: BsModalService,
     private studentService: StudentService,
@@ -107,15 +110,34 @@ export class StudentListComponent implements OnInit {
         this.successToast();
         filteredStudent = response;
 
+        // let i = 0;
+        // filteredStudent.forEach(stu=> {
+        //   this.studentService.getResidenceFeeStatusData(stu.registrationNumber)
+        //   .subscribe((response) => {
+        //     filteredStudent[i]['residenceFeeStatusData']  = response
+        //     i = i + 1;
+        //   }, error => {
+        //   });
+        // });
         let filteredData: any = new Array();
         filteredStudent.forEach(std => {
           let temp = {};
           this.selectedValue.forEach(val => {
-            temp[val] = std[val];
+            // if(val == 'residenceFeeStatusData')
+            // {
+            //   let tempStr = "";
+            //   console.log(std[0].residenceFeeStatusData);
+            //   for(let i =0;i<std[val].length; i++){
+            //     tempStr += std[val][i]['year'] + ": " + std[val][i]['is_paid'] + ";";
+            //   }
+            //   temp[val] = tempStr;
+            // }
+            // else{
+            temp[val] = std[val];         
           });
           filteredData.push(temp);
         });
-        console.log(item);
+        //console.log(filteredData);
 
         new Angular5Csv(filteredData, "student_report_"+this.today, this.options);
 
@@ -167,8 +189,18 @@ export class StudentListComponent implements OnInit {
   getStudentList() {
     this.studentService.getStudentList()
       .subscribe((response) => {
-        console.log(response);
+      
         this.data = response;
+        // let i = 0;
+        // this.data.forEach(stu=> {
+        //   this.studentService.getResidenceFeeStatusData(stu.registrationNumber)
+        //   .subscribe((response) => {
+        //     this.data[i]['residenceFeeStatusData']  = response
+        //     i = i + 1;
+        //     console.log(this.data)
+        //   }, error => {
+        //   });
+        // })
         // this.residentialList = this.getResidenceFeeStatusData(this.data.)
       }, error => {
         this.errorViewToast();
@@ -176,20 +208,27 @@ export class StudentListComponent implements OnInit {
   }
 
   confirmUpdateStudent(student): void {
-    this.modalRef.hide();
+    
     if (student.room_no == 0) {
       student.room_no = -1;
     }
     if (student.residentialStatus=='Non-resident'){
       student.room_no = -1;
     }
-    this.studentService.updateStudent(student)
+    if (student.residentialStatus!='Non-resident' && student.room_no== -1){
+      this.hasError = true;
+    }
+    else {
+      this.modalRef.hide();
+      this.studentService.updateStudent(student)
       .subscribe((response) => {
         this.successToast();
         this.getStudentList();
       }, error => {
         this.errorToast();
       });
+    }
+    
 
   }
 
@@ -229,6 +268,7 @@ export class StudentListComponent implements OnInit {
   decline(): void {
     console.log('Declined!');
     this.modalRef.hide();
+    this.getStudentList();
   }
 
   public openDeleteModal(template: TemplateRef<any>) {

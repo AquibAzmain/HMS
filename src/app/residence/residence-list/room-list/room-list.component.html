@@ -51,7 +51,8 @@
         <tbody>
           <tr *ngFor="let room of mf.data; index as i;">
             <td class="pointer normal-link" [routerLink]="['details/', room.roomNumber]">{{room.roomNumber}}</td>
-            <td>{{room.block_name}}</td>
+            <td *ngIf="room.block_name=='DUMMY'">N/A</td>
+            <td *ngIf="room.block_name!='DUMMY'">{{room.block_name}}</td>
             <td>{{room.capacity}}</td>
             <td *ngIf="room.assignedHouseTutor=='DUMMY'">N/A</td>
             <td *ngIf="room.assignedHouseTutor!='DUMMY'">{{room.assignedHouseTutor}}</td>
@@ -61,7 +62,7 @@
               <ng-template #updateRoom>
                 <div class="modal-header">
                   <h5 class="modal-title pull-left">তথ্য সংশোধন</h5>
-                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="declineUpdate()">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -95,7 +96,7 @@
                     </div>
                   </div>
                   <button type="button" class="btn bg-c-lite-blue text-white" (click)="confirmUpdateRoom(room)">নিশ্চিত</button>
-                  <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
+                  <button type="button" class="btn text-white cancel-button f-right" (click)="declineUpdate()">বাতিল</button>
                 </div>
               </ng-template>
               <a (click)="openDeleteModal(deleteTemplate)" href="javascript:;" class="edit-delete-icon">

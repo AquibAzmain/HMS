@@ -95,13 +95,13 @@ export class StoreListComponent implements OnInit {
 
   confirmAddAsset(): void {
     if(this.assetToBeAdded.dateOfPurchase != null){
-    this.assetToBeAdded.dateOfPurchase = this.formatDate(this.assetToBeAdded.dateOfPurchase);
+      this.assetToBeAdded.dateOfPurchase = this.formatDate(this.assetToBeAdded.dateOfPurchase);
     }
     this.modalRef.hide();
     this.assetService.addAsset(this.assetToBeAdded)
       .subscribe((response) => {
         this.successToast();
-        this.data.push(this.assetToBeAdded);
+        // this.data.push(this.assetToBeAdded);
         this.getAssetData();
       }, error => {
         this.errorDuplicateIdToast();
