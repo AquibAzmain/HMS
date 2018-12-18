@@ -160,11 +160,13 @@
                       </select>
                     </div>
                   </div>
-                  <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">হলের কক্ষ নম্বর</label>
-                    <div class="col-sm-8">
-                      <input class="form-control" type="text" [(ngModel)]="item.room_no" />
-                    </div>
+                  <div class="form-group row" *ngIf = "item.residentialStatus!='Non-resident'">
+                      <label class="col-sm-4 col-form-label">হলের কক্ষ নম্বর<span style="color:red">*</span></label>
+                      <div class="col-sm-8">
+                        <select class="form-control" [(ngModel)]="item.room_no" [required]='true'>
+                            <option *ngFor="let x of this.rooms" value="{{x.roomNumber}}">{{x.roomNumber}}</option>
+                        </select>
+                      </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-sm-4 col-form-label">ডিপার্টমেন্ট</label>
@@ -285,7 +287,6 @@
           <input type="checkbox" name="name" [value]="name" checked disabled> ছাত্রের নাম<br />
           <input type="checkbox" name="registrationNumber" value="registrationNumber" checked disabled> রেজিস্ট্রেশান
           নম্বর<br />
-
           <input type="checkbox" (change)="change($event, session)" [(ngModel)]="session" value="session"> শিক্ষাবর্ষ<br />
           <input type="checkbox" (change)="change($event, fathersName)" [(ngModel)]="fathersName" value="fathersName">
           পিতার নাম<br />
@@ -303,9 +304,24 @@
           জন্ম তারিখ<br />
           <input type="checkbox" (change)="change($event, religion)" [(ngModel)]="religion" value="religion"> ধর্ম<br />
           <input type="checkbox" (change)="change($event, gender)" [(ngModel)]="gender" value="gender"> লিঙ্গ<br />
+          <input type="checkbox" (change)="change($event, legal_guardian_name)" [(ngModel)]="legal_guardian_name" value="legal_guardian_name"> আইনগত অভিভাবকের নাম<br/>
+          <input type="checkbox" (change)="change($event, legal_mobile_no)" [(ngModel)]="legal_mobile_no" value="legal_mobile_no"> আইনগত অভিভাবকের মোবাইল<br/>
+          <input type="checkbox" (change)="change($event, local_guardian_name)" [(ngModel)]="local_guardian_name" value="local_guardian_name"> স্থানীয় অভিভাবকের নাম<br/>
+          <input type="checkbox" (change)="change($event, local_mobile_no)" [(ngModel)]="local_mobile_no" value="local_mobile_no"> স্থানীয় অভিভাবকের মোবাইল<br/>
           <input type="checkbox" (change)="change($event, admissionExamMarks)" [(ngModel)]="admissionExamMarks" value="admissionExamMarks">
           অ্যাডমিশন মার্ক<br />
-          <input type="checkbox" (change)="change($event, NID)" [(ngModel)]="NID" value="NID"> NID<br />
+          <input type="checkbox" (change)="change($event, NID)" [(ngModel)]="NID" value="NID"> NID<br/><br/>
+          <p>আবাসিক তথ্য</p>
+          <input type="checkbox" (change)="change($event, residentialStatus)" [(ngModel)]="residentialStatus" value="residentialStatus"> আবাসিক স্ট্যাটাস<br/>
+          <input type="checkbox" (change)="change($event, admissionFeesStatus)" [(ngModel)]="admissionFeesStatus" value="admissionFeesStatus"> অ্যাডমিশন ফি স্ট্যাটাস<br/>
+          <input type="checkbox" (change)="change($event, alumni)" [(ngModel)]="alumni" value="alumni"> ছাত্রের স্ট্যাটাস<br/>
+          <input type="checkbox" (change)="change($event, room_no)" [(ngModel)]="room_no" value="room_no"> কক্ষ নম্বর<br/><br/>
+          <p>শিক্ষা সম্পর্কিত তথ্য</p>
+          <input type="checkbox" (change)="change($event, subject_name)" [(ngModel)]="subject_name" value="subject_name"> ডিপার্টমেন্ট<br/>
+          <input type="checkbox" (change)="change($event, class_year_semester)" [(ngModel)]="class_year_semester" value="class_year_semester"> শ্রেণি/বর্ষ<br/>
+          <input type="checkbox" (change)="change($event, roll)" [(ngModel)]="roll" value="roll"> রোল<br/>
+          <input type="checkbox" (change)="change($event, cgpa)" [(ngModel)]="cgpa" value="cgpa"> সিজিপিএ<br/>
+          <input type="checkbox" (change)="change($event, unit)" [(ngModel)]="unit" value="unit"> ইউনিট<br/>
         </div>
       </div>
       <div class="col-md-6">
@@ -344,6 +360,20 @@
           <label for="filter">ডিপার্টমেন্ট</label>
           <input class="form-control" type="text" [(ngModel)]="studentToBeFiltered.subject_name" />
         </div>
+        <div class="form-group">
+          <label for="filter">হল অ্যাডমিশন ফি স্ট্যাটাস</label>
+          <select class="form-control" [(ngModel)]="studentToBeFiltered.admissionFeesStatus">
+            <option value="false">Due</option>
+            <option value="true">Paid</option>
+          </select>
+        </div>
+        <div class="form-group">
+            <label for="filter">আবাসিক ফি স্ট্যাটাস</label>
+            <select class="form-control" [(ngModel)]="studentToBeFiltered.res_fees">
+              <option value="Due">Due</option>
+              <option value="Paid">Paid</option>
+            </select>
+          </div>
         <div class="form-group">
           <label for="sel1"><b>কিভাবে সর্ট করতে চান?</b></label>
           <select class="form-control" [(ngModel)]="studentToBeFiltered.sort_by">

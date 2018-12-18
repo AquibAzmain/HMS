@@ -4,6 +4,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-8">
+          <input type="text" style="width: 300px" class="form-control" placeholder="খুঁজুন" [(ngModel)]="searchCategory">
           <!-- <button type="button" class="btn bg-c-brown text-white" (click)="isCollapsed = !isCollapsed">
             সার্চ ও সর্ট
           </button>
@@ -69,20 +70,20 @@
               <th>টাকার পরিমাণ</th>
               <th>চেক নং</th>
               <th>তারিখ</th>
-              <th>মন্তব্য</th>
+              <!-- <th>মন্তব্য</th> -->
               <th *ngIf="this.role == 'provost'">অ্যাকশন</th>
               <!-- <th>অ্যাকশন</th> -->
             </tr>
 
           </thead>
           <tbody>
-            <tr *ngFor="let item of mf.data; index as i;">
+            <tr *ngFor="let item of mf.data | filter:searchCategory; index as i; ">
               <td>{{item.cat_name}}</td>
               <td>{{item.sub_name}}</td>
               <td>{{item.amount}}</td>
               <td>{{item.check}}</td>
               <td>{{item.purchase_date |date:'dd/MM/yyyy'}}</td>
-              <td>{{item.comment}}</td>
+              <!-- <td>{{item.comment}}</td> -->
 
               <td *ngIf="this.role == 'provost'">
                 <a (click)="openUpdateIncomeModal(updateTransaction)" href="javascript:;" class="edit-delete-icon">

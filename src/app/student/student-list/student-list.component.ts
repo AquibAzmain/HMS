@@ -4,10 +4,10 @@ import { Http } from '@angular/http';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { StudentService } from '../student.service';
 import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
-import { Router } from '@angular/router';
 import { Server } from '../../../utils/Server'
 import { Student } from '../../../models/Student';
 import { Angular5Csv } from 'angular5-csv/Angular5-csv';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const URL = Server.API_ENDPOINT + 'excel';
 declare var jsPDF: any;
@@ -38,8 +38,10 @@ export class StudentListComponent implements OnInit {
   public fileUploadModalRef: BsModalRef;
   public reportModalRef: BsModalRef;
   today = new Date();
+  rooms: any;
   @ViewChild('fileInput') fileInput: ElementRef;
   uniqueClubList: any;
+  residentialList: any;
   constructor(public http: Http,
     private modalService: BsModalService,
     private studentService: StudentService,
@@ -52,6 +54,7 @@ export class StudentListComponent implements OnInit {
     if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
       this.getStudentList();
       this.getUniqueClubData();
+      this.getRoomData();
     }
     else {
       this.router.navigate(['/dashboard']);
@@ -74,6 +77,27 @@ export class StudentListComponent implements OnInit {
     }, error => {
       this.errorToast();
     });
+  }
+
+  getResidenceFeeStatusData(studentReg) {
+    this.studentService.getResidenceFeeStatusData(studentReg)
+      .subscribe((response) => {
+        console.log(response)
+        this.residentialList = response;
+      }, error => {
+        this.errorToast();
+      });
+  }
+
+  getRoomData() {
+    this.studentService.getRoomList()
+      .subscribe((response) => { 
+        this.rooms = response;
+        console.log(this.rooms);
+      },
+      (err) => {
+        this.errorToast();
+      })
   }
 
   downloadCSV(item) {
@@ -145,6 +169,7 @@ export class StudentListComponent implements OnInit {
       .subscribe((response) => {
         console.log(response);
         this.data = response;
+        // this.residentialList = this.getResidenceFeeStatusData(this.data.)
       }, error => {
         this.errorViewToast();
       });
@@ -153,7 +178,10 @@ export class StudentListComponent implements OnInit {
   confirmUpdateStudent(student): void {
     this.modalRef.hide();
     if (student.room_no == 0) {
-      student.room_no = null;
+      student.room_no = -1;
+    }
+    if (student.residentialStatus=='Non-resident'){
+      student.room_no = -1;
     }
     this.studentService.updateStudent(student)
       .subscribe((response) => {

@@ -21,6 +21,7 @@ import { TransactionService } from './accounting-main/transaction.service';
 import { TransactionCategoryService } from './accounting-main/transaction-category.service';
 import { TransactionSubcategoryService } from './accounting-main/transaction-subcategory.service';
 import { ToastyModule } from 'ng2-toasty';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 export const AccountingRoutes: Routes = [
   {
@@ -46,7 +47,8 @@ export const AccountingRoutes: Routes = [
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     MyDatePickerModule,
-    ToastyModule.forRoot()
+    ToastyModule.forRoot(),
+    Ng2SearchPipeModule
   ],
   providers:[
     TransactionService,

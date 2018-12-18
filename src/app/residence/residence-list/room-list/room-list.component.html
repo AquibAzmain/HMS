@@ -53,7 +53,8 @@
             <td class="pointer normal-link" [routerLink]="['details/', room.roomNumber]">{{room.roomNumber}}</td>
             <td>{{room.block_name}}</td>
             <td>{{room.capacity}}</td>
-            <td>{{room.assignedHouseTutor}}</td>
+            <td *ngIf="room.assignedHouseTutor=='DUMMY'">N/A</td>
+            <td *ngIf="room.assignedHouseTutor!='DUMMY'">{{room.assignedHouseTutor}}</td>
             <td *ngIf="this.role == 'hallOfficer'">
               <a (click)="openUpdateRoomModal(updateRoom)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
