@@ -22,9 +22,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let block of this.blocks; index as i;">
-            <td>{{block.block_name}}</td>
-            <td>{{block.location}}</td>
-            <td *ngIf="this.role == 'hallOfficer'">
+            <td *ngIf="block.block_name!='N/A' && block.location!='N/A'">{{block.block_name}}</td>
+            <td *ngIf="block.block_name!='N/A' && block.location!='N/A'">{{block.location}}</td>
+            <td *ngIf="this.role == 'hallOfficer' && block.block_name!='N/A' && block.location!='N/A'">
               <a (click)="openUpdateBlockModal(updateBlock)" href="javascript:;" class="edit-delete-icon">
                 <i class="icofont icofont-edit"></i></a>&nbsp;&nbsp;
                 <ng-template #updateBlock>
