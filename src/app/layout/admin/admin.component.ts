@@ -84,6 +84,7 @@ export class AdminComponent implements OnInit {
   username: string;
 
   @ViewChild('searchFriends') search_friends: ElementRef;
+  role: string;
 /*  @ViewChild('toggleButton') toggle_button: ElementRef;
   @ViewChild('sideMenu') side_menu: ElementRef;*/
 
@@ -91,7 +92,8 @@ export class AdminComponent implements OnInit {
     private notificationService: NotificationService, 
     private router: Router) {
     this.username = localStorage.getItem('name');
-    
+    this.role = localStorage.getItem('role');
+    console.log(this.role)
     this.navType = 'st2';
     this.themeLayout = 'vertical';
     this.vNavigationView = 'view1';
