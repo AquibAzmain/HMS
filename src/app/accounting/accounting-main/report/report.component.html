@@ -1,15 +1,18 @@
 <div class="m-t-15">
   <!-- personal card start -->
   <div class="card">
-    <div class="card-body justify-content-center align-items-center">
+    <div class="card-body justify-content-center align-items-center" *ngIf="isLoad">
       <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-xs-12 col-sm-6 col-md-6" style="text-align: center">
           <div class="form-group">
-            <label for="filter"><b>Current Balance: {{netValue}}</b></label>
+            <label for="filter"><b>Current Balance: {{netValue| number:'2.0'}} টাকা</b></label>
             <label for="filter">হিসাবের প্রতিবেদন পাওয়ার জন্য তারিখের ব্যাপ্তি নির্বাচন করুন</label>
             <input type="text" placeholder="" class="form-control" [bsValue]="bsValue" [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
               #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="dateRange">
+          </div>
+          <div *ngIf="this.hasError == true" class="form-group row">
+              <label class="col-sm-12 col-form-label" style="color:red">&nbsp;&nbsp;*তারিখ পূরণ করুন</label>
           </div>
           <button type="submit" class="btn bg-c-brown text-white" (click)="getData()">ডাউনলোড করুন</button>
         </div>
@@ -18,3 +21,5 @@
     </div>
   </div>
 </div>
+
+<ng2-toasty [position]="position"></ng2-toasty>

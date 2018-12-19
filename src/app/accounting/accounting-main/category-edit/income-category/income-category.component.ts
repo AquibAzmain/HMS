@@ -32,6 +32,9 @@ export class IncomeCategoryComponent implements OnInit {
   singleCategory: Transaction_Category = new Transaction_Category;
   hasError: boolean;
   position: any;
+  cat1: any;
+  cat2: any;
+  cat3: any;
 
   constructor(public http: Http, private modalService: BsModalService,
     private transactionCategoryService: TransactionCategoryService,
@@ -42,6 +45,7 @@ export class IncomeCategoryComponent implements OnInit {
     this.hasError = false;
     if ((this.role == "provost" || this.role == "accountant")) {
       this.getIncomeCategoryData();
+      this.getCatSubData();
     }
     else {
       this.router.navigate(['/dashboard']);
@@ -49,20 +53,26 @@ export class IncomeCategoryComponent implements OnInit {
 
   }
 
-
-  getIncomeCategoryData() {
-    console.log(this.category);
-
-    this.singleCategory.parent_type = "income";
-    this.transactionCategoryService.getIncomeCategoryList()
+  getCatSubData(){
+    this.transactionSubcategoryService.getIncomeSubCat()
       .subscribe((response) => {
-        this.category = response;
+        this.cat1 = response[0];
+        this.cat2 = response[1];
+        this.cat3 = response[2];
       });
   }
 
 
+  getIncomeCategoryData() {
+    this.singleCategory.parent_type = "income";
+    this.transactionCategoryService.getIncomeCategoryList()
+      .subscribe((response) => {
+        this.category = response;
+        //console.log(this.category[0].cat_name)
+      });
+  }
+
   getSubCategoryData(s: any) {
-    console.log(this.subCategory);
     this.transactionSubcategoryService.getSubCategoryList(s)
       .subscribe((response) => {
         this.subCategory = response;
@@ -70,9 +80,6 @@ export class IncomeCategoryComponent implements OnInit {
   }
 
   getCategoryId(event: any) {
-
-    console.log(event.target.value);
-
     this.subCategoryToBeAdded.parent_cat = event.target.value;
   }
 
@@ -84,7 +91,7 @@ export class IncomeCategoryComponent implements OnInit {
       this.hasError = false;
       this.transactionSubcategoryService.addSubCategory(this.subCategoryToBeAdded)
         .subscribe((response) => {
-          this.subCategoryToBeAdded = response;
+          this.getCatSubData();
           this.successToast();
         }, error => {
           this.errorToast();

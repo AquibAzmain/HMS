@@ -12,7 +12,7 @@
     <div class="form-group row">
       <label class="col-sm-4 col-form-label"><span style="color:red">*</span>ক্যাটেগরি</label>
       <div class="col-sm-8">
-        <select id="typeMain" class="form-control" (change)="getCategoryId($event)" [(ngModel)]="subCategoryToBeAdded.parent_cat" required>
+        <select id="typeMain" class="form-control" [(ngModel)]="subCategoryToBeAdded.parent_cat" required>
           <option *ngFor="let item of category" [value]="item.cat_name">
             {{item.cat_name}}
           </option>
@@ -22,8 +22,41 @@
     <div *ngIf="this.hasError == true" class="form-group row">
       <label class="col-sm-12 col-form-label" style="color:red">&nbsp;&nbsp;*ফর্ম ঠিকমত পূরণ করুন</label>
     </div>
-    <button type="submit" class="btn btn-block bg-c-brown text-white" (click)="confirmAddSubCategory()">ক্লিক করুন</button>
+    <button type="submit" class="btn btn-block bg-c-brown text-white" (click)="confirmAddSubCategory()">নিশ্চিত করুন</button>
     <!-- end of view-info -->
+  </div>
+  <div class="table-responsive" style="padding:10px">
+    <table class="table table-striped table-bordered full-data-table" [mfData]="category" #mf="mfDataTable"
+      [mfRowsOnPage]="rowsOnPage">
+      <thead>
+        <tr>
+          <th>ক্যাটেগরি</th>
+          <th>সাব-ক্যাটেগরি</th>
+        </tr>
+
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cat1; index as i;">
+          <td>University funding</td>
+          <td>{{item.sub_name}}</td>
+        </tr>
+        <tr *ngFor="let item of cat2; index as i;">
+          <td>Hall's money</td>
+          <td>{{item.sub_name}}</td>
+        </tr>
+        <tr *ngFor="let item of cat3; index as i;">
+          <td>Miscellaneous income</td>
+          <td>{{item.sub_name}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="7">
+            <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
 </div>
 

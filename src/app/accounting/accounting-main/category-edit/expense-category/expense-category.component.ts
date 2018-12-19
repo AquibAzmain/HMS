@@ -32,6 +32,8 @@ export class ExpenseCategoryComponent implements OnInit {
   singleCategory: Transaction_Category = new Transaction_Category;
   hasError: boolean;
   position: any;
+  cat1: any;
+  cat2: any;
 
   constructor(public http: Http, private modalService: BsModalService,
     private transactionCategoryService : TransactionCategoryService,
@@ -42,20 +44,19 @@ export class ExpenseCategoryComponent implements OnInit {
     this.hasError = false;
     if((this.role == "provost" || this.role == "accountant")) {
       this.getExpenseCategoryData();
+      this.getCatSubData();
     }
     else {
       this.router.navigate(['/dashboard']);
     }
-    
-    // this.http.get(`assets/data/incomeCategory.json`)
-    // .subscribe((typeData) => {
-    //   this.data = typeData.json();
-    // });
-
-    // this.http.get(`assets/data/expenseType.json`)
-    // .subscribe((typeData) => {
-    //   this.expenseTypeData = typeData.json();
-    // });
+  }
+  
+  getCatSubData(){
+    this.transactionSubcategoryService.getExpenseSubCat()
+      .subscribe((response) => {
+        this.cat1 = response[0];
+        this.cat2 = response[1];
+      });
   }
 
 
@@ -95,7 +96,7 @@ export class ExpenseCategoryComponent implements OnInit {
       this.hasError = false;
       this.transactionSubcategoryService.addSubCategory(this.subCategoryToBeAdded)
       .subscribe((response) => { 
-        this.subCategoryToBeAdded = response;
+        this.getCatSubData();
         this.successToast();
       }, error => {
         this.errorToast();

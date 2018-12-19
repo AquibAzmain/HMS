@@ -6,7 +6,7 @@ import { Transaction } from '../../../models/Transaction';
 import { Transaction_History } from '../../../models/Transaction_History';
 import { Report } from '../../../models/Report';
 import { Balance } from '../../../models/Balance';
-
+import 'rxjs/add/observable/forkJoin';
 @Injectable()
 export class TransactionService {
 
@@ -19,6 +19,12 @@ export class TransactionService {
 
   getBalance() : Observable<Balance> {
     return this.http.get<Balance>(Server.API_ENDPOINT + 'bank_balance');
+  }
+
+  getIncomeExpense(): Observable<any[]>{
+    let response1 = this.http.get<Transaction[]>(Server.API_ENDPOINT + 'income_transactions');
+    let response2 = this.http.get<Transaction[]>(Server.API_ENDPOINT + 'expense_transactions');
+    return Observable.forkJoin([response1, response2]);
   }
 
   getTransactionHistory(tranid: number) : Observable<Transaction_History[]> {
@@ -46,12 +52,10 @@ export class TransactionService {
   }
 
   updateIncome(income:Transaction) {
-    console.log(JSON.stringify(income));
     return this.http.put(Server.API_ENDPOINT +'income_transactions', JSON.stringify(income),this.httpOptions);
   }
 
   updateExpense(expense:Transaction) {
-    console.log(JSON.stringify(expense));
     return this.http.put(Server.API_ENDPOINT +'expense_transactions', JSON.stringify(expense),this.httpOptions);
   }
 
