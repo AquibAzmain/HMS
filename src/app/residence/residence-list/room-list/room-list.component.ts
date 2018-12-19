@@ -46,6 +46,7 @@ export class RoomListComponent implements OnInit {
       this.residenceService.currentState.subscribe((message) => {
         console.log("change hoyeche");
         this.getRoomData();
+        this.getBlockData();
       })
     }
     else {
@@ -65,9 +66,11 @@ export class RoomListComponent implements OnInit {
   }
 
   getBlockData() {
+    console.log("Block ante jai")
     this.residenceService.getBlockList()
       .subscribe((response) => { 
         this.blocks = response;
+        console.log("BLOCK ASHCHE");
         console.log(this.blocks);
       });
   }
