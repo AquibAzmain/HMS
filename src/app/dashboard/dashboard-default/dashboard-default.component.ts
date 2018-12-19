@@ -13,6 +13,7 @@ import { StudentService } from '../../student/student.service';
 import { ResidenceService } from '../../residence/residence.service';
 import { Room } from '../../../models/Room';
 import { Student } from '../../../models/Student';
+import { Router } from '@angular/router'
 
 declare const AmCharts: any;
 declare const $: any;
@@ -33,13 +34,20 @@ export class DashboardDefaultComponent implements OnInit {
   numberOfRooms;
   constructor(private employeeService : EmployeeService,
     private studentService : StudentService,
-    private residenceService : ResidenceService) { }
+    private residenceService : ResidenceService,
+    private router: Router) { }
 
 
   ngOnInit() {
-    this.getEmployeeData();
-    this.getNumberOfStudents();
-    this.getNumberOfRooms();
+    if(localStorage.getItem("token") == null){
+      this.router.navigate(['/authentication/login']);
+      return;
+    }
+    else {
+      this.getEmployeeData();
+      this.getNumberOfStudents();
+      this.getNumberOfRooms()
+    };
   }
 
   getEmployeeData() {

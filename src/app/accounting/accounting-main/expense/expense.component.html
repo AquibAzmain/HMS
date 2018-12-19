@@ -197,17 +197,16 @@
 
 <ng-template #template>
   <div class="modal-header">
-    <h5 class="modal-title pull-left">{{modalHeader}}</h5>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <h5 class="modal-title pull-left">নতুন ব্যয়ের হিসাব যুক্ত করুন</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="decline()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <div class="form-group row">
-      <label class="col-sm-4 col-form-label">ক্যাটেগরি</label>
+      <label class="col-sm-4 col-form-label"><span style="color:red">*</span>ক্যাটেগরি</label>
       <div class="col-sm-8">
-        <select id="typeMain" class="form-control" (change)="selectMainType($event)">
-          <option value="">--</option>
+        <select id="typeMain" class="form-control" (change)="selectMainType($event)" [(ngModel)]="expenseToBeAdded.cat_name" >
           <option *ngFor="let item of category" [value]="item.cat_name">
             {{item.cat_name}}
           </option>
@@ -215,9 +214,9 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-4 col-form-label">সাব-ক্যাটেগরি</label>
+      <label class="col-sm-4 col-form-label"><span style="color:red">*</span>সাব-ক্যাটেগরি</label>
       <div class="col-sm-8">
-        <select id="typeSub" class="form-control" (change)="selectSubType($event)">
+        <select id="typeSub" class="form-control" (change)="selectSubType($event)" [(ngModel)]="expenseToBeAdded.sub_name" >
           <option *ngFor="let item of subCategory" [value]="item.sub_name">
             {{item.sub_name}}
           </option>
@@ -225,29 +224,32 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-4 col-form-label">টাকার পরিমাণ</label>
+      <label class="col-sm-4 col-form-label"><span style="color:red">*</span>টাকার পরিমাণ</label>
       <div class="col-sm-8">
-        <input id="amount" class="form-control" type="text" [(ngModel)]="expenseToBeAdded.amount" />
+        <input id="amount" class="form-control" type="number" [(ngModel)]="expenseToBeAdded.amount" />
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-4 col-form-label">চেক নং</label>
+      <label class="col-sm-4 col-form-label"><span style="color:red">*</span>চেক নং</label>
       <div class="col-sm-8">
-        <input id="check" class="form-control" type="text" [(ngModel)]="incomeToBeAdded.check" />
+        <input id="check" class="form-control" type="text" [(ngModel)]="expenseToBeAdded.check" />
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-4 col-form-label">তারিখ</label>
+      <label class="col-sm-4 col-form-label"><span style="color:red">*</span>তারিখ</label>
       <div class="col-sm-8">
-        <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
+        <input type="text" [maxDate]="this.today" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }"
           bsDatepicker [(ngModel)]="expenseToBeAdded.purchase_date">
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-4 col-form-label">মন্তব্য</label>
+      <label class="col-sm-4 col-form-label"><span style="color:red">*</span>মন্তব্য</label>
       <div class="col-sm-8">
         <textarea class="form-control" rows="5" [(ngModel)]="expenseToBeAdded.comment"></textarea>
       </div>
+    </div>
+    <div *ngIf="this.hasError == true" class="form-group row">
+      <label class="col-sm-12 col-form-label" style="color:red">&nbsp;&nbsp;*ফর্ম ঠিকমত পূরণ করুন</label>
     </div>
     <button type="button" class="btn bg-c-brown text-white" (click)="confirmAddExpense()">নিশ্চিত</button>
     <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>

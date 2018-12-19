@@ -50,13 +50,15 @@ export class ExpenseComponent implements OnInit {
   category: Transaction_Category[] = [];
   subCategory: Transaction_SubCategory[] = [];
   hasError: boolean = false;
-
+  singleCategory: Transaction_Category = new Transaction_Category;
+  today: Date;
   constructor(public http: Http, private modalService: BsModalService,
     private transactionService : TransactionService, private transactionCategoryService : TransactionCategoryService,
     private transactionSubcategoryService : TransactionSubcategoryService, private router: Router,
     private toastyService: ToastyService ) { }
 
   ngOnInit() {
+    this.today = new Date();
     this.hasError = false;
     if((this.role == "provost" || this.role == "accountant")) {
       this.getExpenseData();
@@ -72,17 +74,16 @@ export class ExpenseComponent implements OnInit {
     this.transactionService.getExpenseList()
       .subscribe((response) => { 
         this.expenses = response;
-        console.log(this.expenses);
       }, error => {
         this.errorToast();
       });
   }
 
   getCategoryData() {
+    this.singleCategory.parent_type = "expense";
     this.transactionCategoryService.getExpenseCategoryList()
       .subscribe((response) => { 
         this.category = response;
-        console.log(this.category);
       });
   }
 
@@ -102,20 +103,23 @@ export class ExpenseComponent implements OnInit {
   }
   
   confirmAddExpense(): void {
+    console.log(this.expenseToBeAdded)
     //console.log(this.expenses.length);
-    this.modalRef.hide();
-    if(this.expenseToBeAdded.purchase_date != null){
-      this.expenseToBeAdded.purchase_date = this.formatDate(this.expenseToBeAdded.purchase_date);
+    if (!this.expenseToBeAdded.purchase_date || !this.expenseToBeAdded.amount || !this.expenseToBeAdded.cat_name || !this.expenseToBeAdded.sub_name || !this.expenseToBeAdded.comment || !this.expenseToBeAdded.check) {
+      this.hasError = true;
     }
-    this.transactionService.addExpense(this.expenseToBeAdded)
-    .subscribe((response) => { 
-      //this.successToast();
-      this.expenseToBeAdded = response;
-      this.expenses.push(this.expenseToBeAdded);
-      this.getExpenseData();
-    }, error => {
-      //this.errorToast();
-    });
+    else {
+      this.modalRef.hide();
+      this.hasError = false;
+      this.transactionService.addExpense(this.expenseToBeAdded)
+      .subscribe((response) => { 
+        this.successToast();
+        this.getExpenseData();
+      }, error => {
+        this.errorToast();
+      });
+    }
+    
   }
 
   public openUpdateExpenseModal(template: TemplateRef<any>) {
@@ -123,8 +127,7 @@ export class ExpenseComponent implements OnInit {
   }
 
   confirmUpdateExpense(expense): void {
-    console.log(expense.comment);
-    if (expense.comment == null) {
+    if (!expense.comment) {
       this.hasError = true;
     }
 
@@ -135,8 +138,7 @@ export class ExpenseComponent implements OnInit {
       .subscribe((response) => {
         this.successToast();
         this.getExpenseData();
-        console.log(response);
-        console.log(expense);
+        this.successToast();
       }, error => {
         this.errorToast();
       });
@@ -222,6 +224,7 @@ export class ExpenseComponent implements OnInit {
   decline(): void {
     console.log('Declined!');
     this.modalRef.hide();
+    this.getExpenseData();
   }
  
   declineDelete(): void {

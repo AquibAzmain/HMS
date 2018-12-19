@@ -49,6 +49,7 @@ export class IncomeComponent implements OnInit {
   tc: Transaction_Category = new Transaction_Category();
   singleCategory: Transaction_Category = new Transaction_Category;
   hasError: boolean = false;
+  today: Date;
 
   constructor(public http: Http, private modalService: BsModalService,
     private transactionService: TransactionService, private transactionCategoryService: TransactionCategoryService,
@@ -56,6 +57,7 @@ export class IncomeComponent implements OnInit {
     private toastyService: ToastyService) { }
 
   ngOnInit() {
+    this.today = new Date();
     this.hasError = false;
     if ((this.role == "provost" || this.role == "accountant")) {
       this.getIncomeData();
@@ -101,8 +103,12 @@ export class IncomeComponent implements OnInit {
   }
 
   confirmAddIncome(): void {
-    console.log(this.incomes.length);
-    this.modalRef.hide();
+    if (!this.incomeToBeAdded.purchase_date || !this.incomeToBeAdded.amount || !this.incomeToBeAdded.comment || !this.incomeToBeAdded.cat_name || !this.incomeToBeAdded.sub_name || !this.incomeToBeAdded.check){
+      this.hasError = true;
+    }
+    else {
+      this.hasError = false;
+      this.modalRef.hide();
 
     if (this.incomeToBeAdded.purchase_date != null) {
       this.incomeToBeAdded.purchase_date = this.formatDate(this.incomeToBeAdded.purchase_date);
@@ -113,10 +119,13 @@ export class IncomeComponent implements OnInit {
         this.incomeToBeAdded = response;
         this.incomes.push(this.incomeToBeAdded);
         this.getIncomeData();
+        this.successToast();
       }, error => {
         this.errorToast();
       });
 
+    }
+    
   }
 
 
@@ -227,6 +236,7 @@ export class IncomeComponent implements OnInit {
   decline(): void {
     console.log('Declined!');
     this.modalRef.hide();
+    this.getIncomeData();
   }
 
   declineDelete(): void {

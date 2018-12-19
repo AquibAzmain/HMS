@@ -4,22 +4,26 @@
       <p class="card-header-text">ব্যয়</p>
     </div>
     <div class="form-group row">
-      <label class="col-sm-4 col-form-label">নতুন সাব-ক্যাটেগরি</label>
+      <label class="col-sm-4 col-form-label"><span style="color:red">*</span>নতুন সাব-ক্যাটেগরি</label>
       <div class="col-sm-8">
         <input class="form-control" type="text" [(ngModel)]="subCategoryToBeAdded.sub_name"/>
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-4 col-form-label">ক্যাটেগরি</label>
+      <label class="col-sm-4 col-form-label"><span style="color:red">*</span>ক্যাটেগরি</label>
       <div class="col-sm-8">
-        <select id="typeMain" class="form-control" (change)="getCategoryId($event)">
-            <option value="">--</option>
+        <select id="typeMain" class="form-control" (change)="getCategoryId($event)" [(ngModel)]="subCategoryToBeAdded.parent_cat">
           <option *ngFor="let item of category" [value]="item.cat_name">
             {{item.cat_name}}
           </option>
         </select>
       </div>
     </div>
+    <div *ngIf="this.hasError == true" class="form-group row">
+      <label class="col-sm-12 col-form-label" style="color:red">&nbsp;&nbsp;*ফর্ম ঠিকমত পূরণ করুন</label>
+    </div>
     <button type="submit" class="btn btn-block bg-c-brown text-white" (click)="confirmAddSubCategory()">নিশ্চিত করুন</button>
   </div>
 </div>
+
+<ng2-toasty [position]="position"></ng2-toasty>
