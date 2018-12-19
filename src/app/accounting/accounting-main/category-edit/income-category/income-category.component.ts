@@ -24,7 +24,7 @@ export class IncomeCategoryComponent implements OnInit {
   public sortOrder = 'desc';
   public isCollapsed:boolean = true;
 
-  role = "hallOfficer"//localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
+  role = localStorage.getItem('role');//localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
 
   category: Transaction_Category[] = [];
   subCategory: Transaction_SubCategory[] = [];
@@ -38,14 +38,10 @@ export class IncomeCategoryComponent implements OnInit {
   ngOnInit() {
     
     
-    if((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer"|| this.role =="admin")) {
-      this.getIncomeCategoryData();
-      //this.getSubCategoryData();
-      this.subCategoryToBeAdded.parent_cat = "University funding";
-
+    if((this.role == "provost" || this.role == "accountant")) {
     }
     else {
-      this.router.navigate(['/**']);
+      this.router.navigate(['/dashboard']);
     }
 
   }

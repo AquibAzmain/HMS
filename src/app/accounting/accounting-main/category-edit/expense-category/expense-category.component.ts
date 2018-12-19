@@ -24,7 +24,7 @@ export class ExpenseCategoryComponent implements OnInit {
   public sortOrder = 'desc';
   public isCollapsed:boolean = true;
 
-  role = "hallOfficer"//localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
+  role = localStorage.getItem('role');//localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
 
   category: Transaction_Category[] = [];
   subCategory: Transaction_SubCategory[] = [];
@@ -37,11 +37,7 @@ export class ExpenseCategoryComponent implements OnInit {
 
   ngOnInit() {
     
-    if((this.role == "account")) {
-      this.getExpenseCategoryData();
-      //this.getSubCategoryData();
-      //this.subCategoryToBeAdded.parent_cat = "University expense";
-
+    if((this.role == "provost" || this.role == "accountant")) {
     }
     else {
       this.router.navigate(['/dashboard']);
