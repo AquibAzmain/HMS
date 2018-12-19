@@ -77,6 +77,7 @@ export class EmployeeListComponent implements OnInit {
     console.log(this.employees.length);
     if(this.employeeToBeAdded.name==null || this.employeeToBeAdded.contact_number==null || this.employeeToBeAdded.job_title==null ) {
       this.confirmAddError = true;
+      this.errorToast('Please Fillup Required Fields');
     }
     else if (this.employeeToBeAdded.contact_number.match(/[a-z]/i)) {
       this.confirmAddError = true;
@@ -105,6 +106,14 @@ export class EmployeeListComponent implements OnInit {
   confirmUpdateEmployee(employee): void {
     if(employee.name==null || employee.contact_number==null || employee.job_title==null ) {
       this.confirmUpdateError = true;
+      this.errorToast("")
+      this.errorToast('Please Fillup Required Fields');
+      console.log("error")
+    }
+    if(employee.name.length == 0 || employee.contact_number.length == 0 || employee.job_title.length == 0 ) {
+      this.confirmUpdateError = true;
+      this.errorToast('Please Fillup Required Fields');
+      console.log("error");
     }
     else if (employee.contact_number.match(/[a-z]/i)) {
       this.confirmUpdateError = true;

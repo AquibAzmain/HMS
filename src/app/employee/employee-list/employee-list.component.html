@@ -145,6 +145,9 @@
                       <input class="form-control" type="text" [(ngModel)]="employee.event_participation" />
                     </div>
                   </div>
+                  <div *ngIf="this.confirmUpdateError == true" class="form-group row" style="color: red">
+                    <label class="col-sm-12 col-form-label">*ঠিকমত ফর্ম পূরণ করুন</label>
+                  </div>
                   <button type="button" class="btn btn-success text-white" (click)="confirmUpdateEmployee(employee)">নিশ্চিত</button>
                   <button type="button" class="btn text-white cancel-button f-right" (click)="decline()">বাতিল</button>
                 </div>

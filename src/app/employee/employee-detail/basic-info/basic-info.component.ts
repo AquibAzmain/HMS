@@ -38,7 +38,7 @@ export class BasicInfoComponent implements OnInit {
       this.employee = response;
     },
     (err) => {
-      this.errorToast();
+      this.errorToast('Operation not successful. Check your net connection.');
     })
   }
 
@@ -52,16 +52,30 @@ export class BasicInfoComponent implements OnInit {
     if(this.employee.joining_date!=null) {
       this.employee.joining_date = this.formatDate(this.employee.joining_date);
     }
-    this.employeeService.updateEmployee(this.employee)
-    .subscribe((response) => { 
-      this.toggleEditProfile();
-      this.getEmployeeData();
-      console.log(this.employee);
-       this.successToast();
-    },
-    (err) => {
-      this.errorToast();
-    })
+    if(this.employee.name==null || this.employee.contact_number==null || this.employee.job_title==null ) {
+      this.errorToast("")
+      this.errorToast('Please Fillup Required Fields');
+      console.log("error")
+    }
+    if(this.employee.name.length == 0 || this.employee.contact_number.length == 0 || this.employee.job_title.length == 0 ) {
+      this.errorToast('Please Fillup Required Fields');
+      console.log("error");
+    }
+    else if (this.employee.contact_number.match(/[a-z]/i)) {
+      this.errorToast('Error in Mobile Number.');
+    }
+    else {
+      this.employeeService.updateEmployee(this.employee)
+      .subscribe((response) => { 
+        this.toggleEditProfile();
+        this.getEmployeeData();
+        console.log(this.employee);
+        this.successToast();
+      },
+      (err) => {
+        this.errorToast('Operation not successful. Check your net connection.');
+      })
+    }
   }
 
   public formatDate(date) {
@@ -111,10 +125,10 @@ export class BasicInfoComponent implements OnInit {
     });
   }
 
-  errorToast() {
+  errorToast(message) {
     this.addToast({
       title: 'Error',
-      msg: 'Operation not successful. Check your net connection.',
+      msg: message,
       timeout: 5000, theme: 'material',
       position: 'bottom',
       type: 'error'

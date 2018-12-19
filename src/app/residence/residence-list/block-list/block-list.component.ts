@@ -103,10 +103,11 @@ export class BlockListComponent implements OnInit {
       this.modalRef.hide();
       this.residenceService.addBlock(this.blockToBeAdded)
         .subscribe((response) => {
-          this.successToast();
-          this.blockToBeAdded = response;
-          this.blocks.push(this.blockToBeAdded);
           this.getBlockData();
+          this.residenceService.changeMessage("change occured");
+          this.successToast();
+          // this.blockToBeAdded = response;
+          // this.blocks.push(this.blockToBeAdded);
         },
         (err) => {
           this.errorToast();
