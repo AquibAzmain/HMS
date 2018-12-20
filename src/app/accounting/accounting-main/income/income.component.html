@@ -91,7 +91,7 @@
               <!-- <td>{{item.comment}}</td> -->
 
               <td>
-                <a *ngIf="this.role == 'accountant'" (click)="openUpdateIncomeModal(updateTransaction)" href="javascript:;" class="edit-delete-icon">
+                <a *ngIf="this.role == 'provost'" (click)="openUpdateIncomeModal(updateTransaction)" href="javascript:;" class="edit-delete-icon">
                   <i class="icofont icofont-edit"></i>
                 </a>&nbsp;&nbsp;
 
@@ -139,7 +139,7 @@
                   </div>
                 </ng-template>
 
-                <a *ngIf="this.role == 'provost'" (click)="getIncomeHistoryData(item.tranid, changeHistory)" href="javascript:;" class="edit-delete-icon">
+                <a *ngIf="this.role == 'provost' || this.role == 'accountant'" (click)="getIncomeHistoryData(item.tranid, changeHistory)" href="javascript:;" class="edit-delete-icon">
                   <i class="icofont icofont-history"></i>
                 </a>&nbsp;&nbsp;
 

@@ -98,7 +98,7 @@
               </td> -->
 
               <td>
-                <a *ngIf="this.role == 'accountant'" (click)="openUpdateExpenseModal(updateTransaction)" href="javascript:;" class="edit-delete-icon">
+                <a *ngIf="this.role == 'provost'" (click)="openUpdateExpenseModal(updateTransaction)" href="javascript:;" class="edit-delete-icon">
                   <i class="icofont icofont-edit"></i>
                 </a>&nbsp;&nbsp;
 
@@ -146,7 +146,7 @@
                   </div>
                 </ng-template>
 
-                <a *ngIf="this.role == 'provost'" (click)="getExpenseHistoryData(item.tranid, changeHistory)" href="javascript:;" class="edit-delete-icon">
+                <a *ngIf="this.role == 'provost' || this.role == 'accountant'" (click)="getExpenseHistoryData(item.tranid, changeHistory)" href="javascript:;" class="edit-delete-icon">
                   <i class="icofont icofont-history"></i>
                 </a>&nbsp;&nbsp;
 
