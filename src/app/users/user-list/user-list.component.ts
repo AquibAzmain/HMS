@@ -108,6 +108,10 @@ export class UserListComponent implements OnInit {
       this.errorMessageModal = "Please fill all the fields.";
       return;
     }
+    if(this.createUserData.password != this.createUserData.confirm_password) {
+      this.errorMessageModal = "Password and Confirm Password do not Match.";
+      return;
+    }
     this.userService.createUser(this.createUserData).subscribe(resp => {
       this.errorMessage = '';
       this.message = "User Created Successfully.";
@@ -116,6 +120,7 @@ export class UserListComponent implements OnInit {
     }, err => {
       err = JSON.parse(err.error);
       this.message = '';
+      this.errorMessageModal = "Duplicate Mobile Number.";
       this.errorMessage = err.status;
     });
     
