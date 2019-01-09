@@ -25,7 +25,7 @@ export class StoreListComponent implements OnInit {
   modalHeader: string;
   public modalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
-  today = new Date();
+  today:any;
   role = localStorage.getItem('role');
   assets: Asset[] = [];
   assetToBeAdded: Asset = new Asset();
@@ -38,7 +38,7 @@ export class StoreListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.today = new Date();
+    this.today = this.formatDate(new Date());
     if ((this.role == "provost" || this.role == "hallOfficer")) {
       this.getAssetData();
     }
@@ -57,9 +57,9 @@ export class StoreListComponent implements OnInit {
   }
 
   searchSortAsset(asset){
-    if(asset.dateOfPurchase != null){
-      asset.dateOfPurchase = this.formatDate(asset.dateOfPurchase);
-    }
+    // if(asset.dateOfPurchase != null){
+    //   asset.dateOfPurchase = this.formatDate(asset.dateOfPurchase);
+    // }
     console.log(asset);
     this.assetService.searchSortAsset(asset)
       .subscribe((response) => {
@@ -75,7 +75,7 @@ export class StoreListComponent implements OnInit {
     var monthIndex = date.getMonth() + 1;
     var year = date.getFullYear();
 
-    return day + '/' + monthIndex + '/' + year;
+    return year + '-' + ("0" + monthIndex).slice(-2) + '-' + ("0" + day).slice(-2);
   }
 
   public openModal(template: TemplateRef<any>, type: string) {
@@ -94,9 +94,9 @@ export class StoreListComponent implements OnInit {
   }
 
   confirmAddAsset(): void {
-    if(this.assetToBeAdded.dateOfPurchase != null){
-      this.assetToBeAdded.dateOfPurchase = this.formatDate(this.assetToBeAdded.dateOfPurchase);
-    }
+    // if(this.assetToBeAdded.dateOfPurchase != null){
+    //   this.assetToBeAdded.dateOfPurchase = this.formatDate(this.assetToBeAdded.dateOfPurchase);
+    // }
     this.modalRef.hide();
     this.assetService.addAsset(this.assetToBeAdded)
       .subscribe((response) => {
@@ -110,9 +110,9 @@ export class StoreListComponent implements OnInit {
 
   confirmUpdateAsset(asset): void {
     this.modalRef.hide();
-    if(this.assetToBeAdded.dateOfPurchase != null){
-      this.assetToBeAdded.dateOfPurchase = this.formatDate(this.assetToBeAdded.dateOfPurchase);
-      }
+    // if(asset.dateOfPurchase != null){
+    //   asset.dateOfPurchase = this.formatDate(asset.dateOfPurchase);
+    //   }
     this.assetService.updateAsset(asset)
       .subscribe((response) => {
         this.successToast();
@@ -126,6 +126,7 @@ export class StoreListComponent implements OnInit {
 
   decline(): void {
     this.modalRef.hide();
+    this.getAssetData();
   }
 
   public openDeleteModal(template: TemplateRef<any>) {
@@ -150,7 +151,7 @@ export class StoreListComponent implements OnInit {
     quoteStrings: '"',
     decimalseparator: '.',
     showLabels: true,
-    headers: ["ID", "Category", "Location", "Condition", "Date"]
+    headers: ["ID", "Category", "Quantity", "Location", "Condition", "Date"]
   };
 
   downloadCSV() {

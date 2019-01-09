@@ -3,7 +3,6 @@ import { HttpHeaders, HttpClient, HttpParams  } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import {Server} from '../../utils/Server'
 import { Employee } from '../../models/Employee';
-import { SystemJsNgModuleLoader } from '@angular/core/src/linker/system_js_ng_module_factory_loader';
 import { Leave } from '../../models/Leave';
 
 @Injectable()

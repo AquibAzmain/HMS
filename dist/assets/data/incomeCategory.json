@@ -1,0 +1,30 @@
+[
+    {
+        "category": "University funding",
+        "subCategory": "Hospitality Expenses"  
+    },
+    {
+        "category": "University funding",
+        "subCategory": "Garden Maintenance"  
+    },
+    {
+        "category": "University funding",
+        "subCategory": "Hall Union Grant"  
+    },
+    {
+        "category": "University funding",
+        "subCategory": "Hall Library Grant"  
+    },
+    {
+        "category": "University funding",
+        "subCategory": "Furniture Maintenance"  
+    },
+    {
+        "category": "Hall’s own money",
+        "subCategory": "Hall admission fee"  
+    },
+    {
+        "category": "Hall’s own money",
+        "subCategory": "Hall readmission fee"  
+    }
+  ]

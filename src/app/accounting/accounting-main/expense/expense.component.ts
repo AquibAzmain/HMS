@@ -94,8 +94,8 @@ export class ExpenseComponent implements OnInit {
         this.expenses = response;
         for(var key in this.expenses){
           this.netExpense += this.expenses[key].amount;
-          this.isLoad=true;
         }
+        this.isLoad=true;
       }, error => {
         this.errorToast();
       });

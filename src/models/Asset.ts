@@ -4,4 +4,5 @@ export class Asset {
     public location: string;
     public condition: string;
     public dateOfPurchase: string;
+    public quantity: number;
 }

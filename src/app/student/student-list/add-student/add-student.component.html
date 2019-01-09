@@ -79,9 +79,7 @@
                 <tbody>
                   <tr>
                     <th scope="row">জন্মতারিখ</th>
-                    <td><input type="text" [maxDate]="this.today" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue"
-                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker
-                        [(ngModel)]="studentToBeAdded.dateOfBirth"></td>
+                    <td><input type="date" max="{{this.today}}" class="form-control" [(ngModel)]="studentToBeAdded.dateOfBirth"></td>
                   </tr>
                   <tr>
                     <th scope="row">ধর্ম</th>

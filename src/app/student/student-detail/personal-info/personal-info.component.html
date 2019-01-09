@@ -51,7 +51,7 @@
                     <tbody>
                       <tr>
                         <th scope="row">জন্মতারিখ</th>
-                        <td>{{this.student.dateOfBirth}}</td>
+                        <td>{{this.student.dateOfBirth | date:'dd/MM/yyyy'}}</td>
                       </tr>
                       <tr>
                         <th scope="row">ধর্ম</th>
@@ -223,8 +223,7 @@
                     <tbody>
                       <tr>
                         <th scope="row">জন্মতারিখ</th>
-                        <td><input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue"
-                          [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" bsDatepicker [(ngModel)]="student.dateOfBirth"></td>
+                        <td><input type="date" max="{{this.today}}" class="form-control" [(ngModel)]="student.dateOfBirth"></td>
                       </tr>
                       <tr>
                         <th scope="row">ধর্ম</th>
@@ -355,3 +354,5 @@
     </div>
   </div>
 </div>
+
+<ng2-toasty [position]="position"></ng2-toasty>

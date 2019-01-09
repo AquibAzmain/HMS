@@ -1,4 +1,4 @@
 export class Balance {
-    public balance: string;
+    public amount: number;
     public current_date: string;
 }

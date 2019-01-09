@@ -16,15 +16,14 @@ export class AddStudentComponent implements OnInit {
   role = "hallOfficer";
   students: Student[] = [];
   studentToBeAdded: Student = new Student();
-  today = new Date();
+  today : any;
   hasError = false;
   rooms: any;
   constructor(private router: Router, private studentService: StudentService, private toastyService: ToastyService) { }
 
   ngOnInit() {
     this.getRoomData();
-    this.today = new Date();
-    console.log(this.today)
+    this.today = this.formatDate(new Date());
     this.hasError = false;
     if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
     }
@@ -34,10 +33,9 @@ export class AddStudentComponent implements OnInit {
   }
 
   addStudent(): void {
-    console.log(this.studentToBeAdded);
-    if (this.studentToBeAdded.dateOfBirth != null) {
-      this.studentToBeAdded.dateOfBirth = this.formatDate(this.studentToBeAdded.dateOfBirth);
-    }
+    // if (this.studentToBeAdded.dateOfBirth != null) {
+    //   this.studentToBeAdded.dateOfBirth = this.formatDate(this.studentToBeAdded.dateOfBirth);
+    // }
     if (this.studentToBeAdded.room_no == null) {
       this.studentToBeAdded.room_no = -1;
     }
@@ -84,7 +82,8 @@ export class AddStudentComponent implements OnInit {
     var day = date.getDate();
     var monthIndex = date.getMonth() + 1;
     var year = date.getFullYear();
-    return day + '/' + monthIndex + '/' + year;
+
+    return year + '-' + ("0" + monthIndex).slice(-2) + '-' + ("0" + day).slice(-2);
   }
 
   addToast(options) {

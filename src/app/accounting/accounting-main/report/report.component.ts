@@ -32,7 +32,7 @@ export class ReportComponent implements OnInit {
 
   totalIncome: number;
   totalExpense: number;
-  netValue: number;
+  netValue: any;
 
   role = localStorage.getItem('role');  //"hallOfficer"; //admin hallOfficer
   position: any;
@@ -48,28 +48,28 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
     this.isLoad = false;
     if ((this.role == "provost" || this.role == "accountant")) {
-      //this.getBalance();
-      this.getPresentBalance();
+      this.getBalance();
+      //this.getPresentBalance();
     }
     else {
       this.router.navigate(['/dashboard']);
     }
   }
 
-  /*
   getBalance() {
     this.transactionService.getBalance()
       .subscribe((response) => { 
+        this.isLoad = true;
         this.calculateSummary();
         
         this.currentBalance = response;
+        this.netValue = this.currentBalance.amount;
         console.log(this.currentBalance);
         
       }, error => {
        
       });
   }
-  */
 
   // getPresentBalance() {
 

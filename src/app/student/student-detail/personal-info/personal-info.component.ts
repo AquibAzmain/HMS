@@ -10,6 +10,7 @@ import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
   styleUrls: ['./personal-info.component.css']
 })
 export class PersonalInfoComponent implements OnInit {
+  today: string;
 
   constructor(private route: ActivatedRoute,
     private studentService: StudentService,
@@ -24,6 +25,7 @@ export class PersonalInfoComponent implements OnInit {
   bsValue = new Date();
 
   ngOnInit() {
+    this.today = this.formatDate(new Date());
     if ((this.role == "provost" || this.role == "houseTutor" || this.role == "hallOfficer")) {
       this.getStudentData();
     }
@@ -43,10 +45,10 @@ export class PersonalInfoComponent implements OnInit {
   }
 
   confirmUpdateStudent(): void {
-    if (this.student.dateOfBirth != null) {
-      this.student.dateOfBirth = this.formatDate(this.student.dateOfBirth);
-    }
-    console.log(this.student);
+    // if (this.student.dateOfBirth != null) {
+    //   this.student.dateOfBirth = this.formatDate(this.student.dateOfBirth);
+    // }
+    // console.log(this.student);
     this.studentService.updateStudent(this.student)
       .subscribe((response) => {
         this.toggleEditProfile();
@@ -62,7 +64,7 @@ export class PersonalInfoComponent implements OnInit {
     var monthIndex = date.getMonth() + 1;
     var year = date.getFullYear();
 
-    return day + '/' + monthIndex + '/' + year;
+    return year + '-' + ("0" + monthIndex).slice(-2) + '-' + ("0" + day).slice(-2);
   }
 
   toggleEditProfile() {
