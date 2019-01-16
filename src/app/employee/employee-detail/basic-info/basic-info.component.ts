@@ -49,9 +49,9 @@ export class BasicInfoComponent implements OnInit {
   }
 
   confirmUpdateEmployee(): void {
-    if(this.employee.joining_date!=null) {
-      this.employee.joining_date = this.formatDate(this.employee.joining_date);
-    }
+    // if(this.employee.joining_date!=null) {
+    //   this.employee.joining_date = this.formatDate(this.employee.joining_date);
+    // }
     if(this.employee.name==null || this.employee.contact_number==null || this.employee.job_title==null ) {
       this.errorToast("")
       this.errorToast('Please Fillup Required Fields');

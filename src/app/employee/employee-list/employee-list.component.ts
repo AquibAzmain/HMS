@@ -87,9 +87,9 @@ export class EmployeeListComponent implements OnInit {
       this.confirmAddError = false;
 
       this.modalRef.hide();
-      if(this.employeeToBeAdded.joining_date != null){
-        this.employeeToBeAdded.joining_date = this.formatDate(this.employeeToBeAdded.joining_date);
-      }
+      // if(this.employeeToBeAdded.joining_date != null){
+      //   this.employeeToBeAdded.joining_date = this.formatDate(this.employeeToBeAdded.joining_date);
+      // }
       this.employeeService.addEmployee(this.employeeToBeAdded)
       .subscribe((response) => { 
         this.successToast();
@@ -123,9 +123,9 @@ export class EmployeeListComponent implements OnInit {
       this.confirmUpdateError = false;      
       console.log(employee)
       this.modalRef.hide();
-      if(employee.joining_date != null){
-        employee.joining_date = this.formatDate(employee.joining_date);
-      }
+      // if(employee.joining_date != null){
+      //   employee.joining_date = this.formatDate(employee.joining_date);
+      // }
       
       this.employeeService.updateEmployee(employee)
       .subscribe((response) => { 

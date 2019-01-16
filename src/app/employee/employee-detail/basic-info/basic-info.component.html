@@ -78,9 +78,7 @@
                       <tr>
                         <th scope="row">যোগদান তারিখ</th>
                         <td>
-                          <input type="text" placeholder="DD/MM/YYYY" class="form-control" #dp="bsDatepicker" [bsValue]="bsValue"
-                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-default' }" 
-                            bsDatepicker [(ngModel)]="employee.joining_date">
+                          <input type="date" class="form-control" [(ngModel)]="employee.joining_date">
                         </td>
                       </tr>
                       <tr>
