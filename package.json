@@ -42,7 +42,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "jquery-sparkline": "^2.4.0",
-    "jspdf": "^1.4.1",
+    "jspdf": "^2.3.1",
     "jspdf-autotable": "^2.3.5",
     "mydatepicker": "^2.6.6",
     "ng-click-outside": "^2.4.1",
