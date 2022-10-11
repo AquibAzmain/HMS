@@ -42,7 +42,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "jquery-sparkline": "^2.4.0",
-    "jspdf": "^1.4.1",
+    "jspdf": "^2.5.1",
     "jspdf-autotable": "^2.3.5",
     "mydatepicker": "^2.6.6",
     "ng-click-outside": "^2.4.1",
@@ -68,7 +68,7 @@
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "@angular/cli": "1.4.2",
+    "@angular/cli": "1.7.4",
     "@angular/compiler-cli": "^4.2.4",
     "@angular/language-service": "^4.2.4",
     "@types/jasmine": "~2.5.53",
